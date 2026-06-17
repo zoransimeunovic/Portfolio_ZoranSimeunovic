@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using System.Globalization;
+using System.Text.Json;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Portfolio_ZoranSimeunovic.Content;
 using Portfolio_ZoranSimeunovic.Data;
 using Portfolio_ZoranSimeunovic.Models;
@@ -27,9 +29,6 @@ public class HomeController : Controller
         return View(CurrentText());
     }
 
-    /// <summary>
-    /// Snima kontakt podatke novog klijenta iz "Take the first step" forme.
-    /// </summary>
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Contact(string name, string email)
@@ -37,9 +36,7 @@ public class HomeController : Controller
         var text = CurrentText();
 
         if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email))
-        {
             return Json(new { success = false, message = text.Contact.ErrorMessage });
-        }
 
         var lead = new ContactLead
         {
@@ -53,7 +50,7 @@ public class HomeController : Controller
         {
             _db.ContactLeads.Add(lead);
             await _db.SaveChangesAsync();
-            return Json(new { success = true, message = text.Contact.SuccessMessage });
+            return Json(new { success = true, message = text.Contact.SuccessMessage, leadId = lead.Id });
         }
         catch (Exception ex)
         {
@@ -62,9 +59,55 @@ public class HomeController : Controller
         }
     }
 
-    /// <summary>
-    /// Rucna promjena jezika - cuva izbor u cookie i vraca na prethodnu stranicu.
-    /// </summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateChecklist(int leadId, string? checklistJson = null)
+    {
+        try
+        {
+            var existing = await _db.ChecklistAnswers
+                .Where(a => a.ContactLeadId == leadId)
+                .ToListAsync();
+            _db.ChecklistAnswers.RemoveRange(existing);
+
+            if (!string.IsNullOrWhiteSpace(checklistJson))
+            {
+                var items = JsonSerializer.Deserialize<List<ChecklistItem>>(checklistJson);
+                if (items != null)
+                {
+                    var now = DateTime.UtcNow;
+                    foreach (var item in items)
+                    {
+                        if (string.IsNullOrWhiteSpace(item.Key) || string.IsNullOrWhiteSpace(item.Item))
+                            continue;
+                        _db.ChecklistAnswers.Add(new ChecklistAnswer
+                        {
+                            ContactLeadId = leadId,
+                            ListKey = item.Key.Trim()[..Math.Min(item.Key.Trim().Length, 50)],
+                            ItemText = item.Item.Trim()[..Math.Min(item.Item.Trim().Length, 500)],
+                            CreatedAt = now
+                        });
+                    }
+                }
+            }
+
+            await _db.SaveChangesAsync();
+
+            return Json(new { success = true });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Neuspjesno azuriranje checkliste za lead {LeadId}.", leadId);
+            return Json(new { success = false });
+        }
+    }
+
+    private class ChecklistItem
+    {
+        public string Key { get; set; } = string.Empty;
+        public string Item { get; set; } = string.Empty;
+    }
+
     [HttpGet]
     public IActionResult SetLanguage(string culture, string? returnUrl = null)
     {

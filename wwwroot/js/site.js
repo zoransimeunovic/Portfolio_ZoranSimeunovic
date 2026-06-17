@@ -3,10 +3,14 @@
    - Work carousel (responsive: 3 / 2 / 1 kartica)
    - "How to improve" accordion + dinamicki scoring
    - Kontakt forma (AJAX snimanje u bazu)
+   - Automatsko snimanje checklist odgovora pri svakoj promjeni
    - Zatvaranje mobilnog menija na klik
    ===================================================================== */
 (function () {
     "use strict";
+
+    // Dijeljeno stanje: postavljeno nakon uspjesnog submit-a kontakt forme
+    var state = { leadId: null, form: null };
 
     document.addEventListener("DOMContentLoaded", function () {
         initCarousel();
@@ -41,7 +45,6 @@
         }
 
         function step() {
-            // sirina kartice + gap izmedju kartica
             var style = window.getComputedStyle(track);
             var gap = parseFloat(style.columnGap || style.gap || "0") || 0;
             return cards[0].getBoundingClientRect().width + gap;
@@ -51,10 +54,8 @@
             if (index > maxIndex()) index = maxIndex();
             if (index < 0) index = 0;
             track.style.transform = "translateX(" + (-index * step()) + "px)";
-
             if (prevBtn) prevBtn.disabled = index === 0;
             if (nextBtn) nextBtn.disabled = index === maxIndex();
-
             updateDots();
         }
 
@@ -62,7 +63,7 @@
             if (!dotsWrap) return;
             dotsWrap.innerHTML = "";
             var count = maxIndex() + 1;
-            if (count <= 1) return; // nema potrebe za tackama
+            if (count <= 1) return;
             for (var i = 0; i < count; i++) {
                 var dot = document.createElement("button");
                 dot.className = "dot";
@@ -95,6 +96,38 @@
         render();
     }
 
+    /* -------- SHARED: prikupi sve cekirane stavke -------- */
+    function collectChecked() {
+        var checked = [];
+        document.querySelectorAll("[data-checklist]").forEach(function (list) {
+            var key = list.getAttribute("data-key") || "";
+            list.querySelectorAll("[data-check]:checked").forEach(function (cb) {
+                var span = cb.closest("label") && cb.closest("label").querySelector("span");
+                if (span) checked.push({ Key: key, Item: span.textContent.trim() });
+            });
+        });
+        return checked;
+    }
+
+    /* -------- SHARED: snimi tekuce stanje checkliste na server -------- */
+    function saveChecklist() {
+        if (!state.leadId || !state.form) return;
+        var checked = collectChecked();
+        var tokenEl = state.form.querySelector('[name="__RequestVerificationToken"]');
+        var params = new URLSearchParams();
+        params.append("leadId", state.leadId);
+        if (tokenEl) params.append("__RequestVerificationToken", tokenEl.value);
+        if (checked.length > 0) params.append("checklistJson", JSON.stringify(checked));
+        fetch("/Home/UpdateChecklist", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            body: params.toString()
+        });
+    }
+
     /* --------------------------- CHECKLISTS ----------------------------- */
     function initChecklists() {
         var lists = document.querySelectorAll("[data-checklist]");
@@ -105,7 +138,6 @@
             var bands = list.querySelectorAll(".score-band");
             var scoreText = list.querySelector("[data-score-text]");
 
-            // Otvaranje / zatvaranje liste
             if (toggleBtn && body) {
                 toggleBtn.addEventListener("click", function () {
                     var isHidden = body.hasAttribute("hidden");
@@ -119,11 +151,9 @@
                 });
             }
 
-            // Dinamicko azuriranje ocjene
             function updateScore() {
                 var count = 0;
                 checks.forEach(function (c) { if (c.checked) count++; });
-
                 var text = "";
                 bands.forEach(function (b) {
                     var min = parseInt(b.getAttribute("data-min"), 10);
@@ -134,7 +164,10 @@
             }
 
             checks.forEach(function (c) {
-                c.addEventListener("change", updateScore);
+                c.addEventListener("change", function () {
+                    updateScore();
+                    saveChecklist();
+                });
             });
             updateScore();
         });
@@ -144,24 +177,37 @@
     function initContactForm() {
         var form = document.getElementById("contactForm");
         if (!form) return;
+        state.form = form;
         var result = form.parentElement.querySelector("[data-result]");
 
         form.addEventListener("submit", function (e) {
             e.preventDefault();
 
-            var data = new FormData(form);
             var submitBtn = form.querySelector("button[type=submit]");
             if (submitBtn) submitBtn.disabled = true;
 
+            var params = new URLSearchParams();
+            params.append("name", (form.querySelector('[name="name"]') || {}).value || "");
+            params.append("email", (form.querySelector('[name="email"]') || {}).value || "");
+            var tokenEl = form.querySelector('[name="__RequestVerificationToken"]');
+            if (tokenEl) params.append("__RequestVerificationToken", tokenEl.value);
+
             fetch(form.getAttribute("action"), {
                 method: "POST",
-                headers: { "X-Requested-With": "XMLHttpRequest" },
-                body: data
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: params.toString()
             })
                 .then(function (r) { return r.json(); })
                 .then(function (res) {
                     showResult(res.success, res.message);
-                    if (res.success) form.reset();
+                    if (res.success) {
+                        state.leadId = res.leadId;
+                        saveChecklist();
+                        form.reset();
+                    }
                 })
                 .catch(function () {
                     showResult(false, "Error. Please try again later.");

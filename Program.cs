@@ -78,6 +78,14 @@ if (isConfigured)
     try
     {
         db.Database.EnsureCreated();
+        db.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS checklist_answers (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                contact_lead_id INT NOT NULL,
+                list_key VARCHAR(50) NOT NULL,
+                item_text VARCHAR(500) NOT NULL,
+                created_at DATETIME NOT NULL
+            ) CHARACTER SET utf8mb4;");
     }
     catch (Exception ex)
     {
