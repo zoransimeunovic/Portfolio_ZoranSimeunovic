@@ -1,0 +1,141 @@
+@using System.Globalization
+@{
+    var T = SiteTextProvider.Get(CultureInfo.CurrentUICulture.Name);
+    var currentCulture = CultureInfo.CurrentUICulture.Name;
+    var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+    var indexUrl = Url.Action("Index", "Home");
+
+    var languages = new[]
+    {
+        new { Code = "sr-Latn", Name = "Srpski" },
+        new { Code = "de", Name = "Deutsch" },
+        new { Code = "en", Name = "English" }
+    };
+    string CurrentLangName() => currentCulture.StartsWith("de") ? "Deutsch"
+        : currentCulture.StartsWith("sr") ? "Srpski" : "English";
+}
+<!DOCTYPE html>
+<html lang="@currentCulture">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewData["Title"] != null ? ViewData["Title"] + " — " : "")@T.PageTitle</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header" id="home">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container nav-container">
+                <a class="navbar-brand" href="@indexUrl">ZS.dev</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#mainNav" aria-controls="mainNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav mx-auto nav-links">
+                        <li class="nav-item"><a class="nav-link" href="@indexUrl#home">@T.Nav.Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@indexUrl#work">@T.Nav.Work</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@indexUrl#process">@T.Nav.Process</a></li>
+                    </ul>
+
+                    <div class="nav-right">
+                        <a class="btn btn-sm nav-cta" href="@indexUrl#contact">@T.Nav.ContactMe</a>
+
+                        <div class="dropdown lang-dropdown">
+                            <button class="lang-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="@T.LanguageLabel">
+                                <img src="~/images/icons/language.png" alt="@T.LanguageLabel" />
+                                <span class="lang-current">@CurrentLangName()</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end lang-menu">
+                                @foreach (var lang in languages)
+                                {
+                                    <li>
+                                        <a class="dropdown-item @(currentCulture == lang.Code ? "active" : "")"
+                                           href="@Url.Action("SetLanguage", "Home", new { culture = lang.Code, returnUrl })">
+                                            @lang.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <a class="footer-brand" href="@indexUrl">ZS.dev</a>
+
+                <ul class="footer-nav">
+                    <li><a href="@indexUrl#home">@T.Footer.Home</a></li>
+                    <li><a href="@indexUrl#work">@T.Footer.Work</a></li>
+                    <li><a href="@indexUrl#process">@T.Footer.Process</a></li>
+                </ul>
+
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/zoran-simeunovic-3749b991" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <img src="~/images/icons/linkedin.png" alt="LinkedIn" />
+                    </a>
+                    <a href="https://www.xing.com/profile/Zoran_Simeunovic061127" target="_blank" rel="noopener" aria-label="Xing">
+                        <img src="~/images/icons/xing.png" alt="Xing" />
+                    </a>
+                    <a href="mailto:zoran.simeunovic@@outlook.de" aria-label="Email">
+                        <img src="~/images/icons/email.png" alt="Email" />
+                    </a>
+                    <a href="https://github.com/zoransimeunovic" target="_blank" rel="noopener" aria-label="GitHub">
+                        <img src="~/images/icons/github.png" alt="GitHub" />
+                    </a>
+                </div>
+            </div>
+
+            <hr class="footer-divider" />
+
+            <div class="footer-bottom">
+                <a href="@Url.Action("Privacy", "Home")">@T.Footer.PrivacyPolicy</a>
+                <span class="footer-copy">@T.Footer.Copyright</span>
+                <a href="@Url.Action("Terms", "Home")">@T.Footer.TermsOfService</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#cookieModal">@T.Footer.CookieSettings</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie modal -->
+    <div class="modal fade" id="cookieModal" tabindex="-1" aria-labelledby="cookieModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content cookie-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cookieModalLabel">@T.Cookie.Title</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>@T.Cookie.Body</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-accent" data-bs-dismiss="modal">@T.Cookie.Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

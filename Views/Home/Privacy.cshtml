@@ -1,0 +1,14 @@
+@model SiteText
+@{
+    ViewData["Title"] = Model.Legal.PrivacyTitle;
+}
+
+<section class="legal">
+    <div class="container">
+        <a class="legal-back" href="@Url.Action("Index", "Home")">@Model.Legal.BackHome</a>
+        <h1>@Model.Legal.PrivacyTitle</h1>
+        <div class="legal-content">
+            @Html.Raw(Model.Legal.PrivacyHtml)
+        </div>
+    </div>
+</section>
