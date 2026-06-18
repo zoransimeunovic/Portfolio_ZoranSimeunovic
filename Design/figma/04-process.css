@@ -1,0 +1,39 @@
+/* ============ PROCESS — How we work together (Figma top 2775) ============ */
+/* (lokalni top = figma_top - 2775 ako se radi kao zasebna scena) */
+
+/* Services title */ position: absolute; width: 497px; height: 80px; left: 72px; top: 2775px;
+/* PROCESS (label) */ position: absolute; width: 61px; height: 21px; left: calc(50% - 61px/2 - 617.5px); top: 2775px; font-weight: 400; font-size: 14px; line-height: 150%; text-transform: uppercase; color: #DDE6F5; opacity: 0.6;
+/* How we work together */ position: absolute; width: 497px; height: 72px; left: calc(50% - 497px/2 - 399.5px); top: 2783px; font-weight: 700; font-size: 48px; line-height: 150%; color: #DDE6F5;
+
+/* ---- Konektor linije (dekorativne, isprekidane) ---- */
+/* Kriva linija 1 */ position: absolute; width: 30.5px;  height: 468px;    left: 382px;     top: 3049px; opacity: 0.6; border: 2px solid #132949; box-shadow: 0px 0px 9px #132949;
+/* Kriva linija 2 */ position: absolute; width: 126px;   height: 628.07px; left: 420px;     top: 2955px; opacity: 0.6; border: 2px solid #132949; box-shadow: 0px 0px 9px #132949;
+/* Kriva linija 3 */ position: absolute; width: 40.76px; height: 462.5px;  left: 839.65px;  top: 3062.5px; opacity: 0.6; border: 2px solid #132949; box-shadow: 0px 0px 9px #132949;
+/* Kriva linija 4 */ position: absolute; width: 127px;   height: 658.3px;  left: 892px;     top: 2957px; opacity: 0.6; border: 2px solid #132949; box-shadow: 0px 0px 9px #132949;
+/* Kriva linija 5 */ position: absolute; width: 19.06px; height: 248px;    left: 1311.99px; top: 3064px; opacity: 0.6; border: 2px solid #132949; box-shadow: 0px 0px 9px #132949;
+/* Procesess light effect */ position: absolute; width: 1230.32px; height: 542.58px; left: 115.75px; top: 2796px; background: linear-gradient(251.89deg, #156EF6 8.31%, rgba(21,110,246,0.3) 63.65%); opacity: 0.08; filter: blur(150px); transform: rotate(-24.53deg);
+
+/* ---- KARTICA (obrazac) ---- */
+/* Content */ width: 348px; background: #132949; border-radius: 4px;
+/*   header chip (Header) */ display: flex; justify-content: center; align-items: center; padding: 8px; gap: 10px; height: 26px; left: card_left+12; background: #1C2635; border-radius: 2px; /* VERT. CENTRIRAN NA GORNJOJ LINIJI Content-a */
+/*   chip text (FIRST STEP...) */ font-weight: 400; font-size: 14px; line-height: 150%; text-transform: uppercase; color: rgba(221,230,245,0.8);
+/*   Broj kartice (Ellipse 25) */ width: 30px; height: 27px; background: #156EF6; /* CENTAR NA GORNJEM-DESNOM COSKU Content-a (left = card_left+348-15, top = content_top-13.5) */
+/*   broj */ font-weight: 600; font-size: 16px; line-height: 150%; text-transform: uppercase; color: #DDE6F5;
+/*   naslov koraka */ font-weight: 700; font-size: 24px; line-height: 150%; color: #DDE6F5; top: ~30px;
+/*   opis koraka */ left: 16px; top: ~82px; font-weight: 400; font-size: 16px; line-height: 130%; color: rgba(221,230,245,0.8); opacity: 0.75;
+
+/* ---- TACNE pozicije (kolone): Content left = 72 (col1) / 546 (col2) / 1020 (col3); Broj left = 405 / 877 / 1353; Header left = 84 / 558 / 1032 ---- */
+/* 1. Step  */ Content left 72  top 2933 (h123); Header left 84  top 2920 (93x26);  Broj left 405 top 2919;
+/*   Step1 CONTACT ME */ display:flex; padding:16px 48px; w190 h50 left 24 top 30 (unutar kartice) bg gradient radius4 tekst 16/700 #FFFFFF;
+/*   Step1 "or find me on LinkedIn, Xing, GitHub or email" */ left 16 top 96 font 16/150% rgba(221,230,245,0.8);
+/* 2. Step  */ Content left 72  top 3115 (h153); Header left 84  top 3101 (118x28); Broj left 405 top 3102; naslov "Project questionnaire" 24/700;
+/* 3. Step  */ Content left 72  top 3328 (h130); Header left 84  top 3315 (50x26);  Broj left 405 top 3314; naslov "Quote";
+/* 4. Step  */ Content left 72  top 3518 (h130); Header left 84  top 3504 (116x26); Broj left 405 top 3504; naslov "Project agreement";
+/* 5. Step  (ISTAKNUTA) */ Content left 546 top 2933 (h130); Header left 558 top 2919 (200x26 "YOUR APPROVAL REQUIRED"); Broj left 877 top 2919; naslov "Design preview";
+/* 6. Step  */ Content left 547 top 3125.14 (h149.86); Header left 559 top 3112 (153x26); Broj left 877 top 3109 (30x31.12); naslov "Website";
+/* 7. Step  */ Content left 547 top 3335 (h130); Header left 559 top 3321 (126x26); Broj left 877 top 3321; naslov "Website review";
+/* 8. Step  (opacity 0.8) */ Content left 543 top 3526 (h151); Header left 555 top 3512 (163x26); Broj left 877 top 3511; naslov "Web App (optional)";
+/* 9. Step  (opacity 0.8) */ Content left 1020 top 2933 (h130); Header left 1032 top 2919 (126x26); Broj left 1353 top 2919; naslov "Web App review (optional)";
+/* 10. Step */ Content left 1020 top 3123 (h130); Header left 1032 top 3109 (71x26); Broj left 1353 top 3109; naslov "Launch & handover";
+/* 11. Step (opacity 0.8) */ Content left 1020 top 3313 (h151); Header left 1032 top 3299 (87x26); Broj left 1353 top 3299; naslov "Ongoing support";
+/* Raspored PO KOLONAMA: kol1=1-4, kol2=5-8, kol3=9-11. */

@@ -1,0 +1,51 @@
+/* ============ NAVBAR + HERO (Figma top 0–923) ============ */
+
+/* Hero+navbar */ position: absolute; width: 1440px; height: 923px; left: 0px; top: 0px; background: #030E1F;
+
+/* ---- NAVBAR (h87) ---- */
+/* Navbar */ position: absolute; width: 1440px; height: 87px; left: 0px; top: 0px;
+/* ZS.dev */ position: absolute; width: 101px; height: 40px; left: 75px; top: 25px; font-weight: 700; font-size: 32px; line-height: 40px; color: #DDE6F5;
+/* Nav links */ position: absolute; width: 577px; height: 39px; left: 791px; top: 24px;
+/* HOME */ left: 791px; top: 34px; font-weight: 700; font-size: 16px; line-height: 19px; color: #DDE6F5;
+/* WORK */ left: 885px; top: 34px; font-weight: 700; font-size: 16px; color: #DDE6F5;
+/* SERVICES */ width: 74px; left: 979px; top: 34px; font-weight: 700; font-size: 16px; color: #DDE6F5;
+/* Navbar CTA */ display: flex; justify-content: center; align-items: center; padding: 10px; gap: 10px; position: absolute; width: 120px; height: 39px; left: 1161px; top: 24px; background: #DDE6F5; border-radius: 4px;
+/* CONTACT ME */ width: 100px; height: 19px; font-weight: 700; font-size: 16px; line-height: 19px; color: #030E1F;
+/* Lanquage (globus) */ position: absolute; width: 39px; height: 39px; left: 1329px; top: 24px; opacity: 0.6; /* 4 Vectora border 2.925px solid #DDE6F5 (krug + meridijani) */
+
+/* ---- HERO COPY (lijevo, left 72) ---- */
+/* Full Stack (badge) */ display: flex; justify-content: center; align-items: center; padding: 8px 12px; gap: 10px; position: absolute; width: 182.04px; height: 33px; left: 72px; top: 247px; background: #156EF6; border-radius: 4px;
+/* Full Stack Web Developer */ width: 164px; height: 17px; font-weight: 700; font-size: 14px; line-height: 120%; color: #DDE6F5;
+/* I build web solutions that help you grow */ position: absolute; width: 550px; height: 144px; left: 72px; top: 288px; font-weight: 700; font-size: 60px; line-height: 120%; color: #DDE6F5;
+/* Your business deserves a professional web presence. Let's build it together. */ position: absolute; width: 478px; height: 60px; left: 72px; top: 448px; font-weight: 400; font-size: 20px; line-height: 150%; color: #DDE6F5; opacity: 0.8;
+/* Hero primary cta */ display: flex; padding: 16px 48px; position: absolute; width: 189.79px; height: 51px; left: 72px; top: 576px; background: linear-gradient(93.78deg, #156EF6 0%, #113AC2 102.39%); border-radius: 4px; /* CONTACT ME 16/700 #FFFFFF */
+/* Hero secondarycta */ box-sizing: border-box; display: flex; padding: 16px 48px; gap: 8px; position: absolute; width: 189.79px; height: 51px; left: 285.03px; top: 576px; border: 2px solid rgba(221,230,245,0.3); border-radius: 4px; /* Ikona oka 22x15 #DDE6F5 + MY WORK 16/700 #DDE6F5 */
+/* Hero tesimonials */ position: absolute; width: 363.96px; height: 43px; left: 72px; top: 667px;
+/* Korisnik 1-5 (avatari) */ box-sizing: border-box; position: absolute; width: 42.31px; height: 42.31px; left: 72/91.03/110.39/129.76/149.13; top: 667px; border: 2px solid #030E1F;
+/* Number (+5 krug) */ position: absolute; width: 42.31px; height: 42.31px; left: 168.16px; top: 667.69px; background: #DDE6F5; border: 2px solid #030E1F;
+/* +5 */ width: 14px; height: 15px; left: 182.39px; top: 681px; font-weight: 700; font-size: 12px; line-height: 15px; color: #030E1F;
+/* satisfied web & desktop customers */ position: absolute; width: 210px; height: 17px; left: 225.96px; top: 680px; font-weight: 400; font-size: 14px; line-height: 120%; text-transform: uppercase; color: #DDE6F5;
+
+/* ---- HERO VISUAL (desno) ---- */
+/* Hero circles sa skillovima */ position: absolute; width: 733.57px; height: 713px; left: 706.04px; top: 194px;
+/* treci krug */ box-sizing: border-box; position: absolute; width: 713px; height: 713px; left: 726.61px; top: 194px; border: 3.7976px solid #132949;
+/* drugi krug */ width: 548.46px; height: 548.46px; left: 808.88px; top: 276.27px; border: 3.7976px solid #132949;
+/* prvi krug */ width: 383.92px; height: 383.92px; left: 891.15px; top: 358.54px; border: 3.7976px solid #132949;
+/* image (foto) */ width: 440.89px; height: 627.55px; left: 869.93px; top: 197.85px; background: url(Bild_bez backgraund.png);
+/* mask-image */ background: linear-gradient(180deg, rgba(3,14,31,0) 64.6%, #030E1F 100%);
+/* BG light effect (glow iza glave) */ position: absolute; width: 400.65px; height: 368.37px; left: 969px; top: 294px; background: #156EF6; opacity: 0.3; filter: blur(71.2051px);
+/* BG light effect (hidden, veliki) */ width: 886px; height: 539px; left: -304px; top: 227px; background: #156EF6; opacity: 0.02; filter: blur(75px);
+
+/* ---- TAGOVI (solidan + 2 podloge op .3; svaki rotiran) ---- */
+/* webflow */ solidan 68.99x39.42 left 800.69 top 283.69 bg #156EF6 radius4; tekst "Webflow" 16/600 #FAFAFA; rotate 20.57deg;
+/* API */ solidan 37.43x37.43 left 1310.95 top 300.24 bg #8468DF radius3.7976; tekst "API" 18.988/600 #FFFFFF; rotate -17.47deg (matrix 0.95,-0.3,0.3,0.95);
+/* figma */ solidan 68.99x39.42 left 798.47 top 518.47 bg #F24E1E radius4; tekst "Figma" 16/600 #FAFAFA; rotate -18.45deg;
+/* MySQL */ solidan 65.5x37.43 left 1304.6 top 515.65 bg #00758F radius3.7976; tekst "MySQL" 15.1904/700 #FAFAFA; rotate 31.64deg (matrix 0.85,0.52,-0.52,0.85);
+/* ASP.NET */ solidan 65.5x37.43 left 715.92 top 685.91 bg #512BD4 radius3.7976; tekst "ASP.NET" 15.1904/600 #FAFAFA; rotate 3.27deg;
+/* podloge svakog: Rect35 (manja, +~9) i Rect36 (=, +~18) ista boja opacity 0.3 */
+
+/* ---- NAME MSG (gore desno) ---- */
+/* msg */ position: absolute; width: 154.86px; height: 47.72px; left: 1165px; top: 188px; background: #1C2635;
+/* Okvir dijaloga */ width: 146.1px; height: 34.38px; left: 1173.76px; top: 188px; background: #1C2635; border-radius: 2px;
+/* Vrh dijalog okvira (rep) */ width: 13.56px; height: 34.2px; left: 1157.96px; top: 207.14px; background: #1C2635; border-radius: 1px; transform: matrix(-0.78,-0.63,0.62,-0.78,0,0);
+/* Zoran Simeunović */ position: absolute; width: 126px; height: 20px; left: 1183px; top: 193.8px; font-weight: 400; font-size: 16px; line-height: 20px; color: #DDE6F5;

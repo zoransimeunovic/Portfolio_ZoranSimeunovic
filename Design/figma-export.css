@@ -1,0 +1,18 @@
+/* =====================================================================
+   FIGMA EXPORT — GLAVNI IZVOR ZA DIZAJN
+   ---------------------------------------------------------------------
+   Razdvojeno po sekcijama u folderu:  Design/figma/
+   Indeks i pravila:                   Design/figma/README.md
+
+   Prije svake dizajn-izmjene PROČITATI odgovarajući fajl:
+     Design/figma/01-navbar-hero.css   (Navbar + Hero,   Figma top 0–923)
+     Design/figma/02-work.css          (Featured work,   top ~1003)
+     Design/figma/03-about.css         (About me,        top 1931)
+     Design/figma/04-process.css       (Process 11 kor., top 2775)
+     Design/figma/05-improve.css       (Improve 3 liste, top 3837)
+     Design/figma/06-last-cta.css      (Take the first step, top 4710)
+     Design/figma/07-footer.css        (Footer,          top ~5247)
+     Design/figma/08-checklist-evaluation-DO-NOT-IMPLEMENT.css (top 5501, NE raditi)
+
+   Frame 1440×5992, bg #030E1F, font Outfit. Koordinate apsolutne na frame.
+   ===================================================================== */

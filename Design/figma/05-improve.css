@@ -1,0 +1,34 @@
+/* ============ IMPROVE — How to improve web presence? (Figma top 3837) ============ */
+
+/* Lead magnet title */ position: absolute; width: 681px; height: 160px; left: 72px; top: 3837px;
+/* How to improve web presence? */ position: absolute; width: 681px; height: 72px; left: calc(50% - 681px/2 - 307.5px); top: 3837px; font-weight: 700; font-size: 48px; line-height: 150%; color: #DDE6F5;
+/* Do you need a redesign, a new website, or a web app? Get a quick analysis. */ position: absolute; width: 602px; height: 72px; left: 72px; top: 3925px; font-weight: 400; font-size: 24px; line-height: 150%; color: #DDE6F5; opacity: 0.6;
+/* BG light effect */ position: absolute; width: 612px; height: 612px; left: -104px; top: 4391px; background: #156EF6; opacity: 0.1; filter: blur(150px);
+
+/* ---- TITLE BOX (3 kom; collapsed header bar) ---- */
+/* box: 416×89 bg #132949 border-bottom 2px #1C2635; naslov 20/700 #DDE6F5; "Start Analysis" 16/700 underline + Close ikona 7.85×13.33 rotate90 */
+/* Title box Redesign  */ left 72  top 4031; "Does your website need redesign?" left calc(50% - 310/2 - 29) top 24; Analysis Btn 146.33×27 left 253 top 58;
+/* Title Box New website*/ left 508 top 4031; "Do you need a website?" (214) left calc(50% - 214/2 - 77) top 24; Analysis Btn left 258 top 58;
+/* Title boxWebApp     */ left 952 top 4031; "Do you need automation?" (234) left calc(50% - 234/2 - 67) top 24; Analysis Btn left 258 top 58;
+
+/* ---- LISTE (expanded; bg #132949) ---- */
+/* zajednicko: grupa-naslov (Frame) 14/700 capitalize #FFFFFF padding 0 12; Check Item: Rectangle44 13×13 border 1px #DDE6F5 + tekst gap 11;
+   Evaluacija box: 392×40-43 border 1px #156EF6 radius 2 padding 8 tekst 14-16/700 center (#156EF6 ili #DDE6F5). */
+
+/* Liste Redesign */ position: absolute; width: 416px; height: 433px; left: 72px; top: 4120px; background: #132949;
+/*  Analysis grupa (left13 top8): C1 top30 "Is the website visually outdated?" (227,16); C2 top55 "Is the mobile version poor or missing?" (264,16); C3 top80 "Is the navigation confusing?" (197,16); C4 top105 "Is it immediately clear what the company does?" (335,16) */
+/*  Design grupa (left13 top138): "Design" 16/700; C5 top160 "Are the colors and fonts consistent?" (252,16); C6 top185 "Is there a clear visual hierarchy (headings, sections)?" (323,14); C7 top210 "Are the CTA buttons visible and clear?" (267,16); C8 top235 "Is there too much text without enough whitespace?" (357,16) */
+/*  UX grupa (left13 top268): "UX / Functionality" 14/700; C9 top290 "Is contact information easy to find?" (249,16); C10 top315 "Does the website load quickly?" (216,16); C11 top340 "Can users find information they need within 5 sec?" (353,16) */
+/*  Evaluacija top377 (40): "Some weaknesses. Minor improvements or optimization recommended." 14/700 #DDE6F5 */
+
+/* Liste new website */ position: absolute; width: 416px; height: 490px; left: 508px; top: 4120px; background: #132949;
+/*  Basics grupa (left13 top8): "Basics" 14/700; C1 top30 "Do clients search for your business online?" (259,14); C2 top55 "Is your web presence limited to Instagram or Facebook?" (355,14); C3 top80 "Are you losing potential clients because they can't find you on Google?" (371,14,h31) */
+/*  Need grupa (left13 top135): "Need" 14/700; C4 top157 "Do you receive inquiries through messages instead of a contact form?" (371,14,h31); C5 top204 "Do you often explain the same information to clients repeatedly?" (371,14,h31); C6 top251 "Do you offer services or pricing that should be publicly available online?" (371,14,h31) */
+/*  Readiness grupa (left13 top306): "Readiness" 14/700; C7 top328 "Would you like your business to have a more professional web presence?" (371,14,h31); C8 top375 "Would you like clients to find you automatically through Google?" (371,14,h31) */
+/*  Evaluacija top434 (43): "Clients are likely struggling to find you. A stronger web presence would make a clear difference." 16/700 #156EF6 */
+
+/* Liste WebApp */ position: absolute; width: 416px; height: 383px; left: 952px; top: 4120px; background: #132949;
+/*  Problems grupa (left13 top8): "Problems" 14/700; C1 top30 "Do you use Excel or paper to manage your data?" (300,14); C2 top55 "Do you manually send the same emails or messages?" (326,14); C3 top80 "Do you have repetitive tasks that take up too much time?" (349,14) */
+/*  Processes grupa (left13 top113): "Processes" 14/700; C5 top135 "Do you schedule appointments manually?" (256,14); C6 top160 "Do you track customers, orders, or inventory manually?" (341,14); C7 top185 "Do multiple people work with the same data without system?" (374,14) */
+/*  Potential for a Web Application grupa (left13 top218): 14/700; C9 top240 "Would a system save you at least 1-2 hours per day?" (320,14); C10 top265 "Would automation reduce errors?" (208,14); C11 top290 "Would you like a central place for all your data?" (291,14) */
+/*  Evaluacija top327 (40): "Your business is losing time and money on manual processes. A custom web app would pay for itself quickly." 14/700 #156EF6 */

@@ -1,0 +1,27 @@
+/* ============ CHECKLIST EVALUATION (Figma top 5501) ============
+   !!! NE IMPLEMENTIRA SE — sluzi SAMO kao pomoc/ocjenjivanje. !!!
+   Sadrzi tekstove ocjena (bands) po score-rasponu za svaku listu.
+   Cuva se kao referenca; ne praviti ovu sekciju na sajtu. */
+
+/* Checklist evaluation */ position: absolute; width: 1440px; height: 491px; left: 0; top: 5501px; background: #030E1F;
+/* Lead magnet title */ "Evaluating checklists - only as an aid to developing" 48/700 #DDE6F5 left ~72 top 46;
+
+/* Title boxes (h89 bg #132949 border-bottom 2px #1C2635, naslov 20/700): Redesign left72, New website left508, WebApp left952; top 169 */
+
+/* ---- Liste Redesign (left72 top258, h185) — bands 14/400 #DDE6F5, left64 ---- */
+/* 0-2: Solid and functional. Redesign likely not needed. (top30) */
+/* 3-5: Some weaknesses. Minor improvements or optimization recommended. (top53) */
+/* 6-8: Outdated or inefficient. Redesign recommended (top93) */
+/* 9-11: Poor condition. Complete redesign recommended. (top116) */
+
+/* ---- Liste new website (left508 top253, h190) — bands left60 ---- */
+/* 0-2: Your current web presence may be sufficient. A website could still help, but it's not urgent. (top30) */
+/* 3-5: Your web presence has gaps. A simple, professional website would help clients find you. (top70) */
+/* 6-7: Clients are likely struggling to find you. A stronger web presence would make a clear difference. (top110) */
+/* 8-9: You're missing out on clients every day. A professional website is the next logical step. (top150) */
+
+/* ---- Liste WebApp (left952 top258, h185) — bands left60 ---- */
+/* 0-2: Your current processes seem manageable. Automation may not be a priority right now. (top25) */
+/* 3-5: Some tasks could be automated. Small improvements would save time and reduce errors. (top65) */
+/* 6-7: Manual work is slowing you down. A web application would streamline your business significantly. (top105) */
+/* 8-9: Your business is losing time and money on manual processes. A custom web app would pay for itself quickly. (top138) */

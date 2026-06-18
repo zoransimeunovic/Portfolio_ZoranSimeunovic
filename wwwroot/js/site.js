@@ -13,11 +13,40 @@
     var state = { leadId: null, form: null };
 
     document.addEventListener("DOMContentLoaded", function () {
+        initHeroScale();
         initCarousel();
         initChecklists();
         initContactForm();
         initMobileMenuClose();
     });
+
+    /* ----------------------- FIGMA STAGE SCALE -------------------------- */
+    /* Sekcije gradjene kao apsolutne 1440px Figma scene (.hero-stage,
+       .fig-stage) skaliraju se proporcionalno prema sirini da izgledaju
+       identicno Figmi na svim ekranima. */
+    function initHeroScale() {
+        var stages = [];
+        var hero = document.querySelector(".hero-stage");
+        if (hero) stages.push({ el: hero, v: "--hero-scale" });
+        document.querySelectorAll(".fig-stage").forEach(function (el) {
+            stages.push({ el: el, v: "--fig-scale" });
+        });
+        if (stages.length === 0) return;
+
+        function apply() {
+            stages.forEach(function (s) {
+                var scale = Math.min(s.el.parentElement.clientWidth / 1440, 1);
+                s.el.style.setProperty(s.v, scale);
+            });
+        }
+
+        apply();
+        var t;
+        window.addEventListener("resize", function () {
+            clearTimeout(t);
+            t = setTimeout(apply, 100);
+        });
+    }
 
     /* ----------------------------- CAROUSEL ----------------------------- */
     function initCarousel() {

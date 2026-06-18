@@ -1,0 +1,30 @@
+/* ============ ABOUT ME (Figma top 1931, h748) ============ */
+/* About me Medium fidelity */ position: absolute; width: 1440px; height: 748px; left: 0px; top: 1931px; background: #030E1F;
+/* (lokalni top-ovi ispod su relativni na sekciju: figma_top - 1931) */
+
+/* ---- TEKST (desno, left 842) ---- */
+/* Abot me content */ position: absolute; width: 527px; height: 584px; left: 842px; top: 83px;
+/* About me (label) */ position: absolute; width: 71px; height: 21px; left: calc(50% - 71px/2 + 158.5px); top: 91px; font-weight: 400; font-size: 14px; line-height: 150%; text-transform: uppercase; color: #DDE6F5; opacity: 0.6;
+/* Who am I? */ position: absolute; width: 230px; height: 72px; left: calc(50% - 230px/2 + 237px); top: 120px; font-weight: 700; font-size: 48px; line-height: 150%; color: #DDE6F5;
+/* I build scalable full-stack websites... clean code and fast UIs. */ position: absolute; width: 526px; height: 90px; left: 843px; top: 208px; font-weight: 400; font-size: 20px; line-height: 150%; color: rgba(221,230,245,0.8);
+/* Nabrajanje */ display: flex; flex-direction: column; align-items: flex-start; gap: 24px; position: absolute; width: 417px; height: 206.02px; left: 842px; top: 346px;
+/*   6 Years Enterprise Experience */ width: 412px; height: 36px; font-weight: 700; font-size: 24px; line-height: 150%; color: #156EF6;
+/*   Line 2 */ width: 417px; border: 1px solid #132949;
+/*   Web, Desktop & Mobile Applications */ width: 396px; height: 36px; font-weight: 700; font-size: 24px; color: #156EF6;
+/*   Line 1 */ width: 417px; border: 1px solid #132949;
+/*   Websites & Web Solutions */ width: 417px; height: 36px; font-weight: 700; font-size: 24px; color: #DDE6F5;
+/* Abaot me primary cta (CONTACT ME) */ display: flex; padding: 16px 48px; position: absolute; width: 190px; height: 50px; left: 842px; top: 617px; background: linear-gradient(93.78deg, #156EF6 0%, #113AC2 102.39%); border-radius: 4px; /* tekst 16/700 #FFFFFF */
+/* About me download CV */ box-sizing: border-box; display: flex; padding: 16px 48px; gap: 8px; position: absolute; width: 189.79px; height: 51px; left: 1055px; top: 616px; border: 2px solid rgba(221,230,245,0.3); border-radius: 4px; /* ikona 18x18 #DDE6F5 + DOWNLOAD CV 16/700 #DDE6F5 */
+/* msg (Zoran Simeunović) */ position: absolute; width: 154.86px; height: 47.72px; left: 1063px; top: 83px; background: #1C2635;
+/*   Rectangle 37 */ width: 146.1px; height: 34.38px; left: 1071.76px; top: 83px; background: #1C2635; border-radius: 2px;
+/*   Polygon 1 (rep) */ width: 13.56px; height: 34.2px; left: 1055.96px; top: 102.14px; background: #1C2635; border-radius: 1px; transform: matrix(-0.78,-0.63,0.62,-0.78,0,0);
+/*   Zoran Simeunović */ width: 126px; height: 20px; left: 1081px; top: 88.8px; font-weight: 400; font-size: 16px; line-height: 20px; color: #DDE6F5;
+
+/* ---- SLIKA (lijevo, left 123) ---- */
+/* About me Img */ position: absolute; width: 619px; height: 619px; left: 123px; top: 65px;
+/* BG light effect */ width: 510px; height: 510px; left: 177px; top: 118px; background: #156EF6; opacity: 0.1; filter: blur(150px);
+/* drugi krug */ box-sizing: border-box; width: 619px; height: 619px; left: 123px; top: 65px; border: 6px solid rgba(19,41,73,0.6);
+/* prvi krug */ width: 557.57px; height: 557.57px; left: 153.71px; top: 95.72px; border: 6px solid rgba(19,41,73,0.6);
+/* foto */ width: 497.06px; height: 497.06px; left: 183.5px; top: 126.43px; background: url(Bild_bez backgraund.png), #132949; transform: matrix(-1,0,0,1,0,0);
+/* Go game */ display: flex; align-items: center; padding: 1px; gap: 10px; position: absolute; width: 36px; height: 36px; left: 123px; top: 208px; background: rgba(221,230,245,0.1);
+/* LinkedIn (badge) */ position: absolute; width: 102px; height: 102px; left: 180px; top: 534px; /* Ellipse 23: 102x102 #156EF6; linkedin glif 46.39x41.69 #0A66C2 (centriran) */

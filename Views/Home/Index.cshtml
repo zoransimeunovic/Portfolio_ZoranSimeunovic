@@ -1,27 +1,35 @@
 @model SiteText
 @{
     ViewData["Title"] = null;
-    var heroTags = new[]
-    {
-        new { Name = "Webflow", Color = "#156EF6", Cls = "tag-webflow" },
-        new { Name = "API",     Color = "#8468DF", Cls = "tag-api" },
-        new { Name = "Figma",   Color = "#F24E1E", Cls = "tag-figma" },
-        new { Name = "MySQL",   Color = "#00758F", Cls = "tag-mysql" },
-        new { Name = "ASP.NET", Color = "#512BD4", Cls = "tag-aspnet" }
-    };
 }
 
-<!-- ============================ HERO ============================ -->
+<!-- ============================ HERO (Figma 1440 stage) ============================ -->
 <section class="hero">
-    <div class="container hero-grid">
-        <div class="hero-text">
+    <div class="hero-stage">
+        <!-- Vizual / art -->
+        <div class="hero-glow"></div>
+        <span class="hero-ring hero-ring-3"></span>
+        <span class="hero-ring hero-ring-2"></span>
+        <span class="hero-ring hero-ring-1"></span>
+        <img class="hero-photo" src="~/images/profile.png" alt="@Model.Hero.Name" />
+
+        <span class="float-tag tag-webflow">Webflow</span>
+        <span class="float-tag tag-api">API</span>
+        <span class="float-tag tag-figma">Figma</span>
+        <span class="float-tag tag-mysql">MySQL</span>
+        <span class="float-tag tag-aspnet">ASP.NET</span>
+
+        <span class="hero-name-tag">@Model.Hero.Name</span>
+
+        <!-- Tekst / copy -->
+        <div class="hero-copy">
             <span class="badge-pill">@Model.Hero.Badge</span>
             <h1 class="hero-heading">@Html.Raw(Model.Hero.HeadingHtml)</h1>
-            <p class="hero-sub">@Model.Hero.Subtitle1<br />@Model.Hero.Subtitle2</p>
+            <p class="hero-sub">@Model.Hero.Subtitle1 @Model.Hero.Subtitle2</p>
 
             <div class="hero-actions">
-                <a href="#contact" class="btn btn-accent">@Model.Hero.ContactMe</a>
-                <a href="#work" class="btn btn-outline-light btn-icon">
+                <a href="#contact" class="btn-hero-primary">@Model.Hero.ContactMe</a>
+                <a href="#work" class="btn-hero-secondary">
                     <img src="~/images/icons/my-work.png" alt="" /> @Model.Hero.MyWork
                 </a>
             </div>
@@ -32,23 +40,10 @@
                     <img src="~/images/avatars/avatar2.png" alt="" />
                     <img src="~/images/avatars/avatar3.png" alt="" />
                     <img src="~/images/avatars/avatar4.png" alt="" />
+                    <img src="~/images/avatars/avatar5.png" alt="" />
                     <span class="avatar-more">+5</span>
                 </div>
                 <span class="proof-text">@Model.Hero.ProjectsCount</span>
-            </div>
-        </div>
-
-        <div class="hero-visual">
-            <span class="hero-name-tag">@Model.Hero.Name</span>
-            <div class="orbit">
-                <span class="ring ring-1"></span>
-                <span class="ring ring-2"></span>
-                <span class="ring ring-3"></span>
-                <img class="hero-photo" src="~/images/profile.png" alt="@Model.Hero.Name" />
-                @foreach (var tag in heroTags)
-                {
-                    <span class="float-tag @tag.Cls" style="--tag-color:@tag.Color">@tag.Name</span>
-                }
             </div>
         </div>
     </div>
@@ -64,8 +59,6 @@
         </div>
 
         <div class="work-carousel" data-carousel>
-            <button class="carousel-btn prev" data-prev aria-label="@Model.Work.PrevLabel">&#8249;</button>
-
             <div class="carousel-viewport">
                 <div class="carousel-track" data-track>
                     @foreach (var card in Model.Work.Cards)
@@ -96,48 +89,48 @@
                 </div>
             </div>
 
-            <button class="carousel-btn next" data-next aria-label="@Model.Work.NextLabel">&#8250;</button>
+            <div class="carousel-controls">
+                <button class="carousel-btn prev" data-prev aria-label="@Model.Work.PrevLabel">&#8249;</button>
+                <div class="carousel-dots" data-dots></div>
+                <button class="carousel-btn next" data-next aria-label="@Model.Work.NextLabel">&#8250;</button>
+            </div>
         </div>
-
-        <div class="carousel-dots" data-dots></div>
     </div>
 </section>
 
-<!-- ============================ ABOUT ============================ -->
+<!-- ============================ ABOUT (Figma 1440×748 stage) ============================ -->
 <section class="about" id="about">
-    <div class="container about-grid">
-        <div class="about-visual">
-            <div class="orbit orbit-about">
-                <span class="ring ring-1"></span>
-                <span class="ring ring-2"></span>
-                <img class="about-photo" src="~/images/profile.png" alt="@Model.About.Name" />
-                <span class="linkedin-badge">
-                    <a href="https://www.linkedin.com/in/zoran-simeunovic-3749b991" target="_blank" rel="noopener" aria-label="LinkedIn">
-                        <img src="~/images/icons/linkedin-about.png" alt="LinkedIn" />
-                    </a>
-                </span>
-                <a class="go-player" href="https://www.eurogofed.org/" target="_blank" rel="noopener" title="@Model.About.GoPlayer">
-                    <img src="~/images/icons/go-game.png" alt="" />
-                    <span>@Model.About.GoPlayer</span>
-                </a>
-            </div>
-        </div>
+    <div class="about-stage fig-stage">
+        <!-- Slika (lijevo) -->
+        <div class="ab-glow" aria-hidden="true"></div>
+        <span class="ab-ring ab-ring-2" aria-hidden="true"></span>
+        <span class="ab-ring ab-ring-1" aria-hidden="true"></span>
+        <div class="ab-photo"><img src="~/images/profile.png" alt="@Model.About.Name" /></div>
 
-        <div class="about-text">
-            <span class="section-label">@Model.About.Label</span>
-            <span class="hero-name-tag inline">@Model.About.Name</span>
-            <h2 class="section-title">@Html.Raw(Model.About.HeadingHtml)</h2>
-            <p class="about-desc">@Model.About.Description</p>
+        <a class="ab-go" href="https://www.eurogofed.org/" target="_blank" rel="noopener" title="@Model.About.GoPlayer" aria-label="@Model.About.GoPlayer">
+            <img src="~/images/icons/go-game.png" alt="" />
+        </a>
+        <a class="ab-linkedin" href="https://www.linkedin.com/in/zoran-simeunovic-3749b991" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <img src="~/images/icons/linkedin.png" alt="LinkedIn" />
+        </a>
 
-            <div class="about-highlights">
-                <div class="hl-row">@Html.Raw(Model.About.Highlight1Html)</div>
-                <div class="hl-row">@Html.Raw(Model.About.Highlight2Html)</div>
-                <div class="hl-row">@Html.Raw(Model.About.Highlight3Html)</div>
+        <!-- Tekst (desno) -->
+        <div class="ab-msg"><span>@Model.About.Name</span></div>
+
+        <div class="ab-copy">
+            <span class="ab-label">@Model.About.Label</span>
+            <h2 class="ab-title">@Html.Raw(Model.About.HeadingHtml)</h2>
+            <p class="ab-desc">@Model.About.Description</p>
+
+            <div class="ab-highlights">
+                <div class="ab-hl">@Html.Raw(Model.About.Highlight1Html)</div>
+                <div class="ab-hl">@Html.Raw(Model.About.Highlight2Html)</div>
+                <div class="ab-hl">@Html.Raw(Model.About.Highlight3Html)</div>
             </div>
 
-            <div class="about-actions">
-                <a href="#contact" class="btn btn-accent">@Model.About.ContactMe</a>
-                <a href="~/files/Lebenslauf_ZoranSimeunovic.pdf" download class="btn btn-outline-light btn-icon">
+            <div class="ab-actions">
+                <a href="#contact" class="ab-btn-primary">@Model.About.ContactMe</a>
+                <a href="~/files/Lebenslauf_ZoranSimeunovic.pdf" download class="ab-btn-secondary">
                     <img src="~/images/icons/download-cv.png" alt="" /> @Model.About.DownloadCv
                 </a>
             </div>
@@ -153,11 +146,13 @@
             <h2 class="section-title">@Html.Raw(Model.Process.TitleHtml)</h2>
         </div>
 
-        <div class="process-grid">
+        <div class="process-wrap">
+            <span class="process-line" aria-hidden="true"></span>
+            <div class="process-grid">
             @for (var i = 0; i < Model.Process.Steps.Count; i++)
             {
                 var step = Model.Process.Steps[i];
-                <div class="process-card">
+                <div class="process-card@(i == 4 ? " process-card--featured" : "")">
                     <span class="step-num">@(i + 1)</span>
                     <span class="step-tag">@step.Tag</span>
                     @if (i == 0)
@@ -172,6 +167,7 @@
                     }
                 </div>
             }
+            </div>
         </div>
     </div>
 </section>
@@ -179,6 +175,7 @@
 <!-- ============================ IMPROVE ============================ -->
 <section class="improve" id="improve">
     <div class="container">
+        <div class="improve-rings" aria-hidden="true"></div>
         <div class="section-head">
             <h2 class="section-title">@Html.Raw(Model.Improve.TitleHtml)</h2>
             <p class="section-sub">@Model.Improve.Subtitle1<br />@Model.Improve.Subtitle2</p>
@@ -188,10 +185,11 @@
             @foreach (var list in Model.Improve.Lists)
             {
                 <div class="improve-col" data-checklist data-key="@list.Key">
-                    <div class="improve-col-head">
+                    <div class="improve-bar">
                         <h3 class="improve-heading">@Html.Raw(list.HeadingHtml)</h3>
-                        <button type="button" class="start-analysis" data-toggle-list>
-                            @Model.Improve.StartAnalysis <span class="chevron">&#9662;</span>
+                        <button type="button" class="improve-toggle" data-toggle-list>
+                            <span>@Model.Improve.StartAnalysis</span>
+                            <span class="toggle-icon" aria-hidden="true"></span>
                         </button>
                     </div>
 
@@ -224,23 +222,30 @@
     </div>
 </section>
 
-<!-- ============================ CONTACT ============================ -->
+<!-- ============================ LAST CTA (Take the first step) ============================ -->
 <section class="contact" id="contact">
     <div class="container">
-        <div class="contact-box">
-            <h2 class="contact-title">@Html.Raw(Model.Contact.TitleHtml)</h2>
-            <p class="contact-sub">@Model.Contact.Subtitle1<br />@Model.Contact.Subtitle2</p>
+        <div class="cta-card">
+            <div class="cta-circles" aria-hidden="true">
+                <span class="cta-circle c1"></span>
+                <span class="cta-circle c2"></span>
+                <span class="cta-circle c3"></span>
+            </div>
+            <div class="cta-content">
+                <h2 class="cta-title">@Html.Raw(Model.Contact.TitleHtml)</h2>
+                <p class="cta-sub">@Model.Contact.Subtitle1 @Model.Contact.Subtitle2</p>
 
-            <form id="contactForm" class="contact-form"
-                  asp-controller="Home" asp-action="Contact" method="post">
-                @Html.AntiForgeryToken()
-                <input type="text" name="name" required placeholder="@Model.Contact.NamePlaceholder" />
-                <input type="email" name="email" required placeholder="@Model.Contact.EmailPlaceholder" />
-                <button type="submit" class="btn btn-dark-cta">@Model.Contact.GetStarted</button>
-            </form>
+                <form id="contactForm" class="cta-form"
+                      asp-controller="Home" asp-action="Contact" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="text" name="name" required placeholder="@Model.Contact.NamePlaceholder" />
+                    <input type="email" name="email" required placeholder="@Model.Contact.EmailPlaceholder" />
+                    <button type="submit" class="cta-submit">@Model.Contact.GetStarted</button>
+                </form>
 
-            <p class="contact-note">@Model.Contact.PrivacyNote</p>
-            <p class="contact-result" data-result hidden></p>
+                <p class="cta-note">@Model.Contact.PrivacyNote</p>
+                <p class="contact-result" data-result hidden></p>
+            </div>
         </div>
     </div>
 </section>

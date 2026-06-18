@@ -1,0 +1,26 @@
+/* ============ FOOTER (Figma: unutar CTA+Footer frame top 4653, Footer top 594 -> apsolutno ~5247) ============ */
+/* Footer */ box-sizing: border-box; position: absolute; width: 1440px; height: 254px; left: 0; top: 594px; background: #030E1F; border-top: 2px solid #132949;
+/* (top-ovi ispod relativni na Footer top) */
+
+/* ---- Footer top (top 40) ---- */
+/* Footer top */ position: absolute; width: 1295px; height: 33px; left: 72px; top: 40px;
+/* ZS.dev */ position: absolute; width: 101px; height: 23px; left: 72px; top: 45px; font-weight: 700; font-size: 32px; line-height: 40px; color: #DDE6F5;
+/* Footer links (centar) */ position: absolute; width: 271px; height: 20px; left: calc(50% - 271px/2 - 0.5px); top: 47px;
+/*   HOME */ left: calc(50% - 49px/2 - 111.5px); top: 47px; font-weight: 700; font-size: 16px; line-height: 20px; color: #DDE6F5;
+/*   WORK */ left: calc(50% - 50px/2 - 14px); top: 47px; font-weight: 700; font-size: 16px; color: #DDE6F5;
+/*   SERVICES */ left: calc(50% - 76px/2 + 97px); top: 47px; font-weight: 700; font-size: 16px; color: #DDE6F5;
+/* social links (desno) */ position: absolute; width: 201px; height: 33px; left: 1166px; top: 40px;
+/*   LinkedIn (filled) */ width: 33px; height: 33px; right: 241px; top: 40px; background: #DDE6F5; border-radius: 2px; /* glif #00070D 24.64x22.14 */
+/*   Vector (Xing)   */ width: 32px; height: 27.33px; right: 185px; top: 43px; background: #DDE6F5;
+/*   Vector (email)  */ width: 32px; height: 27.33px; right: 129px; top: 43px; background: #DDE6F5;
+/*   Vector (GitHub) */ width: 32px; height: 27.33px; right: 73px;  top: 43px; background: #DDE6F5;
+
+/* ---- Divider (top 137) ---- */
+/* Divider */ position: absolute; width: 1295px; height: 0; left: 72px; top: 137px; border: 1px solid #132949;
+
+/* ---- Legal links (top 169, opacity 0.6) ---- */
+/* Legal links */ position: absolute; width: 574px; height: 21px; left: 425px; top: 169px; opacity: 0.6;
+/* Privacy Policy */   width: 86px;  left: 425px; top: 169px; font-weight: 400; font-size: 14px; line-height: 150%; text-decoration-line: underline; color: #DDE6F5;
+/* © 2026 ZS.dev All rights reserved. */ width: 211px; left: 536px; top: 169px; font-weight: 400; font-size: 14px; color: #DDE6F5; /* NIJE underline */
+/* Terms of Service */ width: 103px; left: 769px; top: 169px; font-weight: 400; font-size: 14px; text-decoration-line: underline; color: #DDE6F5;
+/* Cookies Settings */ width: 101px; left: 898px; top: 169px; font-weight: 400; font-size: 14px; text-decoration-line: underline; color: #DDE6F5;
