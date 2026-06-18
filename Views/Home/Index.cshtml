@@ -51,6 +51,7 @@
 
 <!-- ============================ WORK ============================ -->
 <section class="work" id="work">
+    <div class="work-circles" aria-hidden="true"><span class="wc-1"></span><span class="wc-2"></span><span class="wc-3"></span></div>
     <div class="container">
         <div class="section-head text-center">
             <span class="section-label">@Model.Work.Label</span>
@@ -140,6 +141,7 @@
 
 <!-- ============================ PROCESS ============================ -->
 <section class="process" id="process">
+    <div class="process-circles" aria-hidden="true"><span class="sc-1"></span><span class="sc-2"></span><span class="sc-3"></span></div>
     <div class="container">
         <div class="section-head">
             <span class="section-label">@Model.Process.Label</span>
@@ -176,6 +178,7 @@
 <section class="improve" id="improve">
     <div class="container">
         <div class="improve-rings" aria-hidden="true"></div>
+        <div class="improve-glow" aria-hidden="true"></div>
         <div class="section-head">
             <h2 class="section-title">@Html.Raw(Model.Improve.TitleHtml)</h2>
             <p class="section-sub">@Model.Improve.Subtitle1<br />@Model.Improve.Subtitle2</p>
