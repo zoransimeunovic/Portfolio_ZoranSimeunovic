@@ -116,36 +116,39 @@ img { max-width: 100%; display: block; }
     font-size: 32px;
     line-height: 40px;
     color: var(--secondary);
+    opacity: 0.8;
 }
+.navbar-brand:hover { opacity: 1; }
 /* Linkovi + CTA + globus grupisani uz desnu ivicu (brand ostaje lijevo) */
 .nav-links { gap: 12px; margin-left: auto; }
 .nav-links .nav-link {
     color: var(--secondary);
+    opacity: 0.8;
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
     padding: 10px 16px;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, opacity 0.2s ease;
 }
-.nav-links .nav-link:hover { color: var(--accent); }
+.nav-links .nav-link:hover { color: var(--accent); opacity: 1; }
 
 .nav-right { display: flex; align-items: center; gap: 18px; margin-left: 28px; }
 
-/* CONTACT ME u headeru — svijetlo (cream) dugme, tamni tekst (Figma: 120×39, radius 4) */
+/* CONTACT ME u headeru — cream bg, tamni tekst op 80% (Figma: 120×39, radius 4) */
 .nav-cta {
     background: var(--secondary);
-    color: var(--primary);
-    border: 1px solid var(--secondary);
+    color: rgba(3, 14, 31, 0.8);   /* tamni tekst na 80% */
+    border: none;
     border-radius: 4px;
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
     padding: 10px 20px;
+    text-decoration: none;
 }
 .nav-cta:hover {
-    background: #ffffff;
-    border-color: #ffffff;
-    color: var(--primary);
+    background: var(--secondary);
+    color: #030E1F;                /* pun opacity na hover */
     transform: translateY(-1px);
     box-shadow: 0 6px 18px rgba(221, 230, 245, 0.18);
 }
@@ -236,9 +239,11 @@ section { padding: 96px 0; position: relative; }
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
-    height: 0;
-    /* gasi globalni section padding; visina skracena na ~sadrzaj da nema velikog praznog prostora ispod */
-    padding: 0 0 46.53%;          /* 670 / 1440 */
+    /* aspect-ratio umjesto padding-bottom % trika: padding % se racuna od sirine
+       RODITELJSKOG elementa (main = puna sirina), a ne samog elementa. Na ekranima
+       > 1440px to bi stvorilo prazan prostor ispod. aspect-ratio postuje max-width. */
+    aspect-ratio: 1440 / 670;
+    padding: 0;                   /* override global section { padding: 96px 0 } */
     overflow: hidden;
     background: var(--primary);
 }
@@ -256,7 +261,7 @@ section { padding: 96px 0; position: relative; }
 /* ---------- Vizual (desno) ---------- */
 /* Plavi bloom iza glave */
 .hero-glow {
-    left: 969px; top: 207px;
+    left: 949px; top: 207px;
     width: 400.65px; height: 368.37px;
     background: #156EF6;
     opacity: 0.30;
@@ -271,16 +276,16 @@ section { padding: 96px 0; position: relative; }
     border-radius: 50%;
     z-index: 1;
 }
-.hero-ring-3 { left: 726.61px; top: 107px;    width: 713px;    height: 713px; }
-.hero-ring-2 { left: 808.88px; top: 189.27px; width: 548.46px; height: 548.46px; }
-.hero-ring-1 { left: 891.15px; top: 271.54px; width: 383.92px; height: 383.92px; }
+.hero-ring-3 { left: 706.61px; top: 107px;    width: 713px;    height: 713px; }
+.hero-ring-2 { left: 788.88px; top: 189.27px; width: 548.46px; height: 548.46px; }
+.hero-ring-1 { left: 871.15px; top: 271.54px; width: 383.92px; height: 383.92px; }
 
 .hero-photo {
-    left: 869.93px; top: 110.85px;
+    left: 849.93px; top: 110.85px;
     width: 440.89px; height: 627.55px;
     object-fit: cover;
     object-position: center top;
-    z-index: 2;
+    z-index: 4;
     /* donji dio (ramena) se mekano stapa sa pozadinom */
     -webkit-mask-image: linear-gradient(180deg, #000 64.6%, transparent 100%);
     mask-image: linear-gradient(180deg, #000 64.6%, transparent 100%);
@@ -288,9 +293,9 @@ section { padding: 96px 0; position: relative; }
 
 /* Govorni oblacic sa imenom (gore desno) */
 .hero-name-tag {
-    left: 1173px; top: 101px;
+    left: 1153px; top: 101px;
     background: var(--surface-2);
-    color: rgba(221, 230, 245, 0.6);   /* ime na 60% */
+    color: rgba(221, 230, 245, 0.6);
     font-size: 16px;
     line-height: 20px;
     padding: 7px 12px;
@@ -298,14 +303,17 @@ section { padding: 96px 0; position: relative; }
     white-space: nowrap;
     z-index: 5;
 }
-.hero-name-tag::after {       /* jezicak skroz lijevo, veci */
+/* Rep: originalna veličina, pomjeren desno, rotiran 40° CW (vrh lijevo) */
+.hero-name-tag::after {
     content: "";
     position: absolute;
-    left: 8px; bottom: -20px;
+    left: 21px;
+    bottom: -36px;
     width: 0; height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-top: 22px solid var(--surface-2);
+    border-top: 34px solid var(--surface-2);
+    border-right: 18px solid transparent;
+    transform: rotate(40deg);
+    transform-origin: 9px -34px;
 }
 
 /* Floating tehnologije — solidan tag + dvije poluprozirne (0.3) podloge iza */
@@ -345,11 +353,11 @@ section { padding: 96px 0; position: relative; }
     z-index: -2;
 }
 
-.tag-webflow { --tag: #156EF6; left: 800.69px;  top: 196.69px; transform: rotate(20.57deg); }
-.tag-api     { --tag: #8468DF; left: 1310.95px; top: 213.24px; transform: rotate(-17.46deg); font-size: 19px; }
-.tag-figma   { --tag: #F24E1E; left: 798.47px;  top: 431.47px; transform: rotate(-18.45deg); }
-.tag-mysql   { --tag: #00758F; left: 1304.60px; top: 428.65px; transform: rotate(31.5deg); font-size: 15px; font-weight: 700; }
-.tag-aspnet  { --tag: #512BD4; left: 715.92px;  top: 598.91px; transform: rotate(3.27deg); font-size: 15px; }
+.tag-webflow { --tag: #156EF6; left: 780.69px;  top: 196.69px; transform: rotate(20.57deg); }
+.tag-api     { --tag: #8468DF; left: 1290.95px; top: 213.24px; transform: rotate(-17.46deg); font-size: 19px; }
+.tag-figma   { --tag: #F24E1E; left: 778.47px;  top: 431.47px; transform: rotate(-18.45deg); }
+.tag-mysql   { --tag: #00758F; left: 1284.60px; top: 428.65px; transform: rotate(31.5deg); font-size: 15px; font-weight: 700; }
+.tag-aspnet  { --tag: #512BD4; left: 695.92px;  top: 598.91px; transform: rotate(3.27deg); font-size: 15px; }
 
 /* ---------- Tekst (lijevo) ---------- */
 .hero-copy { left: 72px; top: 160px; width: 550px; z-index: 6; }
@@ -401,10 +409,10 @@ section { padding: 96px 0; position: relative; }
 }
 .btn-hero-primary {
     background: linear-gradient(93.78deg, #156EF6 0%, #113AC2 102.39%);
-    color: #FFFFFF;
+    color: var(--secondary);
 }
 .btn-hero-primary:hover {
-    color: #FFFFFF;
+    color: var(--secondary);
     transform: translateY(-2px);
     box-shadow: 0 8px 22px rgba(21, 110, 246, 0.35);
 }
@@ -450,28 +458,13 @@ section { padding: 96px 0; position: relative; }
 /* =====================================================================
    WORK
    ===================================================================== */
-.work { background: var(--primary); padding-top: 24px; overflow: hidden; }
+.work { background: var(--primary); padding: 96px 0; overflow: hidden; }
 /* Sadrzaj 1296 (margine 72 na 1440) — 3 kartice 416 + 2 gutter 24 = 1296 stanu tacno;
    inace 3. kartica biva odsjecena viewport-om */
 .work .container { max-width: 1440px; padding: 0 72px; position: relative; z-index: 1; }
+/* Podnaslov u 2 reda (Figma: width 312px, height 48 = 2 linije × 24px) */
+.work .section-sub { max-width: 312px; margin-left: auto; margin-right: auto; }
 
-/* Dekorativni koncentricni krugovi lijevo (Figma Ellipse 20/21/22: 415/307.87/199.78) */
-.work-circles {
-    position: absolute;
-    left: -205px; top: 150px;
-    width: 415px; height: 415px;
-    z-index: 0;
-    pointer-events: none;
-}
-.work-circles span {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    border: 4px solid rgba(19, 41, 73, 0.6);
-    border-radius: 50%;
-}
-.work-circles .wc-1 { width: 415px;    height: 415px; }
-.work-circles .wc-2 { width: 307.87px; height: 307.87px; }
-.work-circles .wc-3 { width: 199.78px; height: 199.78px; }
 .work-carousel { display: block; }
 /* padding+negativna margina: viewport i dalje "kliposi" karusel, ali ostavlja
    20px prostora da uvecana kartica (hover scale) ne bude odsjecena */
@@ -494,20 +487,26 @@ section { padding: 96px 0; position: relative; }
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-/* Hover: ravnomjerno uvecanje na sve strane (bez pomjeranja gore); blur (box-shadow) ostaje */
+/* Hover: ravnomjerno uvecanje na sve strane — scale 1.02 (smanjen za 50%) */
 .work-card:hover {
-    transform: scale(1.04);
+    transform: scale(1.02);
     box-shadow: 0 18px 40px rgba(21, 110, 246, 0.20);
     border-color: rgba(21, 110, 246, 0.4);
 }
 .work-card-img {
     position: relative;
-    flex: 0 0 auto;
-    aspect-ratio: 16 / 11;
+    flex: 0 0 277px;      /* Figma: 416×277 */
+    height: 277px;
     background: var(--surface-2);
     overflow: hidden;
 }
 .work-card-img img { width: 100%; height: 100%; object-fit: cover; }
+/* Desktop GUI (card 2) i Zeiterfassung (card 3): prikaz cijele slike, smanjena 20% */
+.work-card:nth-child(2) .work-card-img img,
+.work-card:nth-child(3) .work-card-img img {
+    object-fit: contain;
+    transform: scale(0.8);
+}
 /* "Sjena" — poluprozirni sloj preko slike (Figma rgba(19,41,73,0.6)) */
 .work-card-img::after {
     content: "";
@@ -516,21 +515,29 @@ section { padding: 96px 0; position: relative; }
     background: rgba(19, 41, 73, 0.6);
     z-index: 1;
 }
+/* Badge: padding 8px, auto dimenzije (širina = najduži red = "in AddWare Solutions"),
+   white-space nowrap da ostane u 2 reda. Font smanjen da se uklopi. */
 .work-badge {
     position: absolute;
-    right: 16px; bottom: 16px;
+    right: 12px; bottom: 12px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: var(--accent);
     color: var(--secondary);
-    padding: 6px 16px;
+    padding: 8px;
     border-radius: 4px;
     text-align: center;
-    line-height: 1.25;
-    z-index: 2;          /* iznad "Sjena" overlay-a */
+    line-height: 1.3;
+    white-space: nowrap;
+    z-index: 2;
 }
-.work-badge strong { display: block; font-size: 1rem; font-weight: 700; }
-.work-badge span { font-size: 0.72rem; opacity: 0.9; }
+.work-badge strong { display: block; font-size: 12px; font-weight: 700; }
+.work-badge span { font-size: 9px; opacity: 0.9; }
 
-.work-card-body { padding: 26px 24px 24px; flex: 1 1 auto; overflow: hidden; display: flex; flex-direction: column; }
+/* body = 615 − 277 = 338px; overflow auto da duga desc ne prebriše tagove */
+.work-card-body { padding: 26px 24px 24px; flex: 0 0 338px; height: 338px; overflow: hidden; display: flex; flex-direction: column; }
 /* Naslov kartice (Figma): 32 Bold, opacity 75% */
 .work-card-title { font-size: 32px; font-weight: 700; color: var(--secondary); opacity: 0.75; line-height: 1.5; margin: 0 0 14px; }
 /* Tekst ispod: 16 Regular, opacity 75% */
@@ -552,18 +559,21 @@ section { padding: 96px 0; position: relative; }
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-top: 28px;
+    margin-top: 14px;
 }
 .carousel-controls .carousel-dots { flex: 1; margin-top: 0; }
 
 .carousel-btn {
     flex: 0 0 auto;
-    width: 46px; height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
     border-radius: 50%;
     background: var(--surface);
     border: 1px solid var(--border);
     color: var(--secondary);
-    font-size: 2.4rem;        /* veca strelica (glyph), krug ostaje 46 */
+    font-size: 1.8rem;
     line-height: 1;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -596,8 +606,8 @@ section { padding: 96px 0; position: relative; }
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
-    height: 0;
-    padding: 0 0 51.94%;          /* 748 / 1440 */
+    aspect-ratio: 1440 / 748;
+    padding: 0;                   /* override global section { padding: 96px 0 } */
     overflow: hidden;
     background: var(--primary);
 }
@@ -624,7 +634,7 @@ section { padding: 96px 0; position: relative; }
     pointer-events: none;
 }
 .ab-ring {
-    border: 6px solid rgba(19, 41, 73, 0.6);   /* #132949 @ 60% */
+    border: 6px solid rgba(28, 38, 53, 0.6);   /* surface-2 #1C2635 @ 60% */
     border-radius: 50%;
     z-index: 1;
 }
@@ -635,8 +645,8 @@ section { padding: 96px 0; position: relative; }
     width: 497.06px; height: 497.06px;
     border-radius: 50%;
     overflow: hidden;
-    background: #132949;
-    z-index: 2;
+    background: var(--surface-2);
+    z-index: 3;
 }
 .ab-photo img {
     width: 100%; height: 100%;
@@ -648,29 +658,44 @@ section { padding: 96px 0; position: relative; }
     width: 36px; height: 36px;
     display: flex; align-items: center; justify-content: center;
     background: rgba(221, 230, 245, 0.1);
+    border: 2px solid var(--surface-2);
     z-index: 6;
     transition: transform 0.2s ease;
 }
-.ab-go img { width: 34px; height: 34px; }
+.ab-go img { width: 34px; height: 34px; position: relative; z-index: 1; }
+.ab-go::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 14, 31, 0.6);
+    z-index: 0;
+}
 .ab-go:hover { transform: translateY(-2px); }
 .ab-linkedin {
     left: 180px; top: 534px;
     width: 102px; height: 102px;
     border-radius: 50%;
     background: var(--accent);
-    display: flex; align-items: center; justify-content: center;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.40);
     z-index: 6;
+    transition: transform 0.2s ease;
 }
-.ab-linkedin img {
-    width: 54px; height: 54px;
-    object-fit: contain;
-    /* zvanicna LinkedIn ikona (bijeli "in" na plavom kvadratu) — bez filtera */
+.ab-linkedin:hover { transform: translateY(-2px); }
+.ab-li-rect {
+    grid-area: 1 / 1;
+    width: 63px; height: 63px;
+}
+.ab-li-sign {
+    grid-area: 1 / 1;
+    width: 47px; height: 42px;
 }
 
 /* ---- Govorni oblacic sa imenom (gore desno) ---- */
 .ab-msg {
-    left: 1071.76px; top: 83px;
+    left: 1083.76px; top: 81px;
     width: 146.1px; height: 34.38px;
     display: flex; align-items: center; justify-content: center;
     background: var(--surface-2);      /* #1C2635 */
@@ -678,14 +703,17 @@ section { padding: 96px 0; position: relative; }
     z-index: 5;
 }
 .ab-msg span { font-size: 16px; line-height: 20px; color: rgba(221, 230, 245, 0.6); white-space: nowrap; }
-.ab-msg::after {                       /* jezicak skroz lijevo, veci */
+/* Rep: originalna veličina, pomjeren desno, rotiran 40° CW (vrh lijevo) */
+.ab-msg::after {
     content: "";
     position: absolute;
-    left: 8px; bottom: -20px;
+    left: 21px;
+    bottom: -36px;
     width: 0; height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-top: 22px solid var(--surface-2);
+    border-top: 34px solid var(--surface-2);
+    border-right: 18px solid transparent;
+    transform: rotate(40deg);
+    transform-origin: 9px -34px;
 }
 
 /* ---- Tekst (desno, left 842) ---- */
@@ -727,9 +755,9 @@ section { padding: 96px 0; position: relative; }
 }
 .ab-btn-primary {
     background: linear-gradient(93.78deg, #156EF6 0%, #113AC2 102.39%);
-    color: #FFFFFF;
+    color: var(--secondary);
 }
-.ab-btn-primary:hover { color: #FFFFFF; transform: translateY(-2px); box-shadow: 0 8px 22px rgba(21, 110, 246, 0.35); }
+.ab-btn-primary:hover { color: var(--secondary); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(21, 110, 246, 0.35); }
 .ab-btn-secondary {
     height: 51px;
     background: transparent;
@@ -759,26 +787,9 @@ section { padding: 96px 0; position: relative; }
     z-index: 0;
     pointer-events: none;
 }
-/* Proces container širi (1440) da stane grid 1313 sa razmacima 112 */
-.process .container { position: relative; z-index: 1; max-width: var(--page); }
+/* Proces container: 1440 sa padding 72 = content area 1296, poravnato sa gridom */
+.process .container { position: relative; z-index: 1; max-width: var(--page); padding: 0 72px; }
 
-/* Dekorativni koncentricni krugovi desno (Figma "Service circles" 605/448.82/291.24) */
-.process-circles {
-    position: absolute;
-    right: -260px; bottom: -160px;
-    width: 605px; height: 605px;
-    z-index: 0;
-    pointer-events: none;
-}
-.process-circles span {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    border: 4px solid rgba(19, 41, 73, 0.6);
-    border-radius: 50%;
-}
-.process-circles .sc-1 { width: 605px;    height: 605px; }
-.process-circles .sc-2 { width: 448.82px; height: 448.82px; }
-.process-circles .sc-3 { width: 291.24px; height: 291.24px; }
 
 .process-wrap { position: relative; }
 /* Isprekidane vertikalne linije (Figma "Kriva linija") između kolona 1-2 i 2-3.
@@ -796,8 +807,8 @@ section { padding: 96px 0; position: relative; }
     top: 4%; bottom: 4%;
     border-left: 2px dotted rgba(19, 41, 73, 0.95);
 }
-.process-line::before { left: calc(50% - 237px); }
-.process-line::after  { left: calc(50% + 237px); }
+.process-line::before { left: calc(50% - 233px); }
+.process-line::after  { left: calc(50% + 233px); }
 
 /* Redoslijed kartica je PO KOLONAMA: kolona 1 = 1–4, kolona 2 = 5–8, kolona 3 = 9–11.
    Kartica 363 (header-chip + naslov + tekst + krug). Razmak: horizontalno 112, vertikalno 46. */
@@ -806,9 +817,9 @@ section { padding: 96px 0; position: relative; }
     grid-auto-flow: column;
     grid-template-rows: repeat(4, auto);
     grid-template-columns: repeat(3, 363px);
-    column-gap: 112px;
+    column-gap: 103.5px;
     row-gap: 46px;
-    width: 1313px;
+    width: 1296px;
     max-width: 100%;
     margin: 0 auto;
     position: relative;
@@ -877,20 +888,12 @@ section { padding: 96px 0; position: relative; }
 /* =====================================================================
    IMPROVE
    ===================================================================== */
-.improve { overflow: hidden; }
-.improve .container { position: relative; }
-/* BG light effect (Figma): 612×612 #156EF6 opacity .1 blur 150, dole-lijevo */
-.improve-glow {
-    position: absolute;
-    left: -180px; bottom: -120px;
-    width: 612px; height: 612px;
-    background: #156EF6;
-    opacity: 0.1;
-    filter: blur(150px);
-    border-radius: 50%;
-    z-index: 0;
-    pointer-events: none;
-}
+/* clip-path: calc(50% - 648px) = uvijek tačna desna/lijeva granica 1296px content-a */
+.improve { clip-path: inset(-500px calc(50% - 648px) 0px calc(50% - 648px)); }
+/* Kontejner mora biti 1440/72 da 3×416 + 2×24 = 1296px stane tacno */
+.improve .container { max-width: 1440px; padding: 0 72px; position: relative; }
+/* BG light effect uklonjen na zahtjev */
+.improve-glow { display: none; }
 
 /* Vizuelni element desno: 3 koncentrična kruga sa zajedničkim centrom.
    Sekundarna 2 @ 60% opacity, stroke 4. Promjeri smanjeni 15%:
@@ -935,9 +938,11 @@ section { padding: 96px 0; position: relative; }
 .improve-bar {
     position: relative;
     width: 416px;
-    height: 89px;
+    min-height: 89px;
+    height: auto;
     background: var(--surface);
-    padding: 24px 24px 0 24px;
+    /* padding-bottom: 35 = prostor za abs. button (height 27 + bottom 4 + margin 4) */
+    padding: 24px 24px 35px 24px;
     border-bottom: 2px solid var(--surface-2);
 }
 .improve-heading { font-size: 20px; font-weight: 700; color: var(--secondary); margin: 0; line-height: 1.2; }
@@ -947,7 +952,7 @@ section { padding: 96px 0; position: relative; }
 .improve-toggle {
     position: absolute;
     right: 16px;
-    bottom: 4px;
+    bottom: 0;
     display: inline-flex;
     align-items: center;
     background: transparent;
@@ -974,7 +979,7 @@ section { padding: 96px 0; position: relative; }
 .check-group { margin: 0 0 20px 12px; padding: 0; }
 .improve-body .check-group:first-child { margin-top: 8px; }
 .check-group-title {
-    color: #FFFFFF;
+    color: var(--secondary);
     font-size: 14px;
     font-weight: 700;
     text-transform: capitalize;
@@ -1044,7 +1049,8 @@ section { padding: 96px 0; position: relative; }
 /* =====================================================================
    LAST CTA — "Take the first step" (Figma: 1296×441, gradient kartica)
    ===================================================================== */
-.contact { padding: 96px 0; }
+.contact { padding: 46px 0 96px; }
+.contact .container { max-width: var(--page); padding: 0 72px; }
 .cta-card {
     position: relative;
     overflow: hidden;
@@ -1064,7 +1070,7 @@ section { padding: 96px 0; position: relative; }
 }
 .cta-circle {
     position: absolute;
-    top: 62%; left: 50%;
+    top: 495px; left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     border-style: solid;
@@ -1103,7 +1109,7 @@ section { padding: 96px 0; position: relative; }
     color: var(--secondary);
 }
 .cta-form input::placeholder { color: var(--secondary); opacity: 0.9; }
-.cta-form input:focus { outline: none; border-color: #ffffff; }
+.cta-form input:focus { outline: none; border-color: var(--secondary); }
 .cta-submit {
     flex: 0 0 auto;
     height: 50px;
@@ -1118,8 +1124,8 @@ section { padding: 96px 0; position: relative; }
     cursor: pointer;
     transition: all 0.2s ease;
 }
-.cta-submit:hover { background: #ffffff; transform: translateY(-2px); }
-.cta-note { font-size: 14px; color: #FFFFFF; opacity: 0.4; margin: 24px 0 0; }
+.cta-submit:hover { background: var(--secondary); transform: translateY(-2px); }
+.cta-note { font-size: 14px; color: var(--secondary); opacity: 0.4; margin: 24px 0 0; }
 .contact-result {
     margin: 18px auto 0;
     max-width: 600px;
@@ -1137,7 +1143,7 @@ section { padding: 96px 0; position: relative; }
 .site-footer {
     background: var(--primary);
     border-top: 2px solid var(--surface);
-    padding: 40px 0;
+    padding: 64px 0;
 }
 .footer-top {
     display: flex;
@@ -1152,7 +1158,22 @@ section { padding: 96px 0; position: relative; }
 .footer-nav a:hover { color: var(--accent); }
 .footer-social { display: flex; gap: 24px; align-items: center; }
 .footer-social img { width: 28px; height: 28px; transition: transform 0.2s ease; }
+/* Footer LinkedIn badge: 33×33 #DDE6F5 kvadrat, radius 2, glyph 25×22 */
+.footer-social a[aria-label="LinkedIn"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    background: var(--secondary);
+    border-radius: 2px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+.footer-social a[aria-label="LinkedIn"] img { width: 25px; height: 22px; }
 .footer-social a:hover img { transform: translateY(-3px); }
+.footer-social a[aria-label="LinkedIn"]:hover { transform: translateY(-3px); }
+.footer-social a[aria-label="LinkedIn"]:hover img { transform: none; }
 
 .footer-divider { border: none; border-top: 1px solid var(--surface); margin: 60px 0 0; }
 .footer-bottom {

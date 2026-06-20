@@ -51,8 +51,7 @@
 
 <!-- ============================ WORK ============================ -->
 <section class="work" id="work">
-    <div class="work-circles" aria-hidden="true"><span class="wc-1"></span><span class="wc-2"></span><span class="wc-3"></span></div>
-    <div class="container">
+<div class="container">
         <div class="section-head text-center">
             <span class="section-label">@Model.Work.Label</span>
             <h2 class="section-title">@Html.Raw(Model.Work.TitleHtml)</h2>
@@ -108,11 +107,12 @@
         <span class="ab-ring ab-ring-1" aria-hidden="true"></span>
         <div class="ab-photo"><img src="~/images/profile.png" alt="@Model.About.Name" /></div>
 
-        <a class="ab-go" href="https://www.eurogofed.org/" target="_blank" rel="noopener" title="@Model.About.GoPlayer" aria-label="@Model.About.GoPlayer">
+        <a class="ab-go" href="https://europeangodatabase.eu/EGD/Player_Card.php?&key=10350087" target="_blank" rel="noopener" title="@Model.About.GoPlayer" aria-label="@Model.About.GoPlayer">
             <img src="~/images/icons/go-game.png" alt="" />
         </a>
         <a class="ab-linkedin" href="https://www.linkedin.com/in/zoran-simeunovic-3749b991" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <img src="~/images/icons/linkedin.png" alt="LinkedIn" />
+            <img class="ab-li-rect" src="~/images/icons/Vector_LinekdIn.png" alt="" aria-hidden="true" />
+            <img class="ab-li-sign" src="~/images/icons/linkedin_in_about.png" alt="" aria-hidden="true" />
         </a>
 
         <!-- Tekst (desno) -->
@@ -141,7 +141,6 @@
 
 <!-- ============================ PROCESS ============================ -->
 <section class="process" id="process">
-    <div class="process-circles" aria-hidden="true"><span class="sc-1"></span><span class="sc-2"></span><span class="sc-3"></span></div>
     <div class="container">
         <div class="section-head">
             <span class="section-label">@Model.Process.Label</span>
