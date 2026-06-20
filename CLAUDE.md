@@ -2,6 +2,7 @@
 
 ## Pravila — obavezno poštovati
 - **Cookies:** Zabranjena je upotreba bilo kojeg cookie-a koji nije esencijalan bez izričite saglasnosti vlasnika projekta. Svaki novi cookie koji nije esencijalan mora biti odobren od strane Zorana prije implementacije.
+- **Clean code:** Bez komentara koji opisuju ŠTA kod radi. Samo kratki inline komentari za neočigledno ZAŠTO. Bez XML doc blokova. File-scoped namespace u C#.
 
 ---
 
@@ -16,7 +17,7 @@
 | Layer | Tehnologija |
 |-------|------------|
 | Backend | ASP.NET Core MVC 8.0, C# 12, Entity Framework Core 8.0.10 |
-| Baza | MySQL (Pomelo.EntityFrameworkCore.MySql 8.0.2) |
+| Baza | SQLite (development) / MySQL Pomelo 8.0.2 (production) |
 | Frontend | Razor Views, Bootstrap 5 (grid only), jQuery, Vanilla JS, CSS3 (dark theme) |
 | Design Tool | Figma → CSS export + manual refinement |
 | IDE | Visual Studio 2022 |
@@ -29,88 +30,59 @@
 **Single-project solution** — jednostavna struktura bez API sloja ili Repository pattern-a.
 
 ### Ključni Fajlovi
-| Fajl | Redova | Namena |
-|------|--------|--------|
-| `Controllers/HomeController.cs` | 144 | 6 akcija: Index, Contact (POST), UpdateChecklist (POST), SetLanguage, Privacy, Terms |
-| `Data/AppDbContext.cs` | — | EF DbContext za MySQL (2 tabele: contact_leads, checklist_answers) |
-| `Models/ContactLead.cs` | — | Name, Email, Language, CreatedAt |
-| `Models/ChecklistAnswer.cs` | — | ContactLeadId, ListKey, ItemText, CreatedAt |
-| `Models/ErrorViewModel.cs` | — | RequestId, ShowRequestId |
-| `Content/SiteTextProvider.cs` | 571 | Sav tekstualni sadržaj za 3 jezika (en, de, sr-Latn); metode BuildEn(), BuildDe(), BuildSr() |
-| `Content/SiteText.cs` | — | Model klase za sve sekcije (Nav, Hero, Work, About, Process, Improve, Contact, Footer, Cookie, Legal) |
-| `Localization/BrowserCultureProvider.cs` | — | Accept-Language → kultura; mapira exYu jezike na sr-Latn |
-| `Views/Home/Index.cshtml` | 280+ | Glavna stranica: 8 sekcija (hero, work, about, process, improve, contact, footer, modal) |
-| `Views/Home/Privacy.cshtml` | 379 | Politika privatnosti |
-| `Views/Home/Terms.cshtml` | 373 | Uslovi korišćenja |
-| `Views/Shared/_Layout.cshtml` | 147 | Layout: navbar, footer, Bootstrap + custom CSS |
-| `wwwroot/css/site.css` | 860 | Dark theme (boje, tipografija, layout, responsive) |
-| `wwwroot/js/site.js` | 197 | Carousel, checklists scoring, AJAX kontakt forma, responsive scaling |
-| `Program.cs` | — | Startup: MVC, MySQL, localization (en/de/sr-Latn), HTTPS, DB.EnsureCreated() |
-| `appsettings.json` | — | Production config (connection string placeholder) |
-| `appsettings.Development.json` | — | ⚠️ HARDCODED LOZINKA (u .gitignore) — vidi "Problemi" ispod |
+| Fajl | Namena |
+|------|--------|
+| `Controllers/HomeController.cs` | 6 akcija: Index, Contact (POST), UpdateChecklist (POST), SetLanguage, Privacy, Terms, Error |
+| `Data/AppDbContext.cs` | EF DbContext — 2 tabele: contact_leads, checklist_answers |
+| `Models/ContactLead.cs` | Name, Email, Language, CreatedAt |
+| `Models/ChecklistAnswer.cs` | ContactLeadId, ListKey, ItemText, CreatedAt (FK → ContactLead CASCADE) |
+| `Models/ErrorViewModel.cs` | RequestId, ShowRequestId |
+| `Content/SiteText.cs` | Model klase za sve sekcije (Nav, Hero, Work, About, Process, Improve, Contact, Footer, Cookie, Legal) |
+| `Content/SiteTextProvider.cs` | BuildEn(), BuildDe(), BuildSr() — sav tekstualni sadržaj za 3 jezika |
+| `Localization/BrowserCultureProvider.cs` | Accept-Language → kultura; exYu jezici → sr-Latn |
+| `Views/Home/Index.cshtml` | Glavna stranica: 8 sekcija (hero, work, about, process, improve, contact, footer, cookie modal) |
+| `Views/Home/Privacy.cshtml` | Politika privatnosti |
+| `Views/Home/Terms.cshtml` | Uslovi korišćenja |
+| `Views/Shared/_Layout.cshtml` | Layout: navbar, footer, Bootstrap + custom CSS |
+| `wwwroot/css/site.css` | Dark theme (boje, tipografija, layout, responsive) |
+| `wwwroot/js/site.js` | Carousel, checklist scoring, AJAX forma, CSS var scaling |
+| `Program.cs` | Startup: MVC, SQLite/MySQL, localization, migrations |
+| `appsettings.json` | Production config (connection string placeholder) |
+| `appsettings.Development.json` | ⚠️ Dev konekcija — u .gitignore |
+
+---
 
 ## BAZA PODATAKA
 
-**⚠️ Detaljnu SQL dokumentaciju vidi: `DATABASE_RECONSTRUCTION.md`**
-
 ### Konekcija
 
-**Production (appsettings.json):**
+**Development — SQLite:**
 ```json
-"ConnectionStrings": { "DefaultConnection": "" }
+{ "ConnectionStrings": { "DefaultConnection": "Data Source=portfolio.db" } }
 ```
 
-**Development (appsettings.Development.json):**
-```
-Server=173.249.49.4
-Port=3306
-Database=portfolio_zs
-User=RemoteAppUser
-Password=SS@vo01SofFija79!Jos_66;
+**Production — MySQL/Cloud:**
+```json
+{ "ConnectionStrings": { "DefaultConnection": "" } }
 ```
 
 ### Tabele (2)
-
 - **contact_leads** — Kontakt podaci iz "Take the first step" forme
-- **checklist_answers** — Odgovore iz "How to improve" sekcije (FK na contact_leads, CASCADE delete)
+- **checklist_answers** — Odgovori iz "How to improve" sekcije (FK → contact_leads, CASCADE delete)
 
-### Inicijalizacija — EF Core Migrations
+### EF Core Migrations
+- Sistem: `dotnet ef migrations` (od 20.06.2026)
+- `Program.cs` pokreće `db.Database.Migrate()` pri startu
+- Migracije u `/Migrations/` folderu
+- Trenutna: `20260620213237_InitialCreate`
 
-**Sistem:** `dotnet ef migrations` (od 20.06.2026)
-
-Baza se kreira i ažurira automatski pri startu:
-- `Program.cs` (redovi 70-81) pokreće `db.Database.Migrate()`
-- Migracije se čuvaju u `/Migrations/` folderu
-- Za novu sesiju: samo pokreni `dotnet run` — migracije će se primeniti
-
-**Trenutna Migracija:**
-- `20260620213237_InitialCreate` — Kreira contact_leads i checklist_answers tabele
-
-**Za dodavanje novih migracija:**
 ```bash
 dotnet ef migrations add NazivMigracije
-dotnet ef migrations remove  # ako trebaš da obrišeš
+dotnet ef migrations remove
 ```
 
-### Trenutni Status
-
-❌ **DATABASE NIJE FUNKCIONALNA** — IP firewall na 173.249.49.4
-
-**Greška:**
-```
-Access denied for user 'RemoteAppUser'@'217.232.240.42'
-```
-
-**Rezultat:**
-- Website radi, kontakt forma prima podatke
-- Podaci se ne čuvaju u bazu (try/catch glasa grešku)
-- Korisnik vidi "success" ali nema persistencije
-
-### 3 Rešenja
-
-1. **Lokalna MySQL** — `DATABASE_RECONSTRUCTION.md` → "Setup — Lokalna MySQL"
-2. **Cloud MySQL** — `DATABASE_RECONSTRUCTION.md` → "Setup — Cloud MySQL"
-3. **SQLite Development** — `DATABASE_RECONSTRUCTION.md` → "Setup — SQLite"
+### Status
+✅ **FUNKCIONALNA** — SQLite sa migracima, `portfolio.db` se kreira automatski
 
 ---
 
@@ -119,293 +91,171 @@ Access denied for user 'RemoteAppUser'@'217.232.240.42'
 ### Podržani Jezici
 - **en** (English) — fallback default
 - **de** (German)
-- **sr-Latn** (Serbian Latin, Cyrillic variant not supported)
+- **sr-Latn** (Serbian Latin)
 
-### Resurs za Sadržaj
-Sav tekstualni sadržaj je **hardcoded u C# klase**, ne u .resx fajlovi:
-- `/Content/SiteText.cs` — Modeli za sve sekcije
-- `/Content/SiteTextProvider.cs` — BuildEn(), BuildDe(), BuildSr() metode
-- **571 linija** — Kompletna trilingvalna podrška
+### Prioritet rezolucije kulture
+1. Cookie (ručni izbor korisnika)
+2. Browser Accept-Language header (`BrowserCultureProvider`)
+3. Fallback: `en`
 
-### Rezolucija Kulture
-**Redosled prioriteta:**
-1. **Cookie** (`lang` cookie) — najviši prioritet
-2. **Browser** Accept-Language header (BrowserCultureProvider) — drugi prioritet
-3. **Fallback:** en (English)
-
-**Mapiranje** (BrowserCultureProvider.cs):
+### Mapiranje (BrowserCultureProvider.cs)
 - `de*` → `de`
-- `sr`, `hr`, `bs`, `mk`, `sl` → `sr-Latn` (svi exYu jezici → Serbian Latin)
-- `en*` → `en`
-- Ostalo → `en`
-
-### Akcije za Lokalizaciju
-| Akcija | Ulaz | Efekat |
-|--------|------|--------|
-| SetLanguage | `culture` + `returnUrl?` | Setuje `lang` cookie; validira kulturu; redirect |
-| All Views | — | Pozivaju `CurrentText()` koja učitava SiteTextProvider.Get(CultureInfo.CurrentCulture) |
+- `sr`, `hr`, `bs`, `cnr`, `me`, `mk`, `sh` → `sr-Latn`
+- `en*` → `en` | Ostalo → `en`
 
 ---
 
 ## FRONTEND
 
 ### CSS & JavaScript
-| Fajl | Veličina | Opis |
-|------|----------|------|
-| `wwwroot/css/site.css` | 41 KB | 860 linija — dark theme (boje #030E1F/#DDE6F5/#156EF6; tipografija; layout; responsive) |
-| `wwwroot/js/site.js` | 11 KB | 197 linija — Carousel (slide/dot navigation), checklists scoring, AJAX forma, CSS var scaling |
+| Fajl | Opis |
+|------|------|
+| `wwwroot/css/site.css` | Dark theme — boje: `#030E1F` / `#DDE6F5` / `#156EF6` |
+| `wwwroot/js/site.js` | Carousel, checklist scoring, AJAX forma, CSS scale varijable |
 
-### CSS Varijable (Responsive Scaling)
-```css
---hero-scale: 1.0;    /* Adjusts at breakpoints */
---fig-stage: 1.0;     /* Figma design stage scaling */
-```
-Setovane u site.js na resize za matching Figma-a na svim rezolucijama.
+### CSS Varijable (Figma scaling)
+- `--hero-scale` — skaliranje hero stage (postavljeno u site.js)
+- `--fig-scale` — skaliranje about stage (postavljeno u site.js)
 
-### Slike (5.9 MB ukupno)
-| Kategorija | Fajlovi | Veličina | Napomena |
-|-----------|---------|----------|---------|
-| Profile | profile.png | **4.7 MB** | ⚠️ TREBALO OPTIMIZOVATI |
-| Work Projects | 4 slike | 306 KB | hris.jpg (55K), desktop-gui.png (138K), zeiterfassung.png (20K), portfolio.png (93K) |
-| Avatars | 5 × .png | 876 KB | Proof/social sekcija |
-| Icons | 12 × .png | 56 KB | LinkedIn (3 varijante), Go, GitHub, Xing, email, language toggle, open/close |
-| Ostalo | favicon, CV | 5.4 KB | wwwroot/files/Lebenslauf_ZoranSimeunovic.pdf |
+### Slike
+| Kategorija | Fajlovi | Napomena |
+|-----------|---------|---------|
+| Profile | `profile.png` | ⚠️ 4.7 MB — trebalo optimizovati |
+| Work | `hris.jpg`, `desktop-gui.png`, `zeiterfassung.png`, `personal-portfolio.png` | |
+| Avatars | `avatar1–5.png` | Hero proof sekcija |
+| Icons (aktivni) | `linkedin.png`, `linkedin_in_about.png`, `Vector_LinekdIn.png`, `go-game.png`, `github.png`, `xing.png`, `email.png`, `my-work.png`, `download-cv.png`, `open.png`, `close.png` | |
+| Icons (nekorišćeni) | `language.png`, `vector-linkedin.png`, `linkedin-about.png` | Čuvaju se za eventualnu upotrebu |
+| CV | `wwwroot/files/Lebenslauf_ZoranSimeunovic.pdf` | |
 
 ### Bootstrap 5
-- **Korišćenje:** Grid only (12 kolona, margin 72, gutter 24)
-- **CDN:** jquery.min.js, bootstrap.bundle.min.js
-- **Fonts:** Google Fonts (Outfit 400/600/700)
+- Grid only (12 kolona, margin 72, gutter 24)
+- CDN: jquery.min.js, bootstrap.bundle.min.js
+- Font: Google Fonts — Outfit 400/600/700
 
 ### Sekcije na Index Stranici
-1. **Hero** — Badge, heading, CTA buttons, avatar proof, tech tags
-2. **Work** — Carousel (3/2/1 cards responsive); project details; tech skills
-3. **About** — Profile image, 3 highlights, CV button, social icons
-4. **Process** — 11-step grid (3-column, column-major); step cards with numbers
-5. **Improve** — 3 accordion checklists (Design, Tech, Marketing) sa dinamičkim scoringom
-6. **Contact** — AJAX form (name + email) + privacy notice
-7. **Footer** — Nav links, social icons, copyright, cookie modal (Bootstrap)
-8. **Cookie Modal** — "Ne koristimo cookies" obaveštenje
+1. **Hero** — Badge, heading, CTA, avatar proof, tech floating tags
+2. **Work** — Carousel (3/2/1 cards responsive), project details, tech tags
+3. **About** — Figma stage: foto, highlights, CV, LinkedIn/Go ikone
+4. **Process** — 11-step grid (3 kolone, column-major order)
+5. **Improve** — 3 accordion checklists (Design, Website, Automation) + dynamic scoring
+6. **Contact** — AJAX form (name + email)
+7. **Footer** — Nav, social icons, copyright, cookie modal link
+8. **Cookie Modal** — "Ne koristimo cookies" poruka (Bootstrap)
 
 ---
 
-## DIZAJN (Figma Export Status)
+## DIZAJN (Figma)
 
-### Figma Frame
 - **Veličina:** 1440×5992 px (desktop base)
-- **Alat:** Figma → CSS export + ručne izmene
+- **About i Hero sekcija:** Figma stage layout (apsolutne koordinate, CSS scale)
 
-### Boje
-| Naziv | Hex | Korišćenje |
-|-------|-----|-----------|
-| Primarna | #030E1F | Background |
-| Sekundarna | #DDE6F5 | Text (light) |
-| Tercijarna | #156EF6 | Accent (blue) |
-| Tercijarna 2 | #1C2635 | Chips, card headers |
-| Sekundarna 2 | #132949 | Card backgrounds |
+### Boje (CSS varijable)
+| Varijabla | Hex | Primjena |
+|-----------|-----|---------|
+| `--primary` | #030E1F | Background |
+| `--secondary` | #DDE6F5 | Tekst (light) |
+| `--accent` | #156EF6 | Plava akcent |
+| `--surface` | #132949 | Kartice |
+| `--surface-2` | #1C2635 | Chip headers |
+| `--muted` | #8A9BB8 | Prigušeni tekst |
 
-### Responsive Design
-- **Desktop:** 1440px max-width
-- **Tablet:** Bootstrap breakpoints (≤991px)
-- **Mobile:** 1-column layout (≤640px)
-- **Scaling:** site.js CSS varijable za matching Figma-a
-
-### Exported CSS Fajlovi
+### Exported CSS Fajlovi (referenca)
 ```
 /Design/figma/
-├── 01-navbar-hero.css        (0–923px)
-├── 02-work.css               (~1003px)
-├── 03-about.css              (1931px)
-├── 04-process.css            (2775px)
-├── 05-improve.css            (3837px)
-├── 06-last-cta.css           (4710px)
-├── 07-footer.css             (5247px)
-└── 08-checklist-evaluation-DO-NOT-IMPLEMENT.css  (reference; already implemented in JS)
+├── 01-navbar-hero.css
+├── 02-work.css
+├── 03-about.css
+├── 04-process.css
+├── 05-improve.css
+├── 06-last-cta.css
+├── 07-footer.css
+└── 08-checklist-evaluation-DO-NOT-IMPLEMENT.css  (već implementirano u JS)
 ```
 
 ---
 
-## KONTROLER AKCIJE
+## KONTROLER AKCIJE (HomeController.cs)
 
-### HomeController.cs (6 akcija)
-
-#### 1. GET Index
-```csharp
-public IActionResult Index()
-```
-- Vraća `View(CurrentText())` — glavna stranica sa svim sekcijama
-- Nema parametara
-
-#### 2. POST Contact
-```csharp
-public async Task<IActionResult> Contact(string name, string email)
-```
-- AJAX endpoint za kontakt formu
-- **Validacija:** name i email obavezni
-- **Akcije:**
-  - Kreira ContactLead (name, email, language, created_at)
-  - Saveuje u DB (try/catch — greške se glase)
-  - Vraća JSON: `{ success: bool, message: string, leadId: int? }`
-- **Povratni kod:**
-  - 200 (čak i ako DB save fails — see greška handling)
-  - 400 Bad Request ako su parametri nedostaju
-
-#### 3. POST UpdateChecklist
-```csharp
-public async Task<IActionResult> UpdateChecklist(int leadId, string checklistJson)
-```
-- Sprema odgovore iz ček listi (sekcija "How to improve")
-- **Parametri:** 
-  - `leadId` — referenca na ContactLead
-  - `checklistJson` — JSON array sa item_text vrednostima
-- **Akcije:**
-  - Kreira ChecklistAnswer redove (contact_lead_id, list_key, item_text)
-  - Truncates strings na 500 karaktera
-  - Saveuje u DB
-- **Povratni kod:** 200 JSON ili 400 ako leadId nevaljani
-
-#### 4. GET SetLanguage
-```csharp
-public IActionResult SetLanguage(string culture, string returnUrl = null)
-```
-- Setuje `lang` cookie sa odabranom kulturom
-- **Validacija:** culture mora biti u listi podržanih (en, de, sr-Latn)
-- **Redirect:** Vraća na returnUrl ili home
-
-#### 5. GET Privacy
-```csharp
-public IActionResult Privacy()
-```
-- Vraća `/Views/Home/Privacy.cshtml`
-- Pokazuje Legal.PrivacyHtml (trilingvalno iz SiteTextProvider)
-
-#### 6. GET Terms
-```csharp
-public IActionResult Terms()
-```
-- Vraća `/Views/Home/Terms.cshtml`
-- Pokazuje Legal.TermsHtml (trilingvalno iz SiteTextProvider)
+| Akcija | Metod | Opis |
+|--------|-------|------|
+| `Index` | GET | Glavna stranica |
+| `Contact` | POST | AJAX kontakt forma → JSON `{success, message, leadId}` |
+| `UpdateChecklist` | POST | Sprema checklist odgovore za dati leadId |
+| `SetLanguage` | GET | Setuje `lang` cookie; validira na en/de/sr-Latn |
+| `Privacy` | GET | Politika privatnosti |
+| `Terms` | GET | Uslovi korišćenja |
+| `Error` | GET | Error stranica (ResponseCache NoStore) |
 
 ---
 
 ## PROBLEMI I STANJE
 
-### KRITIČNI
-| Problem | Status | Korijen | Akcija |
-|---------|--------|--------|--------|
-| ❌ DB konekcija ne radi | Potvrđeno | IP firewall na 173.249.49.4 | Prebaci na lokalnu MySQL ili cloud sa whitelisted IP |
-| ⚠️ Lozinka hardcoded | Potvrđeno | appsettings.Development.json | Zameni sa env vars / user secrets |
-
 ### VAŽNO
-| Problem | Status | Korijen | Akcija |
-|---------|--------|--------|--------|
-| 📷 profile.png je 4.7 MB | Potvrđeno | Slike nisu optimizovane | Kompajliraj na <1 MB |
+| Problem | Status | Akcija |
+|---------|--------|--------|
+| 📷 `profile.png` je 4.7 MB | Potvrđeno | Optimizovati na < 1 MB |
+| ⚠️ DB lozinka hardcoded | Potvrđeno | appsettings.Development.json — koristiti user secrets |
 
 ### SREDNJE
-| Problem | Status | Korijen | Akcija |
-|---------|--------|--------|--------|
-| 📱 Nema touch/swipe | Potvrđeno | site.js carousel bez touch events | Dodaj touchstart/touchend listeners |
+| Problem | Status | Akcija |
+|---------|--------|--------|
+| 📱 Nema touch/swipe na carousel | Potvrđeno | Dodati touchstart/touchend listeners u site.js |
 
-### MANJE
-| Problem | Status | Korijen | Akcija |
-|---------|--------|--------|--------|
-| 📝 Nema README.md | Potvrđeno | Nedostaje root dokumentacija | Kreiraj README sa setup instrukcijama |
-
-### ✓ REŠENO
-- ✓ .gitignore — OK (appsettings.Development.json je isključen)
-- ✓ Git repozitorijum — postoji i pushovan na GitHub
-- ✓ Localization — sva 3 jezika implementirana
-- ✓ Kontakt forma — AJAX funkcionira (bez DB persistencije)
+### ✓ RIJEŠENO
+- ✓ .gitignore — appsettings.Development.json isključen
+- ✓ Git repozitorijum — pushovan na GitHub
+- ✓ Localization — 3 jezika implementirana
+- ✓ Kontakt forma — AJAX + DB persistencija
 - ✓ Checklists scoring — dinamički rezultati
+- ✓ SQLite migrations — funkcionalno
+- ✓ Clean code refaktoring — 21.06.2026
 
 ---
 
-## GIT STANJE
+## GIT
 
-### Remote
-- **URL:** https://github.com/zoransimeunovic/Portfolio_ZoranSimeunovic.git
+- **Remote:** https://github.com/zoransimeunovic/Portfolio_ZoranSimeunovic.git
 - **Branch:** main
-- **Status:** Sinhronizovana
-
-### Skoro Commits (4 ukupno)
-| Hash | Datum | Poruka |
-|------|-------|--------|
-| 9edd672 | 18. jun 2026 | Add missing Figma decorative objects and align details |
-| 9d40dfa | 18. jun 2026 | Redesign hero, about, CTA and footer to match Figma export |
-| 27e649e | 17. jun 2026 | Add checklist answers feature |
-| 8a325c9 | 17. jun 2026 | Initial commit |
-
-### Necomitted Izmene (2 fajla)
-1. **Views/Home/Index.cshtml** — HTML izmene (ikone, dekoracije, linkovi)
-2. **wwwroot/css/site.css** — CSS izmene (navbar opacity, hero positioning, aspect-ratio)
-
-**Preporuka:** Commituj ove izmene sa porukom "Update hero styling and LinkedIn icons"
 
 ---
 
 ## POKRETANJE LOKALNO
 
-### Portovi
-| Profil | HTTP | HTTPS | Napomena |
-|--------|------|-------|---------|
-| http | 5157 | — | Kestrel HTTP |
-| https | 5157 | 7270 | Kestrel HTTPS |
-| IIS Express | 22113 | 44344 | Alternativa |
+```bash
+dotnet restore
+dotnet build
+dotnet run    # http://localhost:5157
+```
 
-### Setup
-1. Postavi `ASPNETCORE_ENVIRONMENT=Development`
-2. Ažuriraj `appsettings.Development.json` — MySQL kredencijali
-3. `dotnet restore`
-4. `dotnet build`
-5. `dotnet run` ili F5 u Visual Studio 2022
-
-### Provera
-- Otidi na `http://localhost:5157`
-- Testiraj sve 3 jezika (en, de, sr-Latn)
-- Testiraj kontakt forma
-- Otvori DevTools (F12) za console greške
+Portovi: HTTP `5157`, HTTPS `7270`  
+Varijabla: `ASPNETCORE_ENVIRONMENT=Development`
 
 ---
 
 ## DEPENDENCIES
 
-### NuGet Packages
 ```xml
-<TargetFramework>net8.0</TargetFramework>
-<Nullable>enable</Nullable>
-<ImplicitUsings>enable</ImplicitUsings>
-
-<!-- Packages -->
-Microsoft.EntityFrameworkCore                 8.0.10
-Microsoft.EntityFrameworkCore.Design          8.0.10
-Pomelo.EntityFrameworkCore.MySql              8.0.2
+Microsoft.EntityFrameworkCore          8.0.10
+Microsoft.EntityFrameworkCore.Design   8.0.10
+Pomelo.EntityFrameworkCore.MySql       8.0.2
+Microsoft.EntityFrameworkCore.Sqlite   8.0.10
 ```
 
-### Klijentske Biblioteke (wwwroot/lib)
-- Bootstrap 5 CSS (grid only)
-- jQuery (minified)
-- Fonts: Google Fonts (Outfit 400/600/700)
+---
+
+## AUTOR
+
+**Zoran Simeunović** — zoransimeunovic@outlook.de  
+GitHub: zoransimeunovic | Portfolio: https://zoransimeunovic.de
 
 ---
 
-## AUTORA I KONTAKTI
+## ZA NOVU AI SESIJU
 
-**Zoran Simeunović**
-- Email: zoransimeunovic@outlook.de
-- GitHub: zoransimeunovic
-- Portfolio: https://zs.dev
+1. **DB problemi** → sekcija "BAZA PODATAKA"
+2. **Nova funkcionalnost** → sekcije "KONTROLER AKCIJE" i "FRONTEND"
+3. **Dizajn izmjene** → sekcije "DIZAJN" i "FRONTEND"
+4. **Lokalizacija** → sekcija "LOKALIZACIJA"
+5. **Debugging** → sekcija "PROBLEMI"
 
-**Iskustvo:** HRIS sistemи, Desktop GUI (WPF), Zeiterfassung, Webflow, Figma dizajn, MySQL
-
----
-
-## SLEDEĆI KORACI ZA NOVU SESIJU
-
-Ova dokumentacija je dizajnirana da novu AI sesiju omogući da počne **bez re-skeniranja projekta**. Ako trebaš:
-
-1. **Raditi na DB problemima** → Vidi "BAZA PODATAKA" sekciju
-2. **Dodati novu funkcionalnost** → Vidi "KONTROLER AKCIJE" i "FRONTEND" sekcije
-3. **Ažurirati dizajn** → Vidi "DIZAJN" i "FRONTEND" sekcije
-4. **Debagovanje** → Vidi "PROBLEMI" i "GIT STANJE"
-5. **Lokalizovati nešto novo** → Vidi "LOKALIZACIJA" sekciju
-
-**Napomena za AI:** Sve informacije u ovoj dokumentaciji su verificirane i dobijene 20.06.2026 detaljnom analizom projekta. Ako se suočiš sa drugačitim stanjem, primeni novu analizu i ažuriraj ovu dokumentaciju.
+**Napomena:** Dokumentacija verificirana i ažurirana 21.06.2026 nakon clean code refaktoringa.

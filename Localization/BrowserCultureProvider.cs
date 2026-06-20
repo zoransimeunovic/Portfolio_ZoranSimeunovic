@@ -2,19 +2,10 @@ using Microsoft.AspNetCore.Localization;
 
 namespace Portfolio_ZoranSimeunovic.Localization;
 
-/// <summary>
-/// Bira jezik na osnovu Accept-Language headera browsera.
-/// Mapiranje:
-///   de*                              -> de
-///   sr, hr, bs, cnr, mk, sl ...      -> sr-Latn  ( exYu jezici)
-///   en*                              -> en
-///   sve ostalo                       -> en (fallback)
-/// Cookie (rucni izbor korisnika) ima prioritet jer se CookieRequestCultureProvider
-/// registruje prije ovog providera.
-/// </summary>
+// de* → de; sr/hr/bs/cnr/me/mk/sh → sr-Latn; en* → en; sve ostalo → en
+// Cookie ima prioritet — registruje se prije ovog providera
 public class BrowserCultureProvider : RequestCultureProvider
 {
-    // exYu jezicki kodovi koji se mapiraju na srpski-latinica
     private static readonly string[] ExYuLanguages =
         { "sr", "hr", "bs", "cnr", "me", "mk", "sh" };
 

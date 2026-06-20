@@ -1,9 +1,5 @@
 namespace Portfolio_ZoranSimeunovic.Content;
 
-/// <summary>
-/// Vraca kompletan sadrzaj sajta za trazenu kulturu (en / de / sr-Latn).
-/// Prevodi su pocetni - korisnik ce ih provjeriti i po potrebi korigovati.
-/// </summary>
 public static class SiteTextProvider
 {
     public static SiteText Get(string culture)

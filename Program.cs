@@ -9,15 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 // MVC
 builder.Services.AddControllersWithViews();
 
-// EF Core + MySQL (Pomelo)
-// Eksplicitna verzija servera (bez AutoDetect) da se NE pokusava konekcija pri
-// konfiguraciji - sajt se renderuje i prije nego sto se popuni connection string.
-// Stvarni upit na bazu desava se tek pri slanju kontakt forme, gdje je zasticen
-// try/catch-om. Promijeni MySqlServerVersion da odgovara tvom serveru ako treba.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "";
-var serverVersion = new MySqlServerVersion(new Version(8, 0, 0));
+// EF Core + SQLite (Development)
+// Za produkciju, prebaci na MySQL/PostreSQL
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=portfolio.db";
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(connectionString, serverVersion));
+    options.UseSqlite(connectionString));
 
 // Podrzane kulture
 var supportedCultures = new[]

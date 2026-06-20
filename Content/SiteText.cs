@@ -1,10 +1,5 @@
 namespace Portfolio_ZoranSimeunovic.Content;
 
-/// <summary>
-/// Kompletan lokalizovani sadrzaj sajta. Popunjava se po kulturi u
-/// <see cref="SiteTextProvider"/>. Polja sa sufiksom "Html" sadrze markup
-/// (npr. <span class="accent">..</span>) i renderuju se preko Html.Raw.
-/// </summary>
 public class SiteText
 {
     public string Culture { get; set; } = "en";

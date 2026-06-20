@@ -23,7 +23,6 @@ public class AppDbContext : DbContext
             entity.Property(e => e.Name).IsRequired().HasMaxLength(120);
             entity.Property(e => e.Email).IsRequired().HasMaxLength(200);
             entity.Property(e => e.Language).HasMaxLength(10);
-            entity.Property(e => e.CreatedAt);
         });
 
         modelBuilder.Entity<ChecklistAnswer>(entity =>
