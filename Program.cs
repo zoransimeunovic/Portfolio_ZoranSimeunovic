@@ -67,8 +67,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Osiguraj da baza/tabela postoje - samo kada je connection string popunjen.
-// Dok je placeholder (Server=;) preskacemo da izbjegnemo nepotreban timeout pri startu.
+// Primeni EF Core migrations
 var isConfigured = !string.IsNullOrWhiteSpace(connectionString) &&
                    !connectionString.Contains("Server=;");
 if (isConfigured)
@@ -77,20 +76,12 @@ if (isConfigured)
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     try
     {
-        db.Database.EnsureCreated();
-        db.Database.ExecuteSqlRaw(@"
-            CREATE TABLE IF NOT EXISTS checklist_answers (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                contact_lead_id INT NOT NULL,
-                list_key VARCHAR(50) NOT NULL,
-                item_text VARCHAR(500) NOT NULL,
-                created_at DATETIME NOT NULL
-            ) CHARACTER SET utf8mb4;");
+        db.Database.Migrate();
     }
     catch (Exception ex)
     {
         app.Logger.LogWarning(ex,
-            "Baza nije inicijalizovana (provjeri connection string u appsettings.json).");
+            "Migracija baze nije uspela (provjeri connection string u appsettings.json).");
     }
 }
 
