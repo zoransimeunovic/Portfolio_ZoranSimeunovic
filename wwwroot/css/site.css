@@ -217,7 +217,7 @@ section { padding: 96px 0; position: relative; }
 }
 
 /* =====================================================================
-   HERO — Figma 1440×836 scena (tacne koordinate iz Figme, top = figma - 87)
+   HERO — Figma 1440×836 scena (koordinate: top = figma_top - 87px navbar)
    Cijela scena se proporcionalno skalira (--hero-scale postavlja site.js).
    ===================================================================== */
 .hero {
@@ -241,13 +241,14 @@ section { padding: 96px 0; position: relative; }
     height: 670px;
     transform: translateX(-50%) scale(var(--hero-scale, 1));
     transform-origin: top center;
+    isolation: isolate;
 }
 .hero-stage > * { position: absolute; }
 
 /* ---------- Vizual (desno) ---------- */
 /* Plavi bloom iza glave */
 .hero-glow {
-    left: 949px; top: 207px;
+    left: 949px; top: 157px;
     width: 400.65px; height: 368.37px;
     background: #156EF6;
     opacity: 0.30;
@@ -260,26 +261,55 @@ section { padding: 96px 0; position: relative; }
 .hero-ring {
     border: 3.8px solid var(--surface);
     border-radius: 50%;
-    z-index: 1;
 }
-.hero-ring-3 { left: 706.61px; top: 107px;    width: 713px;    height: 713px; }
-.hero-ring-2 { left: 788.88px; top: 189.27px; width: 548.46px; height: 548.46px; }
-.hero-ring-1 { left: 871.15px; top: 271.54px; width: 383.92px; height: 383.92px; }
+.hero-ring-3 {
+    left: 706.61px; top: 57px; width: 713px; height: 713px;
+    -webkit-mask-image: linear-gradient(to top, transparent 15%, black 25%);
+    mask-image: linear-gradient(to top, transparent 15%, black 25%);
+}
+.hero-ring-2 {
+    left: 788.88px; top: 139.27px; width: 548.46px; height: 548.46px;
+    -webkit-mask-image: linear-gradient(to top, transparent 18%, black 28%);
+    mask-image: linear-gradient(to top, transparent 18%, black 28%);
+}
+.hero-ring-1 {
+    left: 871.15px; top: 221.54px; width: 383.92px; height: 383.92px;
+    -webkit-mask-image: linear-gradient(to top, transparent 22%, black 32%);
+    mask-image: linear-gradient(to top, transparent 22%, black 32%);
+}
 
 .hero-photo {
-    left: 849.93px; top: 110.85px;
+    left: 849.93px; top: 60.85px;
     width: 440.89px; height: 627.55px;
     object-fit: cover;
     object-position: center top;
     z-index: 4;
-    /* donji dio (ramena) se mekano stapa sa pozadinom */
-    -webkit-mask-image: linear-gradient(180deg, #000 64.6%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 64.6%, transparent 100%);
+    -webkit-mask-image:
+        linear-gradient(to bottom, black 50%, transparent 50%),
+        radial-gradient(circle 274.23px at 213.18px 352.65px, black 97%, transparent 100%);
+    mask-image:
+        linear-gradient(to bottom, black 50%, transparent 50%),
+        radial-gradient(circle 274.23px at 213.18px 352.65px, black 97%, transparent 100%);
+    -webkit-mask-composite: source-over;
+    mask-composite: add;
+}
+
+
+
+/* Kružni overlay — dno foto prelazi u primary boju duž luka srednjeg prstena */
+.hero-photo-fade {
+    left: 788.88px; top: 139.27px;
+    width: 548.46px; height: 548.46px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(to bottom, transparent 86%, var(--primary) 100%);
+    z-index: 4;
+    pointer-events: none;
 }
 
 /* Govorni oblacic sa imenom (gore desno) */
 .hero-name-tag {
-    left: 1153px; top: 101px;
+    left: 1153px; top: 51px;
     background: var(--surface-2);
     color: rgba(221, 230, 245, 0.6);
     font-size: 16px;
@@ -339,11 +369,11 @@ section { padding: 96px 0; position: relative; }
     z-index: -2;
 }
 
-.tag-webflow { --tag: #156EF6; left: 780.69px;  top: 196.69px; transform: rotate(20.57deg); }
-.tag-api     { --tag: #8468DF; left: 1290.95px; top: 213.24px; transform: rotate(-17.46deg); font-size: 19px; }
-.tag-figma   { --tag: #F24E1E; left: 778.47px;  top: 431.47px; transform: rotate(-18.45deg); }
-.tag-mysql   { --tag: #00758F; left: 1284.60px; top: 428.65px; transform: rotate(31.5deg); font-size: 15px; font-weight: 700; }
-.tag-aspnet  { --tag: #512BD4; left: 695.92px;  top: 598.91px; transform: rotate(3.27deg); font-size: 15px; }
+.tag-webflow { --tag: #156EF6; left: 780.69px;  top: 146.69px; transform: rotate(20.57deg); }
+.tag-api     { --tag: #8468DF; left: 1290.95px; top: 163.24px; transform: rotate(-17.46deg); font-size: 19px; }
+.tag-figma   { --tag: #F24E1E; left: 778.47px;  top: 381.47px; transform: rotate(-18.45deg); }
+.tag-mysql   { --tag: #00758F; left: 1284.60px; top: 378.65px; transform: rotate(31.5deg); font-size: 15px; font-weight: 700; }
+.tag-aspnet  { --tag: #512BD4; left: 695.92px;  top: 548.91px; transform: rotate(3.27deg); font-size: 15px; }
 
 /* ---------- Tekst (lijevo) ---------- */
 .hero-copy { left: 72px; top: 160px; width: 550px; z-index: 6; }
@@ -638,6 +668,7 @@ section { padding: 96px 0; position: relative; }
     width: 100%; height: 100%;
     object-fit: contain;          /* cijela glava + ramena vidljivi (kao u target slici) */
     object-position: center bottom;
+    transform: scaleX(-1);
 }
 .ab-go {
     left: 143px; top: 208px;
@@ -718,7 +749,6 @@ section { padding: 96px 0; position: relative; }
 .ab-hl { font-size: 24px; font-weight: 700; line-height: 1.5; color: var(--accent); }
 .ab-hl:not(:last-child) {
     padding-bottom: 24px;
-    margin-bottom: 24px;
     border-bottom: 1px solid var(--surface);
 }
 .ab-hl:last-child { color: var(--secondary); }
@@ -878,6 +908,7 @@ section { padding: 96px 0; position: relative; }
 .improve { clip-path: inset(-500px calc(50% - 648px) 0px calc(50% - 648px)); }
 /* Kontejner mora biti 1440/72 da 3×416 + 2×24 = 1296px stane tacno */
 .improve .container { max-width: 1440px; padding: 0 72px; position: relative; }
+.improve .section-sub { font-size: 24px; }
 /* BG light effect uklonjen na zahtjev */
 .improve-glow { display: none; }
 
@@ -1111,7 +1142,7 @@ section { padding: 96px 0; position: relative; }
     transition: all 0.2s ease;
 }
 .cta-submit:hover { background: var(--secondary); transform: translateY(-2px); }
-.cta-note { font-size: 14px; color: var(--secondary); opacity: 0.4; margin: 24px 0 0; }
+.cta-note { font-size: 14px; font-family: 'Roboto', sans-serif; color: var(--secondary); opacity: 0.4; margin: 24px 0 0; }
 .contact-result {
     margin: 18px auto 0;
     max-width: 600px;
@@ -1129,7 +1160,7 @@ section { padding: 96px 0; position: relative; }
 .site-footer {
     background: var(--primary);
     border-top: 2px solid var(--surface);
-    padding: 64px 0;
+    padding: 40px 0;
 }
 .footer-top {
     display: flex;
@@ -1139,7 +1170,7 @@ section { padding: 96px 0; position: relative; }
     flex-wrap: wrap;
 }
 .footer-brand { font-weight: 700; font-size: 32px; line-height: 40px; color: var(--secondary); }
-.footer-nav { display: flex; gap: 44px; list-style: none; margin: 0; padding: 0; }
+.footer-nav { display: flex; gap: 100px; list-style: none; margin: 0; padding: 0; }
 .footer-nav a { color: var(--secondary); font-size: 16px; font-weight: 700; }
 .footer-nav a:hover { color: var(--accent); }
 .footer-social { display: flex; gap: 24px; align-items: center; }
