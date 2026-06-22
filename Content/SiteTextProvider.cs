@@ -37,13 +37,13 @@ public static class SiteTextProvider
             NextLabel = "Next",
             Cards = new List<WorkCard>
             {
-                new() { Title = "HRIS/Web", Image = "hris.jpg", Duration = "2 years", DurationSub = "at AddWare Solutions",
+                new() { Title = "HRIS/Web", Image = "hris.jpg", Duration = "2 years", DurationSub = "at AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Development and maintenance of an HRIS (Human Resources Information System) for workforce management, including personnel planning, vacation management, and time tracking. Integration of web services, sync services, and Microsoft 365. Optimization of existing systems and development of new modules.",
                     Techs = new() { "ASP.NET", "C#", "MySQL", "Microsoft Graph" } },
-                new() { Title = "Desktop GUI", Image = "desktop-gui.png", Duration = "3 years", DurationSub = "at AddWare Solutions",
+                new() { Title = "Desktop GUI", Image = "desktop-gui.png", Duration = "3 years", DurationSub = "at AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Complete redesign of a desktop GUI focused on performance and scalability. Enabled fast rendering of large employee datasets in grid tables with 12+ months of historical data. Improved business logic, optimized large data handling, and delivered new and enhanced modules.",
                     Techs = new() { "C#", "WPF", "MySQL" } },
-                new() { Title = "Zeiterfassung", Image = "zeiterfassung.png", Duration = "1 year", DurationSub = "at AddWare Solutions",
+                new() { Title = "Zeiterfassung", Image = "zeiterfassung.png", Duration = "1 year", DurationSub = "at AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
                     Description = "Development and enhancement of desktop, web, and mobile clients for time tracking, providing real-time data visualization and centralized management of working hours, breaks, and absences within a unified system.",
                     Techs = new() { "ASP.NET", "WPF", "Xamarin Forms" } },
                 new() { Title = "Personal Portfolio", Image = "personal-portfolio.png", Duration = null, DurationSub = null,
@@ -82,7 +82,7 @@ public static class SiteTextProvider
                 new() { Tag = "TIME FOR THE ENGINE", Title = "Web App (optional)", Description = "Website approved. Custom tools built behind the scenes. Portals, bookings, dashboards." },
                 new() { Tag = "TIME TO REVIEW", Title = "Web App review (optional)", Description = "You test everything end to end. Request changes if needed." },
                 new() { Tag = "GO LIVE", Title = "Launch & handover", Description = "Deploy, docs, and handover. Final invoice on delivery." },
-                new() { Tag = "OPTIONAL", Title = "Ongoing support", Description = "On your terms. Hosting, SSL, backups, bug fixes, or new features — take only what your business needs." }
+                new() { Tag = "FLEXIBLE", Title = "Ongoing support (optional)", Description = "On your terms. Hosting, SSL, backups, bug fixes, or new features — take only what your business needs." }
             }
         },
         Improve = new ImproveSection
@@ -222,13 +222,13 @@ public static class SiteTextProvider
             NextLabel = "Weiter",
             Cards = new List<WorkCard>
             {
-                new() { Title = "HRIS/Web", Image = "hris.jpg", Duration = "2 Jahre", DurationSub = "bei AddWare Solutions",
+                new() { Title = "HRIS/Web", Image = "hris.jpg", Duration = "2 Jahre", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Entwicklung und Wartung eines HRIS (Human Resources Information System) für die Personalverwaltung, einschließlich Personalplanung, Urlaubsverwaltung und Zeiterfassung. Integration von Webdiensten, Synchronisationsdiensten und Microsoft 365. Optimierung bestehender Systeme und Entwicklung neuer Module.",
                     Techs = new() { "ASP.NET", "C#", "MySQL", "Microsoft Graph" } },
-                new() { Title = "Desktop GUI", Image = "desktop-gui.png", Duration = "3 Jahre", DurationSub = "bei AddWare Solutions",
+                new() { Title = "Desktop GUI", Image = "desktop-gui.png", Duration = "3 Jahre", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Komplette Neugestaltung einer Desktop-GUI mit Fokus auf Leistung und Skalierbarkeit. Ermöglichte das schnelle Rendern großer Mitarbeiterdatensätze in Tabellen mit über 12 Monaten Verlaufsdaten. Verbesserte Geschäftslogik, optimierte Verarbeitung großer Datenmengen und Bereitstellung neuer und erweiterter Module.",
                     Techs = new() { "C#", "WPF", "MySQL" } },
-                new() { Title = "Zeiterfassung", Image = "zeiterfassung.png", Duration = "1 Jahr", DurationSub = "bei AddWare Solutions",
+                new() { Title = "Zeiterfassung", Image = "zeiterfassung.png", Duration = "1 Jahr", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
                     Description = "Entwicklung und Erweiterung von Desktop-, Web- und mobilen Clients zur Zeiterfassung mit Echtzeit-Datenvisualisierung und zentraler Verwaltung von Arbeitszeiten, Pausen und Abwesenheiten in einem einheitlichen System.",
                     Techs = new() { "ASP.NET", "WPF", "Xamarin Forms" } },
                 new() { Title = "Personal Portfolio", Image = "personal-portfolio.png", Duration = null, DurationSub = null,
@@ -267,7 +267,7 @@ public static class SiteTextProvider
                 new() { Tag = "ZEIT FÜR DEN MOTOR", Title = "Web-App (optional)", Description = "Website freigegeben. Maßgeschneiderte Tools im Hintergrund. Portale, Buchungen, Dashboards." },
                 new() { Tag = "ZEIT ZUM PRÜFEN", Title = "Web-App-Prüfung (optional)", Description = "Sie testen alles von Anfang bis Ende. Fordern Sie bei Bedarf Änderungen an." },
                 new() { Tag = "GO-LIVE", Title = "Launch & Übergabe", Description = "Bereitstellung, Dokumentation und Übergabe. Schlussrechnung bei Lieferung." },
-                new() { Tag = "OPTIONAL", Title = "Laufender Support", Description = "Zu Ihren Bedingungen. Hosting, SSL, Backups, Fehlerbehebungen oder neue Funktionen – nur was Ihr Unternehmen braucht." }
+                new() { Tag = "FLEXIBLE", Title = "Laufender Support (optional)", Description = "Zu Ihren Bedingungen. Hosting, SSL, Backups, Fehlerbehebungen oder neue Funktionen – nur was Ihr Unternehmen braucht." }
             }
         },
         Improve = new ImproveSection
@@ -407,13 +407,13 @@ public static class SiteTextProvider
             NextLabel = "Sledeće",
             Cards = new List<WorkCard>
             {
-                new() { Title = "HRIS/Web", Image = "hris.jpg", Duration = "2 godine", DurationSub = "u AddWare Solutions",
+                new() { Title = "HRIS/Web", Image = "hris.jpg", Duration = "2 godine", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Razvoj i održavanje HRIS-a (Human Resources Information System) za upravljanje radnom snagom, uključujući kadrovsko planiranje, upravljanje godišnjim odmorima i evidenciju radnog vremena. Integracija web servisa, sinhronizacionih servisa i Microsoft 365. Optimizacija postojećih sistema i razvoj novih modula.",
                     Techs = new() { "ASP.NET", "C#", "MySQL", "Microsoft Graph" } },
-                new() { Title = "Desktop GUI", Image = "desktop-gui.png", Duration = "3 godine", DurationSub = "u AddWare Solutions",
+                new() { Title = "Desktop GUI", Image = "desktop-gui.png", Duration = "3 godine", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Potpuni redizajn desktop GUI-ja sa fokusom na performanse i skalabilnost. Omogućeno brzo prikazivanje velikih skupova podataka o zaposlenima u tabelama sa preko 12 meseci istorijskih podataka. Poboljšana poslovna logika, optimizovano rukovanje velikim podacima i isporučeni novi i unapređeni moduli.",
                     Techs = new() { "C#", "WPF", "MySQL" } },
-                new() { Title = "Zeiterfassung", Image = "zeiterfassung.png", Duration = "1 godina", DurationSub = "u AddWare Solutions",
+                new() { Title = "Zeiterfassung", Image = "zeiterfassung.png", Duration = "1 godina", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
                     Description = "Razvoj i unapređenje desktop, web i mobilnih klijenata za evidenciju radnog vremena, uz vizuelizaciju podataka u realnom vremenu i centralizovano upravljanje radnim satima, pauzama i odsustvima u okviru jedinstvenog sistema.",
                     Techs = new() { "ASP.NET", "WPF", "Xamarin Forms" } },
                 new() { Title = "Personal Portfolio", Image = "personal-portfolio.png", Duration = null, DurationSub = null,
@@ -452,7 +452,7 @@ public static class SiteTextProvider
                 new() { Tag = "VREME ZA MOTOR", Title = "Web aplikacija (opciono)", Description = "Sajt odobren. Prilagođeni alati grade se iza scene. Portali, rezervacije, dashboardi." },
                 new() { Tag = "VREME ZA PROVERU", Title = "Pregled web aplikacije (opciono)", Description = "Testirate sve od početka do kraja. Tražite izmene ako su potrebne." },
                 new() { Tag = "PUŠTANJE U RAD", Title = "Lansiranje i predaja", Description = "Postavljanje, dokumentacija i predaja. Konačna faktura pri isporuci." },
-                new() { Tag = "OPCIONO", Title = "Kontinuirana podrška", Description = "Pod vašim uslovima. Hosting, SSL, rezervne kopije, ispravke grešaka ili nove funkcije — uzimate samo ono što vašem poslovanju treba." }
+                new() { Tag = "FLEXIBLE", Title = "Kontinuirana podrška (opciono)", Description = "Pod vašim uslovima. Hosting, SSL, rezervne kopije, ispravke grešaka ili nove funkcije — uzimate samo ono što vašem poslovanju treba." }
             }
         },
         Improve = new ImproveSection

@@ -53,8 +53,9 @@ public class WorkCard
     public string Title { get; set; } = "";
     public string Description { get; set; } = "";
     public string Image { get; set; } = "";
-    public string? Duration { get; set; }     // npr. "2 years"
-    public string? DurationSub { get; set; }   // npr. "at AddWare Solutions"
+    public string? Duration { get; set; }
+    public string? DurationSub { get; set; }
+    public string? DurationUrl { get; set; }
     public List<string> Techs { get; set; } = new();
 }
 
