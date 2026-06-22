@@ -1009,15 +1009,15 @@ a.work-badge:hover { color: var(--secondary); }
     background: transparent;
     border: none;
     cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: text-shadow 0.25s ease;
     font-family: inherit;
     font-size: 16px;
     font-weight: 700;
     color: var(--secondary);
     padding: 10px 8px;
 }
-.improve-toggle:hover { transform: scale(1.04); box-shadow: 0 0 12px rgba(21, 110, 246, 0.40); }
-.improve-toggle span { text-decoration: underline; }
+.improve-toggle span { text-decoration: underline; text-underline-offset: 4px; }
+.improve-toggle:hover span:first-child { text-shadow: 0 0 12px rgba(21, 110, 246, 0.80); }
 .improve-toggle .toggle-icon {
     width: 7.85px;
     height: 13.33px;
