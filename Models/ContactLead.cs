@@ -16,4 +16,6 @@ public class ContactLead
     public string? Language { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public bool OptedOut { get; set; } = false;
+    public DateTime? OfferSentAt { get; set; }
 }

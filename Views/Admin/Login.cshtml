@@ -1,0 +1,28 @@
+@{
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    ViewData["Title"] = "Prijava";
+}
+
+<div class="admin-login-wrap">
+    <div class="admin-login-box">
+        <h1 class="admin-login-title">Admin prijava</h1>
+
+        @if (ViewBag.Error != null)
+        {
+            <p class="admin-error">@ViewBag.Error</p>
+        }
+
+        <form method="post" action="/admin/login">
+            @Html.AntiForgeryToken()
+            <div class="admin-field">
+                <label for="username">Korisničko ime</label>
+                <input type="text" id="username" name="username" class="admin-input" autocomplete="username" />
+            </div>
+            <div class="admin-field">
+                <label for="password">Lozinka</label>
+                <input type="password" id="password" name="password" class="admin-input" autocomplete="current-password" />
+            </div>
+            <button type="submit" class="admin-btn admin-btn--full">Prijavi se</button>
+        </form>
+    </div>
+</div>

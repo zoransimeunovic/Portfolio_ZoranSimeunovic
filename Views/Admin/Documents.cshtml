@@ -1,0 +1,92 @@
+@model List<Portfolio_ZoranSimeunovic.Controllers.DocumentListItem>
+@{
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    ViewData["Title"] = "Dokumenti";
+}
+
+<div class="admin-docs-header">
+    <h1 class="admin-page-title">Dokumenti (@Model.Count)</h1>
+
+    <form method="post" action="/admin/documents/upload" enctype="multipart/form-data"
+          class="admin-upload-form">
+        @Html.AntiForgeryToken()
+        <input type="text" name="fullName" class="admin-input admin-upload-name"
+               placeholder="Naziv dokumenta (opcionalno)" maxlength="255" />
+        <label class="admin-btn admin-btn--upload" for="uploadFile">Odaberi fajl</label>
+        <input type="file" id="uploadFile" name="file" class="admin-upload-file-input"
+               accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.jpg,.jpeg,.png,.gif,.zip,.rar" />
+        <span id="uploadFileName" class="admin-upload-chosen">Nije odabran fajl</span>
+        <button type="submit" class="admin-btn">Uploaduj</button>
+    </form>
+</div>
+
+@if (TempData["UploadError"] is string err)
+{
+    <div class="admin-error" style="margin-bottom:20px">@err</div>
+}
+
+@if (!Model.Any())
+{
+    <p class="admin-empty">Nema uploadovanih dokumenata.</p>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Naziv</th>
+                <th>Originalni fajl</th>
+                <th>Putanja na disku</th>
+                <th>Veličina</th>
+                <th>Datum</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int rowNum = 1; }
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td class="admin-td--muted">@rowNum</td>
+                    <td>@d.FullName</td>
+                    <td class="admin-td--muted">@d.OriginalFileName</td>
+                    <td class="admin-doc-path">@d.FilePath</td>
+                    <td class="admin-td--muted">@FormatSize(d.SizeBytes)</td>
+                    <td class="admin-td--muted">@d.UploadedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        <div class="admin-doc-actions">
+                            <a href="/admin/documents/@d.Id/download" class="admin-btn admin-btn--sm">Preuzmi</a>
+                            <form method="post" action="/admin/documents/@d.Id/delete" style="display:inline"
+                                  onsubmit="return confirm('Obrisati ovaj dokument?')">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="admin-btn admin-btn--sm admin-btn--danger">Obriši</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                rowNum++;
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <script>
+        document.getElementById('uploadFile').addEventListener('change', function () {
+            var label = document.getElementById('uploadFileName');
+            label.textContent = this.files.length > 0 ? this.files[0].name : 'Nije odabran fajl';
+        });
+    </script>
+}
+
+@functions {
+    static string FormatSize(long bytes)
+    {
+        if (bytes >= 1024 * 1024)
+            return $"{bytes / 1024.0 / 1024.0:F1} MB";
+        if (bytes >= 1024)
+            return $"{bytes / 1024.0:F0} KB";
+        return $"{bytes} B";
+    }
+}

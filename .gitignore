@@ -20,6 +20,9 @@ appsettings.Local.json
 Logovi/
 *.log
 
+# Private uploads (van wwwroot, servira se kroz controller)
+PrivateUploads/
+
 # OS
 Thumbs.db
 .DS_Store

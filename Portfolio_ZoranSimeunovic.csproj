@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SyncWorkerService/**" />
+    <Content Remove="SyncWorkerService/**" />
+    <EmbeddedResource Remove="SyncWorkerService/**" />
+    <None Remove="SyncWorkerService/**" />
+    <Compile Remove="MsGraphClient/**" />
+    <Content Remove="MsGraphClient/**" />
+    <EmbeddedResource Remove="MsGraphClient/**" />
+    <None Remove="MsGraphClient/**" />
+    <Compile Remove="GraphMailClient/**" />
+    <Content Remove="GraphMailClient/**" />
+    <EmbeddedResource Remove="GraphMailClient/**" />
+    <None Remove="GraphMailClient/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="MsGraphClient\MsGraphClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>

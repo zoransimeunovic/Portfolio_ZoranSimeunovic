@@ -1,0 +1,130 @@
+@model Portfolio_ZoranSimeunovic.Controllers.QuestionnaireDetailVm
+@{
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    ViewData["Title"] = Model.ClientName;
+}
+
+<a href="/admin" class="admin-back">← Svi upitnici</a>
+
+<div class="admin-client-header">
+    <div>
+        <h1 class="admin-page-title">@Model.ClientName</h1>
+        <p class="admin-client-email">@Model.ClientEmail</p>
+    </div>
+    <div class="admin-client-badges">
+        @if (Model.CompletedAt.HasValue)
+        {
+            <span class="admin-badge admin-badge--done">Završen @Model.CompletedAt.Value.ToString("dd.MM.yyyy HH:mm")</span>
+        }
+        else
+        {
+            <span class="admin-badge admin-badge--partial">Korak @Model.Stage od 3 — nije završen</span>
+        }
+        @if (Model.OptedOut)
+        {
+            <span class="admin-badge admin-badge--opted-out">Odjavio se</span>
+        }
+    </div>
+</div>
+
+<div class="admin-actions-bar">
+    @if (Model.OfferSentAt.HasValue)
+    {
+        <span class="admin-action-done">✓ Ponuda poslana @Model.OfferSentAt.Value.ToString("dd.MM.yyyy HH:mm")</span>
+    }
+    else
+    {
+        <form method="post" action="/admin/@Model.Id/offer-sent" style="display:inline">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="admin-btn">Ponuda poslana</button>
+        </form>
+    }
+
+    <form method="post" action="/admin/@Model.Id/delete" style="display:inline"
+          onsubmit="return confirm('Ovo će trajno obrisati sve podatke ovog klijenta (kontakt, upitnik, akcije).\n\nNastaviti?')">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="admin-btn admin-btn--danger">Obriši klijenta</button>
+    </form>
+</div>
+
+@if (Model.Step1.Any())
+{
+    <section class="admin-step">
+        <h2 class="admin-step-title">Korak 1 — O poslovanju</h2>
+        @foreach (var a in Model.Step1)
+        {
+            <div class="admin-answer">
+                <span class="admin-label">@a.Label</span>
+                <span class="admin-value">@a.Value</span>
+            </div>
+        }
+    </section>
+}
+
+@if (Model.Step2.Any())
+{
+    <section class="admin-step">
+        <h2 class="admin-step-title">Korak 2 — O projektu</h2>
+        @foreach (var a in Model.Step2)
+        {
+            <div class="admin-answer">
+                <span class="admin-label">@a.Label</span>
+                <span class="admin-value">@a.Value</span>
+            </div>
+        }
+    </section>
+}
+
+@if (Model.Step3.Any())
+{
+    <section class="admin-step">
+        <h2 class="admin-step-title">Korak 3 — Ciljevi, dizajn i rokovi</h2>
+        @foreach (var a in Model.Step3)
+        {
+            <div class="admin-answer">
+                <span class="admin-label">@a.Label</span>
+                <span class="admin-value">@a.Value</span>
+            </div>
+        }
+    </section>
+}
+
+@if (!Model.Step1.Any() && !Model.Step2.Any() && !Model.Step3.Any())
+{
+    <p class="admin-empty">Klijent još nije popunio ni jedan korak.</p>
+}
+
+@if (Model.Files.Any())
+{
+    <section class="admin-step" style="margin-top:24px">
+        <h2 class="admin-step-title">Priloženi fajlovi (@Model.Files.Count)</h2>
+        @foreach (var f in Model.Files)
+        {
+            <div class="admin-answer">
+                <span class="admin-label">@FileLabelDisplay(f.FileLabel)</span>
+                <span class="admin-value">
+                    <a href="/admin/qfile/@f.Id/download" class="admin-file-link">@f.OriginalFileName</a>
+                    <span class="admin-file-meta">@FormatSize(f.SizeBytes) &mdash; @f.UploadedAt.ToString("dd.MM.yyyy HH:mm")</span>
+                </span>
+            </div>
+        }
+    </section>
+}
+
+@functions {
+    static string FileLabelDisplay(string label) => label switch
+    {
+        "logo" => "Logo",
+        "brandbook" => "Brand book",
+        "photos" => "Fotografije",
+        "texts" => "Tekstovi",
+        _ => label
+    };
+
+    static string FormatSize(long bytes)
+    {
+        if (bytes >= 1024 * 1024) return $"{bytes / 1024.0 / 1024.0:F1} MB";
+        if (bytes >= 1024) return $"{bytes / 1024.0:F0} KB";
+        return $"{bytes} B";
+    }
+}

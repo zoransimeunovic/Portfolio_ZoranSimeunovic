@@ -14,11 +14,15 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly AppDbContext _db;
+    private readonly MsGraphClient.MsGraphClient? _graph;
+    private readonly IConfiguration _config;
 
-    public HomeController(ILogger<HomeController> logger, AppDbContext db)
+    public HomeController(ILogger<HomeController> logger, AppDbContext db, IConfiguration config, MsGraphClient.MsGraphClient? graph = null)
     {
         _logger = logger;
         _db = db;
+        _graph = graph;
+        _config = config;
     }
 
     private SiteText CurrentText() =>
@@ -50,6 +54,7 @@ public class HomeController : Controller
         {
             _db.ContactLeads.Add(lead);
             await _db.SaveChangesAsync();
+            _ = SendNewContactNotificationAsync(lead);
             return Json(new { success = true, message = text.Contact.SuccessMessage, leadId = lead.Id });
         }
         catch (Exception ex)
@@ -99,6 +104,35 @@ public class HomeController : Controller
         {
             _logger.LogError(ex, "Neuspjesno azuriranje checkliste za lead {LeadId}.", leadId);
             return Json(new { success = false });
+        }
+    }
+
+    private async Task SendNewContactNotificationAsync(ContactLead lead)
+    {
+        if (_graph is null) return;
+        try
+        {
+            var ownerEmail = _config["Notification:OwnerEmail"] ?? "";
+            if (string.IsNullOrWhiteSpace(ownerEmail)) return;
+
+            var body = $"""
+                Novi kontakt na portfoliju!
+
+                Ime:    {lead.Name}
+                Email:  {lead.Email}
+                Jezik:  {lead.Language}
+                Datum:  {lead.CreatedAt:dd.MM.yyyy HH:mm} UTC
+
+                Link za upitnik će biti automatski poslan u roku od 90 minuta.
+                """;
+
+            var result = await _graph.SendEmailAsync(ownerEmail, "Zoran", $"[Portfolio] Novi kontakt — {lead.Name}", body);
+            if (!result.Success)
+                _logger.LogWarning("Notifikacija novog kontakta nije poslana za {Email}: {Error}", lead.Email, result.Error);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Greška pri slanju notifikacije novog kontakta za {Email}", lead.Email);
         }
     }
 

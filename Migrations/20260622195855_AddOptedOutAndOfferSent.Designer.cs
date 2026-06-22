@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portfolio_ZoranSimeunovic.Data;
 
@@ -11,9 +12,11 @@ using Portfolio_ZoranSimeunovic.Data;
 namespace Portfolio_ZoranSimeunovic.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260622195855_AddOptedOutAndOfferSent")]
+    partial class AddOptedOutAndOfferSent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,52 +127,6 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                     b.ToTable("contact_leads", (string)null);
                 });
 
-            modelBuilder.Entity("Portfolio_ZoranSimeunovic.Models.Document", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("content_type");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("full_name");
-
-                    b.Property<string>("OriginalFileName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("original_file_name");
-
-                    b.Property<long>("SizeBytes")
-                        .HasColumnType("bigint")
-                        .HasColumnName("size_bytes");
-
-                    b.Property<string>("StoredFileName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("stored_file_name");
-
-                    b.Property<DateTime>("UploadedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("uploaded_at");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("documents", (string)null);
-                });
-
             modelBuilder.Entity("Portfolio_ZoranSimeunovic.Models.Questionnaire", b =>
                 {
                     b.Property<int>("Id")
@@ -227,58 +184,6 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                     b.ToTable("questionnaire", (string)null);
                 });
 
-            modelBuilder.Entity("Portfolio_ZoranSimeunovic.Models.QuestionnaireFile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("content_type");
-
-                    b.Property<string>("FileLabel")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("file_label");
-
-                    b.Property<string>("OriginalFileName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("original_file_name");
-
-                    b.Property<int>("QuestionnaireId")
-                        .HasColumnType("int")
-                        .HasColumnName("questionnaire_id");
-
-                    b.Property<long>("SizeBytes")
-                        .HasColumnType("bigint")
-                        .HasColumnName("size_bytes");
-
-                    b.Property<string>("StoredFileName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("stored_file_name");
-
-                    b.Property<DateTime>("UploadedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("uploaded_at");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionnaireId");
-
-                    b.ToTable("questionnaire_files", (string)null);
-                });
-
             modelBuilder.Entity("Portfolio_ZoranSimeunovic.Models.ChecklistAnswer", b =>
                 {
                     b.HasOne("Portfolio_ZoranSimeunovic.Models.ContactLead", "ContactLead")
@@ -310,17 +215,6 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                         .IsRequired();
 
                     b.Navigation("ContactLead");
-                });
-
-            modelBuilder.Entity("Portfolio_ZoranSimeunovic.Models.QuestionnaireFile", b =>
-                {
-                    b.HasOne("Portfolio_ZoranSimeunovic.Models.Questionnaire", "Questionnaire")
-                        .WithMany()
-                        .HasForeignKey("QuestionnaireId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Questionnaire");
                 });
 #pragma warning restore 612, 618
         }

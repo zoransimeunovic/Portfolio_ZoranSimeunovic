@@ -1,0 +1,75 @@
+@model List<Portfolio_ZoranSimeunovic.Controllers.QuestionnaireListItem>
+@{
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    ViewData["Title"] = "Upitnici";
+}
+
+<h1 class="admin-page-title">Upitnici (@Model.Count)</h1>
+
+@if (!Model.Any())
+{
+    <p class="admin-empty">Nema upitnika.</p>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ime</th>
+                <th>Email</th>
+                <th>Datum</th>
+                <th>Upitnik</th>
+                <th>Odjavio se</th>
+                <th>Ponuda poslana</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int rowNum = 1; }
+            @foreach (var q in Model)
+            {
+                <tr class="@(q.OptedOut ? "admin-row--opted-out" : "")">
+                    <td class="admin-td--muted">@rowNum</td>
+                    <td>@q.ClientName</td>
+                    <td class="admin-td--muted">@q.ClientEmail</td>
+                    <td class="admin-td--muted">@q.CreatedAt.ToString("dd.MM.yyyy")</td>
+                    <td>
+                        @if (q.CompletedAt.HasValue)
+                        {
+                            <span class="admin-badge admin-badge--done">Završen</span>
+                        }
+                        else if (q.Stage > 0)
+                        {
+                            <span class="admin-badge admin-badge--partial">Korak @q.Stage od 3</span>
+                        }
+                        else
+                        {
+                            <span class="admin-badge admin-badge--partial">Nije počeo</span>
+                        }
+                    </td>
+                    <td>
+                        @if (q.OptedOut)
+                        {
+                            <span class="admin-flag admin-flag--yes">Da</span>
+                        }
+                    </td>
+                    <td>
+                        @if (q.OfferSentAt.HasValue)
+                        {
+                            <span class="admin-flag admin-flag--yes">@q.OfferSentAt.Value.ToString("dd.MM.yyyy")</span>
+                        }
+                        else
+                        {
+                            <span class="admin-flag admin-flag--no">—</span>
+                        }
+                    </td>
+                    <td>
+                        <a href="/admin/@q.Id" class="admin-btn admin-btn--sm">Pregledaj</a>
+                    </td>
+                </tr>
+                rowNum++;
+            }
+        </tbody>
+    </table>
+}

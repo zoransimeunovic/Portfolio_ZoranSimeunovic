@@ -1,4 +1,5 @@
 using System.Globalization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Portfolio_ZoranSimeunovic.Data;
@@ -6,16 +7,31 @@ using Portfolio_ZoranSimeunovic.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MVC
 builder.Services.AddControllersWithViews();
 
-// EF Core + SQLite (Development)
-// Za produkciju, prebaci na MySQL/PostreSQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=portfolio.db";
+var isMySql = connectionString.StartsWith("Server=", StringComparison.OrdinalIgnoreCase);
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(connectionString));
+{
+    if (isMySql)
+        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    else
+        options.UseSqlite(connectionString);
+});
 
-// Podrzane kulture
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/admin/login";
+        options.LogoutPath = "/admin/logout";
+        options.ExpireTimeSpan = TimeSpan.FromHours(8);
+        options.SlidingExpiration = true;
+    });
+
+var graphClientId = builder.Configuration["MicrosoftGraph:ClientId"];
+if (!string.IsNullOrWhiteSpace(graphClientId))
+    builder.Services.AddSingleton(_ => new MsGraphClient.MsGraphClient(graphClientId));
+
 var supportedCultures = new[]
 {
     new CultureInfo("sr-Latn"),
@@ -41,7 +57,6 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -57,13 +72,13 @@ app.UseRequestLocalization(
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Primeni EF Core migrations
 var isConfigured = !string.IsNullOrWhiteSpace(connectionString) &&
                    !connectionString.Contains("Server=;");
 if (isConfigured)
