@@ -9,15 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=portfolio.db";
-var isMySql = connectionString.StartsWith("Server=", StringComparison.OrdinalIgnoreCase);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' nije konfigurisan.");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    if (isMySql)
-        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-    else
-        options.UseSqlite(connectionString);
-});
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -79,11 +75,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-var isConfigured = !string.IsNullOrWhiteSpace(connectionString) &&
-                   !connectionString.Contains("Server=;");
-if (isConfigured)
+using (var scope = app.Services.CreateScope())
 {
-    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     try
     {
@@ -91,8 +84,7 @@ if (isConfigured)
     }
     catch (Exception ex)
     {
-        app.Logger.LogWarning(ex,
-            "Migracija baze nije uspela (provjeri connection string u appsettings.json).");
+        app.Logger.LogWarning(ex, "Migracija baze nije uspjela.");
     }
 }
 

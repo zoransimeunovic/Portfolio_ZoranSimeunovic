@@ -1,21 +1,16 @@
-/* =====================================================================
-   ZS.dev — Portfolio Zoran Simeunović
-   Boje, tipografija i sve sekcije. Font: Outfit.
-   ===================================================================== */
-
 :root {
-    --primary:      #030E1F;   /* pozadina */
-    --secondary:    #DDE6F5;   /* svijetli tekst */
-    --accent:       #156EF6;   /* plava */
-    --surface:      #132949;   /* kartice (druga sekundarna) */
-    --surface-2:    #1C2635;   /* tamnija kartica (druga tercijalna) */
-    --muted:        #8A9BB8;   /* prigušeni sivo-plavi tekst */
+    --primary:      #030E1F;
+    --secondary:    #DDE6F5;
+    --accent:       #156EF6;
+    --surface:      #132949;
+    --surface-2:    #1C2635;
+    --muted:        #8A9BB8;
     --border:       rgba(221, 230, 245, 0.10);
     --radius:       16px;
     --radius-sm:    10px;
 
-    /* Desktop grid: stranica 1440, margin 72, 12 kolona, gutter 24.
-       Sadržaj = 1440 - 2*72 = 1296.  Kolona = (1296 - 11*24) / 12 = 86. */
+    /* Desktop grid: 1440 stranica, margin 72, 12 kolona, gutter 24.
+       Sadržaj = 1296. Kolona = 86. */
     --page:         1440px;
     --margin:       72px;
     --gutter:       24px;
@@ -46,11 +41,9 @@ img { max-width: 100%; display: block; }
     width: 100%;
     max-width: var(--container);
     margin: 0 auto;
-    /* na 1440 ovo daje margin 72 lijevo/desno; ispod toga padding hvata uže ekrane */
     padding: 0 var(--gutter);
 }
 
-/* ---------- Buttons ---------- */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -79,9 +72,7 @@ img { max-width: 100%; display: block; }
 }
 .btn-sm { padding: 10px 18px; font-size: 0.82rem; }
 
-/* =====================================================================
-   HEADER / NAV
-   ===================================================================== */
+/* ── HEADER / NAV ─────────────────────────────────────────────────────────── */
 .site-header {
     position: sticky;
     top: 0;
@@ -105,7 +96,6 @@ img { max-width: 100%; display: block; }
     opacity: 0.8;
 }
 .navbar-brand:hover { opacity: 1; }
-/* Linkovi + CTA + globus grupisani uz desnu ivicu (brand ostaje lijevo) */
 .nav-links { gap: 12px; margin-left: auto; }
 .nav-links .nav-link {
     color: var(--secondary);
@@ -120,10 +110,10 @@ img { max-width: 100%; display: block; }
 
 .nav-right { display: flex; align-items: center; gap: 18px; margin-left: 28px; }
 
-/* CONTACT ME u headeru — cream bg, tamni tekst op 80% (Figma: 120×39, radius 4) */
+/* Figma: 120×39, radius 4 */
 .nav-cta {
     background: var(--secondary);
-    color: rgba(3, 14, 31, 0.8);   /* tamni tekst na 80% */
+    color: rgba(3, 14, 31, 0.8);
     border: none;
     border-radius: 4px;
     font-weight: 700;
@@ -139,7 +129,7 @@ img { max-width: 100%; display: block; }
     box-shadow: 0 0 12px rgba(21, 110, 246, 0.40);
 }
 
-/* Language switcher — globus ikona (Figma: 39×39, opacity 0.6, bez okvira) */
+/* Figma: 39×39, opacity 0.6 */
 .lang-dropdown { position: relative; }
 .lang-toggle {
     display: flex;
@@ -183,14 +173,10 @@ img { max-width: 100%; display: block; }
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23DDE6F5' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* =====================================================================
-   SECTION HELPERS
-   ===================================================================== */
-/* Razmak gornje/donje ivice sekcije do prvog/posljednjeg elementa = 96 */
+/* ── SEKCIJE ──────────────────────────────────────────────────────────────── */
 section { padding: 96px 0; position: relative; }
 .section-head { margin-bottom: 54px; }
 .section-head.text-center { text-align: center; }
-/* Header iznad naslova: 14 Regular, opacity 60% */
 .section-label {
     display: inline-block;
     color: var(--secondary);
@@ -199,7 +185,6 @@ section { padding: 96px 0; position: relative; }
     font-weight: 400;
     margin-bottom: 12px;
 }
-/* Naslovi sekcija: 48 Bold */
 .section-title {
     font-size: 48px;
     font-weight: 700;
@@ -207,7 +192,6 @@ section { padding: 96px 0; position: relative; }
     line-height: 1.15;
     margin: 0 0 14px;
 }
-/* Podnaslovi: 16 Regular, opacity 60% */
 .section-sub {
     color: var(--secondary);
     opacity: 0.6;
@@ -216,20 +200,15 @@ section { padding: 96px 0; position: relative; }
     margin: 0;
 }
 
-/* =====================================================================
-   HERO — Figma 1440×836 scena (koordinate: top = figma_top - 87px navbar)
-   Cijela scena se proporcionalno skalira (--hero-scale postavlja site.js).
-   ===================================================================== */
+/* ── HERO — Figma 1440×670 scena ─────────────────────────────────────────── */
+/* aspect-ratio umjesto padding-bottom %: poštuje max-width na ekranima > 1440px */
 .hero {
     position: relative;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
-    /* aspect-ratio umjesto padding-bottom % trika: padding % se racuna od sirine
-       RODITELJSKOG elementa (main = puna sirina), a ne samog elementa. Na ekranima
-       > 1440px to bi stvorilo prazan prostor ispod. aspect-ratio postuje max-width. */
     aspect-ratio: 1440 / 670;
-    padding: 0;                   /* override global section { padding: 96px 0 } */
+    padding: 0;
     overflow: hidden;
     background: var(--primary);
 }
@@ -245,8 +224,6 @@ section { padding: 96px 0; position: relative; }
 }
 .hero-stage > * { position: absolute; }
 
-/* ---------- Vizual (desno) ---------- */
-/* Plavi bloom iza glave */
 .hero-glow {
     left: 949px; top: 157px;
     width: 400.65px; height: 368.37px;
@@ -257,7 +234,7 @@ section { padding: 96px 0; position: relative; }
     z-index: 0;
     pointer-events: none;
 }
-/* Tri koncentricna prstena, strike #132949, 3.8px */
+/* Tri koncentricna prstena, stroke #132949, 3.8px */
 .hero-ring {
     border: 3.8px solid var(--surface);
     border-radius: 50%;
@@ -284,6 +261,7 @@ section { padding: 96px 0; position: relative; }
     object-fit: cover;
     object-position: center top;
     z-index: 4;
+    /* mask: gornja polovina + krug po konturi prstena — fade u primary */
     -webkit-mask-image:
         linear-gradient(to bottom, black 50%, transparent 50%),
         radial-gradient(circle 262px at 213.18px 352.65px, black 97%, transparent 100%);
@@ -294,9 +272,7 @@ section { padding: 96px 0; position: relative; }
     mask-composite: add;
 }
 
-
-
-/* Kružni overlay — dno foto prelazi u primary boju duž luka srednjeg prstena */
+/* Kružni overlay — dno foto prelazi u primary duž luka prstena */
 .hero-photo-fade {
     left: 801.11px; top: 151.50px;
     width: 524px; height: 524px;
@@ -307,7 +283,7 @@ section { padding: 96px 0; position: relative; }
     pointer-events: none;
 }
 
-/* Govorni oblacic sa imenom (gore desno) */
+/* Govorni oblačić */
 .hero-name-tag {
     left: 1153px; top: 51px;
     background: var(--surface-2);
@@ -319,7 +295,7 @@ section { padding: 96px 0; position: relative; }
     white-space: nowrap;
     z-index: 5;
 }
-/* Rep: originalna veličina, pomjeren desno, rotiran 40° CW (vrh lijevo) */
+/* Rep oblačića — rotiran 40° CW */
 .hero-name-tag::after {
     content: "";
     position: absolute;
@@ -332,7 +308,7 @@ section { padding: 96px 0; position: relative; }
     transform-origin: 9px -34px;
 }
 
-/* Floating tehnologije — solidan tag + dvije poluprozirne (0.3) podloge iza */
+/* Floating tech tagovi — solidan tag + dvije poluprozirne (0.3) podloge */
 .float-tag {
     display: inline-flex;
     align-items: center;
@@ -356,13 +332,13 @@ section { padding: 96px 0; position: relative; }
     border-radius: 4px;
     opacity: 0.30;
 }
-.float-tag::before {          /* srednja podloga */
+.float-tag::before {
     width: calc(100% + 9px);
     height: calc(100% + 9px);
     transform: translate(-50%, -50%);
     z-index: -1;
 }
-.float-tag::after {           /* vanjska podloga */
+.float-tag::after {
     width: calc(100% + 19px);
     height: calc(100% + 19px);
     transform: translate(-50%, -50%);
@@ -375,7 +351,6 @@ section { padding: 96px 0; position: relative; }
 .tag-mysql   { --tag: #00758F; left: 1284.60px; top: 378.65px; transform: rotate(31.5deg); font-size: 15px; font-weight: 700; }
 .tag-aspnet  { --tag: #512BD4; left: 695.92px;  top: 548.91px; transform: rotate(3.27deg); font-size: 15px; }
 
-/* ---------- Tekst (lijevo) ---------- */
 .hero-copy { left: 72px; top: 160px; width: 550px; z-index: 6; }
 
 .badge-pill {
@@ -444,7 +419,6 @@ section { padding: 96px 0; position: relative; }
 }
 .btn-hero-secondary img { width: 22px; height: auto; }
 
-/* Proof / testimonials */
 .hero-proof { display: flex; align-items: center; gap: 16px; }
 .avatars { display: flex; align-items: center; }
 .avatars img,
@@ -471,28 +445,23 @@ section { padding: 96px 0; position: relative; }
     text-transform: uppercase;
 }
 
-/* =====================================================================
-   WORK
-   ===================================================================== */
+/* ── WORK ─────────────────────────────────────────────────────────────────── */
 .work { background: var(--primary); padding: 96px 0; overflow: hidden; }
-/* Sadrzaj 1296 (margine 72 na 1440) — 3 kartice 416 + 2 gutter 24 = 1296 stanu tacno;
-   inace 3. kartica biva odsjecena viewport-om */
+/* 3 kartice 416 + 2 gutter 24 = 1296 — stanu tačno, hover scale ne biva odrezan */
 .work .container { max-width: 1440px; padding: 0 72px; position: relative; z-index: 1; }
-/* Podnaslov u 2 reda (Figma: width 312px, height 48 = 2 linije × 24px) */
 .work .section-sub { max-width: 312px; margin-left: auto; margin-right: auto; }
 
 .work-carousel { display: block; }
-/* padding+negativna margina: viewport i dalje "kliposi" karusel, ali ostavlja
-   20px prostora da uvecana kartica (hover scale) ne bude odsjecena */
+/* padding+negativna margina: ostavlja 20px prostora za hover scale */
 .carousel-viewport { overflow: hidden; padding: 20px; margin: -20px -20px 0; }
 .carousel-track {
     display: flex;
-    gap: var(--gutter);          /* praznina između kartica = 1 Gutter (24) */
+    gap: var(--gutter);
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
 .work-card {
-    /* širina kartice = 4 kolone = 416; 3 kartice + 2 gutter-a = 1296 (cijeli sadržaj) */
+    /* 4 kolone = 416; 3 kartice + 2 guttera = 1296 (cijeli sadržaj) */
     flex: 0 0 416px;
     height: 615px;
     display: flex;
@@ -503,20 +472,19 @@ section { padding: 96px 0; position: relative; }
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-/* Hover: ravnomjerno uvecanje na sve strane — scale 1.02 (smanjen za 50%) */
 .work-card:hover {
     transform: scale(1.02);
     box-shadow: 0 0 12px rgba(21, 110, 246, 0.40);
 }
 .work-card-img {
     position: relative;
-    flex: 0 0 277px;      /* Figma: 416×277 */
+    flex: 0 0 277px;
     height: 277px;
     background: var(--surface-2);
     overflow: hidden;
 }
 .work-card-img img { width: 100%; height: 100%; object-fit: cover; }
-/* Desktop GUI (card 2) i Zeiterfassung (card 3): prikaz cijele slike, smanjena 20% */
+/* Desktop GUI i Zeiterfassung: prikaz cijele slike, smanjena 20% */
 .work-card:nth-child(2) .work-card-img img,
 .work-card:nth-child(3) .work-card-img img {
     object-fit: contain;
@@ -526,7 +494,6 @@ section { padding: 96px 0; position: relative; }
     object-fit: contain;
     transform: scale(0.9);
 }
-/* "Sjena" — poluprozirni sloj preko slike (Figma rgba(19,41,73,0.6)) */
 .work-card-img::after {
     content: "";
     position: absolute;
@@ -535,8 +502,7 @@ section { padding: 96px 0; position: relative; }
     z-index: 1;
     pointer-events: none;
 }
-/* Badge: padding 8px, auto dimenzije (širina = najduži red = "in AddWare Solutions"),
-   white-space nowrap da ostane u 2 reda. Font smanjen da se uklopi. */
+/* Badge: najduži red = "in AddWare Solutions" → white-space nowrap, 2 reda */
 .work-badge {
     position: absolute;
     right: 12px; bottom: 12px;
@@ -556,15 +522,11 @@ section { padding: 96px 0; position: relative; }
 .work-badge strong { display: block; font-size: 12px; font-weight: 700; }
 .work-badge span { font-size: 9px; opacity: 0.9; }
 a.work-badge:hover { color: var(--secondary); }
-/* body = 615 − 277 = 338px; overflow auto da duga desc ne prebriše tagove */
+/* body = 615 − 277 = 338px */
 .work-card-body { padding: 26px 24px 24px; flex: 0 0 338px; height: 338px; overflow: hidden; display: flex; flex-direction: column; }
-/* Naslov kartice (Figma): 32 Bold, opacity 75% */
 .work-card-title { font-size: 32px; font-weight: 700; color: var(--secondary); opacity: 0.75; line-height: 1.5; margin: 0 0 14px; }
-/* Tekst ispod: 16 Regular, opacity 75% */
 .work-card-desc { color: rgba(221, 230, 245, 0.8); opacity: 0.75; font-size: 16px; font-weight: 400; line-height: 1.5; margin: 0 0 22px; }
-/* Skill tagovi poravnati uz DONJU ivicu kartice */
 .work-techs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
-/* Skill ikone (Figma): 16 SemiBold, padding 8, radius 4, #FAFAFA */
 .tech-tag {
     background: var(--accent);
     color: #FAFAFA;
@@ -574,7 +536,6 @@ a.work-badge:hover { color: var(--secondary); }
     border-radius: 4px;
 }
 
-/* Kontrole ispod kartica: strelice lijevo i desno, tačkice u sredini */
 .carousel-controls {
     display: flex;
     align-items: center;
@@ -619,16 +580,14 @@ a.work-badge:hover { color: var(--secondary); }
 }
 .carousel-dots .dot.active { background: var(--accent); width: 26px; border-radius: 5px; }
 
-/* =====================================================================
-   ABOUT — Figma 1440×748 scena (tacne koordinate iz Design/figma/03-about.css)
-   ===================================================================== */
+/* ── ABOUT — Figma 1440×748 scena ────────────────────────────────────────── */
 .about {
     position: relative;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
     aspect-ratio: 1440 / 748;
-    padding: 0;                   /* override global section { padding: 96px 0 } */
+    padding: 0;
     overflow: hidden;
     background: var(--primary);
 }
@@ -643,7 +602,6 @@ a.work-badge:hover { color: var(--secondary); }
 }
 .about-stage > * { position: absolute; }
 
-/* ---- Slika (lijevo) ---- */
 .ab-glow {
     left: 177px; top: 118px;
     width: 510px; height: 510px;
@@ -655,12 +613,12 @@ a.work-badge:hover { color: var(--secondary); }
     pointer-events: none;
 }
 .ab-ring {
-    border: 6px solid rgba(28, 38, 53, 0.6);   /* surface-2 #1C2635 @ 60% */
+    border: 6px solid rgba(28, 38, 53, 0.6);
     border-radius: 50%;
     z-index: 1;
 }
-.ab-ring-2 { left: 123px;    top: 65px;    width: 619px;    height: 619px; }       /* vanjski */
-.ab-ring-1 { left: 153.71px; top: 95.72px; width: 557.57px; height: 557.57px; }    /* unutrasnji */
+.ab-ring-2 { left: 123px;    top: 65px;    width: 619px;    height: 619px; }
+.ab-ring-1 { left: 153.71px; top: 95.72px; width: 557.57px; height: 557.57px; }
 .ab-photo {
     left: 183.5px; top: 126.43px;
     width: 497.06px; height: 497.06px;
@@ -671,7 +629,7 @@ a.work-badge:hover { color: var(--secondary); }
 }
 .ab-photo img {
     width: 100%; height: 100%;
-    object-fit: contain;          /* cijela glava + ramena vidljivi (kao u target slici) */
+    object-fit: contain;
     object-position: center bottom;
     transform: scaleX(-1);
 }
@@ -706,26 +664,19 @@ a.work-badge:hover { color: var(--secondary); }
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .ab-linkedin:hover { transform: scale(1.04); box-shadow: 0 0 12px rgba(21, 110, 246, 0.40); }
-.ab-li-rect {
-    grid-area: 1 / 1;
-    width: 63px; height: 63px;
-}
-.ab-li-sign {
-    grid-area: 1 / 1;
-    width: 47px; height: 42px;
-}
+.ab-li-rect { grid-area: 1 / 1; width: 63px; height: 63px; }
+.ab-li-sign { grid-area: 1 / 1; width: 47px; height: 42px; }
 
-/* ---- Govorni oblacic sa imenom (gore desno) ---- */
+/* Govorni oblačić — rep rotiran 40° CW */
 .ab-msg {
     left: 1083.76px; top: 81px;
     width: 146.1px; height: 34.38px;
     display: flex; align-items: center; justify-content: center;
-    background: var(--surface-2);      /* #1C2635 */
+    background: var(--surface-2);
     border-radius: 2px;
     z-index: 5;
 }
 .ab-msg span { font-size: 16px; line-height: 20px; color: rgba(221, 230, 245, 0.6); white-space: nowrap; }
-/* Rep: originalna veličina, pomjeren desno, rotiran 40° CW (vrh lijevo) */
 .ab-msg::after {
     content: "";
     position: absolute;
@@ -738,7 +689,6 @@ a.work-badge:hover { color: var(--secondary); }
     transform-origin: 9px -34px;
 }
 
-/* ---- Tekst (desno, left 842) ---- */
 .ab-copy { left: 842px; top: 91px; width: 527px; z-index: 4; }
 .ab-label {
     display: block;
@@ -788,13 +738,9 @@ a.work-badge:hover { color: var(--secondary); }
 .ab-btn-secondary:hover { color: var(--secondary); transform: scale(1.04); box-shadow: 0 0 12px rgba(21, 110, 246, 0.40); }
 .ab-btn-secondary img { width: 18px; height: 18px; }
 
-/* =====================================================================
-   PROCESS
-   ===================================================================== */
-/* Pozadinski vizuelni element: elipsa 1230×543, rotacija 24,5°,
-   gradijent #156EF6 (100% na 16% → 30% na 69%) */
+/* ── PROCESS ──────────────────────────────────────────────────────────────── */
+/* Elipsa 984×434, gradijent, rotacija -24.53°, opacity .08, blur 150 */
 .process { overflow: hidden; }
-/* Procesess light effect (Figma): 1230.32×542.58, gradient 251.89deg, op .08, blur 150, rot -24.53 */
 .process::before {
     content: "";
     position: absolute;
@@ -808,16 +754,12 @@ a.work-badge:hover { color: var(--secondary); }
     z-index: 0;
     pointer-events: none;
 }
-/* Proces container: 1440 sa padding 72 = content area 1296, poravnato sa gridom */
 .process .container { position: relative; z-index: 1; max-width: var(--page); padding: 0 72px; }
-
-
 .process .section-head { margin-bottom: 32px; }
 
 .process-wrap { position: relative; }
 
-/* Redoslijed kartica je PO KOLONAMA: kolona 1 = 1–4, kolona 2 = 5–8, kolona 3 = 9–11.
-   Kartica 363 (header-chip + naslov + tekst + krug). Razmak: horizontalno 112, vertikalno 46. */
+/* Redoslijed kartica PO KOLONAMA: 1–4, 5–8, 9–11. Kartica 363px. */
 .process-grid {
     display: grid;
     grid-auto-flow: column;
@@ -833,14 +775,14 @@ a.work-badge:hover { color: var(--secondary); }
 }
 .process-card {
     position: relative;
-    overflow: visible;            /* header-chip i krug sa brojem vire van gornje ivice */
+    overflow: visible;
     background: var(--surface);
     border: none;
     border-radius: 4px;
-    /* gore 30, lijevo 16, dole 16, desno 16 (ne manje od 16) */
     padding: 30px 16px 16px 16px;
     transition: transform 0.25s ease, border-color 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
 }
+/* Kartice 8, 9, 11 imaju gradient border mask koji se klipuje na primary */
 .process-card:nth-child(8),
 .process-card:nth-child(9),
 .process-card:nth-child(11) {
@@ -866,6 +808,7 @@ a.work-badge:hover { color: var(--secondary); }
 .process-card:nth-child(11):hover {
     box-shadow: 0 0 12px rgba(21, 110, 246, 0.40);
 }
+/* Pseudo-element popunjava pozadinu na hover (pokrije gradient masku) */
 .process-card:nth-child(8)::after,
 .process-card:nth-child(9)::after,
 .process-card:nth-child(11)::after {
@@ -884,13 +827,11 @@ a.work-badge:hover { color: var(--secondary); }
 .process-card:nth-child(11):hover::after {
     opacity: 1;
 }
-/* Hover: ravnomjerno uvecanje (bez pomjeranja gore), blur (box-shadow) — isto kao Work */
 .process-card:hover {
     transform: scale(1.04);
     box-shadow: 0 0 12px rgba(21, 110, 246, 0.40);
 }
-/* Kartica #5 je ista kao sve ostale (bez plavog okvira) */
-/* Krug sa brojem: 30×30, centar TAČNO na gornjem-desnom ćošku pravougaonika */
+/* Krug: 30×30, centar tačno na gornjem-desnom ćošku */
 .step-num {
     position: absolute;
     top: 0; right: 0;
@@ -904,12 +845,11 @@ a.work-badge:hover { color: var(--secondary); }
     display: flex; align-items: center; justify-content: center;
     z-index: 3;
 }
-/* Header-chip (tercijarna 2): vertikalno centriran NA gornjoj liniji kartice, lijeva margina 12 */
+/* Chip vertikalno centriran NA gornjoj liniji kartice, lijeva margina 12 */
 .step-tag {
     position: absolute;
     top: 0; left: 12px;
     transform: translateY(-50%);
-    z-index: 4;
     display: inline-flex;
     align-items: center;
     background: var(--surface-2);
@@ -935,29 +875,21 @@ a.work-badge:hover { color: var(--secondary); }
 }
 .step-cta:hover { background: linear-gradient(93.78deg, #156EF6 0%, #113AC2 102.39%); transform: none; box-shadow: none; }
 
-/* =====================================================================
-   IMPROVE
-   ===================================================================== */
-/* clip-path: calc(50% - 648px) = uvijek tačna desna/lijeva granica 1296px content-a */
+/* ── IMPROVE ──────────────────────────────────────────────────────────────── */
+/* clip-path drži sadržaj unutar 1296px bez vidljivih overflow efekata */
 .improve { clip-path: inset(-500px calc(50% - 648px) 0px calc(50% - 648px)); padding-bottom: 48px; }
-/* Kontejner mora biti 1440/72 da 3×416 + 2×24 = 1296px stane tacno */
 .improve .container { max-width: 1440px; padding: 0 72px; position: relative; }
 .improve .section-sub { font-size: 24px; }
-/* BG light effect uklonjen na zahtjev */
 .improve-glow { display: none; }
 
-/* Vizuelni element desno: 3 koncentrična kruga sa zajedničkim centrom.
-   Sekundarna 2 @ 60% opacity, stroke 4. Promjeri smanjeni 15%:
-   605→514, 449→382, 291→247. Podignuti gore tako da donja ivica ne ide
-   ispod gornjeg fiksnog pravougaonika.
-   NAPOMENA: tačna pozicija je aproksimacija — fino se podešava na finalnom layoutu. */
+/* Tri koncentrična kruga, stroke 4, promjeri 514/382/247 */
 .improve-rings {
     position: absolute;
     top: -290px;
     right: -90px;
     width: 514px;
     height: 514px;
-    border: 4px solid rgba(19, 41, 73, 0.6);   /* #132949 @ 60% */
+    border: 4px solid rgba(19, 41, 73, 0.6);
     border-radius: 50%;
     z-index: 0;
     pointer-events: none;
@@ -983,23 +915,19 @@ a.work-badge:hover { color: var(--secondary); }
 }
 .improve-col { display: flex; flex-direction: column; }
 
-/* Gornji fiksni pravougaonik: 416×89 (visina OBUHVATA i dugme), sekundarna 2,
-   tekst 20 Bold, margina L/T 24. Donji stroke 2 (tercijarna 2) razdvaja od liste;
-   inače su gornji i donji pravougaonik spojeni. */
+/* Gornji bar: 416×89, donji stroke 2 razdvaja od liste */
 .improve-bar {
     position: relative;
     width: 416px;
     min-height: 89px;
     height: auto;
     background: var(--surface);
-    /* padding-bottom: 35 = prostor za abs. button (height 27 + bottom 4 + margin 4) */
     padding: 24px 24px 35px 24px;
     border-bottom: 2px solid var(--surface-2);
 }
 .improve-heading { font-size: 20px; font-weight: 700; color: var(--secondary); margin: 0; line-height: 1.2; }
 
-/* Toggle dugme: unutar bara, dole-desno; padding 10/8, tekst 16 Bold sekundarna,
-   ikona Open/Close 7.85×13.33, lijeva margina ikone 10, desna 16, donja 4 */
+/* Toggle: abs. unutar bara, dole-desno */
 .improve-toggle {
     position: absolute;
     right: 16px;
@@ -1026,9 +954,7 @@ a.work-badge:hover { color: var(--secondary); }
 }
 .improve-toggle.open .toggle-icon { background-image: url("../images/icons/close.png"); }
 
-/* Donji pravougaonik: ista širina (416), visina po listi */
 .improve-body { width: 416px; background: var(--surface); }
-/* Grupe: lijeva margina 12, prva grupa top 8, spacing 20 */
 .check-group { margin: 0 0 20px 12px; padding: 0; }
 .improve-body .check-group:first-child { margin-top: 8px; }
 .check-group-title {
@@ -1036,10 +962,9 @@ a.work-badge:hover { color: var(--secondary); }
     font-size: 14px;
     font-weight: 700;
     text-transform: capitalize;
-    line-height: 1;                 /* Cap po visini */
+    line-height: 1;
     margin: 0 0 12px 12px;
 }
-/* Pitanja: 16 Regular, 12px od boxa (grupa već ima margin-left 12) */
 .check-item {
     display: flex;
     align-items: flex-start;
@@ -1077,8 +1002,7 @@ a.work-badge:hover { color: var(--secondary); }
     transform: rotate(45deg);
 }
 
-/* Ocjena: odmaknuta 24 od posljednjeg pitanja; frame 392×40, tercijarna 2px;
-   margine L/D 12, dole 16; tekst centriran 16 Bold sekundarna */
+/* Ocjena: frame 392×40, border accent, centriran tekst */
 .score-box {
     width: 392px;
     min-height: 40px;
@@ -1099,9 +1023,7 @@ a.work-badge:hover { color: var(--secondary); }
     line-height: 1.3;
 }
 
-/* =====================================================================
-   LAST CTA — "Take the first step" (Figma: 1296×441, gradient kartica)
-   ===================================================================== */
+/* ── CONTACT (Last CTA) ───────────────────────────────────────────────────── */
 .contact { padding: 32px 0 96px; }
 .contact .container { max-width: var(--page); padding: 0 72px; }
 .cta-card {
@@ -1115,7 +1037,6 @@ a.work-badge:hover { color: var(--secondary); }
     background: linear-gradient(93.78deg, #156EF6 0%, #113AC2 102.39%);
     border-radius: 8px;
 }
-/* Dekorativni koncentricni krugovi (bijeli, vrlo niska opacity) */
 .cta-circles {
     position: absolute;
     inset: 0;
@@ -1190,9 +1111,7 @@ a.work-badge:hover { color: var(--secondary); }
 .contact-result.ok { background: rgba(255, 255, 255, 0.95); color: #0c7a3e; }
 .contact-result.err { background: rgba(255, 255, 255, 0.95); color: #c0392b; }
 
-/* =====================================================================
-   FOOTER (Figma: border-top 2px #132949, ZS.dev 32px, legal red 14px)
-   ===================================================================== */
+/* ── FOOTER ───────────────────────────────────────────────────────────────── */
 .site-footer {
     background: var(--primary);
     border-top: 2px solid var(--surface);
@@ -1212,7 +1131,7 @@ a.work-badge:hover { color: var(--secondary); }
 .footer-social { display: flex; gap: 24px; align-items: center; }
 .footer-social img { width: 28px; height: 28px; }
 .footer-social a { display: inline-flex; align-items: center; justify-content: center; transition: transform 0.25s ease, filter 0.25s ease; }
-/* Footer LinkedIn badge: 33×33 #DDE6F5 kvadrat, radius 2, glyph 25×22 */
+/* LinkedIn: 33×33 kvadrat, radius 2, glyph 25×22 */
 .footer-social a[aria-label="LinkedIn"] {
     display: inline-flex;
     align-items: center;
@@ -1242,9 +1161,7 @@ a.work-badge:hover { color: var(--secondary); }
 .footer-bottom a { text-decoration: underline; }
 .footer-bottom a:hover { color: var(--accent); }
 
-/* =====================================================================
-   COOKIE MODAL
-   ===================================================================== */
+/* ── COOKIE MODAL ─────────────────────────────────────────────────────────── */
 .cookie-modal {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -1255,9 +1172,7 @@ a.work-badge:hover { color: var(--secondary); }
 .cookie-modal .modal-title { color: var(--secondary); font-weight: 700; }
 .cookie-modal .modal-footer { border-top: 1px solid var(--border); }
 
-/* =====================================================================
-   LEGAL PAGES
-   ===================================================================== */
+/* ── LEGAL PAGES ──────────────────────────────────────────────────────────── */
 .legal { padding: 60px 0 90px; min-height: 60vh; }
 .legal-back { color: var(--muted); font-size: 0.9rem; display: inline-block; margin-bottom: 24px; }
 .legal-back:hover { color: var(--accent); }
@@ -1268,9 +1183,7 @@ a.work-badge:hover { color: var(--secondary); }
 .legal-content a { color: var(--accent); }
 .legal-updated { font-size: 0.85rem; opacity: 0.7; margin-top: 30px; }
 
-/* =====================================================================
-   RESPONSIVE
-   ===================================================================== */
+/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
 @media (max-width: 1199px) {
     .work-card { flex: 0 0 calc((100% - 26px) / 2); }
 }
@@ -1313,10 +1226,7 @@ a.work-badge:hover { color: var(--secondary); }
     .q-btn { width: 100%; justify-content: center; }
 }
 
-/* =====================================================================
-   QUESTIONNAIRE — wizard forma
-   ===================================================================== */
-
+/* ── QUESTIONNAIRE ────────────────────────────────────────────────────────── */
 .q-page {
     min-height: 100vh;
     padding: 60px 0 80px;
@@ -1614,7 +1524,7 @@ a.work-badge:hover { color: var(--secondary); }
 .q-done-title { font-size: 2rem; font-weight: 700; margin-bottom: 20px; }
 .q-done-text { color: var(--muted); line-height: 1.7; margin-bottom: 12px; font-size: 16px; }
 
-/* ── Drop zone ─────────────────────────────────────────────────────── */
+/* Drop zone */
 .q-dropzones-row {
     display: flex;
     gap: 16px;

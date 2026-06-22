@@ -1,8 +1,21 @@
 # Portfolio ZoranSimeunovic — Projektna Dokumentacija
 
 ## Pravila — obavezno poštovati
-- **Cookies:** Zabranjena je upotreba bilo kojeg cookie-a koji nije esencijalan bez izričite saglasnosti vlasnika projekta. Svaki novi cookie koji nije esencijalan mora biti odobren od strane Zorana prije implementacije.
+
+### Kod
 - **Clean code:** Bez komentara koji opisuju ŠTA kod radi. Samo kratki inline komentari za neočigledno ZAŠTO. Bez XML doc blokova. File-scoped namespace u C#.
+- **Bez prepisa fajlova:** Uvijek pročitaj fajl, pa uradi ciljani Edit. Nikad ne prepiši cijeli fajl bez eksplicitnog odobrenja.
+- **Bez nepotrebnih apstrakcija:** Ne dodavati feature-e, refaktoringe ni apstrakcije koje zadatak ne zahtijeva.
+
+### Brisanje
+- **Slike:** Nikad ne brisati slike bez Zoranove eksplicitne saglasnosti — predložiti, ne brisati.
+- **Fajlovi/kod:** Provjeri da li je nešto zaista mrtvi kod (grep, čitanje) prije brisanja.
+
+### Cookies
+- Zabranjena je upotreba bilo kojeg cookie-a koji nije esencijalan bez izričite saglasnosti vlasnika projekta. Svaki novi cookie mora biti odobren od strane Zorana.
+
+### Komunikacija
+- Odgovaraj na srpskom jeziku. Tehnički termini mogu ostati na engleskom.
 
 ---
 
@@ -17,7 +30,7 @@
 | Layer | Tehnologija |
 |-------|------------|
 | Backend | ASP.NET Core MVC 8.0, C# 12, Entity Framework Core 8.0.10 |
-| Baza | SQLite (development) / MySQL Pomelo 8.0.2 (production) |
+| Baza | MySQL Pomelo 8.0.2 |
 | Frontend | Razor Views, Bootstrap 5 (grid only), jQuery, Vanilla JS, CSS3 (dark theme) |
 | Design Tool | Figma → CSS export + manual refinement |
 | IDE | Visual Studio 2022 |
@@ -32,22 +45,29 @@
 ### Ključni Fajlovi
 | Fajl | Namena |
 |------|--------|
-| `Controllers/HomeController.cs` | 6 akcija: Index, Contact (POST), UpdateChecklist (POST), SetLanguage, Privacy, Terms, Error |
-| `Data/AppDbContext.cs` | EF DbContext — 2 tabele: contact_leads, checklist_answers |
-| `Models/ContactLead.cs` | Name, Email, Language, CreatedAt |
-| `Models/ChecklistAnswer.cs` | ContactLeadId, ListKey, ItemText, CreatedAt (FK → ContactLead CASCADE) |
-| `Models/ErrorViewModel.cs` | RequestId, ShowRequestId |
-| `Content/SiteText.cs` | Model klase za sve sekcije (Nav, Hero, Work, About, Process, Improve, Contact, Footer, Cookie, Legal) |
-| `Content/SiteTextProvider.cs` | BuildEn(), BuildDe(), BuildSr() — sav tekstualni sadržaj za 3 jezika |
+| `Controllers/HomeController.cs` | Index, Contact (POST), UpdateChecklist (POST), SetLanguage, Privacy, Terms, Error |
+| `Controllers/AdminController.cs` | Login, admin panel — lista upitnika, detalji, fajlovi, dokumenti |
+| `Controllers/QuestionnaireController.cs` | Wizard upitnik — Start, Step1/2/3 (POST), Done, OptOut, upload fajlova |
+| `Data/AppDbContext.cs` | EF DbContext — 6 tabela |
+| `Models/ContactLead.cs` | Name, Email, Language, OptedOut, OfferSentAt, CreatedAt |
+| `Models/Questionnaire.cs` | Token (30 dana), Stage, Step1/2/3Answers (JSON), CompletedAt |
+| `Models/Document.cs` | Admin upload — FullName, StoredFileName, ContentType, SizeBytes |
+| `Models/QuestionnaireFile.cs` | Fajlovi koje klijent šalje uz upitnik |
+| `Models/ChecklistAnswer.cs` | FK → ContactLead, ListKey, ItemText |
+| `Models/ClientAction.cs` | Akcija klijenta (token linkovi) |
+| `Content/SiteText.cs` | Model klase za sve sekcije portfloija |
+| `Content/SiteTextProvider.cs` | BuildEn(), BuildDe(), BuildSr() — tekstovi za 3 jezika |
+| `Content/QuestionLabels.cs` | Mapa ključ→labela za prikaz odgovora iz upitnika u admin panelu |
+| `MsGraphClient/MsGraphClient.cs` | SendEmailAsync() via Microsoft Graph API |
 | `Localization/BrowserCultureProvider.cs` | Accept-Language → kultura; exYu jezici → sr-Latn |
-| `Views/Home/Index.cshtml` | Glavna stranica: 8 sekcija (hero, work, about, process, improve, contact, footer, cookie modal) |
-| `Views/Home/Privacy.cshtml` | Politika privatnosti |
-| `Views/Home/Terms.cshtml` | Uslovi korišćenja |
-| `Views/Shared/_Layout.cshtml` | Layout: navbar, footer, Bootstrap + custom CSS |
-| `wwwroot/css/site.css` | Dark theme (boje, tipografija, layout, responsive) |
-| `wwwroot/js/site.js` | Carousel, checklist scoring, AJAX forma, CSS var scaling |
-| `Program.cs` | Startup: MVC, SQLite/MySQL, localization, migrations |
-| `appsettings.json` | Production config (connection string placeholder) |
+| `Views/Home/Index.cshtml` | Glavna stranica: hero, work, about, process, improve, contact, footer, cookie |
+| `Views/Admin/` | Login, Index (lista), Detail (odgovori + fajlovi), Documents |
+| `Views/Questionnaire/` | Step1, Step2, Step3, Done, OptOut, Expired |
+| `Views/Shared/_Layout.cshtml` | Navbar, footer, Bootstrap + custom CSS |
+| `wwwroot/css/site.css` | Dark theme portfolio |
+| `wwwroot/css/admin.css` | Admin panel stilovi |
+| `wwwroot/js/site.js` | Carousel, checklist scoring, AJAX forma, Figma scale |
+| `Program.cs` | Startup: MVC, MySQL, cookie auth, localization, migrations |
 | `appsettings.Development.json` | ⚠️ Dev konekcija — u .gitignore |
 
 ---
@@ -56,25 +76,23 @@
 
 ### Konekcija
 
-**Development — SQLite:**
+**MySQL (development i production):**
 ```json
-{ "ConnectionStrings": { "DefaultConnection": "Data Source=portfolio.db" } }
+{ "ConnectionStrings": { "DefaultConnection": "Server=...;Database=portfolio_zs;User=...;Password=...;" } }
 ```
 
-**Production — MySQL/Cloud:**
-```json
-{ "ConnectionStrings": { "DefaultConnection": "" } }
-```
-
-### Tabele (2)
-- **contact_leads** — Kontakt podaci iz "Take the first step" forme
-- **checklist_answers** — Odgovori iz "How to improve" sekcije (FK → contact_leads, CASCADE delete)
+### Tabele (6)
+- **contact_leads** — Kontakt podaci + OptedOut + OfferSentAt
+- **checklist_answers** — Odgovori checkliste (FK → contact_leads, CASCADE)
+- **questionnaires** — Token, Stage, Step1/2/3Answers JSON, CompletedAt
+- **questionnaire_files** — Fajlovi uz upitnik (FK → questionnaires)
+- **documents** — Admin upload dokumenti
+- **client_actions** — Token akcije klijenta
 
 ### EF Core Migrations
-- Sistem: `dotnet ef migrations` (od 20.06.2026)
 - `Program.cs` pokreće `db.Database.Migrate()` pri startu
 - Migracije u `/Migrations/` folderu
-- Trenutna: `20260620213237_InitialCreate`
+- Posljednja: `20260622202525_AddQuestionnaireFiles`
 
 ```bash
 dotnet ef migrations add NazivMigracije
@@ -82,7 +100,7 @@ dotnet ef migrations remove
 ```
 
 ### Status
-✅ **FUNKCIONALNA** — SQLite sa migracima, `portfolio.db` se kreira automatski
+✅ **FUNKCIONALNA** — MySQL sa EF Core migracijama, `db.Database.Migrate()` pri startu
 
 ---
 
@@ -130,7 +148,7 @@ dotnet ef migrations remove
 ### Bootstrap 5
 - Grid only (12 kolona, margin 72, gutter 24)
 - CDN: jquery.min.js, bootstrap.bundle.min.js
-- Font: Google Fonts — Outfit 400/600/700
+- Font: Google Fonts — Outfit 400/600/700/800
 
 ### Sekcije na Index Stranici
 1. **Hero** — Badge, heading, CTA, avatar proof, tech floating tags
@@ -174,17 +192,16 @@ dotnet ef migrations remove
 
 ---
 
-## KONTROLER AKCIJE (HomeController.cs)
+## KONTROLER AKCIJE
 
-| Akcija | Metod | Opis |
-|--------|-------|------|
-| `Index` | GET | Glavna stranica |
-| `Contact` | POST | AJAX kontakt forma → JSON `{success, message, leadId}` |
-| `UpdateChecklist` | POST | Sprema checklist odgovore za dati leadId |
-| `SetLanguage` | GET | Setuje `lang` cookie; validira na en/de/sr-Latn |
-| `Privacy` | GET | Politika privatnosti |
-| `Terms` | GET | Uslovi korišćenja |
-| `Error` | GET | Error stranica (ResponseCache NoStore) |
+**HomeController** — portfolio stranica  
+Index, Contact (POST → JSON), UpdateChecklist (POST), SetLanguage, Privacy, Terms, Error
+
+**AdminController** (`/admin`) — zaštićen cookie auth  
+Login/LoginPost/Logout, Index, Detail, Delete, OfferSent, Documents, DocumentUpload/Download/Delete, QFileDownload
+
+**QuestionnaireController** (`/q`) — token wizard  
+Start (kreira token → redirect), Step1/2/3 (GET+POST), Done, OptOut, file upload (PrivateUploads/)
 
 ---
 
@@ -203,12 +220,12 @@ dotnet ef migrations remove
 
 ### ✓ RIJEŠENO
 - ✓ .gitignore — appsettings.Development.json isključen
-- ✓ Git repozitorijum — pushovan na GitHub
 - ✓ Localization — 3 jezika implementirana
 - ✓ Kontakt forma — AJAX + DB persistencija
 - ✓ Checklists scoring — dinamički rezultati
-- ✓ SQLite migrations — funkcionalno
-- ✓ Clean code refaktoring — 21.06.2026
+- ✓ EF Core migrations (MySQL) — funkcionalno
+- ✓ Admin panel + upitnik wizard — implementirani 22.06.2026
+- ✓ Deep clean code — uklonjen mrtvi kod, GraphMailClient, komentari — 22.06.2026
 
 ---
 
@@ -238,7 +255,6 @@ Varijabla: `ASPNETCORE_ENVIRONMENT=Development`
 Microsoft.EntityFrameworkCore          8.0.10
 Microsoft.EntityFrameworkCore.Design   8.0.10
 Pomelo.EntityFrameworkCore.MySql       8.0.2
-Microsoft.EntityFrameworkCore.Sqlite   8.0.10
 ```
 
 ---
@@ -258,4 +274,4 @@ GitHub: zoransimeunovic | Portfolio: https://zoransimeunovic.de
 4. **Lokalizacija** → sekcija "LOKALIZACIJA"
 5. **Debugging** → sekcija "PROBLEMI"
 
-**Napomena:** Dokumentacija verificirana i ažurirana 21.06.2026 nakon clean code refaktoringa.
+**Napomena:** Dokumentacija ažurirana 22.06.2026.

@@ -192,8 +192,6 @@ public class AdminController : Controller
         return Redirect($"/admin/{id}");
     }
 
-    // ── Dokumenti ─────────────────────────────────────────────────────────
-
     [Authorize]
     [HttpGet("documents")]
     public async Task<IActionResult> Documents()
@@ -298,8 +296,6 @@ public class AdminController : Controller
 
         return Redirect("/admin/documents");
     }
-
-    // ── Helpers ───────────────────────────────────────────────────────────
 
     private string PrivateUploadsPath() =>
         Path.Combine(_env.ContentRootPath, "PrivateUploads");

@@ -13,13 +13,11 @@ var host = Host.CreateDefaultBuilder(args)
     })
     .ConfigureServices((ctx, services) =>
     {
-        var conn = ctx.Configuration.GetConnectionString("DefaultConnection")!;
+        var conn = ctx.Configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' nije konfigurisan.");
 
-        if (conn.StartsWith("Data Source", StringComparison.OrdinalIgnoreCase))
-            services.AddDbContext<SyncDbContext>(o => o.UseSqlite(conn));
-        else
-            services.AddDbContext<SyncDbContext>(o =>
-                o.UseMySql(conn, ServerVersion.AutoDetect(conn)));
+        services.AddDbContext<SyncDbContext>(o =>
+            o.UseMySql(conn, ServerVersion.AutoDetect(conn)));
 
         var clientId = ctx.Configuration["MicrosoftGraph:ClientId"]!;
         services.AddSingleton(_ => new MsGraphClient.MsGraphClient(clientId));

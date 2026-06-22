@@ -15,10 +15,6 @@
     <Content Remove="MsGraphClient/**" />
     <EmbeddedResource Remove="MsGraphClient/**" />
     <None Remove="MsGraphClient/**" />
-    <Compile Remove="GraphMailClient/**" />
-    <Content Remove="GraphMailClient/**" />
-    <EmbeddedResource Remove="GraphMailClient/**" />
-    <None Remove="GraphMailClient/**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,7 +28,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,6 @@ public static class QuestionLabels
 {
     private static readonly Dictionary<string, string> Labels = new()
     {
-        // Korak 1
         ["company"]              = "Naziv kompanije / brend",
         ["industry"]             = "Industrija",
         ["industryOther"]        = "Industrija (ostalo)",
@@ -16,7 +15,6 @@ public static class QuestionLabels
         ["websiteDesc"]          = "Opis web stranice",
         ["websiteDescOther"]     = "Opis web stranice (ostalo)",
 
-        // Korak 2
         ["websiteType"]          = "Tip web stranice",
         ["projectExtra"]         = "Dodatno (web app / desktop...)",
         ["projectExtraOther"]    = "Dodatno (ostalo)",
@@ -30,7 +28,6 @@ public static class QuestionLabels
         ["appUsersOther"]        = "Korisnici aplikacije (ostalo)",
         ["appUserCount"]         = "Broj korisnika",
 
-        // Korak 3
         ["goals"]                = "Ciljevi projekta",
         ["goalsOther"]           = "Ciljevi (ostalo)",
         ["biggestProblem"]       = "Najveći problem",

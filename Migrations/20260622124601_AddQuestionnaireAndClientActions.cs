@@ -56,9 +56,7 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                 type: "INTEGER",
                 nullable: false,
                 oldClrType: typeof(int),
-                oldType: "int")
-                .Annotation("Sqlite:Autoincrement", true)
-                .OldAnnotation("Sqlite:Autoincrement", true);
+                oldType: "int");
 
             migrationBuilder.AlterColumn<string>(
                 name: "list_key",
@@ -102,16 +100,13 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                 type: "INTEGER",
                 nullable: false,
                 oldClrType: typeof(int),
-                oldType: "int")
-                .Annotation("Sqlite:Autoincrement", true)
-                .OldAnnotation("Sqlite:Autoincrement", true);
+                oldType: "int");
 
             migrationBuilder.CreateTable(
                 name: "client_actions",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    id = table.Column<int>(type: "INTEGER", nullable: false),
                     contact_id = table.Column<int>(type: "INTEGER", nullable: false),
                     action_type = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     executed_at = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -131,8 +126,7 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                 name: "questionnaire",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    id = table.Column<int>(type: "INTEGER", nullable: false),
                     contact_id = table.Column<int>(type: "INTEGER", nullable: false),
                     token = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
                     token_expires_at = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -225,9 +219,7 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
-                oldType: "INTEGER")
-                .Annotation("Sqlite:Autoincrement", true)
-                .OldAnnotation("Sqlite:Autoincrement", true);
+                oldType: "INTEGER");
 
             migrationBuilder.AlterColumn<string>(
                 name: "list_key",
@@ -271,9 +263,7 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(int),
-                oldType: "INTEGER")
-                .Annotation("Sqlite:Autoincrement", true)
-                .OldAnnotation("Sqlite:Autoincrement", true);
+                oldType: "INTEGER");
         }
     }
 }

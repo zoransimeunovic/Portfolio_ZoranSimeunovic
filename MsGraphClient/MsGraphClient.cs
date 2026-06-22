@@ -73,18 +73,4 @@ public class MsGraphClient
         }
     }
 
-    public async Task<GraphResult<User>> GetCurrentUserAsync(CancellationToken ct = default)
-    {
-        try
-        {
-            var user = await _client.Me.GetAsync(cancellationToken: ct);
-            return user is null
-                ? GraphResult<User>.Fail("User not found")
-                : GraphResult<User>.Ok(user);
-        }
-        catch (Exception ex)
-        {
-            return GraphResult<User>.Fail(ex.Message);
-        }
-    }
 }

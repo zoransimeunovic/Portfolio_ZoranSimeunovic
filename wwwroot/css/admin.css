@@ -6,7 +6,6 @@
     margin: 0;
 }
 
-/* Nav */
 .admin-nav {
     background: var(--surface, #132949);
     border-bottom: 1px solid #1e3a5f;
@@ -40,14 +39,12 @@
 .admin-nav-link:hover { opacity: 1; color: var(--accent, #156EF6); }
 .admin-nav-link--logout { color: var(--muted, #8A9BB8); }
 
-/* Main container */
 .admin-main {
     max-width: 1100px;
     margin: 0 auto;
     padding: 40px 24px;
 }
 
-/* Login */
 .admin-login-wrap {
     min-height: 100vh;
     display: flex;
@@ -78,7 +75,6 @@
     margin-bottom: 18px;
 }
 
-/* Fields */
 .admin-field {
     margin-bottom: 16px;
 }
@@ -111,7 +107,6 @@
     border-color: var(--accent, #156EF6);
 }
 
-/* Buttons */
 .admin-btn {
     display: inline-block;
     background: var(--accent, #156EF6);
@@ -134,7 +129,6 @@
 .admin-btn--danger { background: rgba(220, 53, 69, 0.8); }
 .admin-btn--danger:hover { background: rgba(220, 53, 69, 1); opacity: 1; }
 
-/* Page title */
 .admin-page-title {
     font-size: 22px;
     font-weight: 700;
@@ -146,7 +140,6 @@
     font-size: 15px;
 }
 
-/* Back link */
 .admin-back {
     display: inline-block;
     color: var(--muted, #8A9BB8);
@@ -158,8 +151,6 @@
 
 .admin-back:hover { color: var(--secondary, #DDE6F5); }
 
-/* Client header */
-/* Actions bar on detail page */
 .admin-actions-bar {
     display: flex;
     gap: 12px;
@@ -176,7 +167,6 @@
     font-weight: 600;
 }
 
-/* Client header badges */
 .admin-client-badges {
     display: flex;
     flex-direction: column;
@@ -190,7 +180,6 @@
     border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
-/* Row/flag styles */
 .admin-row--opted-out td { opacity: 0.6; }
 
 .admin-flag { font-size: 13px; }
@@ -212,7 +201,6 @@
     margin: 4px 0 0;
 }
 
-/* Badges */
 .admin-badge {
     display: inline-block;
     padding: 4px 12px;
@@ -233,7 +221,6 @@
     border: 1px solid rgba(138, 155, 184, 0.2);
 }
 
-/* Table */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
@@ -261,7 +248,6 @@
 .admin-table tr:hover td { background: rgba(19, 41, 73, 0.4); }
 .admin-td--muted { color: var(--muted, #8A9BB8); }
 
-/* Answer sections */
 .admin-step {
     background: var(--surface, #132949);
     border-radius: 12px;
@@ -304,7 +290,6 @@
     word-break: break-word;
 }
 
-/* Documents */
 .admin-docs-header {
     display: flex;
     align-items: flex-start;
@@ -367,7 +352,6 @@
     align-items: center;
 }
 
-/* Questionnaire file links in Detail view */
 .admin-file-link {
     color: var(--accent, #156EF6);
     text-decoration: none;

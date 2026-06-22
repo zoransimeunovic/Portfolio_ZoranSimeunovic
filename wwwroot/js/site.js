@@ -1,11 +1,3 @@
-/* =====================================================================
-   ZS.dev — interaktivnost
-   - Work carousel (responsive: 3 / 2 / 1 kartica)
-   - "How to improve" accordion + dinamicki scoring
-   - Kontakt forma (AJAX snimanje u bazu)
-   - Automatsko snimanje checklist odgovora pri svakoj promjeni
-   - Zatvaranje mobilnog menija na klik
-   ===================================================================== */
 (function () {
     "use strict";
 
@@ -20,7 +12,6 @@
         initMobileMenuClose();
     });
 
-    /* ----------------------- FIGMA STAGE SCALE -------------------------- */
     /* Sekcije gradjene kao apsolutne 1440px Figma scene (.hero-stage,
        .fig-stage) skaliraju se proporcionalno prema sirini da izgledaju
        identicno Figmi na svim ekranima. */
@@ -48,7 +39,6 @@
         });
     }
 
-    /* ----------------------------- CAROUSEL ----------------------------- */
     function initCarousel() {
         var root = document.querySelector("[data-carousel]");
         if (!root) return;
@@ -158,7 +148,6 @@
         setPos(index, false);
     }
 
-    /* -------- SHARED: prikupi sve cekirane stavke -------- */
     function collectChecked() {
         var checked = [];
         document.querySelectorAll("[data-checklist]").forEach(function (list) {
@@ -171,7 +160,6 @@
         return checked;
     }
 
-    /* -------- SHARED: snimi tekuce stanje checkliste na server -------- */
     function saveChecklist() {
         if (!state.leadId || !state.form) return;
         var checked = collectChecked();
@@ -190,7 +178,6 @@
         });
     }
 
-    /* --------------------------- CHECKLISTS ----------------------------- */
     function initChecklists() {
         var lists = document.querySelectorAll("[data-checklist]");
         lists.forEach(function (list) {
@@ -235,7 +222,6 @@
         });
     }
 
-    /* -------------------------- CONTACT FORM ---------------------------- */
     function initContactForm() {
         var form = document.getElementById("contactForm");
         if (!form) return;
@@ -288,7 +274,6 @@
         }
     }
 
-    /* ----------------------- MOBILE MENU CLOSE -------------------------- */
     function initMobileMenuClose() {
         var nav = document.getElementById("mainNav");
         if (!nav) return;

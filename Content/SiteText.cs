@@ -100,7 +100,7 @@ public class ImproveSection
 
 public class ImproveList
 {
-    public string Key { get; set; } = "";          // redesign | website | automation
+    public string Key { get; set; } = "";
     public string HeadingHtml { get; set; } = "";
     public List<ImproveGroup> Groups { get; set; } = new();
     public List<ScoreBand> Scores { get; set; } = new();

@@ -26,3 +26,14 @@ PrivateUploads/
 # OS
 Thumbs.db
 .DS_Store
+
+# SQLite (dev artifact)
+*.db
+*.db-shm
+*.db-wal
+
+# Temp fajlovi
+temp_migration.sql
+
+# VS Code
+.vscode/
