@@ -54,13 +54,29 @@
         if (!root) return;
 
         var track = root.querySelector("[data-track]");
-        var cards = Array.prototype.slice.call(track.children);
         var prevBtn = root.querySelector("[data-prev]");
         var nextBtn = root.querySelector("[data-next]");
         var dotsWrap = document.querySelector("[data-dots]");
-        if (cards.length === 0) return;
+        if (!track) return;
 
-        var index = 0;
+        var realCards = Array.prototype.slice.call(track.children);
+        var n = realCards.length;
+        if (n === 0) return;
+
+        // Kloniramo sve kartice na pocetak i kraj — omogucava beskonacni loop bez skoka
+        for (var i = n - 1; i >= 0; i--) {
+            var pre = realCards[i].cloneNode(true);
+            pre.setAttribute("aria-hidden", "true");
+            track.insertBefore(pre, track.firstChild);
+        }
+        realCards.forEach(function (card) {
+            var post = card.cloneNode(true);
+            post.setAttribute("aria-hidden", "true");
+            track.appendChild(post);
+        });
+
+        var index = n; // pocinjemo na prvoj pravoj kartici (preskacemo prepended clone-ove)
+        var busy = false;
 
         function perView() {
             var w = window.innerWidth;
@@ -69,36 +85,54 @@
             return 3;
         }
 
-        function maxIndex() {
-            return Math.max(0, cards.length - perView());
-        }
-
         function step() {
             var style = window.getComputedStyle(track);
             var gap = parseFloat(style.columnGap || style.gap || "0") || 0;
-            return cards[0].getBoundingClientRect().width + gap;
+            return realCards[0].getBoundingClientRect().width + gap;
         }
 
-        function render() {
-            if (index > maxIndex()) index = maxIndex();
-            if (index < 0) index = 0;
-            track.style.transform = "translateX(" + (-index * step()) + "px)";
-            if (prevBtn) prevBtn.disabled = index === 0;
-            if (nextBtn) nextBtn.disabled = index === maxIndex();
+        function setPos(i, animate) {
+            if (!animate) {
+                track.style.transition = "none";
+                track.style.transform = "translateX(" + (-i * step()) + "px)";
+                track.getBoundingClientRect();
+                track.style.transition = "";
+            } else {
+                track.style.transform = "translateX(" + (-i * step()) + "px)";
+            }
+        }
+
+        track.addEventListener("transitionend", function () {
+            if (index >= 2 * n) { index -= n; setPos(index, false); }
+            if (index < n)      { index += n; setPos(index, false); }
+            busy = false;
+            updateDots();
+        });
+
+        function navigate(dir) {
+            if (busy) return;
+            busy = true;
+            index += dir;
+            setPos(index, true);
             updateDots();
         }
 
         function buildDots() {
             if (!dotsWrap) return;
             dotsWrap.innerHTML = "";
-            var count = maxIndex() + 1;
-            if (count <= 1) return;
-            for (var i = 0; i < count; i++) {
+            if (perView() >= n) return;
+            for (var i = 0; i < n; i++) {
                 var dot = document.createElement("button");
                 dot.className = "dot";
                 dot.setAttribute("aria-label", "Slide " + (i + 1));
                 (function (i) {
-                    dot.addEventListener("click", function () { index = i; render(); });
+                    dot.addEventListener("click", function () {
+                        if (busy) return;
+                        busy = true;
+                        index = n + i;
+                        setPos(index, true);
+                        updateDots();
+                    });
                 })(i);
                 dotsWrap.appendChild(dot);
             }
@@ -107,22 +141,21 @@
         function updateDots() {
             if (!dotsWrap) return;
             var dots = dotsWrap.querySelectorAll(".dot");
-            dots.forEach(function (d, i) {
-                d.classList.toggle("active", i === index);
-            });
+            var ri = ((index - n) % n + n) % n;
+            dots.forEach(function (d, i) { d.classList.toggle("active", i === ri); });
         }
 
-        if (prevBtn) prevBtn.addEventListener("click", function () { index--; render(); });
-        if (nextBtn) nextBtn.addEventListener("click", function () { index++; render(); });
+        if (prevBtn) prevBtn.addEventListener("click", function () { navigate(-1); });
+        if (nextBtn) nextBtn.addEventListener("click", function () { navigate(1); });
 
         var resizeTimer;
         window.addEventListener("resize", function () {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () { buildDots(); render(); }, 150);
+            resizeTimer = setTimeout(function () { buildDots(); setPos(index, false); }, 150);
         });
 
         buildDots();
-        render();
+        setPos(index, false);
     }
 
     /* -------- SHARED: prikupi sve cekirane stavke -------- */

@@ -69,10 +69,20 @@
                                 <img src="~/images/work/@card.Image" alt="@card.Title" />
                                 @if (card.Duration != null)
                                 {
-                                    <div class="work-badge">
-                                        <strong>@card.Duration</strong>
-                                        <span>@card.DurationSub</span>
-                                    </div>
+                                    if (card.DurationUrl != null)
+                                    {
+                                        <a class="work-badge" href="@card.DurationUrl" target="_blank" rel="noopener noreferrer">
+                                            <strong>@card.Duration</strong>
+                                            <span>@card.DurationSub</span>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <div class="work-badge">
+                                            <strong>@card.Duration</strong>
+                                            <span>@card.DurationSub</span>
+                                        </div>
+                                    }
                                 }
                             </div>
                             <div class="work-card-body">
@@ -149,10 +159,10 @@
         </div>
 
         <div class="process-wrap">
-            <span class="process-line" aria-hidden="true"></span>
             <div class="process-grid">
             @for (var i = 0; i < Model.Process.Steps.Count; i++)
             {
+                if (i == 8) continue;
                 var step = Model.Process.Steps[i];
                 <div class="process-card@(i == 4 ? " process-card--featured" : "")">
                     <span class="step-num">@(i + 1)</span>
@@ -168,6 +178,16 @@
                         <p class="step-desc">@step.Description</p>
                     }
                 </div>
+                @if (i == 7)
+                {
+                    var s9 = Model.Process.Steps[8];
+                    <div class="process-card">
+                        <span class="step-num">9</span>
+                        <span class="step-tag">@s9.Tag</span>
+                        <h3 class="step-title">@s9.Title</h3>
+                        <p class="step-desc">@s9.Description</p>
+                    </div>
+                }
             }
             </div>
         </div>
