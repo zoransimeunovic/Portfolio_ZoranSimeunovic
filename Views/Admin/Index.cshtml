@@ -20,6 +20,7 @@ else
                 <th>Email</th>
                 <th>Datum</th>
                 <th>Upitnik</th>
+                <th>Notif.</th>
                 <th>Odjavio se</th>
                 <th>Ponuda poslana</th>
                 <th></th>
@@ -46,6 +47,20 @@ else
                         else
                         {
                             <span class="admin-badge admin-badge--partial">Nije počeo</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!q.CompletedAt.HasValue)
+                        {
+                            <span class="admin-td--muted">—</span>
+                        }
+                        else if (q.CompletionNotified)
+                        {
+                            <span class="admin-badge admin-badge--notif-ok" title="Notifikacija poslana">&#10003;</span>
+                        }
+                        else
+                        {
+                            <span class="admin-badge admin-badge--notif-pending" title="Čeka na slanje">&#9679;</span>
                         }
                     </td>
                     <td>

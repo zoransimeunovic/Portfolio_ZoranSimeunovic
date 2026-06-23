@@ -30,27 +30,27 @@
         if (!validateStep(3)) return;
         if (!validateRanking()) return;
         var btn = document.getElementById("submitBtn");
+        var origText = btn.textContent;
         btn.disabled = true;
-        btn.textContent = "Šalje se...";
+        btn.textContent = window.QText.btnSending;
         saveStep(3, function () {
-            showStep("done");
+            window.location.href = "/";
         }, function () {
             btn.disabled = false;
-            btn.textContent = "Pošaljite upitnik";
+            btn.textContent = origText;
         });
     };
 
     function showStep(step) {
-        ["step1", "step2", "step3", "stepDone"].forEach(function (id) {
+        ["step1", "step2", "step3"].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.style.display = "none";
         });
 
-        var target = step === "done" ? "stepDone" : "step" + step;
-        var el = document.getElementById(target);
+        var el = document.getElementById("step" + step);
         if (el) el.style.display = "block";
 
-        if (step !== "done") currentStep = step;
+        currentStep = step;
         updateProgress(step);
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -59,9 +59,8 @@
         var fill = document.getElementById("progressFill");
         var label = document.getElementById("progressLabel");
         if (!fill || !label) return;
-        var pct = step === "done" ? 100 : (step / 3) * 100;
-        fill.style.width = pct + "%";
-        label.textContent = step === "done" ? "Završeno" : "Korak " + step + " od 3";
+        fill.style.width = (step / 3) * 100 + "%";
+        label.textContent = window.QText.progressPattern.replace("{0}", step);
     }
 
     /* ---------- VALIDATION ---------- */
@@ -70,7 +69,7 @@
         if (step === 1) {
             var company = document.querySelector('[name="company"]');
             if (company && !company.value.trim()) {
-                showError(company, "Ovo polje je obavezno.");
+                showError(company, window.QText.companyRequired);
                 return false;
             }
         }
@@ -261,10 +260,7 @@
 
     /* ---------- OPT-OUT ---------- */
     window.optOut = function () {
-        var confirmed = window.confirm(
-            "Da li ste sigurni da se želite odjaviti?\n\n" +
-            "Ovo će prouzrokovati brisanje vaših dosadašnjih odgovora i kontakt podataka."
-        );
+        var confirmed = window.confirm(window.QText.optOutConfirm);
         if (!confirmed) return;
 
         var token = document.getElementById("qToken").value;
@@ -283,14 +279,14 @@
                 if (wrap) {
                     var msg = document.createElement("div");
                     msg.className = "q-opt-out-done";
-                    msg.innerHTML = "<p>Vaš zahtjev za odjavu je primljen.</p><p>Naš tim će obrisati vaše podatke u najkraćem roku.</p>";
+                    msg.innerHTML = window.QText.optOutDoneHtml;
                     wrap.appendChild(msg);
                 }
             } else {
-                alert("Greška pri slanju zahtjeva. Pokušajte ponovo.");
+                alert(window.QText.optOutError);
             }
         })
-        .catch(function () { alert("Greška pri slanju zahtjeva. Pokušajte ponovo."); });
+        .catch(function () { alert(window.QText.optOutError); });
     };
 
     /* ---------- RANKING VALIDATION ---------- */

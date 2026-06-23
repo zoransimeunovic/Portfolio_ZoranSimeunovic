@@ -111,6 +111,20 @@ img { max-width: 100%; display: block; }
 .nav-right { display: flex; align-items: center; gap: 18px; margin-left: 28px; }
 
 /* Figma: 120×39, radius 4 */
+.nav-questionnaire {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+}
+.nav-questionnaire:hover {
+    background: var(--accent);
+    color: #fff;
+}
 .nav-cta {
     background: var(--secondary);
     color: rgba(3, 14, 31, 0.8);
@@ -780,6 +794,7 @@ a.work-badge:hover { color: var(--secondary); }
     border: none;
     border-radius: 4px;
     padding: 30px 16px 16px 16px;
+    align-self: start;
     transition: transform 0.25s ease, border-color 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
 }
 /* Kartice 8, 9, 11 imaju gradient border mask koji se klipuje na primary */

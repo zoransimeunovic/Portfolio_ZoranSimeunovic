@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portfolio_ZoranSimeunovic.Data;
 
@@ -11,9 +12,11 @@ using Portfolio_ZoranSimeunovic.Data;
 namespace Portfolio_ZoranSimeunovic.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260623204811_AddNotificationFlagsRemoveClientActions")]
+    partial class AddNotificationFlagsRemoveClientActions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,8 +69,8 @@ namespace Portfolio_ZoranSimeunovic.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("ConfirmationEmailSentAt")
-                        .HasColumnType("datetime(6)");
+                    b.Property<bool>("ConfirmationEmailSent")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("ConfirmationToken")
                         .HasMaxLength(64)
@@ -99,17 +102,17 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                     b.Property<DateTime?>("OfferSentAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime?>("OptOutNotificationSentAt")
-                        .HasColumnType("datetime(6)");
+                    b.Property<bool>("OptOutNotificationSent")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("OptedOut")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("QuestionnaireEmailSentAt")
-                        .HasColumnType("datetime(6)");
+                    b.Property<bool>("QuestionnaireEmailSent")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime?>("RegistrationNotificationSentAt")
-                        .HasColumnType("datetime(6)");
+                    b.Property<bool>("RegistrationNotificationSent")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -178,9 +181,9 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("completed_at");
 
-                    b.Property<DateTime?>("CompletionNotificationSentAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("completion_notification_sent_at");
+                    b.Property<bool>("CompletionNotificationSent")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("completion_notification_sent");
 
                     b.Property<int>("ContactLeadId")
                         .HasColumnType("int")

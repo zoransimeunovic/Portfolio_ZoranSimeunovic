@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="site-header" id="home">
+    <header class="site-header">
         <nav class="navbar navbar-expand-lg">
             <div class="container nav-container">
                 <a class="navbar-brand" href="@indexUrl">ZS.dev</a>
@@ -48,6 +48,13 @@
                     </ul>
 
                     <div class="nav-right">
+                        @{
+                            var qRefToken = Context.Request.Cookies["q_ref"] ?? ViewBag.Token as string;
+                        }
+                        @if (!string.IsNullOrEmpty(qRefToken))
+                        {
+                            <a class="nav-questionnaire" href="/questionnaire?token=@qRefToken">@T.Nav.MyQuestionnaire</a>
+                        }
                         <a class="btn btn-sm nav-cta" href="@indexUrl#contact">@T.Nav.ContactMe</a>
 
                         <div class="dropdown lang-dropdown">

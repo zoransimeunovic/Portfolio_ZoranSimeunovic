@@ -9,4 +9,10 @@ public class ContactLead
     public DateTime CreatedAt { get; set; }
     public bool OptedOut { get; set; }
     public DateTime? OfferSentAt { get; set; }
+    public string? ConfirmationToken { get; set; }
+    public DateTime? EmailConfirmedAt { get; set; }
+    public DateTime? ConfirmationEmailSentAt { get; set; }
+    public DateTime? QuestionnaireEmailSentAt { get; set; }
+    public DateTime? RegistrationNotificationSentAt { get; set; }
+    public DateTime? OptOutNotificationSentAt { get; set; }
 }

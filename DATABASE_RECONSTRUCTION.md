@@ -1,154 +1,233 @@
-# Baza Podataka — Dokumentacija i Rekonstrukcija
+# Database Reconstruction — portfolio_zs
 
-**Baza:** `portfolio_zs` (MySQL)  
-**ORM:** Entity Framework Core 8.0.10 via Pomelo 8.0.2  
-**Migracije:** `db.Database.Migrate()` se pokreće automatski pri startu u `Program.cs`
+> **Pouzdani izvor podataka o bazi.** Ažurirati odmah pri svakoj promjeni šeme.  
+> Izvor: `AppDbContextModelSnapshot.cs` + EF migracije (zadnja: `20260623205314`)
 
 ---
 
 ## Konekcija
 
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=...;Port=3306;Database=portfolio_zs;User=...;Password=...;"
-  }
-}
-```
-
-Dev konekcija: `appsettings.Development.json` — u `.gitignore`, nikad ne commitovati.
+- **Engine:** MySQL (Pomelo 8.0.2)
+- **Database:** `portfolio_zs`
+- **Connection string:** `appsettings.Development.json` → `ConnectionStrings:DefaultConnection`  
+  (u `.gitignore` — nikad ne commitovati)
+- **Migracije:** automatski pri startu — `db.Database.Migrate()` u `Program.cs`
 
 ---
 
-## Tabele (6)
+## Važno: imenovanje kolona (naming convention)
 
-### contact_leads
-Kontakt podaci iz portfolijo forme + status ponude.
+Postoji **nedosljednost** u projektu koja se mora poštovati radi kompatibilnosti:
 
-| Kolona | Tip | Opis |
-|--------|-----|------|
-| Id | INT PK AI | |
-| Name | VARCHAR(120) NOT NULL | |
-| Email | VARCHAR(200) NOT NULL | |
-| Language | VARCHAR(10) | en / de / sr-Latn |
-| OptedOut | BOOL NOT NULL DEFAULT 0 | Klijent odbio upitnik |
-| OfferSentAt | DATETIME NULL | Datum slanja ponude |
-| CreatedAt | DATETIME NOT NULL | |
+| Tabela | Konvencija kolona | Razlog |
+|--------|------------------|--------|
+| `contact_leads` | **PascalCase** (`Id`, `Name`, `ConfirmationToken`...) | Nema `HasColumnName` u `AppDbContext` za `ContactLead` entitet |
+| Sve ostale tabele | **snake_case** (`id`, `token`, `contact_id`...) | Eksplicitni `HasColumnName` u `AppDbContext` |
 
-### checklist_answers
-Odgovori iz "How to improve" checkliste.
+Ovo važi i za `SyncDbContext` (SyncWorkerService) — on nema mapping za `ContactLead` kolone,
+pa se oslanja na iste PascalCase nazive.
 
-| Kolona | Tip | Opis |
-|--------|-----|------|
-| Id | INT PK AI | |
-| ContactLeadId | INT FK | → contact_leads (CASCADE DELETE) |
-| ListKey | VARCHAR(50) NOT NULL | "design" / "website" / "automation" |
-| ItemText | VARCHAR(500) NOT NULL | Tekst čekirane stavke |
-| CreatedAt | DATETIME NOT NULL | |
-
-### questionnaires
-Token-bazirani upitnik (3 koraka), vezan za ContactLead.
-
-| Kolona | Tip | Opis |
-|--------|-----|------|
-| Id | INT PK AI | |
-| ContactLeadId | INT FK | → contact_leads |
-| Token | VARCHAR(64) NOT NULL UNIQUE | GUID za pristup bez login-a |
-| ExpiresAt | DATETIME NOT NULL | 30 dana od kreiranja |
-| Stage | TINYINT NOT NULL DEFAULT 0 | 0=nov, 1=korak1, 2=korak2, 3=završen |
-| Step1Answers | TEXT NULL | JSON odgovori koraka 1 |
-| Step2Answers | TEXT NULL | JSON odgovori koraka 2 |
-| Step3Answers | TEXT NULL | JSON odgovori koraka 3 |
-| CompletedAt | DATETIME NULL | |
-| CreatedAt | DATETIME NOT NULL | |
-
-### questionnaire_files
-Fajlovi koje klijent šalje uz upitnik (Step 3).
-
-| Kolona | Tip | Opis |
-|--------|-----|------|
-| Id | INT PK AI | |
-| QuestionnaireId | INT FK | → questionnaires (CASCADE DELETE) |
-| FileLabel | VARCHAR(100) NOT NULL | Oznaka fajla ("logo", "brief"...) |
-| OriginalFileName | VARCHAR(260) NOT NULL | |
-| StoredFileName | VARCHAR(100) NOT NULL | GUID naziv na disku |
-| ContentType | VARCHAR(100) NOT NULL | |
-| SizeBytes | BIGINT NOT NULL | |
-| UploadedAt | DATETIME NOT NULL | |
-
-Fajlovi se čuvaju u `PrivateUploads/` (van wwwroot, nije javno dostupno).
-
-### documents
-Dokumenti koje admin uploaduje i šalje klijentima.
-
-| Kolona | Tip | Opis |
-|--------|-----|------|
-| Id | INT PK AI | |
-| FullName | VARCHAR(200) NOT NULL | Prikazni naziv |
-| OriginalFileName | VARCHAR(260) NOT NULL | |
-| StoredFileName | VARCHAR(100) NOT NULL | GUID naziv na disku |
-| ContentType | VARCHAR(100) NOT NULL | |
-| SizeBytes | BIGINT NOT NULL | |
-| UploadedAt | DATETIME NOT NULL | |
-
-Fajlovi se čuvaju u `PrivateUploads/` (isti folder kao questionnaire_files).
-
-### client_actions
-Log akcija klijenta putem token linkova.
-
-| Kolona | Tip | Opis |
-|--------|-----|------|
-| Id | INT PK AI | |
-| ContactLeadId | INT FK | → contact_leads |
-| ActionType | VARCHAR(50) NOT NULL | Tip akcije |
-| CreatedAt | DATETIME NOT NULL | |
+**Pravilo za buduće kolone:**
+- Nova kolona u `contact_leads` → **ne dodavati** `HasColumnName` (ostati PascalCase)
+- Nova kolona u ostalim tabelama → **obavezno** `HasColumnName("snake_case_naziv")`
 
 ---
 
-## EF Core Migrations
+## Tabele (5 aktivnih)
+
+### 1. `contact_leads`
+
+**C# model:** `Models/ContactLead.cs`
+
+| Kolona | MySQL tip | Null | Napomena |
+|--------|-----------|------|---------|
+| `Id` | `int` | NOT NULL | PK, AUTO_INCREMENT |
+| `Name` | `varchar(120)` | NOT NULL | |
+| `Email` | `varchar(200)` | NOT NULL | |
+| `Language` | `varchar(10)` | NULL | `en` / `de` / `sr-Latn` |
+| `CreatedAt` | `datetime(6)` | NOT NULL | UTC |
+| `OptedOut` | `tinyint(1)` | NOT NULL | default `0`; klijent odbio upitnik |
+| `OfferSentAt` | `datetime(6)` | NULL | admin akcija — datum slanja ponude |
+| `ConfirmationToken` | `varchar(64)` | NULL | UNIQUE INDEX; NULL dok SyncWorker ne generise |
+| `ConfirmationTokenExpiresAt` | `datetime(6)` | NULL | +48h od kreiranja tokena |
+| `EmailConfirmedAt` | `datetime(6)` | NULL | NULL = email nije potvrđen |
+| `ConfirmationEmailSentAt` | `datetime(6)` | NULL | SyncWorker flag — NULL = čeka slanje |
+| `QuestionnaireEmailSentAt` | `datetime(6)` | NULL | SyncWorker flag — NULL = čeka slanje |
+| `RegistrationNotificationSentAt` | `datetime(6)` | NULL | SyncWorker flag — NULL = čeka slanje |
+| `OptOutNotificationSentAt` | `datetime(6)` | NULL | SyncWorker flag — NULL = čeka slanje |
+
+**Indeksi:**
+- `PK_contact_leads` → `Id`
+- `IX_contact_leads_ConfirmationToken` → `ConfirmationToken` (UNIQUE)
+
+**SyncWorker upiti za ovu tabelu:**
+```sql
+-- Confirmation email
+WHERE ConfirmationToken IS NOT NULL AND ConfirmationEmailSentAt IS NULL
+
+-- Questionnaire pozivnica
+WHERE EmailConfirmedAt IS NOT NULL AND QuestionnaireEmailSentAt IS NULL
+
+-- Notifikacija adminu o novoj registraciji
+WHERE ConfirmationToken IS NOT NULL AND RegistrationNotificationSentAt IS NULL
+
+-- Notifikacija o opt-out
+WHERE OptedOut = 1 AND OptOutNotificationSentAt IS NULL
+```
+
+---
+
+### 2. `checklist_answers`
+
+**C# model:** `Models/ChecklistAnswer.cs`
+
+| Kolona | MySQL tip | Null | Napomena |
+|--------|-----------|------|---------|
+| `id` | `int` | NOT NULL | PK, AUTO_INCREMENT |
+| `contact_lead_id` | `int` | NOT NULL | FK → `contact_leads.Id` CASCADE DELETE |
+| `list_key` | `varchar(50)` | NOT NULL | `design` / `website` / `automation` |
+| `item_text` | `varchar(500)` | NOT NULL | tekst čekirane stavke |
+| `created_at` | `datetime(6)` | NOT NULL | UTC |
+
+**Indeksi:**
+- `PK_checklist_answers` → `id`
+- `IX_checklist_answers_contact_lead_id` → `contact_lead_id`
+
+---
+
+### 3. `questionnaire`
+
+**C# model:** `Models/Questionnaire.cs`  
+Napomena: tabela se zove `questionnaire` (jednina), ne `questionnaires`.
+
+| Kolona | MySQL tip | Null | Napomena |
+|--------|-----------|------|---------|
+| `id` | `int` | NOT NULL | PK, AUTO_INCREMENT |
+| `contact_id` | `int` | NOT NULL | FK → `contact_leads.Id` CASCADE DELETE |
+| `token` | `varchar(64)` | NOT NULL | UNIQUE; pristupni link za wizard |
+| `token_expires_at` | `datetime(6)` | NOT NULL | +30 dana od kreiranja |
+| `stage` | `tinyint unsigned` | NOT NULL | `0`=kreiran `1`=step1 `2`=step2 `3`=step3 |
+| `step1_answers` | `longtext` | NULL | JSON string |
+| `step2_answers` | `longtext` | NULL | JSON string |
+| `step3_answers` | `longtext` | NULL | JSON string |
+| `completed_at` | `datetime(6)` | NULL | NULL = nije završen |
+| `completion_notification_sent_at` | `datetime(6)` | NULL | SyncWorker flag |
+| `created_at` | `datetime(6)` | NOT NULL | UTC |
+
+**Indeksi:**
+- `PK_questionnaire` → `id`
+- `IX_questionnaire_contact_id` → `contact_id`
+- `IX_questionnaire_token` → `token` (UNIQUE)
+
+**SyncWorker upit:**
+```sql
+WHERE completed_at IS NOT NULL AND completion_notification_sent_at IS NULL
+```
+
+---
+
+### 4. `questionnaire_files`
+
+**C# model:** `Models/QuestionnaireFile.cs`  
+Fajlovi se čuvaju na disku: `PrivateUploads/` (van `wwwroot`).
+
+| Kolona | MySQL tip | Null | Napomena |
+|--------|-----------|------|---------|
+| `id` | `int` | NOT NULL | PK, AUTO_INCREMENT |
+| `questionnaire_id` | `int` | NOT NULL | FK → `questionnaire.id` CASCADE DELETE |
+| `file_label` | `varchar(50)` | NOT NULL | oznaka fajla (tip) |
+| `original_file_name` | `varchar(255)` | NOT NULL | originalni naziv |
+| `stored_file_name` | `varchar(100)` | NOT NULL | ime na disku |
+| `content_type` | `varchar(100)` | NOT NULL | MIME tip |
+| `size_bytes` | `bigint` | NOT NULL | |
+| `uploaded_at` | `datetime(6)` | NOT NULL | UTC |
+
+**Indeksi:**
+- `PK_questionnaire_files` → `id`
+- `IX_questionnaire_files_questionnaire_id` → `questionnaire_id`
+
+---
+
+### 5. `documents`
+
+**C# model:** `Models/Document.cs`  
+Admin upload dokumenti. Čuvaju se u `PrivateUploads/`.
+
+| Kolona | MySQL tip | Null | Napomena |
+|--------|-----------|------|---------|
+| `id` | `int` | NOT NULL | PK, AUTO_INCREMENT |
+| `full_name` | `varchar(255)` | NOT NULL | prikazni naziv u admin panelu |
+| `original_file_name` | `varchar(255)` | NOT NULL | |
+| `stored_file_name` | `varchar(100)` | NOT NULL | ime na disku |
+| `content_type` | `varchar(100)` | NOT NULL | MIME tip |
+| `size_bytes` | `bigint` | NOT NULL | |
+| `uploaded_at` | `datetime(6)` | NOT NULL | UTC |
+
+**Indeksi:**
+- `PK_documents` → `id`
+
+---
+
+## Relacije
 
 ```
-/Migrations/
-├── 20260620213237_InitialCreate                    (contact_leads, checklist_answers)
-├── 20260622124601_AddQuestionnaireAndClientActions (questionnaires, client_actions)
-├── 20260622195855_AddOptedOutAndOfferSent          (contact_leads: OptedOut, OfferSentAt)
-├── 20260622201725_AddDocuments                     (documents)
-└── 20260622202525_AddQuestionnaireFiles            (questionnaire_files) ← posljednja
+contact_leads (1) ──── (N) checklist_answers    [CASCADE DELETE]
+contact_leads (1) ──── (N) questionnaire         [CASCADE DELETE]
+questionnaire  (1) ──── (N) questionnaire_files  [CASCADE DELETE]
+documents — bez FK veza
 ```
 
-### Workflow
+---
+
+## EF Core Migration historija
+
+Tabela `__EFMigrationsHistory` (EF Core interno).
+
+| MigrationId | Šta je urađeno |
+|-------------|----------------|
+| `20260620213237_InitialCreate` | Kreiran `contact_leads` (Id, Name, Email, Language, CreatedAt) i `checklist_answers` |
+| `20260622124601_AddQuestionnaireAndClientActions` | Kreiran `questionnaire`; kreiran `client_actions` (obrisano u kasnijoj migraciji) |
+| `20260622195855_AddOptedOutAndOfferSent` | `contact_leads`: dodano `OptedOut`, `OfferSentAt`; MySQL tipovi konvertovani iz TEXT |
+| `20260622201725_AddDocuments` | Kreirana `documents` tabela |
+| `20260622202525_AddQuestionnaireFiles` | Kreirana `questionnaire_files` tabela |
+| `20260623122430_AddEmailConfirmation` | `contact_leads`: dodano `ConfirmationToken`, `ConfirmationTokenExpiresAt`, `EmailConfirmedAt` |
+| `20260623204811_AddNotificationFlagsRemoveClientActions` | Obrisana `client_actions`; dodane bool flag kolone (privremeno) |
+| `20260623205314_UseTimestampsForNotificationFlags` | Bool flags → `DateTime?` timestamp kolone: `ConfirmationEmailSentAt`, `QuestionnaireEmailSentAt`, `RegistrationNotificationSentAt`, `OptOutNotificationSentAt` u `contact_leads`; `completion_notification_sent_at` u `questionnaire` |
+
+---
+
+## Dodavanje nove migracije
 
 ```bash
-# Nova kolona/tabela: promijeni model → kreiraj migraciju → pokreni app
 dotnet ef migrations add NazivMigracije
-
-# Pregled SQL prije primjene
-dotnet ef migrations script --idempotent
-
-# Ukloni zadnju ako nije commitovana
-dotnet ef migrations remove
-
-# Reset baze: dropuj MySQL bazu, pokreni app (Migrate() će je rekonstruisati)
-dotnet run
+dotnet ef migrations remove   # poništi ako treba
 ```
+
+Primjena: automatski pri `dotnet run` (`Program.cs` → `db.Database.Migrate()`).
+
+**Nakon svake migracije — ažurirati ovaj fajl.**
 
 ---
 
-## Lokalni Setup (MySQL)
+## Rekonstrukcija baze od nule
 
-1. Instaliraj MySQL Community Server
-2. Kreiraj korisnika:
 ```sql
+-- 1. Kreiraj korisnika (MySQL Workbench / shell)
 CREATE USER 'LocalUser'@'localhost' IDENTIFIED BY 'lozinka';
 GRANT ALL PRIVILEGES ON portfolio_zs.* TO 'LocalUser'@'localhost';
 FLUSH PRIVILEGES;
 ```
-3. Postavi `appsettings.Development.json`:
+
 ```json
+// 2. appsettings.Development.json
 {
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Port=3306;Database=portfolio_zs;User=LocalUser;Password=lozinka;"
   }
 }
 ```
-4. `dotnet run` — Migrate() će kreirati bazu i primijeniti sve migracije.
+
+```bash
+# 3. Pokretanje — Migrate() kreira bazu i primjenjuje sve migracije
+dotnet run
+```

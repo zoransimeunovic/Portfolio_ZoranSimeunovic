@@ -10,6 +10,7 @@
         initChecklists();
         initContactForm();
         initMobileMenuClose();
+        initHomeLinks();
     });
 
     /* Sekcije gradjene kao apsolutne 1440px Figma scene (.hero-stage,
@@ -272,6 +273,15 @@
             result.classList.add(ok ? "ok" : "err");
             result.removeAttribute("hidden");
         }
+    }
+
+    function initHomeLinks() {
+        document.querySelectorAll('a[href$="#home"]').forEach(function (a) {
+            a.addEventListener("click", function (e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        });
     }
 
     function initMobileMenuClose() {

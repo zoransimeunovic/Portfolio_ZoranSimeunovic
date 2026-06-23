@@ -62,7 +62,7 @@ public class MsGraphClient
             await _client.Me.SendMail.PostAsync(new SendMailPostRequestBody
             {
                 Message = message,
-                SaveToSentItems = false
+                SaveToSentItems = true
             }, cancellationToken: ct);
 
             return GraphResult.Ok();

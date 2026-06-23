@@ -1,6 +1,9 @@
+@using System.Text.Json
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Upitnik";
+    var siteT = SiteTextProvider.Get(CultureInfo.CurrentUICulture.Name);
+    var Q = siteT.Questionnaire;
+    ViewData["Title"] = Q.PageTitle;
     var token = (string)ViewBag.Token;
     var name = (string)ViewBag.Name;
     var stage = (int)ViewBag.Stage;
@@ -10,440 +13,432 @@
     <div class="q-container">
 
         <div class="q-header">
-            <h1 class="q-title">Kratki upitnik</h1>
-            <p class="q-subtitle">Pomaže mi da vam pripremim pravu ponudu.</p>
+            <h1 class="q-title">@Q.PageTitle</h1>
+            <p class="q-subtitle">@Q.Subtitle</p>
         </div>
 
         <div class="q-progress-wrap">
             <div class="q-progress-bar">
                 <div class="q-progress-fill" id="progressFill"></div>
             </div>
-            <span class="q-progress-label" id="progressLabel">Korak 1 od 3</span>
+            <span class="q-progress-label" id="progressLabel">@string.Format(Q.ProgressPattern, 1)</span>
         </div>
 
-        <form id="qForm" data-stage="@ViewBag.Stage" novalidate>
+        <form id="qForm" data-stage="@stage" novalidate>
             <input type="hidden" id="qToken" value="@token" />
 
-            <!-- ===================== KORAK 1 ===================== -->
+            <!-- STEP 1 -->
             <div class="q-step" id="step1">
-                <h2 class="q-step-title">O vašem poslovanju</h2>
+                <h2 class="q-step-title">@Q.S1.Title</h2>
 
                 <div class="q-field">
-                    <label class="q-label" for="q1">Naziv kompanije / brend <span class="q-required">*</span></label>
-                    <p class="q-hint">Ako nemate kompaniju, upišite "privatno".</p>
-                    <input type="text" id="q1" name="company" class="q-input" placeholder="npr. Moja Firma d.o.o." required />
+                    <label class="q-label" for="q1">@Q.S1.CompanyLabel <span class="q-required">*</span></label>
+                    <p class="q-hint">@Q.S1.CompanyHint</p>
+                    <input type="text" id="q1" name="company" class="q-input" placeholder="@Q.S1.CompanyPlaceholder" required />
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label" for="q2">U kojoj industriji poslujete?</label>
+                    <label class="q-label" for="q2">@Q.S1.IndustryLabel</label>
                     <select id="q2" name="industry" class="q-select">
-                        <option value="">— Odaberite —</option>
-                        <option>Trgovina / E-commerce</option>
-                        <option>Zdravlje i wellness</option>
-                        <option>Građevinarstvo i nekretnine</option>
-                        <option>Ugostiteljstvo i turizam</option>
-                        <option>Obrazovanje i obuka</option>
-                        <option>IT i tehnologija</option>
-                        <option>Konsalting i usluge</option>
-                        <option>Ljepota i moda</option>
-                        <option value="__other__">Ostalo</option>
+                        <option value="">@Q.SelectDefault</option>
+                        @foreach (var opt in Q.S1.IndustryOptions)
+                        {
+                            <option>@opt</option>
+                        }
+                        <option value="__other__">@Q.OtherOption</option>
                     </select>
-                    <input type="text" id="q2other" name="industryOther" class="q-input q-other-input" placeholder="Unesite industriju" style="display:none" />
+                    <input type="text" id="q2other" name="industryOther" class="q-input q-other-input" placeholder="@Q.S1.IndustryOtherPlaceholder" style="display:none" />
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Veličina vašeg tima?</label>
+                    <label class="q-label">@Q.S1.TeamSizeLabel</label>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="teamSize" value="Samo ja" /> Samo ja</label>
-                        <label class="q-radio-label"><input type="radio" name="teamSize" value="2–10 zaposlenih" /> 2–10 zaposlenih</label>
-                        <label class="q-radio-label"><input type="radio" name="teamSize" value="11–50 zaposlenih" /> 11–50 zaposlenih</label>
-                        <label class="q-radio-label"><input type="radio" name="teamSize" value="50+ zaposlenih" /> 50+ zaposlenih</label>
+                        @foreach (var opt in Q.S1.TeamSizeOptions)
+                        {
+                            <label class="q-radio-label"><input type="radio" name="teamSize" value="@opt" /> @opt</label>
+                        }
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Gdje vas mogu pronaći online?</label>
+                    <label class="q-label">@Q.S1.OnlineLabel</label>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="Google Business profil" /> Google Business profil</label>
-                        <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="Facebook" /> Facebook</label>
-                        <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="Instagram" /> Instagram</label>
-                        <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="LinkedIn" /> LinkedIn</label>
-                        <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="Xing" /> Xing</label>
-                        <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="Ostalo" class="q-trigger-other" data-other="onlinePresenceOther" /> Ostalo</label>
-                        <input type="text" name="onlinePresenceOther" class="q-input q-other-input" placeholder="Gdje?" style="display:none" />
-                        <label class="q-check-label q-exclusive"><input type="checkbox" name="onlinePresence" value="Nigdje drugdje" class="q-exclusive-check" /> Nigdje drugdje</label>
+                        @foreach (var opt in Q.S1.OnlineOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="Ostalo" class="q-trigger-other" data-other="onlinePresenceOther" /> @Q.OtherOption</label>
+                        <input type="text" name="onlinePresenceOther" class="q-input q-other-input" placeholder="@Q.S1.OnlineOtherPlaceholder" style="display:none" />
+                        <label class="q-check-label q-exclusive"><input type="checkbox" name="onlinePresence" value="Nigdje drugdje" class="q-exclusive-check" /> @Q.S1.OnlineNowhere</label>
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Da li trenutno imate web stranicu?</label>
+                    <label class="q-label">@Q.S1.HasWebsiteLabel</label>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="hasWebsite" value="Da" class="q-trigger-show" data-show="websiteUrlWrap" /> Da</label>
-                        <label class="q-radio-label"><input type="radio" name="hasWebsite" value="Ne" class="q-trigger-hide" data-hide="websiteUrlWrap" /> Ne</label>
+                        <label class="q-radio-label"><input type="radio" name="hasWebsite" value="Da" class="q-trigger-show" data-show="websiteUrlWrap" /> @Q.S1.HasWebsiteYes</label>
+                        <label class="q-radio-label"><input type="radio" name="hasWebsite" value="Ne" class="q-trigger-hide" data-hide="websiteUrlWrap" /> @Q.S1.HasWebsiteNo</label>
                     </div>
                     <div id="websiteUrlWrap" style="display:none" class="q-conditional">
-                        <input type="url" name="websiteUrl" class="q-input" placeholder="https://vaša-stranica.com" />
+                        <input type="url" name="websiteUrl" class="q-input" placeholder="@Q.S1.WebsiteUrlPlaceholder" />
                     </div>
                 </div>
 
                 <div class="q-field" id="websiteDescWrap" style="display:none">
-                    <label class="q-label">Kako biste opisali svoju trenutnu web stranicu?</label>
+                    <label class="q-label">@Q.S1.WebsiteDescLabel</label>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Vizuelno zastarjela" /> Vizuelno zastarjela</label>
-                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Nije prilagođena mobilnim uređajima" /> Nije prilagođena mobilnim uređajima</label>
-                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Teška za navigaciju" /> Teška za navigaciju</label>
-                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Spora" /> Spora</label>
-                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Nedostaju važne informacije" /> Nedostaju važne informacije</label>
-                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Ne pojavljuje se na Googleu" /> Ne pojavljuje se na Googleu</label>
-                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Zadovoljan/na sam ali trebam nove funkcionalnosti" /> Zadovoljan/na sam ali trebam nove funkcionalnosti</label>
-                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Ostalo" class="q-trigger-other" data-other="websiteDescOther" /> Ostalo</label>
-                        <input type="text" name="websiteDescOther" class="q-input q-other-input" placeholder="Opišite" style="display:none" />
+                        @foreach (var opt in Q.S1.WebsiteDescOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Ostalo" class="q-trigger-other" data-other="websiteDescOther" /> @Q.OtherOption</label>
+                        <input type="text" name="websiteDescOther" class="q-input q-other-input" placeholder="@Q.S1.WebsiteDescOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
                 <div class="q-actions q-actions--first">
-                    <button type="button" class="q-btn q-btn--next" onclick="nextStep(1)">Sljedeći korak →</button>
+                    <button type="button" class="q-btn q-btn--next" onclick="nextStep(1)">@Q.BtnNext</button>
                 </div>
                 <div class="q-opt-out-wrap">
-                    <button type="button" class="q-opt-out-btn" onclick="optOut()">Odjavi se</button>
+                    <button type="button" class="q-opt-out-btn" onclick="optOut()">@Q.BtnOptOut</button>
                 </div>
             </div>
 
-            <!-- ===================== KORAK 2 ===================== -->
+            <!-- STEP 2 -->
             <div class="q-step" id="step2" style="display:none">
-                <h2 class="q-step-title">O vašem projektu</h2>
+                <h2 class="q-step-title">@Q.S2.Title</h2>
 
                 <div class="q-field">
-                    <label class="q-label">Šta vam je potrebno?</label>
-                    <p class="q-hint q-hint--group">Web stranica — <em>odaberite jedno</em></p>
+                    <label class="q-label">@Q.S2.NeedWhatLabel</label>
+                    <p class="q-hint q-hint--group">@Q.S2.HintWebsiteLabel — <em>@Q.S2.HintWebsiteEm</em></p>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="websiteType" value="Jednostavna prezentaciona stranica (do 5 podstranica)" /> Jednostavna prezentaciona stranica (do 5 podstranica)</label>
-                        <label class="q-radio-label"><input type="radio" name="websiteType" value="Web stranica s galerijom / blogom" /> Web stranica s galerijom / blogom</label>
-                        <label class="q-radio-label"><input type="radio" name="websiteType" value="Redizajn postojeće web stranice" /> Redizajn postojeće web stranice</label>
-                        <label class="q-radio-label"><input type="radio" name="websiteType" value="Samo hosting i održavanje postojeće stranice" /> Samo hosting i održavanje postojeće stranice</label>
-                        <label class="q-radio-label"><input type="radio" name="websiteType" value="Nemam potrebu za web stranicom" class="q-hide-on-select" data-hide-group="pagesWrap" /> Nemam potrebu za web stranicom</label>
+                        @foreach (var opt in Q.S2.WebsiteTypeOptions)
+                        {
+                            <label class="q-radio-label"><input type="radio" name="websiteType" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-radio-label"><input type="radio" name="websiteType" value="Nemam potrebu za web stranicom" class="q-hide-on-select" data-hide-group="pagesWrap" /> @Q.S2.WebsiteTypeNoNeed</label>
                     </div>
-                    <p class="q-hint q-hint--group" style="margin-top:16px">Dodatno — <em>odaberite sve što se odnosi</em></p>
+                    <p class="q-hint q-hint--group" style="margin-top:16px">@Q.S2.HintExtraLabel — <em>@Q.S2.HintExtraEm</em></p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="projectExtra" value="Web aplikacija" class="q-trigger-show" data-show="webAppWrap" /> Web aplikacija (sistem rezervacija, portal, dashboard...)</label>
-                        <label class="q-check-label"><input type="checkbox" name="projectExtra" value="Desktop aplikacija" /> Desktop aplikacija (za internu upotrebu u firmi)</label>
-                        <label class="q-check-label"><input type="checkbox" name="projectExtra" value="Još nisam siguran/na" /> Još nisam siguran/na</label>
-                        <label class="q-check-label"><input type="checkbox" name="projectExtra" value="Ostalo" class="q-trigger-other" data-other="projectExtraOther" /> Ostalo</label>
-                        <input type="text" name="projectExtraOther" class="q-input q-other-input" placeholder="Opišite" style="display:none" />
+                        <label class="q-check-label"><input type="checkbox" name="projectExtra" value="Web aplikacija" class="q-trigger-show" data-show="webAppWrap" /> @Q.S2.ProjectExtraWebApp</label>
+                        @foreach (var opt in Q.S2.ProjectExtraOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="projectExtra" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="projectExtra" value="Ostalo" class="q-trigger-other" data-other="projectExtraOther" /> @Q.OtherOption</label>
+                        <input type="text" name="projectExtraOther" class="q-input q-other-input" placeholder="@Q.S2.ProjectExtraOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
                 <div class="q-field" id="pagesWrap">
-                    <label class="q-label">Koje stranice / sekcije vam trebaju?</label>
+                    <label class="q-label">@Q.S2.PagesLabel</label>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Početna stranica" /> Početna stranica</label>
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="O nama" /> O nama</label>
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Usluge / Proizvodi" /> Usluge / Proizvodi</label>
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Cjenovnik" /> Cjenovnik</label>
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Blog / Vijesti" /> Blog / Vijesti</label>
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Galerija / Portfolio" /> Galerija / Portfolio</label>
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Online prodavnica" /> Online prodavnica</label>
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Kontakt" /> Kontakt</label>
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="FAQ / Često postavljena pitanja" /> FAQ / Često postavljena pitanja</label>
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Ostalo" class="q-trigger-other" data-other="pagesOther" /> Ostalo</label>
-                        <input type="text" name="pagesOther" class="q-input q-other-input" placeholder="Koje stranice?" style="display:none" />
+                        @foreach (var opt in Q.S2.PagesOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="pages" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="pages" value="Ostalo" class="q-trigger-other" data-other="pagesOther" /> @Q.OtherOption</label>
+                        <input type="text" name="pagesOther" class="q-input q-other-input" placeholder="@Q.S2.PagesOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Da li vam je potrebno nešto od sljedećeg?</label>
+                    <label class="q-label">@Q.S2.FeaturesLabel</label>
 
-                    <p class="q-group-header">Komunikacija</p>
+                    <p class="q-group-header">@Q.S2.CommHeader</p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Kontakt forma" /> Kontakt forma — klijenti vas kontaktiraju direktno s vaše stranice</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Newsletter" /> Newsletter — redovno obavještavajte klijente o novostima i ponudama</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Automatske email poruke" /> Automatske email poruke — podsjetnici, potvrde, dobrodošlice, obavještenja o odsustvu</label>
+                        @foreach (var opt in Q.S2.CommOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="features" value="@opt" /> @opt</label>
+                        }
                     </div>
 
-                    <p class="q-group-header">Prodaja i rezervacije</p>
+                    <p class="q-group-header">@Q.S2.SalesHeader</p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Online rezervacije" /> Online rezervacije — klijenti sami zakazuju termine, bez telefonskih poziva</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Klijentski portal" /> Klijentski portal — klijenti se prijavljuju i vide svoje podatke, narudžbe ili dokumente</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="E-commerce" /> E-commerce / online prodavnica — prodajte proizvode ili usluge direktno online</label>
+                        @foreach (var opt in Q.S2.SalesOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="features" value="@opt" /> @opt</label>
+                        }
                     </div>
 
-                    <p class="q-group-header">Vidljivost i rast</p>
+                    <p class="q-group-header">@Q.S2.GrowthHeader</p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="features" value="SEO optimizacija" /> SEO optimizacija — da vas klijenti lakše pronađu na Googleu</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Google Maps integracija" /> Google Maps integracija — prikažite lokaciju vaše firme na mapi</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Pregled statistike" /> Pregled statistike — vidite koliko posjetilaca ima vaša stranica i odakle dolaze</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Blog ili sekcija vijesti" /> Blog ili sekcija vijesti — dijelite stručne savjete i poboljšajte vidljivost na Googleu</label>
+                        @foreach (var opt in Q.S2.GrowthOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="features" value="@opt" /> @opt</label>
+                        }
                     </div>
 
-                    <p class="q-group-header">Tehničko</p>
+                    <p class="q-group-header">@Q.S2.TechHeader</p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Admin panel" /> Admin panel — upravljajte sadržajem, korisnicima i podacima s jednog mjesta</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Upravljanje sadržajem (CMS)" /> Upravljanje sadržajem — sami ažurirajte tekstove i slike bez tehničkog znanja</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Višejezična podrška" /> Višejezična podrška — stranica dostupna na više jezika za širu publiku</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Microsoft 365 integracija" /> Microsoft 365 integracija — povežite stranicu s Outlook, Teams, Calendar, OneDrive</label>
+                        @foreach (var opt in Q.S2.TechOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="features" value="@opt" /> @opt</label>
+                        }
                     </div>
 
                     <div class="q-check-group q-features-global">
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Ništa od navedenog" class="q-exclusive-check" /> Ništa od navedenog</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Ostalo" class="q-trigger-other" data-other="featuresOther" /> Ostalo</label>
-                        <input type="text" name="featuresOther" class="q-input q-other-input" placeholder="Šta još trebate?" style="display:none" />
+                        <label class="q-check-label"><input type="checkbox" name="features" value="Ništa od navedenog" class="q-exclusive-check" /> @Q.S2.FeaturesNone</label>
+                        <label class="q-check-label"><input type="checkbox" name="features" value="Ostalo" class="q-trigger-other" data-other="featuresOther" /> @Q.OtherOption</label>
+                        <input type="text" name="featuresOther" class="q-input q-other-input" placeholder="@Q.S2.FeaturesOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Sadržaj za stranicu</label>
+                    <label class="q-label">@Q.S2.ContentLabel</label>
 
-                    <p class="q-hint q-hint--sub">Tekstovi</p>
+                    <p class="q-hint q-hint--sub">@Q.S2.TextsHint</p>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="contentTexts" value="Da, imam pripremljene tekstove" /> Da, imam pripremljene tekstove</label>
-                        <label class="q-radio-label"><input type="radio" name="contentTexts" value="Djelimično" /> Djelimično</label>
-                        <label class="q-radio-label"><input type="radio" name="contentTexts" value="Ne, trebam pomoć" /> Ne, trebam pomoć</label>
+                        @foreach (var opt in Q.ContentAvailOptions)
+                        {
+                            <label class="q-radio-label"><input type="radio" name="contentTexts" value="@opt" /> @opt</label>
+                        }
                     </div>
                     <div class="q-dropzone q-dropzone--inline" data-label="texts" data-accept=".pdf,.doc,.docx,.txt">
                         <input type="file" class="q-dropzone-input" accept=".pdf,.doc,.docx,.txt" />
                         <div class="q-dropzone-idle">
                             <span class="q-dropzone-icon">&#8679;</span>
-                            <span class="q-dropzone-hint-text">Priložite tekstove (opciono) — prevucite ili kliknite</span>
+                            <span class="q-dropzone-hint-text">@Q.S2.TextsDropzoneHint</span>
                             <span class="q-dropzone-formats">.pdf &nbsp; .doc &nbsp; .docx &nbsp; .txt</span>
                         </div>
-                        <div class="q-dropzone-progress" style="display:none">Uploaduje se...</div>
+                        <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
                         <div class="q-dropzone-done" style="display:none">
                             <span class="q-dz-check">&#10003;</span>
                             <span class="q-dropzone-filename"></span>
                         </div>
-                        <div class="q-dropzone-err" style="display:none">Greška. Pokušajte ponovo.</div>
+                        <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                     </div>
 
-                    <p class="q-hint q-hint--sub" style="margin-top:20px">Fotografije</p>
+                    <p class="q-hint q-hint--sub" style="margin-top:20px">@Q.S2.PhotosHint</p>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="contentPhotos" value="Da, imam fotografije" /> Da, imam fotografije</label>
-                        <label class="q-radio-label"><input type="radio" name="contentPhotos" value="Djelimično" /> Djelimično</label>
-                        <label class="q-radio-label"><input type="radio" name="contentPhotos" value="Ne, trebam pomoć" /> Ne, trebam pomoć</label>
+                        @foreach (var opt in Q.ContentAvailOptions)
+                        {
+                            <label class="q-radio-label"><input type="radio" name="contentPhotos" value="@opt" /> @opt</label>
+                        }
                     </div>
                     <div class="q-dropzone q-dropzone--inline" data-label="photos" data-accept=".jpg,.jpeg,.png,.gif,.webp,.zip">
                         <input type="file" class="q-dropzone-input" accept=".jpg,.jpeg,.png,.gif,.webp,.zip" />
                         <div class="q-dropzone-idle">
                             <span class="q-dropzone-icon">&#8679;</span>
-                            <span class="q-dropzone-hint-text">Priložite fotografije (opciono) — prevucite ili kliknite</span>
+                            <span class="q-dropzone-hint-text">@Q.S2.PhotosDropzoneHint</span>
                             <span class="q-dropzone-formats">.jpg &nbsp; .png &nbsp; .webp &nbsp; .zip</span>
                         </div>
-                        <div class="q-dropzone-progress" style="display:none">Uploaduje se...</div>
+                        <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
                         <div class="q-dropzone-done" style="display:none">
                             <span class="q-dz-check">&#10003;</span>
                             <span class="q-dropzone-filename"></span>
                         </div>
-                        <div class="q-dropzone-err" style="display:none">Greška. Pokušajte ponovo.</div>
+                        <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                     </div>
                 </div>
 
                 <div class="q-field" id="webAppWrap" style="display:none">
-                    <label class="q-label">Ko će koristiti aplikaciju?</label>
+                    <label class="q-label">@Q.S2.AppUsersLabel</label>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="appUsers" value="Samo ja / interni tim" /> Samo ja / interni tim</label>
-                        <label class="q-check-label"><input type="checkbox" name="appUsers" value="Moji klijenti" /> Moji klijenti</label>
-                        <label class="q-check-label"><input type="checkbox" name="appUsers" value="I ja i moji klijenti" /> I ja i moji klijenti</label>
-                        <label class="q-check-label"><input type="checkbox" name="appUsers" value="Ostalo" class="q-trigger-other" data-other="appUsersOther" /> Ostalo</label>
-                        <input type="text" name="appUsersOther" class="q-input q-other-input" placeholder="Ko?" style="display:none" />
+                        @foreach (var opt in Q.S2.AppUsersOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="appUsers" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="appUsers" value="Ostalo" class="q-trigger-other" data-other="appUsersOther" /> @Q.OtherOption</label>
+                        <input type="text" name="appUsersOther" class="q-input q-other-input" placeholder="@Q.S2.AppUsersOtherPlaceholder" style="display:none" />
                     </div>
 
-                    <label class="q-label" style="margin-top:16px">Koliko korisnika očekujete?</label>
+                    <label class="q-label" style="margin-top:16px">@Q.S2.AppUserCountLabel</label>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="appUserCount" value="Do 10" /> Do 10</label>
-                        <label class="q-radio-label"><input type="radio" name="appUserCount" value="10–100" /> 10–100</label>
-                        <label class="q-radio-label"><input type="radio" name="appUserCount" value="100–1.000" /> 100–1.000</label>
-                        <label class="q-radio-label"><input type="radio" name="appUserCount" value="Više od 1.000" /> Više od 1.000</label>
-                        <label class="q-radio-label"><input type="radio" name="appUserCount" value="Nisam siguran/na" /> Nisam siguran/na</label>
+                        @foreach (var opt in Q.S2.AppUserCountOptions)
+                        {
+                            <label class="q-radio-label"><input type="radio" name="appUserCount" value="@opt" /> @opt</label>
+                        }
                     </div>
                 </div>
 
                 <div class="q-actions">
-                    <button type="button" class="q-btn q-btn--back" onclick="prevStep(2)">← Nazad</button>
-                    <button type="button" class="q-btn q-btn--next" onclick="nextStep(2)">Sljedeći korak →</button>
+                    <button type="button" class="q-btn q-btn--back" onclick="prevStep(2)">@Q.BtnBack</button>
+                    <button type="button" class="q-btn q-btn--next" onclick="nextStep(2)">@Q.BtnNext</button>
                 </div>
                 <div class="q-opt-out-wrap">
-                    <button type="button" class="q-opt-out-btn" onclick="optOut()">Odjavi se</button>
+                    <button type="button" class="q-opt-out-btn" onclick="optOut()">@Q.BtnOptOut</button>
                 </div>
             </div>
 
-            <!-- ===================== KORAK 3 ===================== -->
+            <!-- STEP 3 -->
             <div class="q-step" id="step3" style="display:none">
-                <h2 class="q-step-title">Ciljevi, dizajn i rokovi</h2>
+                <h2 class="q-step-title">@Q.S3.Title</h2>
 
                 <div class="q-field">
-                    <label class="q-label">Koji je glavni cilj ovog projekta?</label>
+                    <label class="q-label">@Q.S3.GoalsLabel</label>
 
-                    <p class="q-group-header">Web prisustvo</p>
+                    <p class="q-group-header">@Q.S3.WebHeader</p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Izgledati profesionalnije i vjerodostojnije" /> Izgledati profesionalnije i vjerodostojnije</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Biti pronađen na Googleu" /> Biti pronađen na Googleu</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Predstaviti usluge ili proizvode online" /> Predstaviti svoje usluge ili proizvode online</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Privući više klijenata / upita" /> Privući više klijenata / upita</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Zamijeniti zastarjelu ili lošu web stranicu" /> Zamijeniti zastarjelu ili lošu web stranicu</label>
+                        @foreach (var opt in Q.S3.WebOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="goals" value="@opt" /> @opt</label>
+                        }
                     </div>
 
-                    <p class="q-group-header">Poslovanje i rast</p>
+                    <p class="q-group-header">@Q.S3.BusinessHeader</p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Prodavati proizvode ili usluge online" /> Prodavati proizvode ili usluge online</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Pružiti bolju uslugu postojećim klijentima" /> Pružiti bolju uslugu postojećim klijentima</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Proširiti poslovanje na nova tržišta" /> Proširiti poslovanje na nova tržišta</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Izgraditi prepoznatljivost brenda" /> Izgraditi prepoznatljivost brenda</label>
+                        @foreach (var opt in Q.S3.BusinessOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="goals" value="@opt" /> @opt</label>
+                        }
                     </div>
 
-                    <p class="q-group-header">Efikasnost i automatizacija</p>
+                    <p class="q-group-header">@Q.S3.AutoHeader</p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Automatizovati ručne procese" /> Automatizovati ručne procese</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Smanjiti broj telefonskih poziva i upita" /> Smanjiti broj telefonskih poziva i upita</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Zamijeniti zastarjeli softver ili sistem" /> Zamijeniti zastarjeli softver ili sistem</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Uštediti vrijeme kroz automatske procese" /> Uštediti vrijeme kroz automatske procese</label>
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Ostalo" class="q-trigger-other" data-other="goalsOther" /> Ostalo</label>
-                        <input type="text" name="goalsOther" class="q-input q-other-input" placeholder="Koji cilj?" style="display:none" />
+                        @foreach (var opt in Q.S3.AutoOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="goals" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="goals" value="Ostalo" class="q-trigger-other" data-other="goalsOther" /> @Q.OtherOption</label>
+                        <input type="text" name="goalsOther" class="q-input q-other-input" placeholder="@Q.S3.GoalsOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label" for="q14">Šta vam trenutno predstavlja najveći problem? <span class="q-optional">(opciono)</span></label>
-                    <p class="q-hint">Opišite ukratko s čime se najviše borite u svakodnevnom poslovanju.</p>
+                    <label class="q-label" for="q14">@Q.S3.BiggestProblemLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S3.BiggestProblemHint</p>
                     <textarea id="q14" name="biggestProblem" class="q-textarea" rows="3"></textarea>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label" for="q15">Kako ćete znati da je projekat uspješan? <span class="q-optional">(opciono)</span></label>
-                    <p class="q-hint">Npr. više upita, manje telefonskih poziva, klijenti sami zakazuju termine...</p>
+                    <label class="q-label" for="q15">@Q.S3.SuccessCriteriaLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S3.SuccessCriteriaHint</p>
                     <textarea id="q15" name="successCriteria" class="q-textarea" rows="3"></textarea>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Ko su vaši kupci / klijenti?</label>
+                    <label class="q-label">@Q.S3.CustomersLabel</label>
 
-                    <p class="q-hint q-hint--sub">Tip kupaca</p>
+                    <p class="q-hint q-hint--sub">@Q.S3.CustomerTypeHint</p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="customerType" value="Privatne osobe" class="q-trigger-show" data-show="customerDemoWrap" /> Privatne osobe</label>
-                        <label class="q-check-label"><input type="checkbox" name="customerType" value="Druga preduzeća i firme" /> Druga preduzeća i firme</label>
-                        <label class="q-check-label"><input type="checkbox" name="customerType" value="I privatne osobe i firme" class="q-trigger-show" data-show="customerDemoWrap" /> I privatne osobe i firme</label>
-                        <label class="q-check-label"><input type="checkbox" name="customerType" value="Ostalo" class="q-trigger-other" data-other="customerTypeOther" /> Ostalo</label>
-                        <input type="text" name="customerTypeOther" class="q-input q-other-input" placeholder="Ko su vaši klijenti?" style="display:none" />
+                        <label class="q-check-label"><input type="checkbox" name="customerType" value="Privatne osobe" class="q-trigger-show" data-show="customerDemoWrap" /> @Q.S3.CustomerTypePrivate</label>
+                        <label class="q-check-label"><input type="checkbox" name="customerType" value="Druga preduzeća i firme" /> @Q.S3.CustomerTypeBusiness</label>
+                        <label class="q-check-label"><input type="checkbox" name="customerType" value="I privatne osobe i firme" class="q-trigger-show" data-show="customerDemoWrap" /> @Q.S3.CustomerTypeBoth</label>
+                        <label class="q-check-label"><input type="checkbox" name="customerType" value="Ostalo" class="q-trigger-other" data-other="customerTypeOther" /> @Q.OtherOption</label>
+                        <input type="text" name="customerTypeOther" class="q-input q-other-input" placeholder="@Q.S3.CustomerTypeOtherPlaceholder" style="display:none" />
                     </div>
 
                     <div id="customerDemoWrap" style="display:none" class="q-conditional">
-                        <p class="q-hint q-hint--sub">Starosna grupa</p>
+                        <p class="q-hint q-hint--sub">@Q.S3.AgeHint</p>
                         <div class="q-check-group">
-                            <label class="q-check-label"><input type="checkbox" name="ageGroup" value="Mlađi odrasli (18–35)" /> Mlađi odrasli (18–35)</label>
-                            <label class="q-check-label"><input type="checkbox" name="ageGroup" value="Srednja generacija (35–55)" /> Srednja generacija (35–55)</label>
-                            <label class="q-check-label"><input type="checkbox" name="ageGroup" value="Starija generacija (55+)" /> Starija generacija (55+)</label>
-                            <label class="q-check-label"><input type="checkbox" name="ageGroup" value="Sve starosne grupe" /> Sve starosne grupe</label>
+                            @foreach (var opt in Q.S3.AgeOptions)
+                            {
+                                <label class="q-check-label"><input type="checkbox" name="ageGroup" value="@opt" /> @opt</label>
+                            }
                         </div>
 
-                        <p class="q-hint q-hint--sub">Spol</p>
+                        <p class="q-hint q-hint--sub">@Q.S3.GenderHint</p>
                         <div class="q-check-group">
-                            <label class="q-check-label"><input type="checkbox" name="gender" value="Pretežno muški" /> Pretežno muški</label>
-                            <label class="q-check-label"><input type="checkbox" name="gender" value="Pretežno ženski" /> Pretežno ženski</label>
-                            <label class="q-check-label"><input type="checkbox" name="gender" value="Podjednako / svi" /> Podjednako / svi</label>
+                            @foreach (var opt in Q.S3.GenderOptions)
+                            {
+                                <label class="q-check-label"><input type="checkbox" name="gender" value="@opt" /> @opt</label>
+                            }
                         </div>
                     </div>
 
-                    <p class="q-hint q-hint--sub">Lokacija kupaca</p>
+                    <p class="q-hint q-hint--sub">@Q.S3.LocationHint</p>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="customerLocation" value="Lokalni (isti grad / region)" /> Lokalni (isti grad / region)</label>
-                        <label class="q-radio-label"><input type="radio" name="customerLocation" value="Nacionalni (cijela zemlja)" /> Nacionalni (cijela zemlja)</label>
-                        <label class="q-radio-label"><input type="radio" name="customerLocation" value="Međunarodni" /> Međunarodni</label>
-                        <label class="q-radio-label"><input type="radio" name="customerLocation" value="Kombinacija" /> Kombinacija</label>
+                        @foreach (var opt in Q.S3.LocationOptions)
+                        {
+                            <label class="q-radio-label"><input type="radio" name="customerLocation" value="@opt" /> @opt</label>
+                        }
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Brendirani materijali</label>
-                    <p class="q-hint">Ako imate logo ili brand book, pošaljite ih direktno. Ako ne, preskoči.</p>
+                    <label class="q-label">@Q.S3.BrandingLabel</label>
+                    <p class="q-hint">@Q.S3.BrandingHint</p>
                     <div class="q-dropzones-row">
                         <div class="q-dropzone" data-label="logo" data-accept=".jpg,.jpeg,.png,.gif,.svg,.pdf,.ai,.eps">
                             <input type="file" class="q-dropzone-input" accept=".jpg,.jpeg,.png,.gif,.svg,.pdf,.ai,.eps" />
                             <div class="q-dropzone-idle">
                                 <span class="q-dropzone-icon">&#8679;</span>
-                                <p class="q-dropzone-title">Logo</p>
-                                <p class="q-dropzone-hint-text">Prevucite ili kliknite</p>
+                                <p class="q-dropzone-title">@Q.S3.LogoTitle</p>
+                                <p class="q-dropzone-hint-text">@Q.DropzoneClickOrDrag</p>
                                 <p class="q-dropzone-formats">.jpg .png .svg .pdf .ai</p>
                             </div>
-                            <div class="q-dropzone-progress" style="display:none">Uploaduje se...</div>
+                            <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
                             <div class="q-dropzone-done" style="display:none">
                                 <span class="q-dz-check">&#10003;</span>
                                 <span class="q-dropzone-filename"></span>
                             </div>
-                            <div class="q-dropzone-err" style="display:none">Greška. Pokušajte ponovo.</div>
+                            <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                         </div>
                         <div class="q-dropzone" data-label="brandbook" data-accept=".pdf,.doc,.docx">
                             <input type="file" class="q-dropzone-input" accept=".pdf,.doc,.docx" />
                             <div class="q-dropzone-idle">
                                 <span class="q-dropzone-icon">&#8679;</span>
-                                <p class="q-dropzone-title">Brand book</p>
-                                <p class="q-dropzone-hint-text">Prevucite ili kliknite</p>
+                                <p class="q-dropzone-title">@Q.S3.BrandBookTitle</p>
+                                <p class="q-dropzone-hint-text">@Q.DropzoneClickOrDrag</p>
                                 <p class="q-dropzone-formats">.pdf .doc .docx</p>
                             </div>
-                            <div class="q-dropzone-progress" style="display:none">Uploaduje se...</div>
+                            <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
                             <div class="q-dropzone-done" style="display:none">
                                 <span class="q-dz-check">&#10003;</span>
                                 <span class="q-dropzone-filename"></span>
                             </div>
-                            <div class="q-dropzone-err" style="display:none">Greška. Pokušajte ponovo.</div>
+                            <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                         </div>
                     </div>
                     <div class="q-check-group" style="margin-top:16px">
-                        <label class="q-check-label"><input type="checkbox" name="branding" value="Da, imam definirane boje brenda" /> Da, imam definirane boje brenda</label>
-                        <label class="q-check-label"><input type="checkbox" name="branding" value="Ne, trebam sve od nule" /> Ne, trebam sve od nule</label>
-                        <label class="q-check-label"><input type="checkbox" name="branding" value="Ostalo" class="q-trigger-other" data-other="brandingOther" /> Ostalo</label>
-                        <input type="text" name="brandingOther" class="q-input q-other-input" placeholder="Šta imate?" style="display:none" />
+                        @foreach (var opt in Q.S3.BrandingOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="branding" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="branding" value="Ostalo" class="q-trigger-other" data-other="brandingOther" /> @Q.OtherOption</label>
+                        <input type="text" name="brandingOther" class="q-input q-other-input" placeholder="@Q.S3.BrandingOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Kakav stil preferirate?</label>
+                    <label class="q-label">@Q.S3.StyleLabel</label>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Minimalan i čist" /> Minimalan i čist</label>
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Smion i moderan" /> Smion i moderan</label>
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Profesionalan i korporativan" /> Profesionalan i korporativan</label>
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Topao i prijateljski" /> Topao i prijateljski</label>
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Tamna tema" /> Tamna tema</label>
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Svijetla tema" /> Svijetla tema</label>
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Nisam siguran/na — vjerujem vašem sudu" /> Nisam siguran/na — vjerujem vašem sudu</label>
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Ostalo" class="q-trigger-other" data-other="styleOther" /> Ostalo</label>
-                        <input type="text" name="styleOther" class="q-input q-other-input" placeholder="Kakav stil?" style="display:none" />
+                        @foreach (var opt in Q.S3.StyleOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="style" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="style" value="Ostalo" class="q-trigger-other" data-other="styleOther" /> @Q.OtherOption</label>
+                        <input type="text" name="styleOther" class="q-input q-other-input" placeholder="@Q.S3.StyleOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label" for="q19">Da li imate web stranice koje vam se sviđaju? <span class="q-optional">(opciono)</span></label>
-                    <p class="q-hint">Podijelite linkove — ne mora biti iz vaše industrije.</p>
+                    <label class="q-label" for="q19">@Q.S3.ReferenceLinksLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S3.ReferenceLinksHint</p>
                     <textarea id="q19" name="referenceLinks" class="q-textarea" rows="2"></textarea>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label" for="q20">Da li postoje slični sistemi koje već koristite? <span class="q-optional">(opciono)</span></label>
-                    <p class="q-hint">Alat ili program koji bi trebao biti povezan ili zamijenjen novim rješenjem.</p>
+                    <label class="q-label" for="q20">@Q.S3.ExistingSystemsLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S3.ExistingSystemsHint</p>
                     <textarea id="q20" name="existingSystems" class="q-textarea" rows="2"></textarea>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label" for="q21">Da li imate web stranice konkurencije kao referencu? <span class="q-optional">(opciono)</span></label>
-                    <p class="q-hint">Korisno za razumijevanje vašeg tržišta.</p>
+                    <label class="q-label" for="q21">@Q.S3.CompetitorLinksLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S3.CompetitorLinksHint</p>
                     <textarea id="q21" name="competitorLinks" class="q-textarea" rows="2"></textarea>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Kada biste željeli da počnemo?</label>
+                    <label class="q-label">@Q.S3.StartWhenLabel</label>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="startWhen" value="Što prije moguće" /> Što prije moguće</label>
-                        <label class="q-radio-label"><input type="radio" name="startWhen" value="U roku od mjesec dana" /> U roku od mjesec dana</label>
-                        <label class="q-radio-label"><input type="radio" name="startWhen" value="U roku od 2–3 mjeseca" /> U roku od 2–3 mjeseca</label>
-                        <label class="q-radio-label"><input type="radio" name="startWhen" value="Samo istražujem mogućnosti" /> Samo istražujem mogućnosti</label>
-                        <label class="q-radio-label"><input type="radio" name="startWhen" value="Ostalo" class="q-trigger-other" data-other="startWhenOther" /> Ostalo</label>
-                        <input type="text" name="startWhenOther" class="q-input q-other-input" placeholder="Kada?" style="display:none" />
+                        @foreach (var opt in Q.S3.StartWhenOptions)
+                        {
+                            <label class="q-radio-label"><input type="radio" name="startWhen" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-radio-label"><input type="radio" name="startWhen" value="Ostalo" class="q-trigger-other" data-other="startWhenOther" /> @Q.OtherOption</label>
+                        <input type="text" name="startWhenOther" class="q-input q-other-input" placeholder="@Q.S3.StartWhenOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Da li imate rok završetka?</label>
+                    <label class="q-label">@Q.S3.DeadlineLabel</label>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="deadline" value="Da" class="q-trigger-show" data-show="deadlineDateWrap" /> Da</label>
-                        <label class="q-radio-label"><input type="radio" name="deadline" value="Ne" class="q-trigger-hide" data-hide="deadlineDateWrap" /> Ne</label>
-                        <label class="q-radio-label"><input type="radio" name="deadline" value="Fleksibilno" class="q-trigger-hide" data-hide="deadlineDateWrap" /> Fleksibilno</label>
+                        <label class="q-radio-label"><input type="radio" name="deadline" value="Da" class="q-trigger-show" data-show="deadlineDateWrap" /> @Q.S3.DeadlineYes</label>
+                        <label class="q-radio-label"><input type="radio" name="deadline" value="Ne" class="q-trigger-hide" data-hide="deadlineDateWrap" /> @Q.S3.DeadlineNo</label>
+                        <label class="q-radio-label"><input type="radio" name="deadline" value="Fleksibilno" class="q-trigger-hide" data-hide="deadlineDateWrap" /> @Q.S3.DeadlineFlexible</label>
                     </div>
                     <div id="deadlineDateWrap" style="display:none" class="q-conditional">
                         <input type="date" name="deadlineDate" class="q-input" />
@@ -451,10 +446,10 @@
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Rangirajte po važnosti <span class="q-hint-inline">(1 = najvažnije)</span></label>
+                    <label class="q-label">@Q.S3.RankingLabel <span class="q-hint-inline">@Q.S3.RankingHintInline</span></label>
                     <div class="q-ranking">
                         <div class="q-ranking-row">
-                            <span class="q-ranking-label">Brzina isporuke</span>
+                            <span class="q-ranking-label">@Q.S3.RankSpeedLabel</span>
                             <select name="rankSpeed" class="q-rank-select" data-rank-group="main">
                                 <option value="">—</option>
                                 <option value="1">1</option>
@@ -463,7 +458,7 @@
                             </select>
                         </div>
                         <div class="q-ranking-row">
-                            <span class="q-ranking-label">Kvalitet dizajna</span>
+                            <span class="q-ranking-label">@Q.S3.RankQualityLabel</span>
                             <select name="rankQuality" class="q-rank-select" data-rank-group="main">
                                 <option value="">—</option>
                                 <option value="1">1</option>
@@ -472,7 +467,7 @@
                             </select>
                         </div>
                         <div class="q-ranking-row">
-                            <span class="q-ranking-label">Cijena</span>
+                            <span class="q-ranking-label">@Q.S3.RankPriceLabel</span>
                             <select name="rankPrice" class="q-rank-select" data-rank-group="main">
                                 <option value="">—</option>
                                 <option value="1">1</option>
@@ -480,60 +475,63 @@
                                 <option value="3">3</option>
                             </select>
                         </div>
-                        <p class="q-rank-error" id="rankError" style="display:none">Svaki rang mora biti odabran tačno jednom.</p>
+                        <p class="q-rank-error" id="rankError" style="display:none">@Q.S3.RankError</p>
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Da li ćete trebati održavanje i podršku nakon završetka projekta?</label>
+                    <label class="q-label">@Q.S3.SupportLabel</label>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="support" value="Da, zanima me" /> Da, zanima me</label>
-                        <label class="q-radio-label"><input type="radio" name="support" value="Ne" /> Ne</label>
-                        <label class="q-radio-label"><input type="radio" name="support" value="Nisam siguran/na — recite mi više" /> Nisam siguran/na — recite mi više</label>
+                        @foreach (var opt in Q.S3.SupportOptions)
+                        {
+                            <label class="q-radio-label"><input type="radio" name="support" value="@opt" /> @opt</label>
+                        }
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">Kako ste čuli za mene?</label>
+                    <label class="q-label">@Q.S3.HeardFromLabel</label>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="Preporuka prijatelja / kolege" /> Preporuka prijatelja / kolege</label>
-                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="Google pretraga" /> Google pretraga</label>
-                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="LinkedIn" /> LinkedIn</label>
-                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="Xing" /> Xing</label>
-                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="Instagram" /> Instagram</label>
-                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="Facebook" /> Facebook</label>
-                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="Ostalo" class="q-trigger-other" data-other="heardFromOther" /> Ostalo</label>
-                        <input type="text" name="heardFromOther" class="q-input q-other-input" placeholder="Gdje ste čuli?" style="display:none" />
+                        @foreach (var opt in Q.S3.HeardFromOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="heardFrom" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="Ostalo" class="q-trigger-other" data-other="heardFromOther" /> @Q.OtherOption</label>
+                        <input type="text" name="heardFromOther" class="q-input q-other-input" placeholder="@Q.S3.HeardFromOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label" for="q27">Da li ima još nešto što bih trebao znati? <span class="q-optional">(opciono)</span></label>
-                    <p class="q-hint">Bilo koji dodatni kontekst, pitanja ili napomene.</p>
+                    <label class="q-label" for="q27">@Q.S3.AdditionalNotesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S3.AdditionalNotesHint</p>
                     <textarea id="q27" name="additionalNotes" class="q-textarea" rows="3"></textarea>
                 </div>
 
                 <div class="q-actions">
-                    <button type="button" class="q-btn q-btn--back" onclick="prevStep(3)">← Nazad</button>
-                    <button type="button" class="q-btn q-btn--submit" id="submitBtn" onclick="submitForm()">Pošaljite upitnik</button>
+                    <button type="button" class="q-btn q-btn--back" onclick="prevStep(3)">@Q.BtnBack</button>
+                    <button type="button" class="q-btn q-btn--submit" id="submitBtn" onclick="submitForm()">@Q.BtnSubmit</button>
                 </div>
                 <div class="q-opt-out-wrap">
-                    <button type="button" class="q-opt-out-btn" onclick="optOut()">Odjavi se</button>
+                    <button type="button" class="q-opt-out-btn" onclick="optOut()">@Q.BtnOptOut</button>
                 </div>
             </div>
 
-            <!-- ===================== ZAHVALA ===================== -->
-            <div class="q-step" id="stepDone" style="display:none">
-                <div class="q-done">
-                    <h2 class="q-done-title">Hvala, @name!</h2>
-                    <p class="q-done-text">Pregledat ću vaše odgovore i javiti vam se u roku od 24–48 sati.</p>
-                    <p class="q-done-text">Ako budem imao dodatnih pitanja, kontaktiraću vas putem e-maila. Neću vas zvati — sva komunikacija ide putem emaila.</p>
-                </div>
-            </div>
         </form>
     </div>
 </div>
 
 @section Scripts {
+    <script>
+        window.QText = @Html.Raw(JsonSerializer.Serialize(new
+        {
+            progressPattern = Q.ProgressPattern,
+            progressDone = Q.ProgressDone,
+            btnSending = Q.BtnSending,
+            companyRequired = Q.CompanyRequired,
+            optOutConfirm = Q.OptOutConfirmMsg,
+            optOutDoneHtml = Q.OptOutDoneHtml,
+            optOutError = Q.OptOutError
+        }));
+    </script>
     <script src="~/js/questionnaire.js" asp-append-version="true"></script>
 }

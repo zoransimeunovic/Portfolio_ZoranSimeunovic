@@ -94,7 +94,8 @@ public class AdminController : Controller
                 CompletedAt = q.CompletedAt,
                 CreatedAt = q.CreatedAt,
                 OptedOut = q.ContactLead.OptedOut,
-                OfferSentAt = q.ContactLead.OfferSentAt
+                OfferSentAt = q.ContactLead.OfferSentAt,
+                CompletionNotified = q.CompletionNotificationSentAt.HasValue
             })
             .ToListAsync();
 
@@ -130,6 +131,7 @@ public class AdminController : Controller
             ContactLeadId = q.ContactLeadId,
             ClientName = q.ContactLead.Name,
             ClientEmail = q.ContactLead.Email,
+            Token = q.Token,
             CreatedAt = q.CreatedAt,
             CompletedAt = q.CompletedAt,
             Stage = q.Stage,
@@ -343,6 +345,7 @@ public class QuestionnaireListItem
     public DateTime CreatedAt { get; set; }
     public bool OptedOut { get; set; }
     public DateTime? OfferSentAt { get; set; }
+    public bool CompletionNotified { get; set; }
 }
 
 public class QuestionnaireDetailVm
@@ -351,6 +354,7 @@ public class QuestionnaireDetailVm
     public int ContactLeadId { get; set; }
     public string ClientName { get; set; } = "";
     public string ClientEmail { get; set; } = "";
+    public string Token { get; set; } = "";
     public DateTime CreatedAt { get; set; }
     public DateTime? CompletedAt { get; set; }
     public byte Stage { get; set; }

@@ -1,16 +1,21 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using SyncWorkerService;
 using SyncWorkerService.Data;
 using SyncWorkerService.Services;
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(
+        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "sync_worker.log"),
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 7)
+    .CreateLogger();
+
 var host = Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration((ctx, config) =>
-    {
-        var env = ctx.HostingEnvironment.EnvironmentName;
-        var sharedPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..");
-        config.AddJsonFile(Path.Combine(sharedPath, "appsettings.json"), optional: true);
-        config.AddJsonFile(Path.Combine(sharedPath, $"appsettings.{env}.json"), optional: true);
-    })
+    .UseSerilog()
+    .UseWindowsService()
     .ConfigureServices((ctx, services) =>
     {
         var conn = ctx.Configuration.GetConnectionString("DefaultConnection")
@@ -19,8 +24,6 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddDbContext<SyncDbContext>(o =>
             o.UseMySql(conn, ServerVersion.AutoDetect(conn)));
 
-        var clientId = ctx.Configuration["MicrosoftGraph:ClientId"]!;
-        services.AddSingleton(_ => new MsGraphClient.MsGraphClient(clientId));
         services.AddScoped<EmailService>();
         services.AddScoped<LeadScannerService>();
         services.AddHostedService<Worker>();

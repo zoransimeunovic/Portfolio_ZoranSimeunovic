@@ -16,7 +16,7 @@ public static class SiteTextProvider
         Culture = "en",
         PageTitle = "Zoran Simeunović — Full Stack Web Developer",
         LanguageLabel = "Language",
-        Nav = new NavText { Home = "HOME", Work = "WORK", Process = "PROCESS", ContactMe = "CONTACT ME" },
+        Nav = new NavText { Home = "HOME", Work = "WORK", Process = "PROCESS", ContactMe = "CONTACT ME", MyQuestionnaire = "MY QUESTIONNAIRE" },
         Hero = new HeroText
         {
             Badge = "Full Stack Web Developer",
@@ -74,7 +74,7 @@ public static class SiteTextProvider
             {
                 new() { Tag = "FIRST STEP" },
                 new() { Tag = "100% VIA EMAIL", Title = "Project questionnaire", Description = "Your business, Current online presence, Project goals, Type of project, Timeline, Design preferences" },
-                new() { Tag = "FREE", Title = "Quote", Description = "I review your answers, ask any follow-up questions, and send a detailed quote." },
+                new() { Tag = "FREE", Title = "Offer", Description = "I review your answers, ask any follow-up questions, and send a detailed offer." },
                 new() { Tag = "BEFORE WORK", Title = "Project agreement", Description = "Clear scope, price and milestones in writing. No surprises." },
                 new() { Tag = "YOUR APPROVAL REQUIRED", Title = "Design preview", Description = "See the full design first. Nothing gets built without your approval." },
                 new() { Tag = "BUILDING YOUR SITE", Title = "Website", Description = "The approved design becomes a fast, working website. No silence, you'll always know where things stand." },
@@ -177,12 +177,14 @@ public static class SiteTextProvider
         {
             BackHome = "← Back to home",
             PrivacyTitle = "Privacy Policy",
-            PrivacyHtml = @"<p>This Privacy Policy explains how ZS.dev (""I"", ""me"") handles your information when you visit this website.</p>
-<h3>No cookies</h3><p>This website does not use cookies, tracking pixels, or third-party analytics.</p>
-<h3>Data I collect</h3><p>The only personal data collected is the name and email address you voluntarily submit through the contact form.</p>
-<h3>Purpose</h3><p>This information is used solely to respond to your inquiry and send you a short questionnaire. It is never sold or shared with third parties.</p>
-<h3>Storage</h3><p>Your data is stored securely and kept only as long as necessary to handle your request.</p>
-<h3>Your rights</h3><p>You may request access to, correction of, or deletion of your data at any time by emailing <a href=""mailto:zoran.simeunovic@outlook.de"">zoran.simeunovic@outlook.de</a>.</p>
+            PrivacyHtml = @"<p>This Privacy Policy explains how Zoran Simeunović / ZS.dev (""I"", ""me"") processes personal data collected through this website.</p>
+<h3>Data I collect</h3><p>When you submit the contact form, I collect your name and email address. No other personal data is collected. No tracking pixels, analytics tools, or advertising services are used.</p>
+<h3>How I use your data</h3><p>Your name and email are used to: (1) send you a confirmation email to verify your address, (2) send you a short project questionnaire, and (3) follow up on your inquiry. Your data is never sold or shared with third parties, except as described below.</p>
+<h3>Email delivery</h3><p>Transactional emails (confirmation, questionnaire link) are sent via <strong>Brevo</strong> (Sendinblue SAS, 55 rue d'Amsterdam, 75008 Paris, France), a GDPR-compliant email delivery service. Your name and email address are transmitted to Brevo solely for the purpose of sending these emails. Brevo's privacy policy: <a href=""https://www.brevo.com/legal/privacypolicy/"">brevo.com/legal/privacypolicy</a>.</p>
+<h3>Cookies</h3><p>This website uses one essential cookie (<code>q_ref</code>) to maintain your questionnaire session. This cookie is set only after you open your questionnaire link and expires after 30 days or when you complete the questionnaire. No tracking or advertising cookies are used.</p>
+<h3>Storage</h3><p>Your data is stored on a secured server within the EU. It is kept only as long as necessary to handle your request and is deleted upon your request.</p>
+<h3>Legal basis</h3><p>Processing is based on your consent given by voluntarily submitting the contact form (Art. 6(1)(a) GDPR).</p>
+<h3>Your rights</h3><p>Under GDPR you have the right to access, correct, delete, or restrict processing of your data. To exercise these rights, email <a href=""mailto:zoran.simeunovic@outlook.de"">zoran.simeunovic@outlook.de</a>. You also have the right to lodge a complaint with a supervisory authority.</p>
 <p class=""legal-updated"">Last updated: June 2026.</p>",
             TermsTitle = "Terms of Service",
             TermsHtml = @"<p>By using this website you agree to the following terms.</p>
@@ -192,7 +194,8 @@ public static class SiteTextProvider
 <h3>Contact form</h3><p>By submitting the contact form you confirm the information provided is accurate. Submitting does not create any binding agreement.</p>
 <h3>Liability</h3><p>ZS.dev is not liable for any damages arising from the use of this website.</p>
 <p class=""legal-updated"">Last updated: June 2026.</p>"
-        }
+        },
+        Questionnaire = BuildEnQuestionnaire()
     };
 
     // ------------------------------------------------------------------ GERMAN
@@ -201,7 +204,7 @@ public static class SiteTextProvider
         Culture = "de",
         PageTitle = "Zoran Simeunović — Full-Stack Webentwickler",
         LanguageLabel = "Sprache",
-        Nav = new NavText { Home = "START", Work = "PROJEKTE", Process = "ABLAUF", ContactMe = "KONTAKT" },
+        Nav = new NavText { Home = "START", Work = "PROJEKTE", Process = "ABLAUF", ContactMe = "KONTAKT", MyQuestionnaire = "MEIN FRAGEBOGEN" },
         Hero = new HeroText
         {
             Badge = "Full-Stack Webentwickler",
@@ -362,12 +365,14 @@ public static class SiteTextProvider
         {
             BackHome = "← Zurück zur Startseite",
             PrivacyTitle = "Datenschutzerklärung",
-            PrivacyHtml = @"<p>Diese Datenschutzerklärung erklärt, wie ZS.dev (""ich"") mit Ihren Daten umgeht, wenn Sie diese Website besuchen.</p>
-<h3>Keine Cookies</h3><p>Diese Website verwendet keine Cookies, Tracking-Pixel oder Analyse-Dienste von Drittanbietern.</p>
-<h3>Erhobene Daten</h3><p>Die einzigen erhobenen personenbezogenen Daten sind der Name und die E-Mail-Adresse, die Sie freiwillig über das Kontaktformular übermitteln.</p>
-<h3>Zweck</h3><p>Diese Informationen werden ausschließlich verwendet, um auf Ihre Anfrage zu antworten und Ihnen einen kurzen Fragebogen zu senden. Sie werden niemals verkauft oder an Dritte weitergegeben.</p>
-<h3>Speicherung</h3><p>Ihre Daten werden sicher gespeichert und nur so lange aufbewahrt, wie es zur Bearbeitung Ihrer Anfrage erforderlich ist.</p>
-<h3>Ihre Rechte</h3><p>Sie können jederzeit Auskunft, Berichtigung oder Löschung Ihrer Daten verlangen, per E-Mail an <a href=""mailto:zoran.simeunovic@outlook.de"">zoran.simeunovic@outlook.de</a>.</p>
+            PrivacyHtml = @"<p>Diese Datenschutzerklärung erläutert, wie Zoran Simeunović / ZS.dev (""ich"") personenbezogene Daten verarbeitet, die über diese Website erhoben werden.</p>
+<h3>Erhobene Daten</h3><p>Wenn Sie das Kontaktformular absenden, erhebe ich Ihren Namen und Ihre E-Mail-Adresse. Weitere personenbezogene Daten werden nicht erhoben. Es werden keine Tracking-Pixel, Analyse-Tools oder Werbedienste verwendet.</p>
+<h3>Verwendungszweck</h3><p>Ihr Name und Ihre E-Mail-Adresse werden verwendet, um: (1) eine Bestätigungs-E-Mail zur Verifizierung Ihrer Adresse zu senden, (2) einen kurzen Projektfragebogen zuzusenden und (3) Ihre Anfrage zu beantworten. Ihre Daten werden weder verkauft noch an Dritte weitergegeben, außer wie unten beschrieben.</p>
+<h3>E-Mail-Versand</h3><p>Transaktions-E-Mails werden über <strong>Brevo</strong> (Sendinblue SAS, 55 rue d'Amsterdam, 75008 Paris, Frankreich) versendet, einem DSGVO-konformen E-Mail-Dienst. Ihr Name und Ihre E-Mail-Adresse werden ausschließlich zum Versand dieser E-Mails an Brevo übermittelt. Datenschutzerklärung: <a href=""https://www.brevo.com/legal/privacypolicy/"">brevo.com/legal/privacypolicy</a>.</p>
+<h3>Cookies</h3><p>Diese Website verwendet ein technisch notwendiges Cookie (<code>q_ref</code>), um Ihre Fragebogen-Sitzung aufrechtzuerhalten. Es wird nur gesetzt, wenn Sie Ihren Fragebogen-Link öffnen, und läuft nach 30 Tagen oder nach Abschluss ab. Es werden keine Tracking- oder Werbe-Cookies verwendet.</p>
+<h3>Speicherung</h3><p>Ihre Daten werden auf einem gesicherten Server innerhalb der EU gespeichert und nur so lange aufbewahrt, wie es zur Bearbeitung Ihrer Anfrage erforderlich ist.</p>
+<h3>Rechtsgrundlage</h3><p>Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO).</p>
+<h3>Ihre Rechte</h3><p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung oder Einschränkung der Verarbeitung. Kontakt: <a href=""mailto:zoran.simeunovic@outlook.de"">zoran.simeunovic@outlook.de</a>. Sie haben zudem das Recht, sich bei einer Aufsichtsbehörde zu beschweren.</p>
 <p class=""legal-updated"">Zuletzt aktualisiert: Juni 2026.</p>",
             TermsTitle = "Allgemeine Geschäftsbedingungen",
             TermsHtml = @"<p>Durch die Nutzung dieser Website stimmen Sie den folgenden Bedingungen zu.</p>
@@ -377,7 +382,8 @@ public static class SiteTextProvider
 <h3>Kontaktformular</h3><p>Mit dem Absenden des Kontaktformulars bestätigen Sie, dass die angegebenen Informationen korrekt sind. Das Absenden begründet keine verbindliche Vereinbarung.</p>
 <h3>Haftung</h3><p>ZS.dev haftet nicht für Schäden, die aus der Nutzung dieser Website entstehen.</p>
 <p class=""legal-updated"">Zuletzt aktualisiert: Juni 2026.</p>"
-        }
+        },
+        Questionnaire = BuildDeQuestionnaire()
     };
 
     // --------------------------------------------------------- SRPSKI (LATINICA)
@@ -386,7 +392,7 @@ public static class SiteTextProvider
         Culture = "sr-Latn",
         PageTitle = "Zoran Simeunović — Full Stack Web Developer",
         LanguageLabel = "Jezik",
-        Nav = new NavText { Home = "POČETNA", Work = "RADOVI", Process = "PROCES", ContactMe = "KONTAKT" },
+        Nav = new NavText { Home = "POČETNA", Work = "RADOVI", Process = "PROCES", ContactMe = "KONTAKT", MyQuestionnaire = "MOJ UPITNIK" },
         Hero = new HeroText
         {
             Badge = "Full Stack Web Developer",
@@ -445,7 +451,7 @@ public static class SiteTextProvider
                 new() { Tag = "PRVI KORAK" },
                 new() { Tag = "100% PUTEM MEJLA", Title = "Upitnik o projektu", Description = "Vaše poslovanje, trenutno online prisustvo, ciljevi projekta, tip projekta, rokovi, željeni dizajn" },
                 new() { Tag = "BESPLATNO", Title = "Ponuda", Description = "Pregledam vaše odgovore, postavim eventualna dodatna pitanja i šaljem detaljnu ponudu." },
-                new() { Tag = "PRE POČETKA RADA", Title = "Dogovor o projektu", Description = "Jasan obim, cena i prekretnice u pisanoj formi. Bez iznenađenja." },
+                new() { Tag = "PRE POČETKA RADA", Title = "Ugovor o projektu", Description = "Jasan obim, cena i prekretnice u pisanoj formi. Bez iznenađenja." },
                 new() { Tag = "POTREBNO VAŠE ODOBRENJE", Title = "Pregled dizajna", Description = "Prvo vidite kompletan dizajn. Ništa se ne gradi bez vašeg odobrenja." },
                 new() { Tag = "IZRADA VAŠEG SAJTA", Title = "Sajt", Description = "Odobreni dizajn postaje brz, funkcionalan sajt. Bez ćutanja — uvek znate dokle se stiglo." },
                 new() { Tag = "VREME ZA PROVERU", Title = "Pregled sajta", Description = "Testirate sajt i tražite izmene ako su potrebne." },
@@ -547,12 +553,14 @@ public static class SiteTextProvider
         {
             BackHome = "← Nazad na početnu",
             PrivacyTitle = "Politika privatnosti",
-            PrivacyHtml = @"<p>Ova Politika privatnosti objašnjava kako ZS.dev (""ja"") postupa sa vašim podacima kada posetite ovaj sajt.</p>
-<h3>Bez kolačića</h3><p>Ovaj sajt ne koristi kolačiće, piksele za praćenje niti analitiku trećih strana.</p>
-<h3>Podaci koje prikupljam</h3><p>Jedini lični podaci koji se prikupljaju jesu ime i email adresa koje dobrovoljno unosite putem kontakt forme.</p>
-<h3>Svrha</h3><p>Ovi podaci se koriste isključivo za odgovor na vaš upit i slanje kratkog upitnika. Nikada se ne prodaju niti dele sa trećim stranama.</p>
-<h3>Čuvanje</h3><p>Vaši podaci se bezbedno čuvaju i samo onoliko dugo koliko je potrebno za obradu vašeg zahteva.</p>
-<h3>Vaša prava</h3><p>U svakom trenutku možete zatražiti uvid, ispravku ili brisanje svojih podataka slanjem mejla na <a href=""mailto:zoran.simeunovic@outlook.de"">zoran.simeunovic@outlook.de</a>.</p>
+            PrivacyHtml = @"<p>Ova Politika privatnosti objašnjava kako Zoran Simeunović / ZS.dev (""ja"") obrađuje lične podatke prikupljene putem ovog sajta.</p>
+<h3>Podaci koje prikupljam</h3><p>Kada popunite kontakt formu, prikupljam vaše ime i email adresu. Drugi lični podaci se ne prikupljaju. Ne koristim piksel praćenje, alate za analitiku niti reklamne servise.</p>
+<h3>Svrha obrade</h3><p>Vaše ime i email adresa koriste se za: (1) slanje email potvrde radi verifikacije adrese, (2) slanje kratkog upitnika o projektu i (3) odgovor na vaš upit. Vaši podaci se ne prodaju niti dijele s trećim stranama, osim kako je opisano ispod.</p>
+<h3>Slanje emailova</h3><p>Transakcioni emailovi šalju se putem <strong>Brevo</strong> (Sendinblue SAS, 55 rue d'Amsterdam, 75008 Paris, Francuska), servisa usklađenog sa GDPR-om. Vaše ime i email adresa prosljeđuju se Brevo-u isključivo radi dostave ovih emailova. Politika privatnosti: <a href=""https://www.brevo.com/legal/privacypolicy/"">brevo.com/legal/privacypolicy</a>.</p>
+<h3>Kolačići</h3><p>Sajt koristi jedan tehnički neophodan kolačić (<code>q_ref</code>) za održavanje sesije upitnika. Postavlja se samo kada otvorite link za upitnik i ističe nakon 30 dana ili završetka upitnika. Ne koriste se kolačići za praćenje ili oglašavanje.</p>
+<h3>Čuvanje podataka</h3><p>Vaši podaci čuvaju se na sigurnom serveru unutar EU i brišu se na vaš zahtjev ili kada više nisu potrebni.</p>
+<h3>Pravna osnova</h3><p>Obrada se vrši na osnovu vaše saglasnosti date dobrovoljnim popunjavanjem kontakt forme (čl. 6 st. 1 t. a) GDPR).</p>
+<h3>Vaša prava</h3><p>Imate pravo na pristup, ispravku, brisanje ili ograničenje obrade vaših podataka. Kontakt: <a href=""mailto:zoran.simeunovic@outlook.de"">zoran.simeunovic@outlook.de</a>. Imate i pravo na pritužbu nadzornom tijelu.</p>
 <p class=""legal-updated"">Poslednje ažuriranje: jun 2026.</p>",
             TermsTitle = "Uslovi korišćenja",
             TermsHtml = @"<p>Korišćenjem ovog sajta prihvatate sledeće uslove.</p>
@@ -562,6 +570,475 @@ public static class SiteTextProvider
 <h3>Kontakt forma</h3><p>Slanjem kontakt forme potvrđujete da su navedeni podaci tačni. Slanje ne stvara nikakav obavezujući sporazum.</p>
 <h3>Odgovornost</h3><p>ZS.dev ne snosi odgovornost za bilo kakvu štetu nastalu korišćenjem ovog sajta.</p>
 <p class=""legal-updated"">Poslednje ažuriranje: jun 2026.</p>"
+        },
+        Questionnaire = BuildSrQuestionnaire()
+    };
+
+    private static QuestionnaireText BuildEnQuestionnaire() => new()
+    {
+        PageTitle = "Short questionnaire",
+        Subtitle = "Helps me prepare the right offer for you.",
+        ProgressPattern = "Step {0} of 3",
+        ProgressDone = "Complete",
+        BtnNext = "Next step →",
+        BtnBack = "← Back",
+        BtnSubmit = "Submit questionnaire",
+        BtnSending = "Sending...",
+        BtnOptOut = "Unsubscribe",
+        OptionalLabel = "optional",
+        SelectDefault = "— Select —",
+        OtherOption = "Other",
+        DropzoneClickOrDrag = "Drag or click",
+        DropzoneUploading = "Uploading...",
+        DropzoneError = "Error. Please try again.",
+        ContentAvailOptions = ["Yes, I have texts prepared", "Partially", "No, I need help"],
+        DoneTitlePattern = "Thank you, {0}!",
+        DoneText1 = "I will review your answers and get back to you within 24–48 hours.",
+        DoneText2 = "If I have any additional questions, I will contact you via email. I won't call you — all communication goes via email.",
+        ExpiredTitle = "Link has expired",
+        ExpiredText = "This questionnaire link is no longer active. Contact me at <a href=\"mailto:zoran.simeunovic@outlook.de\">zoran.simeunovic@outlook.de</a> and I will send you a new link.",
+        CompletedTitle = "Questionnaire already completed",
+        CompletedText1 = "Your answers have already been received. I will get back to you within 24–48 hours.",
+        CompletedText2 = "Have questions? Write to <a href=\"mailto:zoran.simeunovic@outlook.de\">zoran.simeunovic@outlook.de</a>.",
+        CompanyRequired = "This field is required.",
+        OptOutConfirmMsg = "Are you sure you want to unsubscribe?\n\nThis will result in the deletion of your answers and contact information.",
+        OptOutDoneHtml = "<p>Your unsubscribe request has been received.</p><p>Your data will be deleted as soon as possible.</p>",
+        OptOutError = "Error sending request. Please try again.",
+        S1 = new QStep1Text
+        {
+            Title = "About your business",
+            CompanyLabel = "Company / brand name",
+            CompanyHint = "If you don't have a company, enter \"private\".",
+            CompanyPlaceholder = "e.g. My Company Ltd.",
+            IndustryLabel = "What industry are you in?",
+            IndustryOptions = ["Trade / E-commerce", "Health & wellness", "Construction & real estate", "Hospitality & tourism", "Education & training", "IT & technology", "Consulting & services", "Beauty & fashion"],
+            IndustryOtherPlaceholder = "Enter your industry",
+            TeamSizeLabel = "Size of your team?",
+            TeamSizeOptions = ["Just me", "2–10 employees", "11–50 employees", "50+ employees"],
+            OnlineLabel = "Where can you be found online?",
+            OnlineOptions = ["Google Business Profile", "Facebook", "Instagram", "LinkedIn", "Xing"],
+            OnlineOtherPlaceholder = "Where?",
+            OnlineNowhere = "Nowhere else",
+            HasWebsiteLabel = "Do you currently have a website?",
+            HasWebsiteYes = "Yes",
+            HasWebsiteNo = "No",
+            WebsiteUrlPlaceholder = "https://your-website.com",
+            WebsiteDescLabel = "How would you describe your current website?",
+            WebsiteDescOptions = ["Visually outdated", "Not mobile-friendly", "Difficult to navigate", "Slow", "Missing important information", "Doesn't appear on Google", "I'm satisfied but need new features"],
+            WebsiteDescOtherPlaceholder = "Describe"
+        },
+        S2 = new QStep2Text
+        {
+            Title = "About your project",
+            NeedWhatLabel = "What do you need?",
+            HintWebsiteLabel = "Website",
+            HintWebsiteEm = "select one",
+            WebsiteTypeOptions = ["Simple presentation website (up to 5 pages)", "Website with gallery / blog", "Redesign of existing website", "Hosting and maintenance of existing website only"],
+            WebsiteTypeNoNeed = "I don't need a website",
+            HintExtraLabel = "Additional",
+            HintExtraEm = "select all that apply",
+            ProjectExtraWebApp = "Web application (booking system, portal, dashboard...)",
+            ProjectExtraOptions = ["Desktop application (for internal company use)", "I'm not sure yet"],
+            ProjectExtraOtherPlaceholder = "Describe",
+            PagesLabel = "Which pages / sections do you need?",
+            PagesOptions = ["Home page", "About us", "Services / Products", "Pricing", "Blog / News", "Gallery / Portfolio", "Online shop", "Contact", "FAQ / Frequently asked questions"],
+            PagesOtherPlaceholder = "Which pages?",
+            FeaturesLabel = "Do you need any of the following?",
+            CommHeader = "Communication",
+            CommOptions = ["Contact form — clients contact you directly from your website", "Newsletter — regularly inform clients about news and offers", "Automated emails — reminders, confirmations, welcome messages, absence notifications"],
+            SalesHeader = "Sales & bookings",
+            SalesOptions = ["Online bookings — clients schedule appointments themselves, without phone calls", "Client portal — clients log in and view their data, orders or documents", "E-commerce / online shop — sell products or services directly online"],
+            GrowthHeader = "Visibility & growth",
+            GrowthOptions = ["SEO optimization — so clients can find you more easily on Google", "Google Maps integration — display your company location on the map", "Analytics overview — see how many visitors your site has and where they come from", "Blog or news section — share expert tips and improve Google visibility"],
+            TechHeader = "Technical",
+            TechOptions = ["Admin panel — manage content, users and data from one place", "Content management (CMS) — update texts and images yourself without technical knowledge", "Multilingual support — website available in multiple languages for a wider audience", "Microsoft 365 integration — connect your website with Outlook, Teams, Calendar, OneDrive"],
+            FeaturesNone = "None of the above",
+            FeaturesOtherPlaceholder = "What else do you need?",
+            ContentLabel = "Website content",
+            TextsHint = "Texts",
+            TextsDropzoneHint = "Attach texts (optional) — drag or click",
+            PhotosHint = "Photos",
+            PhotosDropzoneHint = "Attach photos (optional) — drag or click",
+            AppUsersLabel = "Who will use the application?",
+            AppUsersOptions = ["Just me / internal team", "My clients", "Both me and my clients"],
+            AppUsersOtherPlaceholder = "Who?",
+            AppUserCountLabel = "How many users do you expect?",
+            AppUserCountOptions = ["Up to 10", "10–100", "100–1,000", "More than 1,000", "I'm not sure"]
+        },
+        S3 = new QStep3Text
+        {
+            Title = "Goals, design and timeline",
+            GoalsLabel = "What is the main goal of this project?",
+            WebHeader = "Web presence",
+            WebOptions = ["Look more professional and credible", "Be found on Google", "Present services or products online", "Attract more clients / inquiries", "Replace an outdated or poor website"],
+            BusinessHeader = "Business & growth",
+            BusinessOptions = ["Sell products or services online", "Provide better service to existing clients", "Expand business to new markets", "Build brand recognition"],
+            AutoHeader = "Efficiency & automation",
+            AutoOptions = ["Automate manual processes", "Reduce the number of phone calls and inquiries", "Replace outdated software or system", "Save time through automated processes"],
+            GoalsOtherPlaceholder = "What goal?",
+            BiggestProblemLabel = "What is currently your biggest challenge?",
+            BiggestProblemHint = "Briefly describe what you struggle with most in your daily business.",
+            SuccessCriteriaLabel = "How will you know the project is successful?",
+            SuccessCriteriaHint = "E.g. more inquiries, fewer phone calls, clients book appointments themselves...",
+            CustomersLabel = "Who are your customers / clients?",
+            CustomerTypeHint = "Customer type",
+            CustomerTypePrivate = "Private individuals",
+            CustomerTypeBusiness = "Other businesses and companies",
+            CustomerTypeBoth = "Both private individuals and businesses",
+            CustomerTypeOtherPlaceholder = "Who are your clients?",
+            AgeHint = "Age group",
+            AgeOptions = ["Young adults (18–35)", "Middle-aged (35–55)", "Older generation (55+)", "All age groups"],
+            GenderHint = "Gender",
+            GenderOptions = ["Predominantly male", "Predominantly female", "Equal / all"],
+            LocationHint = "Customer location",
+            LocationOptions = ["Local (same city / region)", "National (entire country)", "International", "Combination"],
+            BrandingLabel = "Branding materials",
+            BrandingHint = "If you have a logo or brand book, send them directly. If not, skip.",
+            LogoTitle = "Logo",
+            BrandBookTitle = "Brand book",
+            BrandingOptions = ["Yes, I have defined brand colours", "No, I need everything from scratch"],
+            BrandingOtherPlaceholder = "What do you have?",
+            StyleLabel = "What style do you prefer?",
+            StyleOptions = ["Minimal and clean", "Bold and modern", "Professional and corporate", "Warm and friendly", "Dark theme", "Light theme", "I'm not sure — I trust your judgment"],
+            StyleOtherPlaceholder = "What style?",
+            ReferenceLinksLabel = "Do you have any websites you like?",
+            ReferenceLinksHint = "Share links — doesn't have to be from your industry.",
+            ExistingSystemsLabel = "Are there similar systems you already use?",
+            ExistingSystemsHint = "A tool or program that should be connected to or replaced by the new solution.",
+            CompetitorLinksLabel = "Do you have competitor websites as a reference?",
+            CompetitorLinksHint = "Useful for understanding your market.",
+            StartWhenLabel = "When would you like to start?",
+            StartWhenOptions = ["As soon as possible", "Within a month", "Within 2–3 months", "Just exploring options"],
+            StartWhenOtherPlaceholder = "When?",
+            DeadlineLabel = "Do you have a deadline?",
+            DeadlineYes = "Yes",
+            DeadlineNo = "No",
+            DeadlineFlexible = "Flexible",
+            RankingLabel = "Rank by importance",
+            RankingHintInline = "(1 = most important)",
+            RankSpeedLabel = "Delivery speed",
+            RankQualityLabel = "Design quality",
+            RankPriceLabel = "Price",
+            RankError = "Each rank must be selected exactly once.",
+            SupportLabel = "Will you need maintenance and support after the project is finished?",
+            SupportOptions = ["Yes, I'm interested", "No", "I'm not sure — tell me more"],
+            HeardFromLabel = "How did you hear about me?",
+            HeardFromOptions = ["Friend / colleague recommendation", "Google search", "LinkedIn", "Xing", "Instagram", "Facebook"],
+            HeardFromOtherPlaceholder = "Where did you hear?",
+            AdditionalNotesLabel = "Is there anything else I should know?",
+            AdditionalNotesHint = "Any additional context, questions or notes."
+        }
+    };
+
+    private static QuestionnaireText BuildDeQuestionnaire() => new()
+    {
+        PageTitle = "Kurzer Fragebogen",
+        Subtitle = "Hilft mir, Ihnen das richtige Angebot zu erstellen.",
+        ProgressPattern = "Schritt {0} von 3",
+        ProgressDone = "Abgeschlossen",
+        BtnNext = "Nächster Schritt →",
+        BtnBack = "← Zurück",
+        BtnSubmit = "Fragebogen absenden",
+        BtnSending = "Wird gesendet...",
+        BtnOptOut = "Abmelden",
+        OptionalLabel = "optional",
+        SelectDefault = "— Auswählen —",
+        OtherOption = "Sonstiges",
+        DropzoneClickOrDrag = "Ziehen oder klicken",
+        DropzoneUploading = "Wird hochgeladen...",
+        DropzoneError = "Fehler. Bitte erneut versuchen.",
+        ContentAvailOptions = ["Ja, ich habe Texte vorbereitet", "Teilweise", "Nein, ich brauche Hilfe"],
+        DoneTitlePattern = "Danke, {0}!",
+        DoneText1 = "Ich werde Ihre Antworten prüfen und mich innerhalb von 24–48 Stunden bei Ihnen melden.",
+        DoneText2 = "Falls ich weitere Fragen habe, kontaktiere ich Sie per E-Mail. Ich werde Sie nicht anrufen — die gesamte Kommunikation läuft per E-Mail.",
+        ExpiredTitle = "Link ist abgelaufen",
+        ExpiredText = "Dieser Fragebogen-Link ist nicht mehr aktiv. Kontaktieren Sie mich unter <a href=\"mailto:zoran.simeunovic@outlook.de\">zoran.simeunovic@outlook.de</a> und ich sende Ihnen einen neuen Link.",
+        CompletedTitle = "Fragebogen bereits ausgefüllt",
+        CompletedText1 = "Ihre Antworten wurden bereits empfangen. Ich werde mich innerhalb von 24–48 Stunden bei Ihnen melden.",
+        CompletedText2 = "Haben Sie Fragen? Schreiben Sie an <a href=\"mailto:zoran.simeunovic@outlook.de\">zoran.simeunovic@outlook.de</a>.",
+        CompanyRequired = "Dieses Feld ist erforderlich.",
+        OptOutConfirmMsg = "Sind Sie sicher, dass Sie sich abmelden möchten?\n\nDadurch werden Ihre bisherigen Antworten und Kontaktdaten gelöscht.",
+        OptOutDoneHtml = "<p>Ihr Abmeldewunsch wurde empfangen.</p><p>Ihre Daten werden so bald wie möglich gelöscht.</p>",
+        OptOutError = "Fehler beim Senden der Anfrage. Bitte erneut versuchen.",
+        S1 = new QStep1Text
+        {
+            Title = "Über Ihr Unternehmen",
+            CompanyLabel = "Firmenname / Markenname",
+            CompanyHint = "Falls Sie kein Unternehmen haben, tragen Sie \"privat\" ein.",
+            CompanyPlaceholder = "z.B. Meine Firma GmbH",
+            IndustryLabel = "In welcher Branche sind Sie tätig?",
+            IndustryOptions = ["Handel / E-Commerce", "Gesundheit & Wellness", "Bauwesen & Immobilien", "Gastronomie & Tourismus", "Bildung & Ausbildung", "IT & Technologie", "Beratung & Dienstleistungen", "Beauty & Mode"],
+            IndustryOtherPlaceholder = "Branche eingeben",
+            TeamSizeLabel = "Größe Ihres Teams?",
+            TeamSizeOptions = ["Nur ich", "2–10 Mitarbeiter", "11–50 Mitarbeiter", "50+ Mitarbeiter"],
+            OnlineLabel = "Wo sind Sie online zu finden?",
+            OnlineOptions = ["Google Business Profil", "Facebook", "Instagram", "LinkedIn", "Xing"],
+            OnlineOtherPlaceholder = "Wo?",
+            OnlineNowhere = "Nirgendwo sonst",
+            HasWebsiteLabel = "Haben Sie derzeit eine Website?",
+            HasWebsiteYes = "Ja",
+            HasWebsiteNo = "Nein",
+            WebsiteUrlPlaceholder = "https://ihre-website.de",
+            WebsiteDescLabel = "Wie würden Sie Ihre aktuelle Website beschreiben?",
+            WebsiteDescOptions = ["Visuell veraltet", "Nicht mobilfreundlich", "Schwer zu navigieren", "Langsam", "Wichtige Informationen fehlen", "Erscheint nicht bei Google", "Ich bin zufrieden, brauche aber neue Funktionen"],
+            WebsiteDescOtherPlaceholder = "Beschreiben"
+        },
+        S2 = new QStep2Text
+        {
+            Title = "Über Ihr Projekt",
+            NeedWhatLabel = "Was benötigen Sie?",
+            HintWebsiteLabel = "Website",
+            HintWebsiteEm = "wählen Sie eine Option",
+            WebsiteTypeOptions = ["Einfache Präsentationswebsite (bis zu 5 Seiten)", "Website mit Galerie / Blog", "Redesign einer bestehenden Website", "Nur Hosting und Pflege der bestehenden Website"],
+            WebsiteTypeNoNeed = "Ich benötige keine Website",
+            HintExtraLabel = "Zusätzlich",
+            HintExtraEm = "wählen Sie alles Zutreffende",
+            ProjectExtraWebApp = "Webanwendung (Buchungssystem, Portal, Dashboard...)",
+            ProjectExtraOptions = ["Desktop-Anwendung (für den internen Unternehmenseinsatz)", "Ich bin noch nicht sicher"],
+            ProjectExtraOtherPlaceholder = "Beschreiben",
+            PagesLabel = "Welche Seiten / Bereiche benötigen Sie?",
+            PagesOptions = ["Startseite", "Über uns", "Dienstleistungen / Produkte", "Preisliste", "Blog / Neuigkeiten", "Galerie / Portfolio", "Online-Shop", "Kontakt", "FAQ / Häufig gestellte Fragen"],
+            PagesOtherPlaceholder = "Welche Seiten?",
+            FeaturesLabel = "Benötigen Sie eines der Folgenden?",
+            CommHeader = "Kommunikation",
+            CommOptions = ["Kontaktformular — Kunden kontaktieren Sie direkt von Ihrer Website", "Newsletter — informieren Sie Kunden regelmäßig über Neuigkeiten und Angebote", "Automatische E-Mails — Erinnerungen, Bestätigungen, Willkommensnachrichten, Abwesenheitsmeldungen"],
+            SalesHeader = "Verkauf & Buchungen",
+            SalesOptions = ["Online-Buchungen — Kunden vereinbaren Termine selbst, ohne Anrufe", "Kundenportal — Kunden melden sich an und sehen ihre Daten, Bestellungen oder Dokumente", "E-Commerce / Online-Shop — verkaufen Sie Produkte oder Dienstleistungen direkt online"],
+            GrowthHeader = "Sichtbarkeit & Wachstum",
+            GrowthOptions = ["SEO-Optimierung — damit Kunden Sie leichter auf Google finden", "Google Maps-Integration — zeigen Sie den Standort Ihres Unternehmens auf der Karte", "Statistikübersicht — sehen Sie, wie viele Besucher Ihre Seite hat und woher sie kommen", "Blog oder Neuigkeiten-Bereich — teilen Sie Expertentipps und verbessern Sie die Google-Sichtbarkeit"],
+            TechHeader = "Technisches",
+            TechOptions = ["Admin-Panel — verwalten Sie Inhalte, Benutzer und Daten an einem Ort", "Content-Management (CMS) — aktualisieren Sie Texte und Bilder selbst ohne technische Kenntnisse", "Mehrsprachige Unterstützung — Website in mehreren Sprachen für ein breiteres Publikum", "Microsoft 365-Integration — verbinden Sie Ihre Website mit Outlook, Teams, Calendar, OneDrive"],
+            FeaturesNone = "Keines davon",
+            FeaturesOtherPlaceholder = "Was brauchen Sie noch?",
+            ContentLabel = "Inhalte für die Website",
+            TextsHint = "Texte",
+            TextsDropzoneHint = "Texte anhängen (optional) — ziehen oder klicken",
+            PhotosHint = "Fotos",
+            PhotosDropzoneHint = "Fotos anhängen (optional) — ziehen oder klicken",
+            AppUsersLabel = "Wer wird die Anwendung nutzen?",
+            AppUsersOptions = ["Nur ich / internes Team", "Meine Kunden", "Ich und meine Kunden"],
+            AppUsersOtherPlaceholder = "Wer?",
+            AppUserCountLabel = "Wie viele Nutzer erwarten Sie?",
+            AppUserCountOptions = ["Bis zu 10", "10–100", "100–1.000", "Mehr als 1.000", "Ich bin nicht sicher"]
+        },
+        S3 = new QStep3Text
+        {
+            Title = "Ziele, Design und Zeitplan",
+            GoalsLabel = "Was ist das Hauptziel dieses Projekts?",
+            WebHeader = "Web-Präsenz",
+            WebOptions = ["Professioneller und glaubwürdiger wirken", "Bei Google gefunden werden", "Dienstleistungen oder Produkte online präsentieren", "Mehr Kunden / Anfragen gewinnen", "Eine veraltete oder schlechte Website ersetzen"],
+            BusinessHeader = "Geschäft & Wachstum",
+            BusinessOptions = ["Produkte oder Dienstleistungen online verkaufen", "Bestehenden Kunden einen besseren Service bieten", "Geschäft auf neue Märkte ausweiten", "Markenbekanntheit aufbauen"],
+            AutoHeader = "Effizienz & Automatisierung",
+            AutoOptions = ["Manuelle Prozesse automatisieren", "Anzahl der Anrufe und Anfragen reduzieren", "Veraltete Software oder System ersetzen", "Zeit durch automatisierte Prozesse sparen"],
+            GoalsOtherPlaceholder = "Welches Ziel?",
+            BiggestProblemLabel = "Was ist derzeit Ihre größte Herausforderung?",
+            BiggestProblemHint = "Beschreiben Sie kurz, womit Sie im Tagesgeschäft am meisten kämpfen.",
+            SuccessCriteriaLabel = "Woran werden Sie erkennen, dass das Projekt erfolgreich ist?",
+            SuccessCriteriaHint = "Z.B. mehr Anfragen, weniger Anrufe, Kunden buchen selbst Termine...",
+            CustomersLabel = "Wer sind Ihre Kunden?",
+            CustomerTypeHint = "Kundentyp",
+            CustomerTypePrivate = "Privatpersonen",
+            CustomerTypeBusiness = "Andere Unternehmen und Firmen",
+            CustomerTypeBoth = "Sowohl Privatpersonen als auch Unternehmen",
+            CustomerTypeOtherPlaceholder = "Wer sind Ihre Kunden?",
+            AgeHint = "Altersgruppe",
+            AgeOptions = ["Junge Erwachsene (18–35)", "Mittleres Alter (35–55)", "Ältere Generation (55+)", "Alle Altersgruppen"],
+            GenderHint = "Geschlecht",
+            GenderOptions = ["Überwiegend männlich", "Überwiegend weiblich", "Gleich / alle"],
+            LocationHint = "Kundenstandort",
+            LocationOptions = ["Lokal (gleiche Stadt / Region)", "National (ganzes Land)", "International", "Kombination"],
+            BrandingLabel = "Marken-Materialien",
+            BrandingHint = "Falls Sie ein Logo oder ein Markenbuch haben, senden Sie diese direkt. Falls nicht, überspringen.",
+            LogoTitle = "Logo",
+            BrandBookTitle = "Brand book",
+            BrandingOptions = ["Ja, ich habe definierte Markenfarben", "Nein, ich brauche alles von Grund auf"],
+            BrandingOtherPlaceholder = "Was haben Sie?",
+            StyleLabel = "Welchen Stil bevorzugen Sie?",
+            StyleOptions = ["Minimal und sauber", "Kühn und modern", "Professionell und korporativ", "Warm und freundlich", "Dunkles Theme", "Helles Theme", "Ich bin nicht sicher — ich vertraue Ihrem Urteil"],
+            StyleOtherPlaceholder = "Welcher Stil?",
+            ReferenceLinksLabel = "Haben Sie Websites, die Ihnen gefallen?",
+            ReferenceLinksHint = "Links teilen — muss nicht aus Ihrer Branche sein.",
+            ExistingSystemsLabel = "Gibt es ähnliche Systeme, die Sie bereits nutzen?",
+            ExistingSystemsHint = "Ein Tool oder Programm, das mit der neuen Lösung verbunden oder ersetzt werden soll.",
+            CompetitorLinksLabel = "Haben Sie Mitbewerber-Websites als Referenz?",
+            CompetitorLinksHint = "Nützlich für das Verständnis Ihres Marktes.",
+            StartWhenLabel = "Wann möchten Sie beginnen?",
+            StartWhenOptions = ["So bald wie möglich", "Innerhalb eines Monats", "Innerhalb von 2–3 Monaten", "Ich erkunde nur Möglichkeiten"],
+            StartWhenOtherPlaceholder = "Wann?",
+            DeadlineLabel = "Haben Sie einen Abgabetermin?",
+            DeadlineYes = "Ja",
+            DeadlineNo = "Nein",
+            DeadlineFlexible = "Flexibel",
+            RankingLabel = "Nach Wichtigkeit einordnen",
+            RankingHintInline = "(1 = am wichtigsten)",
+            RankSpeedLabel = "Liefergeschwindigkeit",
+            RankQualityLabel = "Designqualität",
+            RankPriceLabel = "Preis",
+            RankError = "Jeder Rang muss genau einmal ausgewählt werden.",
+            SupportLabel = "Benötigen Sie nach Abschluss des Projekts Wartung und Support?",
+            SupportOptions = ["Ja, ich bin interessiert", "Nein", "Ich bin nicht sicher — sagen Sie mir mehr"],
+            HeardFromLabel = "Wie haben Sie von mir erfahren?",
+            HeardFromOptions = ["Empfehlung von Freund / Kollege", "Google-Suche", "LinkedIn", "Xing", "Instagram", "Facebook"],
+            HeardFromOtherPlaceholder = "Wo haben Sie gehört?",
+            AdditionalNotesLabel = "Gibt es noch etwas, das ich wissen sollte?",
+            AdditionalNotesHint = "Beliebiger zusätzlicher Kontext, Fragen oder Anmerkungen."
+        }
+    };
+
+    private static QuestionnaireText BuildSrQuestionnaire() => new()
+    {
+        PageTitle = "Kratki upitnik",
+        Subtitle = "Pomaže mi da vam pripremim pravu ponudu.",
+        ProgressPattern = "Korak {0} od 3",
+        ProgressDone = "Završeno",
+        BtnNext = "Sljedeći korak →",
+        BtnBack = "← Nazad",
+        BtnSubmit = "Pošaljite upitnik",
+        BtnSending = "Šalje se...",
+        BtnOptOut = "Odjavi se",
+        OptionalLabel = "opciono",
+        SelectDefault = "— Odaberite —",
+        OtherOption = "Ostalo",
+        DropzoneClickOrDrag = "Prevucite ili kliknite",
+        DropzoneUploading = "Uploaduje se...",
+        DropzoneError = "Greška. Pokušajte ponovo.",
+        ContentAvailOptions = ["Da, imam pripremljene tekstove", "Djelimično", "Ne, trebam pomoć"],
+        DoneTitlePattern = "Hvala, {0}!",
+        DoneText1 = "Pregledat ću vaše odgovore i javiti vam se u roku od 24–48 sati.",
+        DoneText2 = "Ako budem imao dodatnih pitanja, kontaktiraću vas putem e-maila. Neću vas zvati — sva komunikacija ide putem emaila.",
+        ExpiredTitle = "Link je istekao",
+        ExpiredText = "Ovaj link za upitnik više nije aktivan. Kontaktirajte me na <a href=\"mailto:zoran.simeunovic@outlook.de\">zoran.simeunovic@outlook.de</a> i poslat ću vam novi link.",
+        CompletedTitle = "Upitnik je već popunjen",
+        CompletedText1 = "Vaši odgovori su već primljeni. Javit ću vam se u roku od 24–48 sati.",
+        CompletedText2 = "Imate li pitanja? Pišite na <a href=\"mailto:zoran.simeunovic@outlook.de\">zoran.simeunovic@outlook.de</a>.",
+        CompanyRequired = "Ovo polje je obavezno.",
+        OptOutConfirmMsg = "Da li ste sigurni da se želite odjaviti?\n\nOvo će prouzrokovati brisanje vaših dosadašnjih odgovora i kontakt podataka.",
+        OptOutDoneHtml = "<p>Vaš zahtjev za odjavu je primljen.</p><p>Naš tim će obrisati vaše podatke u najkraćem roku.</p>",
+        OptOutError = "Greška pri slanju zahtjeva. Pokušajte ponovo.",
+        S1 = new QStep1Text
+        {
+            Title = "O vašem poslovanju",
+            CompanyLabel = "Naziv kompanije / brend",
+            CompanyHint = "Ako nemate kompaniju, upišite \"privatno\".",
+            CompanyPlaceholder = "npr. Moja Firma d.o.o.",
+            IndustryLabel = "U kojoj industriji poslujete?",
+            IndustryOptions = ["Trgovina / E-commerce", "Zdravlje i wellness", "Građevinarstvo i nekretnine", "Ugostiteljstvo i turizam", "Obrazovanje i obuka", "IT i tehnologija", "Konsalting i usluge", "Ljepota i moda"],
+            IndustryOtherPlaceholder = "Unesite industriju",
+            TeamSizeLabel = "Veličina vašeg tima?",
+            TeamSizeOptions = ["Samo ja", "2–10 zaposlenih", "11–50 zaposlenih", "50+ zaposlenih"],
+            OnlineLabel = "Gdje vas mogu pronaći online?",
+            OnlineOptions = ["Google Business profil", "Facebook", "Instagram", "LinkedIn", "Xing"],
+            OnlineOtherPlaceholder = "Gdje?",
+            OnlineNowhere = "Nigdje drugdje",
+            HasWebsiteLabel = "Da li trenutno imate web stranicu?",
+            HasWebsiteYes = "Da",
+            HasWebsiteNo = "Ne",
+            WebsiteUrlPlaceholder = "https://vaša-stranica.com",
+            WebsiteDescLabel = "Kako biste opisali svoju trenutnu web stranicu?",
+            WebsiteDescOptions = ["Vizuelno zastarjela", "Nije prilagođena mobilnim uređajima", "Teška za navigaciju", "Spora", "Nedostaju važne informacije", "Ne pojavljuje se na Googleu", "Zadovoljan/na sam ali trebam nove funkcionalnosti"],
+            WebsiteDescOtherPlaceholder = "Opišite"
+        },
+        S2 = new QStep2Text
+        {
+            Title = "O vašem projektu",
+            NeedWhatLabel = "Šta vam je potrebno?",
+            HintWebsiteLabel = "Web stranica",
+            HintWebsiteEm = "odaberite jedno",
+            WebsiteTypeOptions = ["Jednostavna prezentaciona stranica (do 5 podstranica)", "Web stranica s galerijom / blogom", "Redizajn postojeće web stranice", "Samo hosting i održavanje postojeće stranice"],
+            WebsiteTypeNoNeed = "Nemam potrebu za web stranicom",
+            HintExtraLabel = "Dodatno",
+            HintExtraEm = "odaberite sve što se odnosi",
+            ProjectExtraWebApp = "Web aplikacija (sistem rezervacija, portal, dashboard...)",
+            ProjectExtraOptions = ["Desktop aplikacija (za internu upotrebu u firmi)", "Još nisam siguran/na"],
+            ProjectExtraOtherPlaceholder = "Opišite",
+            PagesLabel = "Koje stranice / sekcije vam trebaju?",
+            PagesOptions = ["Početna stranica", "O nama", "Usluge / Proizvodi", "Cjenovnik", "Blog / Vijesti", "Galerija / Portfolio", "Online prodavnica", "Kontakt", "FAQ / Često postavljena pitanja"],
+            PagesOtherPlaceholder = "Koje stranice?",
+            FeaturesLabel = "Da li vam je potrebno nešto od sljedećeg?",
+            CommHeader = "Komunikacija",
+            CommOptions = ["Kontakt forma — klijenti vas kontaktiraju direktno s vaše stranice", "Newsletter — redovno obavještavajte klijente o novostima i ponudama", "Automatske email poruke — podsjetnici, potvrde, dobrodošlice, obavještenja o odsustvu"],
+            SalesHeader = "Prodaja i rezervacije",
+            SalesOptions = ["Online rezervacije — klijenti sami zakazuju termine, bez telefonskih poziva", "Klijentski portal — klijenti se prijavljuju i vide svoje podatke, narudžbe ili dokumente", "E-commerce / online prodavnica — prodajte proizvode ili usluge direktno online"],
+            GrowthHeader = "Vidljivost i rast",
+            GrowthOptions = ["SEO optimizacija — da vas klijenti lakše pronađu na Googleu", "Google Maps integracija — prikažite lokaciju vaše firme na mapi", "Pregled statistike — vidite koliko posjetilaca ima vaša stranica i odakle dolaze", "Blog ili sekcija vijesti — dijelite stručne savjete i poboljšajte vidljivost na Googleu"],
+            TechHeader = "Tehničko",
+            TechOptions = ["Admin panel — upravljajte sadržajem, korisnicima i podacima s jednog mjesta", "Upravljanje sadržajem (CMS) — sami ažurirajte tekstove i slike bez tehničkog znanja", "Višejezična podrška — stranica dostupna na više jezika za širu publiku", "Microsoft 365 integracija — povežite stranicu s Outlook, Teams, Calendar, OneDrive"],
+            FeaturesNone = "Ništa od navedenog",
+            FeaturesOtherPlaceholder = "Šta još trebate?",
+            ContentLabel = "Sadržaj za stranicu",
+            TextsHint = "Tekstovi",
+            TextsDropzoneHint = "Priložite tekstove (opciono) — prevucite ili kliknite",
+            PhotosHint = "Fotografije",
+            PhotosDropzoneHint = "Priložite fotografije (opciono) — prevucite ili kliknite",
+            AppUsersLabel = "Ko će koristiti aplikaciju?",
+            AppUsersOptions = ["Samo ja / interni tim", "Moji klijenti", "I ja i moji klijenti"],
+            AppUsersOtherPlaceholder = "Ko?",
+            AppUserCountLabel = "Koliko korisnika očekujete?",
+            AppUserCountOptions = ["Do 10", "10–100", "100–1.000", "Više od 1.000", "Nisam siguran/na"]
+        },
+        S3 = new QStep3Text
+        {
+            Title = "Ciljevi, dizajn i rokovi",
+            GoalsLabel = "Koji je glavni cilj ovog projekta?",
+            WebHeader = "Web prisustvo",
+            WebOptions = ["Izgledati profesionalnije i vjerodostojnije", "Biti pronađen na Googleu", "Predstaviti usluge ili proizvode online", "Privući više klijenata / upita", "Zamijeniti zastarjelu ili lošu web stranicu"],
+            BusinessHeader = "Poslovanje i rast",
+            BusinessOptions = ["Prodavati proizvode ili usluge online", "Pružiti bolju uslugu postojećim klijentima", "Proširiti poslovanje na nova tržišta", "Izgraditi prepoznatljivost brenda"],
+            AutoHeader = "Efikasnost i automatizacija",
+            AutoOptions = ["Automatizovati ručne procese", "Smanjiti broj telefonskih poziva i upita", "Zamijeniti zastarjeli softver ili sistem", "Uštediti vrijeme kroz automatske procese"],
+            GoalsOtherPlaceholder = "Koji cilj?",
+            BiggestProblemLabel = "Šta vam trenutno predstavlja najveći problem?",
+            BiggestProblemHint = "Opišite ukratko s čime se najviše borite u svakodnevnom poslovanju.",
+            SuccessCriteriaLabel = "Kako ćete znati da je projekat uspješan?",
+            SuccessCriteriaHint = "Npr. više upita, manje telefonskih poziva, klijenti sami zakazuju termine...",
+            CustomersLabel = "Ko su vaši kupci / klijenti?",
+            CustomerTypeHint = "Tip kupaca",
+            CustomerTypePrivate = "Privatne osobe",
+            CustomerTypeBusiness = "Druga preduzeća i firme",
+            CustomerTypeBoth = "I privatne osobe i firme",
+            CustomerTypeOtherPlaceholder = "Ko su vaši klijenti?",
+            AgeHint = "Starosna grupa",
+            AgeOptions = ["Mlađi odrasli (18–35)", "Srednja generacija (35–55)", "Starija generacija (55+)", "Sve starosne grupe"],
+            GenderHint = "Spol",
+            GenderOptions = ["Pretežno muški", "Pretežno ženski", "Podjednako / svi"],
+            LocationHint = "Lokacija kupaca",
+            LocationOptions = ["Lokalni (isti grad / region)", "Nacionalni (cijela zemlja)", "Međunarodni", "Kombinacija"],
+            BrandingLabel = "Brendirani materijali",
+            BrandingHint = "Ako imate logo ili brand book, pošaljite ih direktno. Ako ne, preskoči.",
+            LogoTitle = "Logo",
+            BrandBookTitle = "Brand book",
+            BrandingOptions = ["Da, imam definirane boje brenda", "Ne, trebam sve od nule"],
+            BrandingOtherPlaceholder = "Šta imate?",
+            StyleLabel = "Kakav stil preferirate?",
+            StyleOptions = ["Minimalan i čist", "Smion i moderan", "Profesionalan i korporativan", "Topao i prijateljski", "Tamna tema", "Svijetla tema", "Nisam siguran/na — vjerujem vašem sudu"],
+            StyleOtherPlaceholder = "Kakav stil?",
+            ReferenceLinksLabel = "Da li imate web stranice koje vam se sviđaju?",
+            ReferenceLinksHint = "Podijelite linkove — ne mora biti iz vaše industrije.",
+            ExistingSystemsLabel = "Da li postoje slični sistemi koje već koristite?",
+            ExistingSystemsHint = "Alat ili program koji bi trebao biti povezan ili zamijenjen novim rješenjem.",
+            CompetitorLinksLabel = "Da li imate web stranice konkurencije kao referencu?",
+            CompetitorLinksHint = "Korisno za razumijevanje vašeg tržišta.",
+            StartWhenLabel = "Kada biste željeli da počnemo?",
+            StartWhenOptions = ["Što prije moguće", "U roku od mjesec dana", "U roku od 2–3 mjeseca", "Samo istražujem mogućnosti"],
+            StartWhenOtherPlaceholder = "Kada?",
+            DeadlineLabel = "Da li imate rok završetka?",
+            DeadlineYes = "Da",
+            DeadlineNo = "Ne",
+            DeadlineFlexible = "Fleksibilno",
+            RankingLabel = "Rangirajte po važnosti",
+            RankingHintInline = "(1 = najvažnije)",
+            RankSpeedLabel = "Brzina isporuke",
+            RankQualityLabel = "Kvalitet dizajna",
+            RankPriceLabel = "Cijena",
+            RankError = "Svaki rang mora biti odabran tačno jednom.",
+            SupportLabel = "Da li ćete trebati održavanje i podršku nakon završetka projekta?",
+            SupportOptions = ["Da, zanima me", "Ne", "Nisam siguran/na — recite mi više"],
+            HeardFromLabel = "Kako ste čuli za mene?",
+            HeardFromOptions = ["Preporuka prijatelja / kolege", "Google pretraga", "LinkedIn", "Xing", "Instagram", "Facebook"],
+            HeardFromOtherPlaceholder = "Gdje ste čuli?",
+            AdditionalNotesLabel = "Da li ima još nešto što bih trebao znati?",
+            AdditionalNotesHint = "Bilo koji dodatni kontekst, pitanja ili napomene."
         }
     };
 }

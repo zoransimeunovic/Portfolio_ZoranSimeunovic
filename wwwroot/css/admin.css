@@ -221,6 +221,19 @@
     border: 1px solid rgba(138, 155, 184, 0.2);
 }
 
+.admin-badge--notif-ok {
+    background: rgba(34, 197, 94, 0.12);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+
+.admin-badge--notif-pending {
+    background: rgba(251, 146, 60, 0.1);
+    color: #fb923c;
+    border: 1px solid rgba(251, 146, 60, 0.25);
+}
+
 .admin-table {
     width: 100%;
     border-collapse: collapse;

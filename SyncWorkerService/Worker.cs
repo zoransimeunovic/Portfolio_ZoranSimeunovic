@@ -9,7 +9,7 @@ public class Worker(
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var intervalMinutes = config.GetValue<int>("SyncWorker:IntervalMinutes", 90);
+        var intervalMinutes = config.GetValue<int>("SyncWorker:IntervalMinutes", 10);
         logger.LogInformation("SyncWorkerService started. Interval: {Minutes} min", intervalMinutes);
 
         while (!stoppingToken.IsCancellationRequested)

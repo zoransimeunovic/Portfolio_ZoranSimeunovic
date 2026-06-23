@@ -18,4 +18,11 @@ public class ContactLead
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public bool OptedOut { get; set; } = false;
     public DateTime? OfferSentAt { get; set; }
+    public string? ConfirmationToken { get; set; }
+    public DateTime? ConfirmationTokenExpiresAt { get; set; }
+    public DateTime? EmailConfirmedAt { get; set; }
+    public DateTime? ConfirmationEmailSentAt { get; set; }
+    public DateTime? QuestionnaireEmailSentAt { get; set; }
+    public DateTime? RegistrationNotificationSentAt { get; set; }
+    public DateTime? OptOutNotificationSentAt { get; set; }
 }

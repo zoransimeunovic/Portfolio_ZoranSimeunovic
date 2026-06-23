@@ -50,17 +50,15 @@
 | `Controllers/HomeController.cs` | Index, Contact (POST), UpdateChecklist (POST), SetLanguage, Privacy, Terms, Error |
 | `Controllers/AdminController.cs` | Login, admin panel — lista upitnika, detalji, fajlovi, dokumenti |
 | `Controllers/QuestionnaireController.cs` | Wizard upitnik — Start, Step1/2/3 (POST), Done, OptOut, upload fajlova |
-| `Data/AppDbContext.cs` | EF DbContext — 6 tabela |
-| `Models/ContactLead.cs` | Name, Email, Language, OptedOut, OfferSentAt, CreatedAt |
+| `Data/AppDbContext.cs` | EF DbContext — 5 tabela |
+| `Models/ContactLead.cs` | Kontakt lead — email potvrda, SyncWorker timestamp flagovi |
 | `Models/Questionnaire.cs` | Token (30 dana), Stage, Step1/2/3Answers (JSON), CompletedAt |
 | `Models/Document.cs` | Admin upload — FullName, StoredFileName, ContentType, SizeBytes |
 | `Models/QuestionnaireFile.cs` | Fajlovi koje klijent šalje uz upitnik |
 | `Models/ChecklistAnswer.cs` | FK → ContactLead, ListKey, ItemText |
-| `Models/ClientAction.cs` | Akcija klijenta (token linkovi) |
 | `Content/SiteText.cs` | Model klase za sve sekcije portfloija |
 | `Content/SiteTextProvider.cs` | BuildEn(), BuildDe(), BuildSr() — tekstovi za 3 jezika |
 | `Content/QuestionLabels.cs` | Mapa ključ→labela za prikaz odgovora iz upitnika u admin panelu |
-| `MsGraphClient/MsGraphClient.cs` | SendEmailAsync() via Microsoft Graph API |
 | `Localization/BrowserCultureProvider.cs` | Accept-Language → kultura; exYu jezici → sr-Latn |
 | `Views/Home/Index.cshtml` | Glavna stranica: hero, work, about, process, improve, contact, footer, cookie |
 | `Views/Admin/` | Login, Index (lista), Detail (odgovori + fajlovi), Documents |
@@ -76,33 +74,25 @@
 
 ## BAZA PODATAKA
 
-### Konekcija
+> ⚠️ **Detalji šeme su u `DATABASE_RECONSTRUCTION.md`** — taj fajl je jedini pouzdani izvor.  
+> Ovdje su samo osnovne informacije.
 
-**MySQL (development i production):**
-```json
-{ "ConnectionStrings": { "DefaultConnection": "Server=...;Database=portfolio_zs;User=...;Password=...;" } }
-```
+- **Engine:** MySQL (Pomelo 8.0.2), baza: `portfolio_zs`
+- **Konekcija:** `appsettings.Development.json` → `ConnectionStrings:DefaultConnection` (u `.gitignore`)
+- **Migracije:** `db.Database.Migrate()` automatski pri startu (`Program.cs`)
+- **Posljednja migracija:** `20260623205314_UseTimestampsForNotificationFlags`
 
-### Tabele (6)
-- **contact_leads** — Kontakt podaci + OptedOut + OfferSentAt
-- **checklist_answers** — Odgovori checkliste (FK → contact_leads, CASCADE)
-- **questionnaires** — Token, Stage, Step1/2/3Answers JSON, CompletedAt
-- **questionnaire_files** — Fajlovi uz upitnik (FK → questionnaires)
-- **documents** — Admin upload dokumenti
-- **client_actions** — Token akcije klijenta
-
-### EF Core Migrations
-- `Program.cs` pokreće `db.Database.Migrate()` pri startu
-- Migracije u `/Migrations/` folderu
-- Posljednja: `20260622202525_AddQuestionnaireFiles`
+### Tabele (5)
+- **contact_leads** — kontakt forma, email potvrda, SyncWorker flagovi (DateTime? kolone)
+- **checklist_answers** — "How to Improve" čeklistа (FK → contact_leads, CASCADE)
+- **questionnaire** — token wizard (FK → contact_leads, CASCADE)
+- **questionnaire_files** — fajlovi uz upitnik (FK → questionnaire, CASCADE)
+- **documents** — admin upload dokumenti (bez FK)
 
 ```bash
 dotnet ef migrations add NazivMigracije
 dotnet ef migrations remove
 ```
-
-### Status
-✅ **FUNKCIONALNA** — MySQL sa EF Core migracijama, `db.Database.Migrate()` pri startu
 
 ---
 

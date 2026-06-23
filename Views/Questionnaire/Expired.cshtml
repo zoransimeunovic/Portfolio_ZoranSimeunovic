@@ -1,10 +1,11 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Link istekao";
+    var Q = SiteTextProvider.Get(CultureInfo.CurrentUICulture.Name).Questionnaire;
+    ViewData["Title"] = Q.ExpiredTitle;
 }
 <div class="q-page">
     <div class="q-container q-message">
-        <h1>Link je istekao</h1>
-        <p>Ovaj link za upitnik više nije aktivan. Kontaktirajte me na <a href="mailto:zoransimeunovic@outlook.de">zoransimeunovic@outlook.de</a> i poslat ću vam novi link.</p>
+        <h1>@Q.ExpiredTitle</h1>
+        <p>@Html.Raw(Q.ExpiredText)</p>
     </div>
 </div>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portfolio_ZoranSimeunovic.Data;
 
@@ -11,9 +12,11 @@ using Portfolio_ZoranSimeunovic.Data;
 namespace Portfolio_ZoranSimeunovic.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260623122430_AddEmailConfirmation")]
+    partial class AddEmailConfirmation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,6 +61,36 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                     b.ToTable("checklist_answers", (string)null);
                 });
 
+            modelBuilder.Entity("Portfolio_ZoranSimeunovic.Models.ClientAction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ActionType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("action_type");
+
+                    b.Property<int>("ContactLeadId")
+                        .HasColumnType("int")
+                        .HasColumnName("contact_id");
+
+                    b.Property<DateTime>("ExecutedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("executed_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContactLeadId");
+
+                    b.ToTable("client_actions", (string)null);
+                });
+
             modelBuilder.Entity("Portfolio_ZoranSimeunovic.Models.ContactLead", b =>
                 {
                     b.Property<int>("Id")
@@ -65,9 +98,6 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("ConfirmationEmailSentAt")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("ConfirmationToken")
                         .HasMaxLength(64)
@@ -99,17 +129,8 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                     b.Property<DateTime?>("OfferSentAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime?>("OptOutNotificationSentAt")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<bool>("OptedOut")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime?>("QuestionnaireEmailSentAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("RegistrationNotificationSentAt")
-                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -177,10 +198,6 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                     b.Property<DateTime?>("CompletedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("completed_at");
-
-                    b.Property<DateTime?>("CompletionNotificationSentAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("completion_notification_sent_at");
 
                     b.Property<int>("ContactLeadId")
                         .HasColumnType("int")
@@ -279,6 +296,17 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                 });
 
             modelBuilder.Entity("Portfolio_ZoranSimeunovic.Models.ChecklistAnswer", b =>
+                {
+                    b.HasOne("Portfolio_ZoranSimeunovic.Models.ContactLead", "ContactLead")
+                        .WithMany()
+                        .HasForeignKey("ContactLeadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ContactLead");
+                });
+
+            modelBuilder.Entity("Portfolio_ZoranSimeunovic.Models.ClientAction", b =>
                 {
                     b.HasOne("Portfolio_ZoranSimeunovic.Models.ContactLead", "ContactLead")
                         .WithMany()

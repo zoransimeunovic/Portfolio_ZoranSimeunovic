@@ -5,8 +5,19 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Portfolio_ZoranSimeunovic.Data;
 using Portfolio_ZoranSimeunovic.Localization;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(
+        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "app.log"),
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 7)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
 
 builder.Services.AddControllersWithViews();
 
@@ -24,10 +35,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromHours(8);
         options.SlidingExpiration = true;
     });
-
-var graphClientId = builder.Configuration["MicrosoftGraph:ClientId"];
-if (!string.IsNullOrWhiteSpace(graphClientId))
-    builder.Services.AddSingleton(_ => new MsGraphClient.MsGraphClient(graphClientId));
 
 var supportedCultures = new[]
 {
@@ -58,6 +65,8 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
+
+app.UseSerilogRequestLogging();
 
 if (!app.Environment.IsDevelopment())
 {
