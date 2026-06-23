@@ -25,7 +25,7 @@
 
 **Tip:** ASP.NET Core 8.0 MVC Web Application — Lični portfolio sajt  
 **Autor:** Zoran Simeunović (Full Stack Web Developer, 6 godina iskustva)  
-**Email:** zoransimeunovic@outlook.de  
+**Email:** zoran.simeunovic@outlook.de  
 **Copyright:** © 2026 ZS.dev
 
 ### Tehnološki Stack
@@ -253,7 +253,7 @@ Pomelo.EntityFrameworkCore.MySql       8.0.2
 
 ## AUTOR
 
-**Zoran Simeunović** — zoransimeunovic@outlook.de  
+**Zoran Simeunović** — zoran.simeunovic@outlook.de  
 GitHub: zoransimeunovic | Portfolio: https://zoransimeunovic.de
 
 ---

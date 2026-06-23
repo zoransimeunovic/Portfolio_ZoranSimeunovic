@@ -13,13 +13,13 @@ public class EmailService(IConfiguration config, ILogger<EmailService> logger)
         SendAsync(toEmail, toName,
             "Potvrdite Vašu prijavu | Zoran Simeunović",
             $"Poštovani {toName},\n\nprimio sam Vašu prijavu putem mog portfolija.\n\nMolim Vas da potvrdite Vašu email adresu klikom na link ispod:\n{confirmUrl}\n\nNakon potvrde, poslat ću Vam kratki upitnik koji će mi pomoći da razumijem Vaše potrebe.\n\nLink je aktivan 48 sati. Ako se niste prijavili, jednostavno zanemarite ovaj email.\n\nSrdačan pozdrav,\nZoran Simeunović\nFull Stack Web Developer\nzoransimeunovic.de",
-            "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff\"><tr><td align=\"center\" style=\"padding:40px 16px\"><table width=\"560\" cellpadding=\"0\" cellspacing=\"0\"><tr><td style=\"font-family:Arial,sans-serif;color:#333333;font-size:15px;line-height:1.6;padding:0 0 16px\"><p style=\"margin:0 0 12px\">Poštovani " + toName + ",</p><p style=\"margin:0 0 12px\">primio sam Vašu prijavu putem mog portfolija.</p><p style=\"margin:0 0 12px\">Molim Vas da potvrdite Vašu email adresu:</p><p style=\"margin:24px 0\"><a href=\"" + confirmUrl + "\" style=\"background:#156EF6;color:#ffffff;padding:14px 28px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;font-family:Arial,sans-serif\">Potvrdite prijavu</a></p><p style=\"margin:0 0 12px\">Nakon potvrde, poslat ću Vam kratki upitnik koji će mi pomoći da razumijem Vaše potrebe.</p><p style=\"margin:0;color:#888888;font-size:13px\">Link je aktivan 48 sati. Ako se niste prijavili, jednostavno zanemarite ovaj email.</p></td></tr><tr><td style=\"border-top:1px solid #eeeeee;padding:16px 0 0;font-family:Arial,sans-serif;color:#aaaaaa;font-size:12px\">Zoran Simeunović &middot; Full Stack Web Developer &middot; zoransimeunovic.de</td></tr></table></td></tr></table>");
+            "<div style=\"font-family:Arial,sans-serif;color:#333333;font-size:15px;line-height:1.6;padding:24px\"><p style=\"margin:0 0 12px\">Poštovani " + toName + ",</p><p style=\"margin:0 0 12px\">primio sam Vašu prijavu putem mog portfolija.</p><p style=\"margin:0 0 12px\">Molim Vas da potvrdite Vašu email adresu:</p><p style=\"margin:24px 0\"><a href=\"" + confirmUrl + "\" style=\"background:#156EF6;color:#ffffff;padding:14px 28px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;font-family:Arial,sans-serif\">Potvrdite prijavu</a></p><p style=\"margin:0 0 12px\">Nakon potvrde, poslat ću Vam kratki upitnik koji će mi pomoći da razumijem Vaše potrebe.</p><p style=\"margin:0;color:#888888;font-size:13px\">Link je aktivan 48 sati. Ako se niste prijavili, jednostavno zanemarite ovaj email.</p><hr style=\"border:none;border-top:1px solid #eeeeee;margin:24px 0\"><p style=\"margin:0;color:#aaaaaa;font-size:12px\">Zoran Simeunović &middot; Full Stack Web Developer &middot; zoransimeunovic.de</p></div>");
 
     public Task SendQuestionnaireEmailAsync(string toEmail, string toName, string questionnaireUrl) =>
         SendAsync(toEmail, toName,
             "Upitnik — Analiza Vaših potreba | Zoran Simeunović",
             $"Poštovani {toName},\n\nhvala što ste potvrdili svoju email adresu!\n\nKako bih Vam mogao pripremiti što bolji prijedlog i ponudu, napravio sam kratki upitnik koji će mi pomoći da bolje razumijem Vaše potrebe i ciljeve.\n\nPopunite upitnik ovdje:\n{questionnaireUrl}\n\nLink je aktivan 30 dana.\n\nSrdačan pozdrav,\nZoran Simeunović\nFull Stack Web Developer\nzoransimeunovic.de",
-            "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff\"><tr><td align=\"center\" style=\"padding:40px 16px\"><table width=\"560\" cellpadding=\"0\" cellspacing=\"0\"><tr><td style=\"font-family:Arial,sans-serif;color:#333333;font-size:15px;line-height:1.6;padding:0 0 16px\"><p style=\"margin:0 0 12px\">Poštovani " + toName + ",</p><p style=\"margin:0 0 12px\">hvala što ste potvrdili svoju email adresu!</p><p style=\"margin:0 0 12px\">Kako bih Vam mogao pripremiti što bolji prijedlog i ponudu, napravio sam kratki upitnik koji će mi pomoći da bolje razumijem Vaše potrebe i ciljeve.</p><p style=\"margin:24px 0\"><a href=\"" + questionnaireUrl + "\" style=\"background:#156EF6;color:#ffffff;padding:14px 28px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;font-family:Arial,sans-serif\">Otvori upitnik</a></p><p style=\"margin:0;color:#888888;font-size:13px\">Link je aktivan 30 dana.</p></td></tr><tr><td style=\"border-top:1px solid #eeeeee;padding:16px 0 0;font-family:Arial,sans-serif;color:#aaaaaa;font-size:12px\">Zoran Simeunović &middot; Full Stack Web Developer &middot; zoransimeunovic.de</td></tr></table></td></tr></table>");
+            "<div style=\"font-family:Arial,sans-serif;color:#333333;font-size:15px;line-height:1.6;padding:24px\"><p style=\"margin:0 0 12px\">Poštovani " + toName + ",</p><p style=\"margin:0 0 12px\">hvala što ste potvrdili svoju email adresu!</p><p style=\"margin:0 0 12px\">Kako bih Vam mogao pripremiti što bolji prijedlog i ponudu, napravio sam kratki upitnik koji će mi pomoći da bolje razumijem Vaše potrebe i ciljeve.</p><p style=\"margin:24px 0\"><a href=\"" + questionnaireUrl + "\" style=\"background:#156EF6;color:#ffffff;padding:14px 28px;text-decoration:none;border-radius:6px;font-weight:bold;display:inline-block;font-family:Arial,sans-serif\">Otvori upitnik</a></p><p style=\"margin:0;color:#888888;font-size:13px\">Link je aktivan 30 dana.</p><hr style=\"border:none;border-top:1px solid #eeeeee;margin:24px 0\"><p style=\"margin:0;color:#aaaaaa;font-size:12px\">Zoran Simeunović &middot; Full Stack Web Developer &middot; zoransimeunovic.de</p></div>");
 
     public Task SendRegistrationNotificationAsync(string ownerEmail, string leadName, string leadEmail) =>
         SendAsync(ownerEmail, "Zoran",
@@ -34,18 +34,14 @@ public class EmailService(IConfiguration config, ILogger<EmailService> logger)
             Čeka potvrdu email adrese.
             """);
 
-    public Task SendCompletionNotificationAsync(string ownerEmail, int leadId, string leadEmail, string leadName) =>
-        SendAsync(ownerEmail, "Zoran",
+    public Task SendCompletionNotificationAsync(string ownerEmail, int leadId, string leadEmail, string leadName)
+    {
+        var baseUrl = config["SyncWorker:QuestionnaireBaseUrl"]!.TrimEnd('/');
+        var adminUrl = $"{baseUrl}/admin/detail/{leadId}";
+        return SendAsync(ownerEmail, "Zoran",
             $"[Portfolio] Upitnik popunjen — {leadName}",
-            $"""
-            Upitnik završen!
-
-            LeadId: {leadId}
-            Ime:    {leadName}
-            Email:  {leadEmail}
-
-            Provjeri detalje u admin panelu.
-            """);
+            $"Upitnik završen!\n\nLeadId: {leadId}\nIme:    {leadName}\nEmail:  {leadEmail}\n\nProvjeri detalje u admin panelu:\n{adminUrl}");
+    }
 
     public Task SendOptOutNotificationAsync(string ownerEmail, string leadName, string leadEmail) =>
         SendAsync(ownerEmail, "Zoran",

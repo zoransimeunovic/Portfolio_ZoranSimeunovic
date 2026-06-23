@@ -49,11 +49,11 @@
 
                     <div class="nav-right">
                         @{
-                            var qRefToken = Context.Request.Cookies["q_ref"] ?? ViewBag.Token as string;
+                            var qNavToken = ViewBag.QuestionnaireToken as string ?? Context.Request.Cookies["q_ref"];
                         }
-                        @if (!string.IsNullOrEmpty(qRefToken))
+                        @if (!string.IsNullOrEmpty(qNavToken))
                         {
-                            <a class="nav-questionnaire" href="/questionnaire?token=@qRefToken">@T.Nav.MyQuestionnaire</a>
+                            <a class="nav-questionnaire" href="/questionnaire?token=@qNavToken">@T.Nav.MyQuestionnaire</a>
                         }
                         <a class="btn btn-sm nav-cta" href="@indexUrl#contact">@T.Nav.ContactMe</a>
 

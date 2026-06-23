@@ -24,32 +24,14 @@ public class HomeController : Controller
     private SiteText CurrentText() =>
         SiteTextProvider.Get(CultureInfo.CurrentUICulture.Name);
 
-    public async Task<IActionResult> Index([FromQuery(Name = "ref")] string? refToken = null)
+    public IActionResult Index()
     {
-        _logger.LogInformation("Index: GET / refToken={HasRef}", !string.IsNullOrWhiteSpace(refToken));
+        _logger.LogInformation("Index: GET /");
         try
         {
-            if (!string.IsNullOrWhiteSpace(refToken))
-            {
-                var valid = await _db.Questionnaires.AnyAsync(
-                    x => x.Token == refToken && x.TokenExpiresAt > DateTime.UtcNow && !x.CompletedAt.HasValue);
-
-                _logger.LogInformation("Index: refToken valid={Valid}", valid);
-
-                if (valid)
-                {
-                    Response.Cookies.Append("q_ref", refToken, new CookieOptions
-                    {
-                        Expires = DateTimeOffset.UtcNow.AddDays(30),
-                        IsEssential = true,
-                        Path = "/",
-                        SameSite = SameSiteMode.Lax
-                    });
-                }
-
-                return LocalRedirect("/");
-            }
-
+            var qToken = Request.Cookies["q_ref"];
+            if (!string.IsNullOrEmpty(qToken))
+                ViewBag.QuestionnaireToken = qToken;
             return View(CurrentText());
         }
         catch (Exception ex)
