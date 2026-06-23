@@ -37,16 +37,16 @@ public static class SiteTextProvider
             NextLabel = "Next",
             Cards = new List<WorkCard>
             {
-                new() { Title = "HRIS/Web", Image = "hris.jpg", Duration = "2 years", DurationSub = "at AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
+                new() { Title = "HRIS/Web", Image = "hris.webp", Duration = "2 years", DurationSub = "at AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Development and maintenance of an HRIS (Human Resources Information System) for workforce management, including personnel planning, vacation management, and time tracking. Integration of web services, sync services, and Microsoft 365. Optimization of existing systems and development of new modules.",
                     Techs = new() { "ASP.NET", "C#", "MySQL", "Microsoft Graph" } },
-                new() { Title = "Desktop GUI", Image = "desktop-gui.png", Duration = "3 years", DurationSub = "at AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
+                new() { Title = "Desktop GUI", Image = "desktop-gui.webp", Duration = "3 years", DurationSub = "at AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Complete redesign of a desktop GUI focused on performance and scalability. Enabled fast rendering of large employee datasets in grid tables with 12+ months of historical data. Improved business logic, optimized large data handling, and delivered new and enhanced modules.",
                     Techs = new() { "C#", "WPF", "MySQL" } },
-                new() { Title = "Zeiterfassung", Image = "zeiterfassung.png", Duration = "1 year", DurationSub = "at AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
+                new() { Title = "Zeiterfassung", Image = "zeiterfassung.webp", Duration = "1 year", DurationSub = "at AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
                     Description = "Development and enhancement of desktop, web, and mobile clients for time tracking, providing real-time data visualization and centralized management of working hours, breaks, and absences within a unified system.",
                     Techs = new() { "ASP.NET", "WPF", "Xamarin Forms" } },
-                new() { Title = "Personal Portfolio", Image = "personal-portfolio.png", Duration = null, DurationSub = null,
+                new() { Title = "Personal Portfolio", Image = "personal-portfolio.webp", Duration = null, DurationSub = null,
                     Description = "Website designed and developed from scratch to showcase my work, skills, and experience, using Figma and Webflow.",
                     Techs = new() { "ASP.NET", "MySQL", "JS" } }
             }
@@ -222,16 +222,16 @@ public static class SiteTextProvider
             NextLabel = "Weiter",
             Cards = new List<WorkCard>
             {
-                new() { Title = "HRIS/Web", Image = "hris.jpg", Duration = "2 Jahre", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
+                new() { Title = "HRIS/Web", Image = "hris.webp", Duration = "2 Jahre", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Entwicklung und Wartung eines HRIS (Human Resources Information System) für die Personalverwaltung, einschließlich Personalplanung, Urlaubsverwaltung und Zeiterfassung. Integration von Webdiensten, Synchronisationsdiensten und Microsoft 365. Optimierung bestehender Systeme und Entwicklung neuer Module.",
                     Techs = new() { "ASP.NET", "C#", "MySQL", "Microsoft Graph" } },
-                new() { Title = "Desktop GUI", Image = "desktop-gui.png", Duration = "3 Jahre", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
+                new() { Title = "Desktop GUI", Image = "desktop-gui.webp", Duration = "3 Jahre", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Komplette Neugestaltung einer Desktop-GUI mit Fokus auf Leistung und Skalierbarkeit. Ermöglichte das schnelle Rendern großer Mitarbeiterdatensätze in Tabellen mit über 12 Monaten Verlaufsdaten. Verbesserte Geschäftslogik, optimierte Verarbeitung großer Datenmengen und Bereitstellung neuer und erweiterter Module.",
                     Techs = new() { "C#", "WPF", "MySQL" } },
-                new() { Title = "Zeiterfassung", Image = "zeiterfassung.png", Duration = "1 Jahr", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
+                new() { Title = "Zeiterfassung", Image = "zeiterfassung.webp", Duration = "1 Jahr", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
                     Description = "Entwicklung und Erweiterung von Desktop-, Web- und mobilen Clients zur Zeiterfassung mit Echtzeit-Datenvisualisierung und zentraler Verwaltung von Arbeitszeiten, Pausen und Abwesenheiten in einem einheitlichen System.",
                     Techs = new() { "ASP.NET", "WPF", "Xamarin Forms" } },
-                new() { Title = "Personal Portfolio", Image = "personal-portfolio.png", Duration = null, DurationSub = null,
+                new() { Title = "Personal Portfolio", Image = "personal-portfolio.webp", Duration = null, DurationSub = null,
                     Description = "Von Grund auf gestaltete und entwickelte Website, um meine Arbeit, Fähigkeiten und Erfahrung zu präsentieren – mit Figma und Webflow.",
                     Techs = new() { "ASP.NET", "MySQL", "JS" } }
             }
@@ -407,16 +407,16 @@ public static class SiteTextProvider
             NextLabel = "Sledeće",
             Cards = new List<WorkCard>
             {
-                new() { Title = "HRIS/Web", Image = "hris.jpg", Duration = "2 godine", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
+                new() { Title = "HRIS/Web", Image = "hris.webp", Duration = "2 godine", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Razvoj i održavanje HRIS-a (Human Resources Information System) za upravljanje radnom snagom, uključujući kadrovsko planiranje, upravljanje godišnjim odmorima i evidenciju radnog vremena. Integracija web servisa, sinhronizacionih servisa i Microsoft 365. Optimizacija postojećih sistema i razvoj novih modula.",
                     Techs = new() { "ASP.NET", "C#", "MySQL", "Microsoft Graph" } },
-                new() { Title = "Desktop GUI", Image = "desktop-gui.png", Duration = "3 godine", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
+                new() { Title = "Desktop GUI", Image = "desktop-gui.webp", Duration = "3 godine", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Potpuni redizajn desktop GUI-ja sa fokusom na performanse i skalabilnost. Omogućeno brzo prikazivanje velikih skupova podataka o zaposlenima u tabelama sa preko 12 meseci istorijskih podataka. Poboljšana poslovna logika, optimizovano rukovanje velikim podacima i isporučeni novi i unapređeni moduli.",
                     Techs = new() { "C#", "WPF", "MySQL" } },
-                new() { Title = "Zeiterfassung", Image = "zeiterfassung.png", Duration = "1 godina", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
+                new() { Title = "Zeiterfassung", Image = "zeiterfassung.webp", Duration = "1 godina", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
                     Description = "Razvoj i unapređenje desktop, web i mobilnih klijenata za evidenciju radnog vremena, uz vizuelizaciju podataka u realnom vremenu i centralizovano upravljanje radnim satima, pauzama i odsustvima u okviru jedinstvenog sistema.",
                     Techs = new() { "ASP.NET", "WPF", "Xamarin Forms" } },
-                new() { Title = "Personal Portfolio", Image = "personal-portfolio.png", Duration = null, DurationSub = null,
+                new() { Title = "Personal Portfolio", Image = "personal-portfolio.webp", Duration = null, DurationSub = null,
                     Description = "Sajt osmišljen i razvijen od nule kako bi predstavio moj rad, veštine i iskustvo, koristeći Figma i Webflow.",
                     Techs = new() { "ASP.NET", "MySQL", "JS" } }
             }

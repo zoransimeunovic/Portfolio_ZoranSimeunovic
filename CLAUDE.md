@@ -2,6 +2,8 @@
 
 ## Pravila — obavezno poštovati
 
+> **Projekat mora biti: Clean code**
+
 ### Kod
 - **Clean code:** Bez komentara koji opisuju ŠTA kod radi. Samo kratki inline komentari za neočigledno ZAŠTO. Bez XML doc blokova. File-scoped namespace u C#.
 - **Bez prepisa fajlova:** Uvijek pročitaj fajl, pa uradi ciljani Edit. Nikad ne prepiši cijeli fajl bez eksplicitnog odobrenja.
