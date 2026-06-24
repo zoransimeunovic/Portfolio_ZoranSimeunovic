@@ -12,6 +12,14 @@
     <Content Remove="SyncWorkerService/**" />
     <EmbeddedResource Remove="SyncWorkerService/**" />
     <None Remove="SyncWorkerService/**" />
+    <Compile Remove="publish/**" />
+    <Content Remove="publish/**" />
+    <EmbeddedResource Remove="publish/**" />
+    <None Remove="publish/**" />
+    <Compile Remove="publish-sync/**" />
+    <Content Remove="publish-sync/**" />
+    <EmbeddedResource Remove="publish-sync/**" />
+    <None Remove="publish-sync/**" />
     <Compile Remove="MsGraphClient/**" />
     <Content Remove="MsGraphClient/**" />
     <EmbeddedResource Remove="MsGraphClient/**" />
