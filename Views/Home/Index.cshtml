@@ -129,13 +129,16 @@
             </a>
         </div>
 
-        <!-- Tekst (desno) -->
-        <div class="ab-copy">
+        <!-- Intro tekst: label, naslov, opis (iznad slike na tabletu/mobilnom) -->
+        <div class="ab-intro">
             <span class="ab-label">@Model.About.Label</span>
             <div class="ab-msg" aria-hidden="true"><span>@Model.About.Name</span></div>
             <h2 class="ab-title">@Html.Raw(Model.About.HeadingHtml)</h2>
             <p class="ab-desc">@Model.About.Description</p>
+        </div>
 
+        <!-- Highlights i akcije (ispod slike na tabletu/mobilnom) -->
+        <div class="ab-copy">
             <div class="ab-highlights">
                 <div class="ab-hl">@Html.Raw(Model.About.Highlight1Html)</div>
                 <div class="ab-hl">@Html.Raw(Model.About.Highlight2Html)</div>
