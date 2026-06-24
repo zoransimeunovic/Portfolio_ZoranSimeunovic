@@ -617,6 +617,8 @@ a.work-badge:hover { color: var(--secondary); }
     transform-origin: top center;
 }
 .about-stage > * { position: absolute; }
+.ab-visual { position: absolute; inset: 0; }
+.ab-visual > * { position: absolute; }
 
 .ab-glow {
     left: 177px; top: 118px;
@@ -683,9 +685,10 @@ a.work-badge:hover { color: var(--secondary); }
 .ab-li-rect { grid-area: 1 / 1; width: 63px; height: 63px; }
 .ab-li-sign { grid-area: 1 / 1; width: 47px; height: 42px; }
 
-/* Govorni oblačić — rep rotiran 40° CW */
+/* Govorni oblačić — koordinate relativne prema ab-copy (842px, 91px u about-stage) */
 .ab-msg {
-    left: 1083.76px; top: 81px;
+    position: absolute;
+    left: 241.76px; top: -10px;
     width: 146.1px; height: 34.38px;
     display: flex; align-items: center; justify-content: center;
     background: var(--surface-2);
@@ -1196,6 +1199,7 @@ a.work-badge:hover { color: var(--secondary); }
 }
 
 @media (max-width: 991px) {
+    /* Nav */
     .navbar-collapse {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -1207,34 +1211,38 @@ a.work-badge:hover { color: var(--secondary); }
     .nav-right { flex-direction: column; align-items: stretch; gap: 12px; }
     .nav-cta { width: 100%; }
 
-    .process-grid { flex-direction: column; gap: 24px; width: 100%; }
-    .process-col { flex-direction: row; flex-wrap: wrap; gap: 24px; flex: none; width: 100%; }
-    .process-col .process-card { flex: 0 0 calc(50% - 12px); }
+    /* Grid: 8 kolona, margin 36px, gutter 20px */
+    .container { padding: 0 36px; }
+    .work .container,
+    .improve .container,
+    .contact .container,
+    .process .container { padding: 0 36px; }
 
-    .improve-grid { grid-template-columns: 1fr; }
-    .work-card { flex: 0 0 calc((100% - 26px) / 2); }
-    .section-title { font-size: 2rem; }
-}
+    section { padding: 60px 0; }
+    .improve { clip-path: none; }
 
-@media (max-width: 640px) {
-    section { padding: 30px 0; }
-    .section-title { font-size: 1.7rem; }
-    .process-col .process-card { flex: 0 0 100%; }
-    .work-card { flex: 0 0 100%; }
-    .footer-top { flex-direction: column; text-align: center; }
-    .footer-bottom { gap: 14px; }
-    .q-container { padding: 24px 16px; }
-    .q-actions { flex-direction: column; gap: 12px; }
-    .q-btn { width: 100%; justify-content: center; }
+    /* Font scale — tablet */
+    .hero-heading { font-size: 40px; width: auto; }
+    .hero-sub { font-size: 16px; width: auto; }
+    .section-title { font-size: 32px; }
+    .ab-title { font-size: 32px; }
+    .ab-desc { font-size: 15px; width: auto; }
+    .section-sub { font-size: 15px; }
+    .improve .section-sub { font-size: 18px; }
+    .step-title { font-size: 18px; }
+    .step-desc { font-size: 14px; }
+    .step-tag { font-size: 13px; }
+    .proof-text { font-size: 14px; }
+    .work .section-sub { max-width: none; }
+    .section-head { text-align: center; }
 
-    /* Hero — 2 reda: copy iznad, vizual ispod */
+    /* Hero — 2 reda na tabletu */
     .hero { aspect-ratio: unset; height: auto; overflow: hidden; }
     .hero-stage {
         position: relative;
         left: auto; top: auto;
         transform: none;
-        width: 100%;
-        height: auto;
+        width: 100%; height: auto;
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -1243,24 +1251,261 @@ a.work-badge:hover { color: var(--secondary); }
     .hero-copy {
         position: static !important;
         left: auto; top: auto; width: auto;
-        padding: 48px 24px 32px;
+        padding: 60px 36px 40px;
         order: 1;
+        text-align: center;
     }
-    .hero-heading { width: auto; font-size: 2rem; }
-    .hero-sub { width: auto; }
-    .hero-actions { flex-wrap: wrap; }
+    .hero-actions { gap: 20px; flex-wrap: nowrap; justify-content: center; }
+    .btn-hero-primary,
+    .btn-hero-secondary { flex: 0 0 calc(37.5% - 12.5px); padding: 16px 20px; }
+    .hero-proof { justify-content: center; flex-wrap: wrap; }
     .hero-visual {
         position: relative !important;
-        left: 50%;
-        width: 1440px;
-        height: 670px;
-        transform: translateX(-50%) scale(var(--hero-scale, 1));
-        transform-origin: top center;
-        flex-shrink: 0;
+        left: 0; transform: none;
+        width: calc(100% - 72px);
+        margin: 0 36px;
+        height: 590px;
         order: 2;
-        margin-bottom: calc((var(--hero-scale, 1) - 1) * 670px);
     }
     .hero-visual > * { position: absolute; }
+    .float-tag   { font-size: 13px; padding: 8px; }
+    .tag-api     { font-size: 15px; }
+    .tag-mysql   { font-size: 12px; }
+    .tag-aspnet  { font-size: 12px; }
+    .hero-glow      { left: calc(50% - 88px);  top: 97px;  width: 309px; height: 284px; }
+    .hero-ring-3    { left: calc(50% - 275px); top: 20px;  width: 550px; height: 550px; }
+    .hero-ring-2    { left: calc(50% - 212px); top: 84px;  width: 423px; height: 423px; }
+    .hero-ring-1    { left: calc(50% - 148px); top: 147px; width: 296px; height: 296px; }
+    .hero-photo {
+        left: calc(50% - 164px); top: 24px;
+        width: 340px; height: 484px;
+        -webkit-mask-image:
+            linear-gradient(to bottom, black 50%, transparent 50%),
+            radial-gradient(circle 202px at 164px 272px, black 97%, transparent 100%);
+        mask-image:
+            linear-gradient(to bottom, black 50%, transparent 50%),
+            radial-gradient(circle 202px at 164px 272px, black 97%, transparent 100%);
+    }
+    .hero-photo-fade { left: calc(50% - 202px); top: 93px;  width: 404px; height: 404px; }
+    .hero-name-tag   { left: calc(50% + 69px);  top: 10px; }
+    .tag-webflow { left: calc(50% - 218px); top: 89px; }
+    .tag-api     { left: calc(50% + 176px); top: 102px; }
+    .tag-figma   { left: calc(50% - 220px); top: 270px; }
+    .tag-mysql   { left: calc(50% + 171px); top: 268px; }
+    .tag-aspnet  { left: calc(50% - 283px); top: 399px; }
+
+    /* About — visual vrh, copy ispod */
+    .about { aspect-ratio: unset; height: auto; }
+    .about-stage {
+        position: relative;
+        left: auto; top: auto;
+        transform: none;
+        width: 100%; height: auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .about-stage > * { position: static; }
+    .ab-visual {
+        position: relative !important;
+        left: 0; transform: none;
+        width: calc(100% - 72px);
+        margin: 0 36px;
+        height: 414px;
+        order: 1;
+    }
+    .ab-visual > * { position: absolute; }
+    .ab-glow { left: 50%; top: 50%; width: 308px; height: 308px; transform: translate(-50%, -50%); }
+    .ab-ring-2 { left: 50%; top: 50%; width: 374px; height: 374px; transform: translate(-50%, -50%); }
+    .ab-ring-1 { left: 50%; top: 50%; width: 337px; height: 337px; transform: translate(-50%, -50%); }
+    .ab-photo { left: 50%; top: 50%; width: 300px; height: 300px; transform: translate(-50%, -50%); }
+    .ab-go { left: calc(50% - 179px); top: calc(50% - 105px); width: 30px; height: 30px; }
+    .ab-linkedin { left: calc(50% - 152px); top: calc(50% + 96px); width: 62px; height: 62px; }
+    .ab-li-rect { width: 38px; height: 38px; }
+    .ab-li-sign { width: 29px; height: 29px; }
+    .ab-msg {
+        position: relative !important;
+        left: auto; top: auto;
+        margin: 13px auto 3px calc(60% + 4px);
+        width: 124px;
+        height: 30px;
+    }
+    .ab-msg span { font-size: 14px; }
+    .ab-copy {
+        position: static !important;
+        left: auto; top: auto; width: auto;
+        padding: 40px 36px;
+        order: 3;
+        text-align: center;
+    }
+    .ab-desc { width: auto; }
+    .ab-highlights { width: auto; }
+    .ab-actions { flex-wrap: wrap; justify-content: center; }
+
+    /* Hero/Work razmak */
+    .hero { padding-bottom: 36px; }
+    .work { padding-top: 36px; }
+    .tech-tag { font-size: 13px; padding: 8px; }
+
+    /* Work — 4 od 8 kolona = 2 po redu */
+    .work-card { flex: 0 0 calc(50% - 10px); height: auto; }
+    .work-card-body { flex: none; height: auto; overflow: visible; }
+    .carousel-track { gap: 20px; }
+
+    /* Process — 4 od 8 kolona = 2 po redu po koloni */
+    .process-grid { flex-direction: column; gap: 24px; width: 100%; }
+    .process-col { flex-direction: row; flex-wrap: wrap; gap: 20px; flex: none; width: 100%; }
+    .process-col .process-card { flex: 0 0 calc(50% - 10px); }
+
+    /* Improve — 4 od 8 kolona: 2+1 raspored */
+    .improve-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+    .improve-col { flex: 0 0 calc(50% - 10px); }
+    .improve-bar,
+    .improve-body { width: 100%; }
+    .score-box { width: calc(100% - 24px); }
+
+    /* Contact — stacked, centiran */
+    .cta-form { flex-direction: column; align-items: center; gap: 20px; }
+    .cta-form input { flex: none; width: calc(75% - 5px); max-width: none; }
+    .cta-submit { flex: none; width: calc(50% - 10px); padding: 0 24px; }
+    .cta-card { padding: 76px 24px; min-height: auto; }
+
+    .footer-nav { gap: 40px; }
+}
+
+@media (max-width: 640px) {
+    section { padding: 30px 0; }
+    .improve { clip-path: none; }
+
+    /* Grid: 4 kolone, margin 20px, gutter 20px */
+    .container { padding: 0 20px; }
+    .work .container,
+    .improve .container,
+    .contact .container,
+    .process .container { padding: 0 20px; }
+
+    /* Font scale — mobilni */
+    .hero-heading { font-size: 28px; width: auto; }
+    .hero-sub { font-size: 15px; width: auto; }
+    .section-title { font-size: 24px; }
+    .ab-title { font-size: 24px; }
+    .ab-desc { font-size: 14px; width: auto; }
+    .section-sub { font-size: 14px; }
+    .improve .section-sub { font-size: 16px; }
+    .step-title { font-size: 16px; }
+    .badge-pill { font-size: 13px; }
+    .step-tag { font-size: 12px; }
+    .proof-text { font-size: 13px; }
+    .work .section-sub { max-width: none; }
+
+    /* Naslovi i podnaslov centrirani */
+    .section-head { text-align: center; }
+
+    /* Footer */
+    .footer-top { flex-direction: column; text-align: center; }
+    .footer-bottom { gap: 14px; }
+
+    /* Questionnaire */
+    .q-container { padding: 24px 16px; }
+    .q-actions { flex-direction: column; gap: 12px; }
+    .q-btn { width: 100%; justify-content: center; }
+
+    /* Hero — copy iznad, vizual ispod */
+    .hero { aspect-ratio: unset; height: auto; overflow: hidden; }
+    .hero-stage {
+        position: relative;
+        left: auto; top: auto;
+        transform: none;
+        width: 100%; height: auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .hero-stage > * { position: static; }
+    .hero-copy {
+        position: static !important;
+        left: auto; top: auto; width: auto;
+        padding: 40px 20px 28px;
+        order: 1;
+        text-align: center;
+    }
+    .hero-actions { flex-direction: column; gap: 12px; align-items: stretch; }
+    .btn-hero-primary,
+    .btn-hero-secondary { flex: none; width: 100%; padding: 16px 24px; }
+    .hero-proof { justify-content: center; flex-wrap: wrap; }
+    .avatars img,
+    .avatar-more { aspect-ratio: 1 / 1; }
+    /* Hero — visual manji */
+    .hero-visual { width: calc(100% - 40px); margin: 0 20px; height: 426px; }
+    .float-tag   { font-size: 10px; padding: 6px; }
+    .tag-api     { font-size: 12px; }
+    .tag-mysql   { font-size: 9px; }
+    .tag-aspnet  { font-size: 9px; }
+    .hero-glow      { left: calc(50% - 57px);  top: 105px; width: 200px; height: 184px; }
+    .hero-ring-3    { left: calc(50% - 178px); top: 55px;  width: 356px; height: 356px; }
+    .hero-ring-2    { left: calc(50% - 137px); top: 96px;  width: 274px; height: 274px; }
+    .hero-ring-1    { left: calc(50% - 96px);  top: 137px; width: 192px; height: 192px; }
+    .hero-photo {
+        left: calc(50% - 106px); top: 58px;
+        width: 220px; height: 313px;
+        -webkit-mask-image:
+            linear-gradient(to bottom, black 50%, transparent 50%),
+            radial-gradient(circle 131px at 106px 176px, black 97%, transparent 100%);
+        mask-image:
+            linear-gradient(to bottom, black 50%, transparent 50%),
+            radial-gradient(circle 131px at 106px 176px, black 97%, transparent 100%);
+    }
+    .hero-photo-fade { left: calc(50% - 131px); top: 102px; width: 262px; height: 262px; }
+    .hero-name-tag   { left: calc(50% + 45px);  top: 2px;   font-size: 13px; }
+    .tag-webflow { left: calc(50% - 141px); top: 100px; }
+    .tag-api     { left: calc(50% + 114px); top: 108px; }
+    .tag-figma   { left: calc(50% - 142px); top: 217px; }
+    .tag-mysql   { left: calc(50% + 110px); top: 216px; }
+    .tag-aspnet  { left: calc(50% - 183px); top: 301px; }
+
+    /* About — visual manji, copy ispod */
+    .ab-visual { width: calc(100% - 40px); margin: 0 20px; height: 300px; }
+    .ab-glow { width: 205px; height: 205px; }
+    .ab-ring-2 { width: 249px; height: 249px; }
+    .ab-ring-1 { width: 224px; height: 224px; }
+    .ab-photo { width: 200px; height: 200px; }
+    .ab-go { left: calc(50% - 121px); top: calc(50% - 72px); width: 24px; height: 24px; }
+    .ab-linkedin { left: calc(50% - 102px); top: calc(50% + 64px); width: 41px; height: 41px; }
+    .ab-li-rect { width: 25px; height: 25px; }
+    .ab-li-sign { width: 19px; height: 19px; }
+    .ab-msg { width: 104px; height: 26px; margin-top: 23px; }
+    .ab-msg span { font-size: 12px; }
+    .ab-copy { padding: 28px 20px; }
+    .ab-desc { width: auto; }
+    .ab-highlights { width: auto; }
+    .ab-actions { flex-direction: column; gap: 12px; align-items: stretch; }
+    .ab-btn-primary,
+    .ab-btn-secondary { width: 100%; }
+
+    /* Hero/Work razmak */
+    .hero { padding-bottom: 18px; }
+    .work { padding-top: 18px; }
+    .tech-tag { font-size: 10px; padding: 6px; }
+
+    /* Work — 4 kolone = puna sirina */
+    .work-card { flex: 0 0 100%; height: auto; }
+    .work-card-body { flex: none; height: auto; overflow: visible; }
+
+    /* Process — 4 kolone = puna sirina */
+    .process-col .process-card { flex: 0 0 100%; }
+
+    /* Improve — svaka lista puna sirina */
+    .improve-col { flex: 0 0 100%; }
+    .improve-bar,
+    .improve-body { width: 100%; }
+    .score-box { width: calc(100% - 24px); }
+
+    /* Contact — stacked, puna sirina */
+    .cta-form input { flex: none; width: 100%; max-width: none; }
+    .cta-submit { flex: none; width: 100%; padding: 0 24px; }
+    .cta-card { padding: 76px 24px; min-height: auto; }
+
+    .footer-nav { flex-direction: column; gap: 12px; align-items: center; }
 }
 
 /* ── QUESTIONNAIRE ────────────────────────────────────────────────────────── */
