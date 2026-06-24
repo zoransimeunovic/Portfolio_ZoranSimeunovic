@@ -237,6 +237,8 @@ section { padding: 96px 0; position: relative; }
     isolation: isolate;
 }
 .hero-stage > * { position: absolute; }
+.hero-visual { position: absolute; inset: 0; }
+.hero-visual > * { position: absolute; }
 
 .hero-glow {
     left: 949px; top: 157px;
@@ -758,7 +760,7 @@ a.work-badge:hover { color: var(--secondary); }
 .process::before {
     content: "";
     position: absolute;
-    top: 223px; left: calc(50% - 50px);
+    top: 323px; left: calc(50% - 150px);
     width: 984px; height: 434px;
     transform: translate(-50%, 0) rotate(-24.53deg);
     background: linear-gradient(251.89deg, #156EF6 8.31%, rgba(21, 110, 246, 0.3) 63.65%);
@@ -773,19 +775,22 @@ a.work-badge:hover { color: var(--secondary); }
 
 .process-wrap { position: relative; }
 
-/* Redoslijed kartica PO KOLONAMA: 1–4, 5–8, 9–11. Kartica 363px. */
+/* 3 nezavisne flex kolone — svaka ima vlastiti row gap pa razmak uvijek ostaje isti */
 .process-grid {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(4, auto);
-    grid-template-columns: repeat(3, 363px);
-    column-gap: 103.5px;
-    row-gap: 46px;
+    display: flex;
+    gap: 103.5px;
     width: 1296px;
     max-width: 100%;
     margin: 0 auto;
     position: relative;
     z-index: 1;
+    align-items: flex-start;
+}
+.process-col {
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+    flex: 0 0 363px;
 }
 .process-card {
     position: relative;
@@ -797,11 +802,8 @@ a.work-badge:hover { color: var(--secondary); }
     align-self: start;
     transition: transform 0.25s ease, border-color 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
 }
-/* Kartice 8, 9, 11 imaju gradient border mask koji se klipuje na primary */
-.process-card:nth-child(8),
-.process-card:nth-child(9),
-.process-card:nth-child(11) {
-    align-self: start;
+/* Opcioni koraci (8, 9, 11): gradient border maska koja se klipuje na primary */
+.process-card--optional {
     border: none;
     padding: 31px 17px 17px 17px;
     background-image:
@@ -809,24 +811,16 @@ a.work-badge:hover { color: var(--secondary); }
         linear-gradient(to bottom, var(--primary), transparent 26%,  transparent 85%, var(--primary));
     background-color: var(--surface);
 }
-.process-card:nth-child(8) .step-title,
-.process-card:nth-child(8) .step-desc,
-.process-card:nth-child(9) .step-title,
-.process-card:nth-child(9) .step-desc,
-.process-card:nth-child(11) .step-title,
-.process-card:nth-child(11) .step-desc {
+.process-card--optional .step-title,
+.process-card--optional .step-desc {
     position: relative;
     z-index: 2;
 }
-.process-card:nth-child(8):hover,
-.process-card:nth-child(9):hover,
-.process-card:nth-child(11):hover {
+.process-card--optional:hover {
     box-shadow: 0 0 12px rgba(21, 110, 246, 0.40);
 }
 /* Pseudo-element popunjava pozadinu na hover (pokrije gradient masku) */
-.process-card:nth-child(8)::after,
-.process-card:nth-child(9)::after,
-.process-card:nth-child(11)::after {
+.process-card--optional::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -837,9 +831,7 @@ a.work-badge:hover { color: var(--secondary); }
     z-index: 1;
     transition: opacity 0.25s ease;
 }
-.process-card:nth-child(8):hover::after,
-.process-card:nth-child(9):hover::after,
-.process-card:nth-child(11):hover::after {
+.process-card--optional:hover::after {
     opacity: 1;
 }
 .process-card:hover {
@@ -1215,14 +1207,9 @@ a.work-badge:hover { color: var(--secondary); }
     .nav-right { flex-direction: column; align-items: stretch; gap: 12px; }
     .nav-cta { width: 100%; }
 
-    .process-grid {
-        grid-auto-flow: row;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: none;
-        column-gap: 24px;
-        row-gap: 24px;
-        width: 100%;
-    }
+    .process-grid { flex-direction: column; gap: 24px; width: 100%; }
+    .process-col { flex-direction: row; flex-wrap: wrap; gap: 24px; flex: none; width: 100%; }
+    .process-col .process-card { flex: 0 0 calc(50% - 12px); }
 
     .improve-grid { grid-template-columns: 1fr; }
     .work-card { flex: 0 0 calc((100% - 26px) / 2); }
@@ -1230,15 +1217,50 @@ a.work-badge:hover { color: var(--secondary); }
 }
 
 @media (max-width: 640px) {
-    section { padding: 60px 0; }
+    section { padding: 30px 0; }
     .section-title { font-size: 1.7rem; }
-    .process-grid { grid-template-columns: 1fr; }
+    .process-col .process-card { flex: 0 0 100%; }
     .work-card { flex: 0 0 100%; }
     .footer-top { flex-direction: column; text-align: center; }
     .footer-bottom { gap: 14px; }
     .q-container { padding: 24px 16px; }
     .q-actions { flex-direction: column; gap: 12px; }
     .q-btn { width: 100%; justify-content: center; }
+
+    /* Hero — 2 reda: copy iznad, vizual ispod */
+    .hero { aspect-ratio: unset; height: auto; overflow: hidden; }
+    .hero-stage {
+        position: relative;
+        left: auto; top: auto;
+        transform: none;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .hero-stage > * { position: static; }
+    .hero-copy {
+        position: static !important;
+        left: auto; top: auto; width: auto;
+        padding: 48px 24px 32px;
+        order: 1;
+    }
+    .hero-heading { width: auto; font-size: 2rem; }
+    .hero-sub { width: auto; }
+    .hero-actions { flex-wrap: wrap; }
+    .hero-visual {
+        position: relative !important;
+        left: 50%;
+        width: 1440px;
+        height: 670px;
+        transform: translateX(-50%) scale(var(--hero-scale, 1));
+        transform-origin: top center;
+        flex-shrink: 0;
+        order: 2;
+        margin-bottom: calc((var(--hero-scale, 1) - 1) * 670px);
+    }
+    .hero-visual > * { position: absolute; }
 }
 
 /* ── QUESTIONNAIRE ────────────────────────────────────────────────────────── */

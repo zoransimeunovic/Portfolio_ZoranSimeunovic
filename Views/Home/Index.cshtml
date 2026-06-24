@@ -7,20 +7,22 @@
 <section class="hero" id="home">
     <div class="hero-stage">
         <!-- Vizual / art -->
-        <div class="hero-glow"></div>
-        <span class="hero-ring hero-ring-3"></span>
-        <span class="hero-ring hero-ring-2"></span>
-        <span class="hero-ring hero-ring-1"></span>
-        <img class="hero-photo" src="~/images/profile.webp" alt="@Model.Hero.Name" />
-        <div class="hero-photo-fade"></div>
+        <div class="hero-visual" aria-hidden="true">
+            <div class="hero-glow"></div>
+            <span class="hero-ring hero-ring-3"></span>
+            <span class="hero-ring hero-ring-2"></span>
+            <span class="hero-ring hero-ring-1"></span>
+            <img class="hero-photo" src="~/images/profile.webp" alt="" />
+            <div class="hero-photo-fade"></div>
 
-        <span class="float-tag tag-webflow">Webflow</span>
-        <span class="float-tag tag-api">API</span>
-        <span class="float-tag tag-figma">Figma</span>
-        <span class="float-tag tag-mysql">MySQL</span>
-        <span class="float-tag tag-aspnet">ASP.NET</span>
+            <span class="float-tag tag-webflow">Webflow</span>
+            <span class="float-tag tag-api">API</span>
+            <span class="float-tag tag-figma">Figma</span>
+            <span class="float-tag tag-mysql">MySQL</span>
+            <span class="float-tag tag-aspnet">ASP.NET</span>
 
-        <span class="hero-name-tag">@Model.Hero.Name</span>
+            <span class="hero-name-tag">@Model.Hero.Name</span>
+        </div>
 
         <!-- Tekst / copy -->
         <div class="hero-copy">
@@ -160,35 +162,50 @@
 
         <div class="process-wrap">
             <div class="process-grid">
-            @for (var i = 0; i < Model.Process.Steps.Count; i++)
-            {
-                if (i == 8) continue;
-                var step = Model.Process.Steps[i];
-                <div class="process-card">
-                    <span class="step-num">@(i + 1)</span>
-                    <span class="step-tag">@step.Tag</span>
-                    @if (i == 0)
+                <div class="process-col">
+                    @for (var i = 0; i <= 3; i++)
                     {
-                        <a href="#contact" class="btn btn-accent step-cta">@Model.Process.ContactMe</a>
-                        <p class="step-desc">@Model.Process.FindMe</p>
-                    }
-                    else
-                    {
-                        <h3 class="step-title">@step.Title</h3>
-                        <p class="step-desc">@step.Description</p>
+                        var step = Model.Process.Steps[i];
+                        <div class="process-card">
+                            <span class="step-num">@(i + 1)</span>
+                            <span class="step-tag">@step.Tag</span>
+                            @if (i == 0)
+                            {
+                                <a href="#contact" class="btn btn-accent step-cta">@Model.Process.ContactMe</a>
+                                <p class="step-desc">@Model.Process.FindMe</p>
+                            }
+                            else
+                            {
+                                <h3 class="step-title">@step.Title</h3>
+                                <p class="step-desc">@step.Description</p>
+                            }
+                        </div>
                     }
                 </div>
-                @if (i == 7)
-                {
-                    var s9 = Model.Process.Steps[8];
-                    <div class="process-card">
-                        <span class="step-num">9</span>
-                        <span class="step-tag">@s9.Tag</span>
-                        <h3 class="step-title">@s9.Title</h3>
-                        <p class="step-desc">@s9.Description</p>
-                    </div>
-                }
-            }
+                <div class="process-col">
+                    @for (var i = 4; i <= 7; i++)
+                    {
+                        var step = Model.Process.Steps[i];
+                        <div class="process-card@(i == 4 ? " process-card--featured" : "")@(i == 7 ? " process-card--optional" : "")">
+                            <span class="step-num">@(i + 1)</span>
+                            <span class="step-tag">@step.Tag</span>
+                            <h3 class="step-title">@step.Title</h3>
+                            <p class="step-desc">@step.Description</p>
+                        </div>
+                    }
+                </div>
+                <div class="process-col">
+                    @foreach (var idx in new[] { 8, 9, 10 })
+                    {
+                        var step = Model.Process.Steps[idx];
+                        <div class="process-card@(idx != 9 ? " process-card--optional" : "")">
+                            <span class="step-num">@(idx + 1)</span>
+                            <span class="step-tag">@step.Tag</span>
+                            <h3 class="step-title">@step.Title</h3>
+                            <p class="step-desc">@step.Description</p>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
