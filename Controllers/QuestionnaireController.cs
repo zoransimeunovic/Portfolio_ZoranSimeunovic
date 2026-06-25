@@ -30,36 +30,6 @@ public class QuestionnaireController : Controller
         _env = env;
     }
 
-    [HttpGet("/questionnaire/dev")]
-    public async Task<IActionResult> DevOpen()
-    {
-        if (!_env.IsDevelopment()) return NotFound();
-
-        var lead = await _db.ContactLeads.FirstOrDefaultAsync(x => x.Email == "dev@test.local");
-        if (lead == null)
-        {
-            lead = new ContactLead { Name = "Dev Test", Email = "dev@test.local", CreatedAt = DateTime.UtcNow, EmailConfirmedAt = DateTime.UtcNow };
-            _db.ContactLeads.Add(lead);
-            await _db.SaveChangesAsync();
-        }
-
-        var q = await _db.Questionnaires.FirstOrDefaultAsync(x => x.ContactLeadId == lead.Id && !x.CompletedAt.HasValue);
-        if (q == null)
-        {
-            q = new Questionnaire
-            {
-                ContactLeadId = lead.Id,
-                Token = Guid.NewGuid().ToString("N"),
-                TokenExpiresAt = DateTime.UtcNow.AddDays(30),
-                CreatedAt = DateTime.UtcNow
-            };
-            _db.Questionnaires.Add(q);
-            await _db.SaveChangesAsync();
-        }
-
-        return Redirect("/questionnaire?token=" + q.Token);
-    }
-
     [HttpGet("/questionnaire")]
     public async Task<IActionResult> Index(string token)
     {
