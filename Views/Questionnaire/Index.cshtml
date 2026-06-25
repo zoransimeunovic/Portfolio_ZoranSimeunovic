@@ -27,7 +27,7 @@
         <form id="qForm" data-stage="@stage" novalidate>
             <input type="hidden" id="qToken" value="@token" />
 
-            <!-- STEP 1 -->
+            <!-- KORAK 1 — O vašem poslovanju -->
             <div class="q-step" id="step1">
                 <h2 class="q-step-title">@Q.S1.Title</h2>
 
@@ -47,7 +47,7 @@
                         }
                         <option value="__other__">@Q.OtherOption</option>
                     </select>
-                    <input type="text" id="q2other" name="industryOther" class="q-input q-other-input" placeholder="@Q.S1.IndustryOtherPlaceholder" style="display:none" />
+                    <textarea id="q2other" name="industryOther" class="q-input q-other-input" rows="2" placeholder="@Q.S1.IndustryOtherPlaceholder" style="display:none"></textarea>
                 </div>
 
                 <div class="q-field">
@@ -61,38 +61,14 @@
                 </div>
 
                 <div class="q-field">
-                    <label class="q-label">@Q.S1.OnlineLabel</label>
+                    <label class="q-label">@Q.S1.BrandDescLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S1.OnlineOptions)
+                        @foreach (var opt in Q.S1.BrandDescOptions)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="brandDesc" value="@opt" /> @opt</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="onlinePresence" value="Ostalo" class="q-trigger-other" data-other="onlinePresenceOther" /> @Q.OtherOption</label>
-                        <input type="text" name="onlinePresenceOther" class="q-input q-other-input" placeholder="@Q.S1.OnlineOtherPlaceholder" style="display:none" />
-                        <label class="q-check-label q-exclusive"><input type="checkbox" name="onlinePresence" value="Nigdje drugdje" class="q-exclusive-check" /> @Q.S1.OnlineNowhere</label>
-                    </div>
-                </div>
-
-                <div class="q-field">
-                    <label class="q-label">@Q.S1.HasWebsiteLabel</label>
-                    <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="hasWebsite" value="Da" class="q-trigger-show" data-show="websiteUrlWrap" /> @Q.S1.HasWebsiteYes</label>
-                        <label class="q-radio-label"><input type="radio" name="hasWebsite" value="Ne" class="q-trigger-hide" data-hide="websiteUrlWrap" /> @Q.S1.HasWebsiteNo</label>
-                    </div>
-                    <div id="websiteUrlWrap" style="display:none" class="q-conditional">
-                        <input type="url" name="websiteUrl" class="q-input" placeholder="@Q.S1.WebsiteUrlPlaceholder" />
-                    </div>
-                </div>
-
-                <div class="q-field" id="websiteDescWrap" style="display:none">
-                    <label class="q-label">@Q.S1.WebsiteDescLabel</label>
-                    <div class="q-check-group">
-                        @foreach (var opt in Q.S1.WebsiteDescOptions)
-                        {
-                            <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="@opt" /> @opt</label>
-                        }
-                        <label class="q-check-label"><input type="checkbox" name="websiteDesc" value="Ostalo" class="q-trigger-other" data-other="websiteDescOther" /> @Q.OtherOption</label>
-                        <input type="text" name="websiteDescOther" class="q-input q-other-input" placeholder="@Q.S1.WebsiteDescOtherPlaceholder" style="display:none" />
+                        <label class="q-check-label"><input type="checkbox" name="brandDesc" value="Ostalo" class="q-trigger-other" data-other="brandDescOther" /> @Q.OtherOption</label>
+                        <textarea name="brandDescOther" class="q-input q-other-input" rows="2" placeholder="@Q.S1.BrandDescOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
 
@@ -104,60 +80,86 @@
                 </div>
             </div>
 
-            <!-- STEP 2 -->
+            <!-- KORAK 2 — Web stranica -->
             <div class="q-step" id="step2" style="display:none">
                 <h2 class="q-step-title">@Q.S2.Title</h2>
 
                 <div class="q-field">
                     <label class="q-label">@Q.S2.NeedWhatLabel</label>
-                    <p class="q-hint q-hint--group">@Q.S2.HintWebsiteLabel — <em>@Q.S2.HintWebsiteEm</em></p>
                     <div class="q-radio-group">
                         @foreach (var opt in Q.S2.WebsiteTypeOptions)
                         {
-                            <label class="q-radio-label"><input type="radio" name="websiteType" value="@opt" /> @opt</label>
+                            <label class="q-radio-label"><input type="radio" name="projectType" value="@opt" /> @opt</label>
                         }
-                        <label class="q-radio-label"><input type="radio" name="websiteType" value="Nemam potrebu za web stranicom" class="q-hide-on-select" data-hide-group="pagesWrap" /> @Q.S2.WebsiteTypeNoNeed</label>
-                    </div>
-                    <p class="q-hint q-hint--group" style="margin-top:16px">@Q.S2.HintExtraLabel — <em>@Q.S2.HintExtraEm</em></p>
-                    <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="projectExtra" value="Web aplikacija" class="q-trigger-show" data-show="webAppWrap" /> @Q.S2.ProjectExtraWebApp</label>
-                        @foreach (var opt in Q.S2.ProjectExtraOptions)
-                        {
-                            <label class="q-check-label"><input type="checkbox" name="projectExtra" value="@opt" /> @opt</label>
-                        }
-                        <label class="q-check-label"><input type="checkbox" name="projectExtra" value="Ostalo" class="q-trigger-other" data-other="projectExtraOther" /> @Q.OtherOption</label>
-                        <input type="text" name="projectExtraOther" class="q-input q-other-input" placeholder="@Q.S2.ProjectExtraOtherPlaceholder" style="display:none" />
+                        <label class="q-radio-label"><input type="radio" name="projectType" value="Ostalo" class="q-trigger-other" data-other="projectTypeOther" /> @Q.OtherOption</label>
+                        <textarea name="projectTypeOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.WebsiteTypeOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
 
-                <div class="q-field" id="pagesWrap">
+                <!-- Kondicionalno: samo za Redizajn -->
+                <div id="redizajnWrap" style="display:none" class="q-conditional">
+                    <div class="q-field">
+                        <label class="q-label" for="existingUrl">@Q.S2.ExistingUrlLabel</label>
+                        <input type="url" id="existingUrl" name="existingUrl" class="q-input" placeholder="@Q.S2.ExistingUrlPlaceholder" />
+                    </div>
+
+                    <div class="q-field">
+                        <label class="q-label">@Q.S2.CurrentSiteDescLabel</label>
+                        <div class="q-check-group">
+                            @foreach (var opt in Q.S2.CurrentSiteDescOptions)
+                            {
+                                <label class="q-check-label"><input type="checkbox" name="currentSiteDesc" value="@opt" /> @opt</label>
+                            }
+                            <label class="q-check-label"><input type="checkbox" name="currentSiteDesc" value="Ostalo" class="q-trigger-other" data-other="currentSiteDescOther" /> @Q.OtherOption</label>
+                            <textarea name="currentSiteDescOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.CurrentSiteDescOtherPlaceholder" style="display:none"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="q-field">
+                        <label class="q-label">@Q.S2.WantToChangeLabel</label>
+                        <div class="q-check-group">
+                            @foreach (var opt in Q.S2.WantToChangeOptions)
+                            {
+                                <label class="q-check-label"><input type="checkbox" name="wantToChange" value="@opt" /> @opt</label>
+                            }
+                            <label class="q-check-label"><input type="checkbox" name="wantToChange" value="Ostalo" class="q-trigger-other" data-other="wantToChangeOther" /> @Q.OtherOption</label>
+                            <textarea name="wantToChangeOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.WantToChangeOtherPlaceholder" style="display:none"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kondicionalno: zavisi od projectType -->
+                <div id="pagesWrap" class="q-field" style="display:none">
                     <label class="q-label">@Q.S2.PagesLabel</label>
-                    <div class="q-check-group">
+
+                    <div id="pagesPortfolio" class="q-check-group" style="display:none">
+                        @foreach (var opt in Q.S2.PagesPortfolioOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="pages" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="pages" value="Ostalo" class="q-trigger-other" data-other="pagesPortfolioOther" /> @Q.OtherOption</label>
+                        <textarea name="pagesPortfolioOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.PagesOtherPlaceholder" style="display:none"></textarea>
+                    </div>
+
+                    <div id="pagesFull" class="q-check-group" style="display:none">
                         @foreach (var opt in Q.S2.PagesOptions)
                         {
                             <label class="q-check-label"><input type="checkbox" name="pages" value="@opt" /> @opt</label>
                         }
                         <label class="q-check-label"><input type="checkbox" name="pages" value="Ostalo" class="q-trigger-other" data-other="pagesOther" /> @Q.OtherOption</label>
-                        <input type="text" name="pagesOther" class="q-input q-other-input" placeholder="@Q.S2.PagesOtherPlaceholder" style="display:none" />
+                        <textarea name="pagesOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.PagesOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
 
+                <!-- Q10 — Dodatne opcije (uvijek vidljivo) -->
                 <div class="q-field">
-                    <label class="q-label">@Q.S2.FeaturesLabel</label>
+                    <label class="q-label">@Q.S2.ExtrasLabel</label>
 
                     <p class="q-group-header">@Q.S2.CommHeader</p>
                     <div class="q-check-group">
                         @foreach (var opt in Q.S2.CommOptions)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="features" value="@opt" /> @opt</label>
-                        }
-                    </div>
-
-                    <p class="q-group-header">@Q.S2.SalesHeader</p>
-                    <div class="q-check-group">
-                        @foreach (var opt in Q.S2.SalesOptions)
-                        {
-                            <label class="q-check-label"><input type="checkbox" name="features" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="extras" value="@opt" /> @opt</label>
                         }
                     </div>
 
@@ -165,90 +167,10 @@
                     <div class="q-check-group">
                         @foreach (var opt in Q.S2.GrowthOptions)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="features" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="extras" value="@opt" /> @opt</label>
                         }
-                    </div>
-
-                    <p class="q-group-header">@Q.S2.TechHeader</p>
-                    <div class="q-check-group">
-                        @foreach (var opt in Q.S2.TechOptions)
-                        {
-                            <label class="q-check-label"><input type="checkbox" name="features" value="@opt" /> @opt</label>
-                        }
-                    </div>
-
-                    <div class="q-check-group q-features-global">
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Ništa od navedenog" class="q-exclusive-check" /> @Q.S2.FeaturesNone</label>
-                        <label class="q-check-label"><input type="checkbox" name="features" value="Ostalo" class="q-trigger-other" data-other="featuresOther" /> @Q.OtherOption</label>
-                        <input type="text" name="featuresOther" class="q-input q-other-input" placeholder="@Q.S2.FeaturesOtherPlaceholder" style="display:none" />
-                    </div>
-                </div>
-
-                <div class="q-field">
-                    <label class="q-label">@Q.S2.ContentLabel</label>
-
-                    <p class="q-hint q-hint--sub">@Q.S2.TextsHint</p>
-                    <div class="q-radio-group">
-                        @foreach (var opt in Q.ContentAvailOptions)
-                        {
-                            <label class="q-radio-label"><input type="radio" name="contentTexts" value="@opt" /> @opt</label>
-                        }
-                    </div>
-                    <div class="q-dropzone q-dropzone--inline" data-label="texts" data-accept=".pdf,.doc,.docx,.txt">
-                        <input type="file" class="q-dropzone-input" accept=".pdf,.doc,.docx,.txt" />
-                        <div class="q-dropzone-idle">
-                            <span class="q-dropzone-icon">&#8679;</span>
-                            <span class="q-dropzone-hint-text">@Q.S2.TextsDropzoneHint</span>
-                            <span class="q-dropzone-formats">.pdf &nbsp; .doc &nbsp; .docx &nbsp; .txt</span>
-                        </div>
-                        <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
-                        <div class="q-dropzone-done" style="display:none">
-                            <span class="q-dz-check">&#10003;</span>
-                            <span class="q-dropzone-filename"></span>
-                        </div>
-                        <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
-                    </div>
-
-                    <p class="q-hint q-hint--sub" style="margin-top:20px">@Q.S2.PhotosHint</p>
-                    <div class="q-radio-group">
-                        @foreach (var opt in Q.ContentAvailOptions)
-                        {
-                            <label class="q-radio-label"><input type="radio" name="contentPhotos" value="@opt" /> @opt</label>
-                        }
-                    </div>
-                    <div class="q-dropzone q-dropzone--inline" data-label="photos" data-accept=".jpg,.jpeg,.png,.gif,.webp,.zip">
-                        <input type="file" class="q-dropzone-input" accept=".jpg,.jpeg,.png,.gif,.webp,.zip" />
-                        <div class="q-dropzone-idle">
-                            <span class="q-dropzone-icon">&#8679;</span>
-                            <span class="q-dropzone-hint-text">@Q.S2.PhotosDropzoneHint</span>
-                            <span class="q-dropzone-formats">.jpg &nbsp; .png &nbsp; .webp &nbsp; .zip</span>
-                        </div>
-                        <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
-                        <div class="q-dropzone-done" style="display:none">
-                            <span class="q-dz-check">&#10003;</span>
-                            <span class="q-dropzone-filename"></span>
-                        </div>
-                        <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
-                    </div>
-                </div>
-
-                <div class="q-field" id="webAppWrap" style="display:none">
-                    <label class="q-label">@Q.S2.AppUsersLabel</label>
-                    <div class="q-check-group">
-                        @foreach (var opt in Q.S2.AppUsersOptions)
-                        {
-                            <label class="q-check-label"><input type="checkbox" name="appUsers" value="@opt" /> @opt</label>
-                        }
-                        <label class="q-check-label"><input type="checkbox" name="appUsers" value="Ostalo" class="q-trigger-other" data-other="appUsersOther" /> @Q.OtherOption</label>
-                        <input type="text" name="appUsersOther" class="q-input q-other-input" placeholder="@Q.S2.AppUsersOtherPlaceholder" style="display:none" />
-                    </div>
-
-                    <label class="q-label" style="margin-top:16px">@Q.S2.AppUserCountLabel</label>
-                    <div class="q-radio-group">
-                        @foreach (var opt in Q.S2.AppUserCountOptions)
-                        {
-                            <label class="q-radio-label"><input type="radio" name="appUserCount" value="@opt" /> @opt</label>
-                        }
+                        <label class="q-check-label"><input type="checkbox" name="extras" value="Ostalo" class="q-trigger-other" data-other="extrasOther" /> @Q.OtherOption</label>
+                        <textarea name="extrasOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.ExtrasOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
 
@@ -261,254 +183,391 @@
                 </div>
             </div>
 
-            <!-- STEP 3 -->
+            <!-- KORAK 3 — Web aplikacija i automatizacija -->
             <div class="q-step" id="step3" style="display:none">
                 <h2 class="q-step-title">@Q.S3.Title</h2>
+                <p class="q-hint">@Q.S3.SectionHint</p>
 
-                <div class="q-field">
-                    <label class="q-label">@Q.S3.GoalsLabel</label>
-
-                    <p class="q-group-header">@Q.S3.WebHeader</p>
+                <!-- Q11 — obavezno, validacija na Dalje -->
+                <div class="q-field" id="appTypeField">
+                    <label class="q-label">@Q.S3.AppTypeLabel <span class="q-required">*</span></label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.WebOptions)
+                        @foreach (var opt in Q.S3.AppTypeOptions)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="goals" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="appType" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="appType" value="Ostalo" class="q-trigger-other" data-other="appTypeOther" /> @Q.OtherOption</label>
+                        <textarea name="appTypeOther" class="q-input q-other-input" rows="2" placeholder="@Q.S3.AppTypeOtherPlaceholder" style="display:none"></textarea>
+                    </div>
+                </div>
+
+                <div class="q-field q-app-guarded">
+                    <label class="q-label">@Q.S3.AppUsersLabel</label>
+                    <div class="q-check-group">
+                        @foreach (var opt in Q.S3.AppUsersOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="appUsers" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="appUsers" value="Ostalo" class="q-trigger-other" data-other="appUsersOther" /> @Q.OtherOption</label>
+                        <textarea name="appUsersOther" class="q-input q-other-input" rows="2" placeholder="@Q.S3.AppUsersOtherPlaceholder" style="display:none"></textarea>
+                    </div>
+                </div>
+
+                <div class="q-field q-app-guarded">
+                    <label class="q-label">@Q.S3.CommLabel</label>
+                    <div class="q-check-group">
+                        @foreach (var opt in Q.S3.CommOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="commAuto" value="@opt" /> @opt</label>
                         }
                     </div>
+                </div>
 
-                    <p class="q-group-header">@Q.S3.BusinessHeader</p>
+                <div class="q-field q-app-guarded">
+                    <label class="q-label">@Q.S3.SalesLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.BusinessOptions)
+                        @foreach (var opt in Q.S3.SalesOptions)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="goals" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="salesBooking" value="@opt" /> @opt</label>
                         }
                     </div>
+                </div>
 
-                    <p class="q-group-header">@Q.S3.AutoHeader</p>
+                <div class="q-field q-app-guarded">
+                    <label class="q-label">@Q.S3.AutoLabel</label>
                     <div class="q-check-group">
                         @foreach (var opt in Q.S3.AutoOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="automation" value="@opt" /> @opt</label>
+                        }
+                    </div>
+                </div>
+
+                <div class="q-field q-app-guarded">
+                    <label class="q-label">@Q.S3.ContentMgmtLabel</label>
+                    <div class="q-check-group">
+                        @foreach (var opt in Q.S3.ContentMgmtOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="contentMgmt" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="contentMgmt" value="Ostalo" class="q-trigger-other" data-other="contentMgmtOther" /> @Q.OtherOption</label>
+                        <textarea name="contentMgmtOther" class="q-input q-other-input" rows="2" placeholder="@Q.S3.ContentMgmtOtherPlaceholder" style="display:none"></textarea>
+                    </div>
+                </div>
+
+                <div class="q-actions">
+                    <button type="button" class="q-btn q-btn--back" onclick="prevStep(3)">@Q.BtnBack</button>
+                    <button type="button" class="q-btn q-btn--next" onclick="nextStep(3)">@Q.BtnNext</button>
+                </div>
+                <div class="q-opt-out-wrap">
+                    <button type="button" class="q-opt-out-btn" onclick="optOut()">@Q.BtnOptOut</button>
+                </div>
+            </div>
+
+            <!-- KORAK 4 — Dizajn i materijali -->
+            <div class="q-step" id="step4" style="display:none">
+                <h2 class="q-step-title">@Q.S4.Title</h2>
+
+                <!-- Q17 Tekstovi -->
+                <div class="q-field">
+                    <label class="q-label">@Q.S4.TextsLabel</label>
+                    <div class="q-dropzone q-dropzone--inline" data-label="texts" data-accept=".pdf,.doc,.docx,.txt">
+                        <input type="file" class="q-dropzone-input" accept=".pdf,.doc,.docx,.txt" />
+                        <div class="q-dropzone-idle">
+                            <span class="q-dropzone-icon">&#8679;</span>
+                            <span class="q-dropzone-hint-text">@Q.S4.TextsDropzoneHint</span>
+                            <span class="q-dropzone-formats">.pdf &nbsp; .doc &nbsp; .docx &nbsp; .txt</span>
+                        </div>
+                        <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
+                        <div class="q-dropzone-done" style="display:none">
+                            <span class="q-dz-check">&#10003;</span>
+                            <span class="q-dropzone-filename"></span>
+                        </div>
+                        <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
+                    </div>
+                    <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="textsHelp" value="Da" /> @Q.S4.TextsHelpCheckbox</label>
+                </div>
+
+                <!-- Q18 Fotografije -->
+                <div class="q-field">
+                    <label class="q-label">@Q.S4.PhotosLabel</label>
+                    <div class="q-dropzone q-dropzone--inline" data-label="photos" data-accept=".jpg,.jpeg,.png,.gif,.webp,.zip">
+                        <input type="file" class="q-dropzone-input" accept=".jpg,.jpeg,.png,.gif,.webp,.zip" />
+                        <div class="q-dropzone-idle">
+                            <span class="q-dropzone-icon">&#8679;</span>
+                            <span class="q-dropzone-hint-text">@Q.S4.PhotosDropzoneHint</span>
+                            <span class="q-dropzone-formats">.jpg &nbsp; .png &nbsp; .webp &nbsp; .zip</span>
+                        </div>
+                        <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
+                        <div class="q-dropzone-done" style="display:none">
+                            <span class="q-dz-check">&#10003;</span>
+                            <span class="q-dropzone-filename"></span>
+                        </div>
+                        <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
+                    </div>
+                    <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="photosHelp" value="Da" /> @Q.S4.PhotosHelpCheckbox</label>
+                </div>
+
+                <!-- Q19 Brendirani materijali -->
+                <div class="q-field">
+                    <label class="q-label">@Q.S4.BrandingLabel</label>
+                    <div class="q-dropzone q-dropzone--inline" data-label="branding" data-accept=".jpg,.jpeg,.png,.svg,.pdf,.ai,.eps,.doc,.docx">
+                        <input type="file" class="q-dropzone-input" accept=".jpg,.jpeg,.png,.svg,.pdf,.ai,.eps,.doc,.docx" />
+                        <div class="q-dropzone-idle">
+                            <span class="q-dropzone-icon">&#8679;</span>
+                            <span class="q-dropzone-hint-text">@Q.S4.BrandingDropzoneHint</span>
+                            <span class="q-dropzone-formats">.jpg &nbsp; .png &nbsp; .svg &nbsp; .pdf &nbsp; .ai</span>
+                        </div>
+                        <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
+                        <div class="q-dropzone-done" style="display:none">
+                            <span class="q-dz-check">&#10003;</span>
+                            <span class="q-dropzone-filename"></span>
+                        </div>
+                        <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
+                    </div>
+                    <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="brandHelp" value="Da" /> @Q.S4.BrandingHelpCheckbox</label>
+                </div>
+
+                <!-- Q20 Društvene mreže -->
+                <div class="q-field">
+                    <label class="q-label" for="socialLinks">@Q.S4.SocialLinksLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S4.SocialLinksHint</p>
+                    <textarea id="socialLinks" name="socialLinks" class="q-textarea" rows="3"></textarea>
+                </div>
+
+                <!-- Q21 Stil -->
+                <div class="q-field">
+                    <label class="q-label">@Q.S4.StyleLabel</label>
+                    <div class="q-check-group">
+                        @foreach (var opt in Q.S4.StyleOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="style" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="style" value="Ostalo" class="q-trigger-other" data-other="styleOther" /> @Q.OtherOption</label>
+                        <textarea name="styleOther" class="q-input q-other-input" rows="2" placeholder="@Q.S4.StyleOtherPlaceholder" style="display:none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Q21b Boje -->
+                <div class="q-field">
+                    <label class="q-label">@Q.S4.ColorsLabel</label>
+                    <div class="q-color-group">
+                        <div class="q-color-row">
+                            <span class="q-color-label">@Q.S4.PrimaryColorLabel</span>
+                            <input type="color" name="primaryColor" class="q-color-input" />
+                        </div>
+                        <div class="q-color-row">
+                            <span class="q-color-label">@Q.S4.SecondaryColorLabel</span>
+                            <input type="color" name="secondaryColor" class="q-color-input" />
+                        </div>
+                        <div class="q-color-row">
+                            <span class="q-color-label">@Q.S4.AccentColorLabel</span>
+                            <input type="color" name="accentColor" class="q-color-input" />
+                        </div>
+                    </div>
+                    <p class="q-hint">@Q.S4.ColorsHint</p>
+                </div>
+
+                <!-- Q22 Tema -->
+                <div class="q-field">
+                    <label class="q-label">@Q.S4.ThemeLabel</label>
+                    <div class="q-radio-group">
+                        <label class="q-radio-label"><input type="radio" name="theme" value="@Q.S4.ThemeDark" /> @Q.S4.ThemeDark</label>
+                        <label class="q-radio-label"><input type="radio" name="theme" value="@Q.S4.ThemeLight" /> @Q.S4.ThemeLight</label>
+                        <label class="q-radio-label"><input type="radio" name="theme" value="@Q.S4.ThemeAny" /> @Q.S4.ThemeAny</label>
+                    </div>
+                </div>
+
+                <!-- Q23 Sajtovi koji se sviđaju -->
+                <div class="q-field">
+                    <label class="q-label" for="likedSites">@Q.S4.LikedSitesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S4.LikedSitesHint</p>
+                    <textarea id="likedSites" name="likedSites" class="q-textarea" rows="2"></textarea>
+                </div>
+                <div class="q-field">
+                    <label class="q-label" for="likedSitesWhat">@Q.S4.LikedSitesWhatLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S4.LikedSitesWhatHint</p>
+                    <textarea id="likedSitesWhat" name="likedSitesWhat" class="q-textarea" rows="2"></textarea>
+                </div>
+
+                <!-- Q24 Konkurencija -->
+                <div class="q-field">
+                    <label class="q-label" for="competitorSites">@Q.S4.CompetitorSitesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S4.CompetitorSitesHint</p>
+                    <textarea id="competitorSites" name="competitorSites" class="q-textarea" rows="2"></textarea>
+                </div>
+                <div class="q-field">
+                    <label class="q-label" for="competitorGood">@Q.S4.CompetitorGoodLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S4.CompetitorGoodHint</p>
+                    <textarea id="competitorGood" name="competitorGood" class="q-textarea" rows="2"></textarea>
+                </div>
+                <div class="q-field">
+                    <label class="q-label" for="competitorBad">@Q.S4.CompetitorBadLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S4.CompetitorBadHint</p>
+                    <textarea id="competitorBad" name="competitorBad" class="q-textarea" rows="2"></textarea>
+                </div>
+
+                <div class="q-actions">
+                    <button type="button" class="q-btn q-btn--back" onclick="prevStep(4)">@Q.BtnBack</button>
+                    <button type="button" class="q-btn q-btn--next" onclick="nextStep(4)">@Q.BtnNext</button>
+                </div>
+                <div class="q-opt-out-wrap">
+                    <button type="button" class="q-opt-out-btn" onclick="optOut()">@Q.BtnOptOut</button>
+                </div>
+            </div>
+
+            <!-- KORAK 5 — Ciljevi i rokovi -->
+            <div class="q-step" id="step5" style="display:none">
+                <h2 class="q-step-title">@Q.S5.Title</h2>
+
+                <!-- Q25 Ciljevi -->
+                <div class="q-field">
+                    <label class="q-label">@Q.S5.GoalsLabel</label>
+
+                    <p class="q-group-header">@Q.S5.GoalsWebHeader</p>
+                    <div class="q-check-group">
+                        @foreach (var opt in Q.S5.GoalsWebOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="goals" value="@opt" /> @opt</label>
+                        }
+                    </div>
+
+                    <p class="q-group-header">@Q.S5.GoalsBusinessHeader</p>
+                    <div class="q-check-group">
+                        @foreach (var opt in Q.S5.GoalsBusinessOptions)
                         {
                             <label class="q-check-label"><input type="checkbox" name="goals" value="@opt" /> @opt</label>
                         }
                         <label class="q-check-label"><input type="checkbox" name="goals" value="Ostalo" class="q-trigger-other" data-other="goalsOther" /> @Q.OtherOption</label>
-                        <input type="text" name="goalsOther" class="q-input q-other-input" placeholder="@Q.S3.GoalsOtherPlaceholder" style="display:none" />
+                        <textarea name="goalsOther" class="q-input q-other-input" rows="2" placeholder="@Q.S5.GoalsOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
 
+                <!-- Q26 Najveći problem -->
                 <div class="q-field">
-                    <label class="q-label" for="q14">@Q.S3.BiggestProblemLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
-                    <p class="q-hint">@Q.S3.BiggestProblemHint</p>
-                    <textarea id="q14" name="biggestProblem" class="q-textarea" rows="3"></textarea>
+                    <label class="q-label" for="biggestProblem">@Q.S5.BiggestProblemLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S5.BiggestProblemHint</p>
+                    <textarea id="biggestProblem" name="biggestProblem" class="q-textarea" rows="3"></textarea>
                 </div>
 
+                <!-- Q27 Kriterij uspjeha -->
                 <div class="q-field">
-                    <label class="q-label" for="q15">@Q.S3.SuccessCriteriaLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
-                    <p class="q-hint">@Q.S3.SuccessCriteriaHint</p>
-                    <textarea id="q15" name="successCriteria" class="q-textarea" rows="3"></textarea>
+                    <label class="q-label" for="successCriteria">@Q.S5.SuccessCriteriaLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S5.SuccessCriteriaHint</p>
+                    <textarea id="successCriteria" name="successCriteria" class="q-textarea" rows="3"></textarea>
                 </div>
 
+                <!-- Q28 Prednosti -->
                 <div class="q-field">
-                    <label class="q-label">@Q.S3.CustomersLabel</label>
+                    <label class="q-label" for="advantages">@Q.S5.AdvantagesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S5.AdvantagesHint</p>
+                    <textarea id="advantages" name="advantages" class="q-textarea" rows="3"></textarea>
+                </div>
 
-                    <p class="q-hint q-hint--sub">@Q.S3.CustomerTypeHint</p>
+                <!-- Q29 Kupci -->
+                <div class="q-field">
+                    <label class="q-label">@Q.S5.CustomersLabel</label>
+
+                    <p class="q-hint q-hint--sub">@Q.S5.CustomerTypeLabel</p>
                     <div class="q-check-group">
-                        <label class="q-check-label"><input type="checkbox" name="customerType" value="Privatne osobe" class="q-trigger-show" data-show="customerDemoWrap" /> @Q.S3.CustomerTypePrivate</label>
-                        <label class="q-check-label"><input type="checkbox" name="customerType" value="Druga preduzeća i firme" /> @Q.S3.CustomerTypeBusiness</label>
-                        <label class="q-check-label"><input type="checkbox" name="customerType" value="I privatne osobe i firme" class="q-trigger-show" data-show="customerDemoWrap" /> @Q.S3.CustomerTypeBoth</label>
+                        @foreach (var opt in Q.S5.CustomerTypeOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="customerType" value="@opt" /> @opt</label>
+                        }
                         <label class="q-check-label"><input type="checkbox" name="customerType" value="Ostalo" class="q-trigger-other" data-other="customerTypeOther" /> @Q.OtherOption</label>
-                        <input type="text" name="customerTypeOther" class="q-input q-other-input" placeholder="@Q.S3.CustomerTypeOtherPlaceholder" style="display:none" />
+                        <textarea name="customerTypeOther" class="q-input q-other-input" rows="2" placeholder="@Q.S5.CustomerTypeOtherPlaceholder" style="display:none"></textarea>
                     </div>
 
                     <div id="customerDemoWrap" style="display:none" class="q-conditional">
-                        <p class="q-hint q-hint--sub">@Q.S3.AgeHint</p>
+                        <p class="q-hint q-hint--sub">@Q.S5.AgeLabel</p>
                         <div class="q-check-group">
-                            @foreach (var opt in Q.S3.AgeOptions)
+                            @foreach (var opt in Q.S5.AgeOptions)
                             {
                                 <label class="q-check-label"><input type="checkbox" name="ageGroup" value="@opt" /> @opt</label>
                             }
                         </div>
 
-                        <p class="q-hint q-hint--sub">@Q.S3.GenderHint</p>
+                        <p class="q-hint q-hint--sub">@Q.S5.GenderLabel</p>
                         <div class="q-check-group">
-                            @foreach (var opt in Q.S3.GenderOptions)
+                            @foreach (var opt in Q.S5.GenderOptions)
                             {
                                 <label class="q-check-label"><input type="checkbox" name="gender" value="@opt" /> @opt</label>
                             }
                         </div>
                     </div>
 
-                    <p class="q-hint q-hint--sub">@Q.S3.LocationHint</p>
-                    <div class="q-radio-group">
-                        @foreach (var opt in Q.S3.LocationOptions)
-                        {
-                            <label class="q-radio-label"><input type="radio" name="customerLocation" value="@opt" /> @opt</label>
-                        }
-                    </div>
-                </div>
-
-                <div class="q-field">
-                    <label class="q-label">@Q.S3.BrandingLabel</label>
-                    <p class="q-hint">@Q.S3.BrandingHint</p>
-                    <div class="q-dropzones-row">
-                        <div class="q-dropzone" data-label="logo" data-accept=".jpg,.jpeg,.png,.gif,.svg,.pdf,.ai,.eps">
-                            <input type="file" class="q-dropzone-input" accept=".jpg,.jpeg,.png,.gif,.svg,.pdf,.ai,.eps" />
-                            <div class="q-dropzone-idle">
-                                <span class="q-dropzone-icon">&#8679;</span>
-                                <p class="q-dropzone-title">@Q.S3.LogoTitle</p>
-                                <p class="q-dropzone-hint-text">@Q.DropzoneClickOrDrag</p>
-                                <p class="q-dropzone-formats">.jpg .png .svg .pdf .ai</p>
-                            </div>
-                            <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
-                            <div class="q-dropzone-done" style="display:none">
-                                <span class="q-dz-check">&#10003;</span>
-                                <span class="q-dropzone-filename"></span>
-                            </div>
-                            <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
-                        </div>
-                        <div class="q-dropzone" data-label="brandbook" data-accept=".pdf,.doc,.docx">
-                            <input type="file" class="q-dropzone-input" accept=".pdf,.doc,.docx" />
-                            <div class="q-dropzone-idle">
-                                <span class="q-dropzone-icon">&#8679;</span>
-                                <p class="q-dropzone-title">@Q.S3.BrandBookTitle</p>
-                                <p class="q-dropzone-hint-text">@Q.DropzoneClickOrDrag</p>
-                                <p class="q-dropzone-formats">.pdf .doc .docx</p>
-                            </div>
-                            <div class="q-dropzone-progress" style="display:none">@Q.DropzoneUploading</div>
-                            <div class="q-dropzone-done" style="display:none">
-                                <span class="q-dz-check">&#10003;</span>
-                                <span class="q-dropzone-filename"></span>
-                            </div>
-                            <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
-                        </div>
-                    </div>
-                    <div class="q-check-group" style="margin-top:16px">
-                        @foreach (var opt in Q.S3.BrandingOptions)
-                        {
-                            <label class="q-check-label"><input type="checkbox" name="branding" value="@opt" /> @opt</label>
-                        }
-                        <label class="q-check-label"><input type="checkbox" name="branding" value="Ostalo" class="q-trigger-other" data-other="brandingOther" /> @Q.OtherOption</label>
-                        <input type="text" name="brandingOther" class="q-input q-other-input" placeholder="@Q.S3.BrandingOtherPlaceholder" style="display:none" />
-                    </div>
-                </div>
-
-                <div class="q-field">
-                    <label class="q-label">@Q.S3.StyleLabel</label>
+                    <p class="q-hint q-hint--sub">@Q.S5.LocationLabel</p>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.StyleOptions)
+                        @foreach (var opt in Q.S5.LocationOptions)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="style" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="customerLocation" value="@opt" /> @opt</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Ostalo" class="q-trigger-other" data-other="styleOther" /> @Q.OtherOption</label>
-                        <input type="text" name="styleOther" class="q-input q-other-input" placeholder="@Q.S3.StyleOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
+                <!-- Q30 Kada početi -->
                 <div class="q-field">
-                    <label class="q-label" for="q19">@Q.S3.ReferenceLinksLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
-                    <p class="q-hint">@Q.S3.ReferenceLinksHint</p>
-                    <textarea id="q19" name="referenceLinks" class="q-textarea" rows="2"></textarea>
-                </div>
-
-                <div class="q-field">
-                    <label class="q-label" for="q20">@Q.S3.ExistingSystemsLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
-                    <p class="q-hint">@Q.S3.ExistingSystemsHint</p>
-                    <textarea id="q20" name="existingSystems" class="q-textarea" rows="2"></textarea>
-                </div>
-
-                <div class="q-field">
-                    <label class="q-label" for="q21">@Q.S3.CompetitorLinksLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
-                    <p class="q-hint">@Q.S3.CompetitorLinksHint</p>
-                    <textarea id="q21" name="competitorLinks" class="q-textarea" rows="2"></textarea>
-                </div>
-
-                <div class="q-field">
-                    <label class="q-label">@Q.S3.StartWhenLabel</label>
+                    <label class="q-label">@Q.S5.StartWhenLabel</label>
                     <div class="q-radio-group">
-                        @foreach (var opt in Q.S3.StartWhenOptions)
+                        @foreach (var opt in Q.S5.StartWhenOptions)
                         {
                             <label class="q-radio-label"><input type="radio" name="startWhen" value="@opt" /> @opt</label>
                         }
-                        <label class="q-radio-label"><input type="radio" name="startWhen" value="Ostalo" class="q-trigger-other" data-other="startWhenOther" /> @Q.OtherOption</label>
-                        <input type="text" name="startWhenOther" class="q-input q-other-input" placeholder="@Q.S3.StartWhenOtherPlaceholder" style="display:none" />
                     </div>
                 </div>
 
+                <!-- Q31 Rok završetka -->
                 <div class="q-field">
-                    <label class="q-label">@Q.S3.DeadlineLabel</label>
+                    <label class="q-label">@Q.S5.DeadlineLabel</label>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="deadline" value="Da" class="q-trigger-show" data-show="deadlineDateWrap" /> @Q.S3.DeadlineYes</label>
-                        <label class="q-radio-label"><input type="radio" name="deadline" value="Ne" class="q-trigger-hide" data-hide="deadlineDateWrap" /> @Q.S3.DeadlineNo</label>
-                        <label class="q-radio-label"><input type="radio" name="deadline" value="Fleksibilno" class="q-trigger-hide" data-hide="deadlineDateWrap" /> @Q.S3.DeadlineFlexible</label>
+                        <label class="q-radio-label"><input type="radio" name="deadline" value="Da" class="q-trigger-show" data-show="deadlineDateWrap" /> @Q.S5.DeadlineYes</label>
+                        <label class="q-radio-label"><input type="radio" name="deadline" value="Nemam fiksni rok" class="q-trigger-hide" data-hide="deadlineDateWrap" /> @Q.S5.DeadlineNo</label>
                     </div>
                     <div id="deadlineDateWrap" style="display:none" class="q-conditional">
                         <input type="date" name="deadlineDate" class="q-input" />
                     </div>
                 </div>
 
+                <!-- Q32 Podrška -->
                 <div class="q-field">
-                    <label class="q-label">@Q.S3.RankingLabel <span class="q-hint-inline">@Q.S3.RankingHintInline</span></label>
-                    <div class="q-ranking">
-                        <div class="q-ranking-row">
-                            <span class="q-ranking-label">@Q.S3.RankSpeedLabel</span>
-                            <select name="rankSpeed" class="q-rank-select" data-rank-group="main">
-                                <option value="">—</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <div class="q-ranking-row">
-                            <span class="q-ranking-label">@Q.S3.RankQualityLabel</span>
-                            <select name="rankQuality" class="q-rank-select" data-rank-group="main">
-                                <option value="">—</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <div class="q-ranking-row">
-                            <span class="q-ranking-label">@Q.S3.RankPriceLabel</span>
-                            <select name="rankPrice" class="q-rank-select" data-rank-group="main">
-                                <option value="">—</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <p class="q-rank-error" id="rankError" style="display:none">@Q.S3.RankError</p>
-                    </div>
-                </div>
-
-                <div class="q-field">
-                    <label class="q-label">@Q.S3.SupportLabel</label>
-                    <div class="q-radio-group">
-                        @foreach (var opt in Q.S3.SupportOptions)
-                        {
-                            <label class="q-radio-label"><input type="radio" name="support" value="@opt" /> @opt</label>
-                        }
-                    </div>
-                </div>
-
-                <div class="q-field">
-                    <label class="q-label">@Q.S3.HeardFromLabel</label>
+                    <label class="q-label">@Q.S5.SupportLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.HeardFromOptions)
+                        @foreach (var opt in Q.S5.SupportOptions)
+                        {
+                            <label class="q-check-label"><input type="checkbox" name="support" value="@opt" /> @opt</label>
+                        }
+                        <label class="q-check-label"><input type="checkbox" name="support" value="Ostalo" class="q-trigger-other" data-other="supportOther" /> @Q.OtherOption</label>
+                        <textarea name="supportOther" class="q-input q-other-input" rows="2" placeholder="@Q.S5.SupportOtherPlaceholder" style="display:none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Q33 Kako ste čuli -->
+                <div class="q-field">
+                    <label class="q-label">@Q.S5.HeardFromLabel</label>
+                    <div class="q-check-group">
+                        @foreach (var opt in Q.S5.HeardFromOptions)
                         {
                             <label class="q-check-label"><input type="checkbox" name="heardFrom" value="@opt" /> @opt</label>
                         }
                         <label class="q-check-label"><input type="checkbox" name="heardFrom" value="Ostalo" class="q-trigger-other" data-other="heardFromOther" /> @Q.OtherOption</label>
-                        <input type="text" name="heardFromOther" class="q-input q-other-input" placeholder="@Q.S3.HeardFromOtherPlaceholder" style="display:none" />
+                        <textarea name="heardFromOther" class="q-input q-other-input" rows="2" placeholder="@Q.S5.HeardFromOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
 
+                <!-- Q34 Dodatno -->
                 <div class="q-field">
-                    <label class="q-label" for="q27">@Q.S3.AdditionalNotesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
-                    <p class="q-hint">@Q.S3.AdditionalNotesHint</p>
-                    <textarea id="q27" name="additionalNotes" class="q-textarea" rows="3"></textarea>
+                    <label class="q-label" for="additionalNotes">@Q.S5.AdditionalNotesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <p class="q-hint">@Q.S5.AdditionalNotesHint</p>
+                    <textarea id="additionalNotes" name="additionalNotes" class="q-textarea" rows="4"></textarea>
+                </div>
+
+                <!-- Garantni rok -->
+                <div class="q-warranty-block">
+                    <p>@Html.Raw(Q.S5.WarrantyHtml)</p>
                 </div>
 
                 <div class="q-actions">
-                    <button type="button" class="q-btn q-btn--back" onclick="prevStep(3)">@Q.BtnBack</button>
+                    <button type="button" class="q-btn q-btn--back" onclick="prevStep(5)">@Q.BtnBack</button>
                     <button type="button" class="q-btn q-btn--submit" id="submitBtn" onclick="submitForm()">@Q.BtnSubmit</button>
                 </div>
                 <div class="q-opt-out-wrap">
@@ -520,6 +579,20 @@
     </div>
 </div>
 
+@section Styles {
+    <style>
+        .q-warranty-block { margin-top: 32px; padding: 16px 20px; border: 1px solid var(--accent); border-radius: 8px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+        .q-warranty-block strong { color: var(--secondary); }
+        .q-actions--first { margin-top: 24px; }
+        .q-color-group { display: flex; flex-direction: column; gap: 10px; }
+        .q-color-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--primary); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 15px; }
+        .q-color-label { color: var(--secondary); }
+        .q-color-input { width: 44px; height: 28px; padding: 2px; border: 1px solid var(--surface); border-radius: 4px; cursor: pointer; background: transparent; flex-shrink: 0; }
+        .q-color-group + .q-hint { margin-top: 24px; font-size: 12px; max-width: 60%; }
+        @@media (max-width: 768px) { .q-color-group + .q-hint { max-width: 100%; } }
+    </style>
+}
+
 @section Scripts {
     <script>
         window.QText = @Html.Raw(JsonSerializer.Serialize(new
@@ -530,7 +603,8 @@
             companyRequired = Q.CompanyRequired,
             optOutConfirm = Q.OptOutConfirmMsg,
             optOutDoneHtml = Q.OptOutDoneHtml,
-            optOutError = Q.OptOutError
+            optOutError = Q.OptOutError,
+            appDisabledHint = Q.S3.AppDisabledHint
         }));
     </script>
     <script src="~/js/questionnaire.js" asp-append-version="true"></script>

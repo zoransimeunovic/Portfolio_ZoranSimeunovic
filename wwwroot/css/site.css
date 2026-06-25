@@ -1674,7 +1674,7 @@ a.work-badge:hover { color: var(--secondary); }
 
 .q-textarea:focus { border-color: var(--accent); }
 
-.q-other-input { margin-top: 10px; }
+.q-other-input { margin-top: 10px; resize: vertical; }
 
 .q-radio-group, .q-check-group {
     display: flex;
@@ -1827,6 +1827,25 @@ a.work-badge:hover { color: var(--secondary); }
 }
 
 .q-opt-out-btn:hover { opacity: 1; color: #ff6b7a; }
+
+.q-optional-section {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+}
+
+.q-optional-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--secondary);
+    margin: 0 0 8px;
+}
+
+.q-optional-hint {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 24px;
+}
 
 .q-opt-out-done {
     text-align: center;

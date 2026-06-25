@@ -180,8 +180,6 @@ public class QuestionnaireText
     public string DropzoneClickOrDrag { get; set; } = "";
     public string DropzoneUploading { get; set; } = "";
     public string DropzoneError { get; set; } = "";
-    public string[] ContentAvailOptions { get; set; } = [];
-
     public string DoneTitlePattern { get; set; } = "";
     public string DoneText1 { get; set; } = "";
     public string DoneText2 { get; set; } = "";
@@ -200,6 +198,8 @@ public class QuestionnaireText
     public QStep1Text S1 { get; set; } = new();
     public QStep2Text S2 { get; set; } = new();
     public QStep3Text S3 { get; set; } = new();
+    public QStep4Text S4 { get; set; } = new();
+    public QStep5Text S5 { get; set; } = new();
 }
 
 public class QStep1Text
@@ -213,118 +213,134 @@ public class QStep1Text
     public string IndustryOtherPlaceholder { get; set; } = "";
     public string TeamSizeLabel { get; set; } = "";
     public string[] TeamSizeOptions { get; set; } = [];
-    public string OnlineLabel { get; set; } = "";
-    public string[] OnlineOptions { get; set; } = [];
-    public string OnlineOtherPlaceholder { get; set; } = "";
-    public string OnlineNowhere { get; set; } = "";
-    public string HasWebsiteLabel { get; set; } = "";
-    public string HasWebsiteYes { get; set; } = "";
-    public string HasWebsiteNo { get; set; } = "";
-    public string WebsiteUrlPlaceholder { get; set; } = "";
-    public string WebsiteDescLabel { get; set; } = "";
-    public string[] WebsiteDescOptions { get; set; } = [];
-    public string WebsiteDescOtherPlaceholder { get; set; } = "";
+    public string BrandDescLabel { get; set; } = "";
+    public string[] BrandDescOptions { get; set; } = [];
+    public string BrandDescOtherPlaceholder { get; set; } = "";
 }
 
 public class QStep2Text
 {
     public string Title { get; set; } = "";
     public string NeedWhatLabel { get; set; } = "";
-    public string HintWebsiteLabel { get; set; } = "";
-    public string HintWebsiteEm { get; set; } = "";
     public string[] WebsiteTypeOptions { get; set; } = [];
-    public string WebsiteTypeNoNeed { get; set; } = "";
-    public string HintExtraLabel { get; set; } = "";
-    public string HintExtraEm { get; set; } = "";
-    public string ProjectExtraWebApp { get; set; } = "";
-    public string[] ProjectExtraOptions { get; set; } = [];
-    public string ProjectExtraOtherPlaceholder { get; set; } = "";
+    public string WebsiteTypeOtherPlaceholder { get; set; } = "";
+    public string ExistingUrlLabel { get; set; } = "";
+    public string ExistingUrlPlaceholder { get; set; } = "";
+    public string CurrentSiteDescLabel { get; set; } = "";
+    public string[] CurrentSiteDescOptions { get; set; } = [];
+    public string CurrentSiteDescOtherPlaceholder { get; set; } = "";
+    public string WantToChangeLabel { get; set; } = "";
+    public string[] WantToChangeOptions { get; set; } = [];
+    public string WantToChangeOtherPlaceholder { get; set; } = "";
     public string PagesLabel { get; set; } = "";
     public string[] PagesOptions { get; set; } = [];
+    public string[] PagesPortfolioOptions { get; set; } = [];
     public string PagesOtherPlaceholder { get; set; } = "";
-    public string FeaturesLabel { get; set; } = "";
+    public string ExtrasLabel { get; set; } = "";
     public string CommHeader { get; set; } = "";
     public string[] CommOptions { get; set; } = [];
-    public string SalesHeader { get; set; } = "";
-    public string[] SalesOptions { get; set; } = [];
     public string GrowthHeader { get; set; } = "";
     public string[] GrowthOptions { get; set; } = [];
-    public string TechHeader { get; set; } = "";
-    public string[] TechOptions { get; set; } = [];
-    public string FeaturesNone { get; set; } = "";
-    public string FeaturesOtherPlaceholder { get; set; } = "";
-    public string ContentLabel { get; set; } = "";
-    public string TextsHint { get; set; } = "";
-    public string TextsDropzoneHint { get; set; } = "";
-    public string PhotosHint { get; set; } = "";
-    public string PhotosDropzoneHint { get; set; } = "";
-    public string AppUsersLabel { get; set; } = "";
-    public string[] AppUsersOptions { get; set; } = [];
-    public string AppUsersOtherPlaceholder { get; set; } = "";
-    public string AppUserCountLabel { get; set; } = "";
-    public string[] AppUserCountOptions { get; set; } = [];
+    public string ExtrasOtherPlaceholder { get; set; } = "";
 }
 
 public class QStep3Text
 {
     public string Title { get; set; } = "";
-    public string GoalsLabel { get; set; } = "";
-    public string WebHeader { get; set; } = "";
-    public string[] WebOptions { get; set; } = [];
-    public string BusinessHeader { get; set; } = "";
-    public string[] BusinessOptions { get; set; } = [];
-    public string AutoHeader { get; set; } = "";
+    public string SectionHint { get; set; } = "";
+    public string AppTypeLabel { get; set; } = "";
+    public string[] AppTypeOptions { get; set; } = [];
+    public string AppTypeOtherPlaceholder { get; set; } = "";
+    public string AppUsersLabel { get; set; } = "";
+    public string[] AppUsersOptions { get; set; } = [];
+    public string AppUsersOtherPlaceholder { get; set; } = "";
+    public string AppDisabledHint { get; set; } = "";
+    public string CommLabel { get; set; } = "";
+    public string[] CommOptions { get; set; } = [];
+    public string SalesLabel { get; set; } = "";
+    public string[] SalesOptions { get; set; } = [];
+    public string AutoLabel { get; set; } = "";
     public string[] AutoOptions { get; set; } = [];
+    public string ContentMgmtLabel { get; set; } = "";
+    public string[] ContentMgmtOptions { get; set; } = [];
+    public string ContentMgmtOtherPlaceholder { get; set; } = "";
+}
+
+public class QStep4Text
+{
+    public string Title { get; set; } = "";
+    public string TextsLabel { get; set; } = "";
+    public string TextsHelpCheckbox { get; set; } = "";
+    public string TextsDropzoneHint { get; set; } = "";
+    public string PhotosLabel { get; set; } = "";
+    public string PhotosHelpCheckbox { get; set; } = "";
+    public string PhotosDropzoneHint { get; set; } = "";
+    public string BrandingLabel { get; set; } = "";
+    public string BrandingHelpCheckbox { get; set; } = "";
+    public string BrandingDropzoneHint { get; set; } = "";
+    public string SocialLinksLabel { get; set; } = "";
+    public string SocialLinksHint { get; set; } = "";
+    public string StyleLabel { get; set; } = "";
+    public string[] StyleOptions { get; set; } = [];
+    public string StyleOtherPlaceholder { get; set; } = "";
+    public string ColorsLabel { get; set; } = "";
+    public string PrimaryColorLabel { get; set; } = "";
+    public string SecondaryColorLabel { get; set; } = "";
+    public string AccentColorLabel { get; set; } = "";
+    public string ColorsHint { get; set; } = "";
+    public string ThemeLabel { get; set; } = "";
+    public string ThemeDark { get; set; } = "";
+    public string ThemeLight { get; set; } = "";
+    public string ThemeAny { get; set; } = "";
+    public string LikedSitesLabel { get; set; } = "";
+    public string LikedSitesHint { get; set; } = "";
+    public string LikedSitesWhatLabel { get; set; } = "";
+    public string LikedSitesWhatHint { get; set; } = "";
+    public string CompetitorSitesLabel { get; set; } = "";
+    public string CompetitorSitesHint { get; set; } = "";
+    public string CompetitorGoodLabel { get; set; } = "";
+    public string CompetitorGoodHint { get; set; } = "";
+    public string CompetitorBadLabel { get; set; } = "";
+    public string CompetitorBadHint { get; set; } = "";
+}
+
+public class QStep5Text
+{
+    public string Title { get; set; } = "";
+    public string GoalsLabel { get; set; } = "";
+    public string GoalsWebHeader { get; set; } = "";
+    public string[] GoalsWebOptions { get; set; } = [];
+    public string GoalsBusinessHeader { get; set; } = "";
+    public string[] GoalsBusinessOptions { get; set; } = [];
     public string GoalsOtherPlaceholder { get; set; } = "";
     public string BiggestProblemLabel { get; set; } = "";
     public string BiggestProblemHint { get; set; } = "";
     public string SuccessCriteriaLabel { get; set; } = "";
     public string SuccessCriteriaHint { get; set; } = "";
+    public string AdvantagesLabel { get; set; } = "";
+    public string AdvantagesHint { get; set; } = "";
     public string CustomersLabel { get; set; } = "";
-    public string CustomerTypeHint { get; set; } = "";
-    public string CustomerTypePrivate { get; set; } = "";
-    public string CustomerTypeBusiness { get; set; } = "";
-    public string CustomerTypeBoth { get; set; } = "";
+    public string CustomerTypeLabel { get; set; } = "";
+    public string[] CustomerTypeOptions { get; set; } = [];
     public string CustomerTypeOtherPlaceholder { get; set; } = "";
-    public string AgeHint { get; set; } = "";
+    public string AgeLabel { get; set; } = "";
     public string[] AgeOptions { get; set; } = [];
-    public string GenderHint { get; set; } = "";
+    public string GenderLabel { get; set; } = "";
     public string[] GenderOptions { get; set; } = [];
-    public string LocationHint { get; set; } = "";
+    public string LocationLabel { get; set; } = "";
     public string[] LocationOptions { get; set; } = [];
-    public string BrandingLabel { get; set; } = "";
-    public string BrandingHint { get; set; } = "";
-    public string LogoTitle { get; set; } = "";
-    public string BrandBookTitle { get; set; } = "";
-    public string[] BrandingOptions { get; set; } = [];
-    public string BrandingOtherPlaceholder { get; set; } = "";
-    public string StyleLabel { get; set; } = "";
-    public string[] StyleOptions { get; set; } = [];
-    public string StyleOtherPlaceholder { get; set; } = "";
-    public string ReferenceLinksLabel { get; set; } = "";
-    public string ReferenceLinksHint { get; set; } = "";
-    public string ExistingSystemsLabel { get; set; } = "";
-    public string ExistingSystemsHint { get; set; } = "";
-    public string CompetitorLinksLabel { get; set; } = "";
-    public string CompetitorLinksHint { get; set; } = "";
     public string StartWhenLabel { get; set; } = "";
     public string[] StartWhenOptions { get; set; } = [];
-    public string StartWhenOtherPlaceholder { get; set; } = "";
     public string DeadlineLabel { get; set; } = "";
     public string DeadlineYes { get; set; } = "";
     public string DeadlineNo { get; set; } = "";
-    public string DeadlineFlexible { get; set; } = "";
-    public string RankingLabel { get; set; } = "";
-    public string RankingHintInline { get; set; } = "";
-    public string RankSpeedLabel { get; set; } = "";
-    public string RankQualityLabel { get; set; } = "";
-    public string RankPriceLabel { get; set; } = "";
-    public string RankError { get; set; } = "";
     public string SupportLabel { get; set; } = "";
     public string[] SupportOptions { get; set; } = [];
+    public string SupportOtherPlaceholder { get; set; } = "";
     public string HeardFromLabel { get; set; } = "";
     public string[] HeardFromOptions { get; set; } = [];
     public string HeardFromOtherPlaceholder { get; set; } = "";
     public string AdditionalNotesLabel { get; set; } = "";
     public string AdditionalNotesHint { get; set; } = "";
+    public string WarrantyHtml { get; set; } = "";
 }

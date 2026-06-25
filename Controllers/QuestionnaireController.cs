@@ -30,6 +30,36 @@ public class QuestionnaireController : Controller
         _env = env;
     }
 
+    [HttpGet("/questionnaire/dev")]
+    public async Task<IActionResult> DevOpen()
+    {
+        if (!_env.IsDevelopment()) return NotFound();
+
+        var lead = await _db.ContactLeads.FirstOrDefaultAsync(x => x.Email == "dev@test.local");
+        if (lead == null)
+        {
+            lead = new ContactLead { Name = "Dev Test", Email = "dev@test.local", CreatedAt = DateTime.UtcNow, EmailConfirmedAt = DateTime.UtcNow };
+            _db.ContactLeads.Add(lead);
+            await _db.SaveChangesAsync();
+        }
+
+        var q = await _db.Questionnaires.FirstOrDefaultAsync(x => x.ContactLeadId == lead.Id && !x.CompletedAt.HasValue);
+        if (q == null)
+        {
+            q = new Questionnaire
+            {
+                ContactLeadId = lead.Id,
+                Token = Guid.NewGuid().ToString("N"),
+                TokenExpiresAt = DateTime.UtcNow.AddDays(30),
+                CreatedAt = DateTime.UtcNow
+            };
+            _db.Questionnaires.Add(q);
+            await _db.SaveChangesAsync();
+        }
+
+        return Redirect("/questionnaire?token=" + q.Token);
+    }
+
     [HttpGet("/questionnaire")]
     public async Task<IActionResult> Index(string token)
     {
@@ -55,6 +85,7 @@ public class QuestionnaireController : Controller
         });
 
         ViewBag.Token = token;
+        ViewBag.QuestionnaireToken = token;
         ViewBag.Name = q.ContactLead.Name;
         ViewBag.Stage = q.Stage;
         ViewBag.Step1 = q.Step1Answers;
@@ -109,7 +140,15 @@ public class QuestionnaireController : Controller
                 break;
             case 3:
                 q.Step3Answers = request.Answers;
-                q.Stage = 3;
+                if (q.Stage < 3) q.Stage = 3;
+                break;
+            case 4:
+                q.Step4Answers = request.Answers;
+                if (q.Stage < 4) q.Stage = 4;
+                break;
+            case 5:
+                q.Step5Answers = request.Answers;
+                q.Stage = 5;
                 q.CompletedAt = DateTime.UtcNow;
                 await _db.SaveChangesAsync();
                 Response.Cookies.Delete("q_ref");
@@ -120,6 +159,23 @@ public class QuestionnaireController : Controller
 
         await _db.SaveChangesAsync();
         return Ok(new { success = true });
+    }
+
+    [HttpGet("/questionnaire/done")]
+    public async Task<IActionResult> Done(string token)
+    {
+        if (string.IsNullOrWhiteSpace(token))
+            return RedirectToAction("Index", "Home");
+
+        var q = await _db.Questionnaires
+            .Include(x => x.ContactLead)
+            .FirstOrDefaultAsync(x => x.Token == token && x.CompletedAt.HasValue);
+
+        if (q == null)
+            return RedirectToAction("Index", "Home");
+
+        ViewBag.Name = q.ContactLead.Name;
+        return View("Done");
     }
 
     [HttpPost("/questionnaire/upload-file")]

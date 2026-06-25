@@ -7,9 +7,9 @@
     document.addEventListener("DOMContentLoaded", function () {
         restoreProgress();
         initConditionals();
+        initAppTypeGuard();
         initExclusive();
         initOtherTriggers();
-        initRanking();
         initDropzones();
         showStep(1);
     });
@@ -27,14 +27,13 @@
     };
 
     window.submitForm = function () {
-        if (!validateStep(3)) return;
-        if (!validateRanking()) return;
+        if (!validateStep(5)) return;
         var btn = document.getElementById("submitBtn");
         var origText = btn.textContent;
         btn.disabled = true;
         btn.textContent = window.QText.btnSending;
-        saveStep(3, function () {
-            window.location.href = "/";
+        saveStep(5, function () {
+            window.location.href = "/questionnaire/done?token=" + document.getElementById("qToken").value;
         }, function () {
             btn.disabled = false;
             btn.textContent = origText;
@@ -42,7 +41,7 @@
     };
 
     function showStep(step) {
-        ["step1", "step2", "step3"].forEach(function (id) {
+        ["step1", "step2", "step3", "step4", "step5"].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.style.display = "none";
         });
@@ -59,7 +58,7 @@
         var fill = document.getElementById("progressFill");
         var label = document.getElementById("progressLabel");
         if (!fill || !label) return;
-        fill.style.width = (step / 3) * 100 + "%";
+        fill.style.width = (step / 5) * 100 + "%";
         label.textContent = window.QText.progressPattern.replace("{0}", step);
     }
 
@@ -76,19 +75,6 @@
         return true;
     }
 
-    function validateRanking() {
-        var selects = document.querySelectorAll(".q-rank-select");
-        var values = [];
-        selects.forEach(function (s) { if (s.value) values.push(s.value); });
-        var errEl = document.getElementById("rankError");
-        if (values.length > 0 && (values.length < 3 || new Set(values).size < 3)) {
-            if (errEl) errEl.style.display = "block";
-            return false;
-        }
-        if (errEl) errEl.style.display = "none";
-        return true;
-    }
-
     function showError(input, msg) {
         input.classList.add("q-invalid");
         var err = document.createElement("p");
@@ -101,8 +87,6 @@
     function clearErrors() {
         document.querySelectorAll(".q-invalid").forEach(function (el) { el.classList.remove("q-invalid"); });
         document.querySelectorAll(".q-error-msg").forEach(function (el) { el.remove(); });
-        var rankErr = document.getElementById("rankError");
-        if (rankErr) rankErr.style.display = "none";
     }
 
     /* ---------- SAVE STEP ---------- */
@@ -128,13 +112,15 @@
         if (!stepEl) return {};
         var data = {};
 
-        stepEl.querySelectorAll("input[type=text], input[type=url], input[type=date], textarea, select").forEach(function (el) {
-            if (el.name && el.offsetParent !== null) data[el.name] = el.value;
+        stepEl.querySelectorAll("input[type=text], input[type=url], input[type=date], input[type=color], textarea, select").forEach(function (el) {
+            if (!el.name || el.offsetParent === null) return;
+            if (el.closest("[data-app-locked]")) return;
+            data[el.name] = el.value;
         });
 
         var checkGroups = {};
         stepEl.querySelectorAll("input[type=checkbox]:checked").forEach(function (el) {
-            if (!el.name) return;
+            if (!el.name || el.offsetParent === null) return;
             if (!checkGroups[el.name]) checkGroups[el.name] = [];
             checkGroups[el.name].push(el.value);
         });
@@ -142,7 +128,8 @@
 
         var radioGroups = {};
         stepEl.querySelectorAll("input[type=radio]:checked").forEach(function (el) {
-            if (el.name) radioGroups[el.name] = el.value;
+            if (!el.name || el.offsetParent === null) return;
+            radioGroups[el.name] = el.value;
         });
         Object.assign(data, radioGroups);
 
@@ -152,58 +139,67 @@
     /* ---------- RESTORE PROGRESS ---------- */
     function restoreProgress() {
         var stage = parseInt(document.getElementById("qForm").dataset.stage || "0", 10);
-        if (stage > 0) showStep(Math.min(stage + 1, 3));
+        if (stage > 0) showStep(Math.min(stage + 1, 5));
+    }
+
+    /* ---------- APP TYPE GUARD (Q12–Q16) ---------- */
+    function initAppTypeGuard() {
+        document.querySelectorAll(".q-app-guarded").forEach(function (field) {
+            field.addEventListener("click", function (e) {
+                if (document.querySelectorAll('[name="appType"]:checked').length > 0) return;
+                e.preventDefault();
+                e.stopPropagation();
+                window.alert(window.QText.appDisabledHint);
+            }, true);
+        });
+    }
+
+    /* ---------- CLEAR GROUP HELPER ---------- */
+    function clearGroup(el) {
+        el.querySelectorAll("input[type=checkbox], input[type=radio]").forEach(function (cb) { cb.checked = false; });
+        el.querySelectorAll("input[type=text], input[type=url], input[type=date], textarea").forEach(function (inp) { inp.value = ""; });
+        el.querySelectorAll("select").forEach(function (sel) { sel.selectedIndex = 0; });
+        el.querySelectorAll(".q-other-input").forEach(function (ta) { ta.style.display = "none"; ta.value = ""; });
     }
 
     /* ---------- CONDITIONAL LOGIC ---------- */
     function initConditionals() {
-        /* radio: show target when this radio selected */
-        document.querySelectorAll(".q-trigger-show").forEach(function (el) {
+        /* deadline radio: show/hide date picker */
+        document.querySelectorAll("input[type=radio].q-trigger-show").forEach(function (el) {
             el.addEventListener("change", function () {
                 var target = document.getElementById(el.dataset.show);
                 if (target) target.style.display = el.checked ? "block" : "none";
             });
         });
-
-        /* radio: hide target when this radio selected */
         document.querySelectorAll(".q-trigger-hide").forEach(function (el) {
             el.addEventListener("change", function () {
                 var target = document.getElementById(el.dataset.hide);
-                if (target) target.style.display = "none";
+                if (target) { clearGroup(target); target.style.display = "none"; }
             });
         });
 
-        /* hasWebsite radio: show Q6 (websiteDescWrap) when Da */
-        document.querySelectorAll('[name="hasWebsite"]').forEach(function (el) {
+        /* projectType radio: controls redizajnWrap and pagesWrap sub-groups */
+        document.querySelectorAll('[name="projectType"]').forEach(function (el) {
+            el.addEventListener("change", updateProjectType);
+        });
+
+        /* appType checkbox: auto-clear guarded fields when all unchecked */
+        document.querySelectorAll('[name="appType"]').forEach(function (el) {
             el.addEventListener("change", function () {
-                var wrap = document.getElementById("websiteDescWrap");
-                if (wrap) wrap.style.display = el.value === "Da" && el.checked ? "block" : "none";
+                if (document.querySelectorAll('[name="appType"]:checked').length === 0) {
+                    document.querySelectorAll(".q-app-guarded").forEach(function (field) {
+                        clearGroup(field);
+                    });
+                }
             });
         });
 
-        /* websiteType radio: hide pagesWrap when "Nemam potrebu" */
-        document.querySelectorAll('[name="websiteType"]').forEach(function (el) {
-            el.addEventListener("change", function () {
-                var wrap = document.getElementById("pagesWrap");
-                if (!wrap) return;
-                wrap.style.display = el.value === "Nemam potrebu za web stranicom" ? "none" : "block";
-            });
-        });
-
-        /* checkbox show: e.g. Web aplikacija → webAppWrap */
-        document.querySelectorAll("input[type=checkbox].q-trigger-show").forEach(function (el) {
-            el.addEventListener("change", function () {
-                var target = document.getElementById(el.dataset.show);
-                if (target) target.style.display = el.checked ? "block" : "none";
-            });
-        });
-
-        /* customerType checkbox → customerDemoWrap (show if Privatne or I privatne i firme) */
+        /* customerType checkbox → customerDemoWrap */
         document.querySelectorAll('[name="customerType"]').forEach(function (el) {
             el.addEventListener("change", updateCustomerDemo);
         });
 
-        /* industry dropdown: show text field for "Ostalo" */
+        /* industry dropdown */
         var industrySelect = document.getElementById("q2");
         var industryOther = document.getElementById("q2other");
         if (industrySelect && industryOther) {
@@ -213,11 +209,49 @@
         }
     }
 
+    function updateProjectType() {
+        var selected = "";
+        var checked = document.querySelector('[name="projectType"]:checked');
+        if (checked) selected = checked.value;
+
+        var redizajnWrap  = document.getElementById("redizajnWrap");
+        var pagesWrap     = document.getElementById("pagesWrap");
+        var pagesPortfolio = document.getElementById("pagesPortfolio");
+        var pagesFull     = document.getElementById("pagesFull");
+
+        var isRedizajn  = /redizajn|redesign/i.test(selected);
+        var isLanding   = /landing/i.test(selected);
+        var isPortfolio = /portfolio/i.test(selected) && !isRedizajn;
+        var showFull    = !isRedizajn && !isLanding && !isPortfolio && selected !== "";
+
+        /* redizajnWrap */
+        if (redizajnWrap) {
+            if (!isRedizajn) clearGroup(redizajnWrap);
+            redizajnWrap.style.display = isRedizajn ? "block" : "none";
+        }
+
+        /* pagesWrap */
+        if (pagesWrap) pagesWrap.style.display = (isRedizajn || isLanding || !selected) ? "none" : "block";
+
+        /* sub-groups */
+        if (pagesPortfolio) {
+            if (!isPortfolio) clearGroup(pagesPortfolio);
+            pagesPortfolio.style.display = isPortfolio ? "" : "none";
+        }
+        if (pagesFull) {
+            if (!showFull) clearGroup(pagesFull);
+            pagesFull.style.display = showFull ? "" : "none";
+        }
+    }
+
     function updateCustomerDemo() {
         var checked = Array.from(document.querySelectorAll('[name="customerType"]:checked')).map(function (el) { return el.value; });
-        var show = checked.includes("Privatne osobe") || checked.includes("I privatne osobe i firme");
+        var show = checked.some(function (v) { return v === "Privatne osobe"; });
         var wrap = document.getElementById("customerDemoWrap");
-        if (wrap) wrap.style.display = show ? "block" : "none";
+        if (wrap) {
+            if (!show) clearGroup(wrap);
+            wrap.style.display = show ? "block" : "none";
+        }
     }
 
     /* ---------- "OSTALO" TEXT TRIGGERS ---------- */
@@ -271,7 +305,7 @@
         })
         .then(function (r) {
             if (r.ok) {
-                ["step1", "step2", "step3", "stepDone"].forEach(function (id) {
+                ["step1", "step2", "step3", "step4", "step5", "stepDone"].forEach(function (id) {
                     var el = document.getElementById(id);
                     if (el) el.style.display = "none";
                 });
@@ -288,15 +322,6 @@
         })
         .catch(function () { alert(window.QText.optOutError); });
     };
-
-    /* ---------- RANKING VALIDATION ---------- */
-    function initRanking() {
-        document.querySelectorAll(".q-rank-select").forEach(function (sel) {
-            sel.addEventListener("change", function () {
-                validateRanking();
-            });
-        });
-    }
 
     /* ---------- FILE DROPZONES ---------- */
     function initDropzones() {

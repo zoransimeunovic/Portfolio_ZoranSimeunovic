@@ -8,7 +8,7 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .WriteTo.Console()
     .WriteTo.File(
-        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "sync_worker.log"),
+        Path.Combine(AppContext.BaseDirectory, "sync_worker.log"),
         rollingInterval: RollingInterval.Day,
         retainedFileCountLimit: 7)
     .CreateLogger();

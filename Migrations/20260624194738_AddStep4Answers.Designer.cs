@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portfolio_ZoranSimeunovic.Data;
 
@@ -11,9 +12,11 @@ using Portfolio_ZoranSimeunovic.Data;
 namespace Portfolio_ZoranSimeunovic.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260624194738_AddStep4Answers")]
+    partial class AddStep4Answers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,9 +210,6 @@ namespace Portfolio_ZoranSimeunovic.Migrations
                         .HasColumnName("step3_answers");
 
                     b.Property<string>("Step4Answers")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Step5Answers")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Token")

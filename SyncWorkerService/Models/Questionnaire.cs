@@ -11,6 +11,8 @@ public class Questionnaire
     public string? Step1Answers { get; set; }
     public string? Step2Answers { get; set; }
     public string? Step3Answers { get; set; }
+    public string? Step4Answers { get; set; }
+    public string? Step5Answers { get; set; }
     public DateTime? CompletedAt { get; set; }
     public DateTime? CompletionNotificationSentAt { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

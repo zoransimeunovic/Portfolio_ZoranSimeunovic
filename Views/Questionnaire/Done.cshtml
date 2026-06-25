@@ -1,0 +1,12 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Q = SiteTextProvider.Get(CultureInfo.CurrentUICulture.Name).Questionnaire;
+    ViewData["Title"] = string.Format(Q.DoneTitlePattern, ViewBag.Name ?? "");
+}
+<div class="q-page">
+    <div class="q-container q-message">
+        <h1>@string.Format(Q.DoneTitlePattern, ViewBag.Name ?? "")</h1>
+        <p>@Q.DoneText1</p>
+        <p>@Q.DoneText2</p>
+    </div>
+</div>

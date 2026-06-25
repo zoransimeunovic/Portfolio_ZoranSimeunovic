@@ -278,6 +278,8 @@
     function initHomeLinks() {
         document.querySelectorAll('a[href$="#home"]').forEach(function (a) {
             a.addEventListener("click", function (e) {
+                var linkPath = new URL(a.href, window.location.href).pathname;
+                if (linkPath !== window.location.pathname) return;
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
             });

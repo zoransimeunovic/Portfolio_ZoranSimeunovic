@@ -16,6 +16,9 @@
 ### Cookies
 - Zabranjena je upotreba bilo kojeg cookie-a koji nije esencijalan bez izričite saglasnosti vlasnika projekta. Svaki novi cookie mora biti odobren od strane Zorana.
 
+### Tekstovi
+- **Zabranjeno:** Nikad koristiti em dash "—" u tekstovima. Uvijek koristiti obični crtica "-".
+
 ### Komunikacija
 - Odgovaraj na srpskom jeziku. Tehnički termini mogu ostati na engleskom.
 
