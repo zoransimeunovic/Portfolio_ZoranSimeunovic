@@ -6,6 +6,8 @@ using SyncWorkerService.Services;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
+    .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Infrastructure", Serilog.Events.LogEventLevel.Warning)
     .WriteTo.Console()
     .WriteTo.File(
         Path.Combine(AppContext.BaseDirectory, "sync_worker.log"),
