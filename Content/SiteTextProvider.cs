@@ -20,7 +20,7 @@ public static class SiteTextProvider
         Hero = new HeroText
         {
             Badge = "Full Stack Web Developer",
-            HeadingHtml = "I build <span class=\"accent\">web solutions</span> that help you grow",
+            HeadingHtml = "<span class=\"accent\">Web solutions</span> that help you grow",
             Subtitle1 = "Your business deserves a professional web presence.",
             Subtitle2 = "Let's build it together.",
             ContactMe = "CONTACT ME",
@@ -212,7 +212,7 @@ public static class SiteTextProvider
         Hero = new HeroText
         {
             Badge = "Full-Stack Webentwickler",
-            HeadingHtml = "Ich entwickle <span class=\"accent\">Web-Lösungen</span>, die Ihr Wachstum fördern",
+            HeadingHtml = "<span class=\"accent\">Web-Lösungen</span> für Ihr Wachstum",
             Subtitle1 = "Ihr Unternehmen verdient einen professionellen Webauftritt.",
             Subtitle2 = "Lassen Sie ihn uns gemeinsam aufbauen.",
             ContactMe = "KONTAKT",
@@ -230,7 +230,7 @@ public static class SiteTextProvider
             Cards = new List<WorkCard>
             {
                 new() { Title = "HRIS/Web", Image = "hris.webp", Duration = "2 Jahre", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
-                    Description = "Entwicklung und Wartung eines HRIS (Human Resources Information System) für die Personalverwaltung, einschließlich Personalplanung, Urlaubsverwaltung und Zeiterfassung. Integration von Webdiensten, Synchronisationsdiensten und Microsoft 365. Optimierung bestehender Systeme und Entwicklung neuer Module.",
+                    Description = "Entwicklung und Wartung eines HRIS (Human Resources Information System) für die Personal­verwaltung, einschließlich Personalplanung, Urlaubsverwaltung und Zeiterfassung. Integration von Webdiensten, Synchronisationsdiensten und Microsoft 365. Optimierung bestehender Systeme und Entwicklung neuer Module.",
                     Techs = new() { "ASP.NET", "C#", "MySQL", "Microsoft Graph" } },
                 new() { Title = "Desktop GUI", Image = "desktop-gui.webp", Duration = "3 Jahre", DurationSub = "bei AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
                     Description = "Komplette Neugestaltung einer Desktop-GUI mit Fokus auf Leistung und Skalierbarkeit. Ermöglichte das schnelle Rendern großer Mitarbeiterdatensätze in Tabellen mit über 12 Monaten Verlaufsdaten. Verbesserte Geschäftslogik, optimierte Verarbeitung großer Datenmengen und Bereitstellung neuer und erweiterter Module.",
@@ -404,7 +404,7 @@ public static class SiteTextProvider
         Hero = new HeroText
         {
             Badge = "Full Stack Web Developer",
-            HeadingHtml = "Pravim <span class=\"accent\">web rešenja</span> koja pomažu vašem rastu",
+            HeadingHtml = "<span class=\"accent\">Web rešenja</span> za vaš&nbsp;rast",
             Subtitle1 = "Vaše poslovanje zaslužuje profesionalno web prisustvo.",
             Subtitle2 = "Hajde da ga napravimo zajedno.",
             ContactMe = "KONTAKT",

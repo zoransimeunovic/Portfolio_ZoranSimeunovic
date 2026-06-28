@@ -386,21 +386,8 @@
             body: JSON.stringify({ token: token })
         })
         .then(function (r) {
-            if (r.ok) {
-                ["step1", "step2", "step3", "step4", "step5", "stepDone"].forEach(function (id) {
-                    var el = document.getElementById(id);
-                    if (el) el.style.display = "none";
-                });
-                var wrap = document.querySelector(".q-container");
-                if (wrap) {
-                    var msg = document.createElement("div");
-                    msg.className = "q-opt-out-done";
-                    msg.innerHTML = window.QText.optOutDoneHtml;
-                    wrap.appendChild(msg);
-                }
-            } else {
-                alert(window.QText.optOutError);
-            }
+            if (r.ok) { window.location.href = "/"; }
+            else { alert(window.QText.optOutError); }
         })
         .catch(function () { alert(window.QText.optOutError); });
     };

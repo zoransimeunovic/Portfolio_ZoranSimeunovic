@@ -1,6 +1,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var Q = SiteTextProvider.Get(CultureInfo.CurrentUICulture.Name).Questionnaire;
+    var siteT = SiteTextProvider.Get(CultureInfo.CurrentUICulture.Name);
+    var Q = siteT.Questionnaire;
     ViewData["Title"] = string.Format(Q.DoneTitlePattern, ViewBag.Name ?? "");
 }
 <div class="q-page">
@@ -8,5 +9,10 @@
         <h1>@string.Format(Q.DoneTitlePattern, ViewBag.Name ?? "")</h1>
         <p>@Q.DoneText1</p>
         <p>@Q.DoneText2</p>
+        <a href="/" class="q-btn q-btn--next">@siteT.Legal.BackHome</a>
     </div>
 </div>
+
+@section Scripts {
+    <script>setTimeout(function () { window.location.href = "/"; }, 6000);</script>
+}

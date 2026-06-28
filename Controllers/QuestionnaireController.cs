@@ -41,10 +41,16 @@ public class QuestionnaireController : Controller
             .FirstOrDefaultAsync(x => x.Token == token);
 
         if (q == null || q.TokenExpiresAt < DateTime.UtcNow)
+        {
+            ClearQRef();
             return View("Expired");
+        }
 
         if (q.CompletedAt.HasValue)
+        {
+            ClearQRef();
             return View("AlreadyCompleted");
+        }
 
         Response.Cookies.Append("q_ref", token, new CookieOptions
         {
@@ -83,7 +89,7 @@ public class QuestionnaireController : Controller
         q.ContactLead.OptedOut = true;
         await _db.SaveChangesAsync();
 
-        Response.Cookies.Delete("q_ref");
+        ClearQRef();
 
         return Ok(new { success = true });
     }
@@ -123,7 +129,7 @@ public class QuestionnaireController : Controller
                 q.Stage = 5;
                 q.CompletedAt = DateTime.UtcNow;
                 await _db.SaveChangesAsync();
-                Response.Cookies.Delete("q_ref");
+                ClearQRef();
                 return Ok(new { success = true });
             default:
                 return BadRequest();
@@ -193,7 +199,8 @@ public class QuestionnaireController : Controller
         return Ok(new { success = true, fileName = file.FileName });
     }
 
-
+    private void ClearQRef() =>
+        Response.Cookies.Delete("q_ref", new CookieOptions { Path = "/" });
 }
 
 public class OptOutRequest

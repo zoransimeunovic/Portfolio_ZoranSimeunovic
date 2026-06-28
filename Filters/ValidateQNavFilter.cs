@@ -28,7 +28,7 @@ public class ValidateQNavFilter(AppDbContext db) : IAsyncActionFilter
             if (valid)
                 (context.Controller as Controller)!.ViewBag.QuestionnaireToken = token;
             else
-                context.HttpContext.Response.Cookies.Delete("q_ref");
+                context.HttpContext.Response.Cookies.Delete("q_ref", new CookieOptions { Path = "/" });
         }
 
         await next();

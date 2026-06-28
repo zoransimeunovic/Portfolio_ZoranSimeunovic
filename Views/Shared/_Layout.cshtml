@@ -7,9 +7,9 @@
 
     var languages = new[]
     {
-        new { Code = "sr-Latn", Name = "Srpski" },
         new { Code = "de", Name = "Deutsch" },
-        new { Code = "en", Name = "English" }
+        new { Code = "en", Name = "English" },
+        new { Code = "sr-Latn", Name = "Srpski" }
     };
     string CurrentLangName() => currentCulture.StartsWith("de") ? "Deutsch"
         : currentCulture.StartsWith("sr") ? "Srpski" : "English";

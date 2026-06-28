@@ -69,7 +69,7 @@
                     {
                         <article class="work-card">
                             <div class="work-card-img">
-                                <img src="~/images/work/@card.Image" alt="@card.Title" />
+                                <img class="work-card-photo@(card.Image == "hris.webp" ? "" : " work-card-photo--sm")" src="~/images/work/@card.Image" alt="@card.Title" />
                                 @if (card.Duration != null)
                                 {
                                     if (card.DurationUrl != null)

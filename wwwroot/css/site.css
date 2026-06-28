@@ -367,7 +367,7 @@ section { padding: 96px 0; position: relative; }
 .tag-mysql   { --tag: #00758F; left: 1284.60px; top: 378.65px; transform: rotate(31.5deg); font-size: 15px; font-weight: 700; }
 .tag-aspnet  { --tag: #512BD4; left: 695.92px;  top: 548.91px; transform: rotate(3.27deg); font-size: 15px; }
 
-.hero-copy { left: 72px; top: 160px; width: 550px; z-index: 6; }
+.hero-copy { left: 72px; top: 88px; width: 550px; z-index: 6; }
 
 .badge-pill {
     display: inline-flex;
@@ -501,14 +501,11 @@ section { padding: 96px 0; position: relative; }
     overflow: hidden;
 }
 .work-card-img img { width: 100%; height: 100%; object-fit: cover; }
-/* Desktop GUI i Zeiterfassung: prikaz cijele slike, smanjena 20% */
-.work-card:nth-child(2) .work-card-img img,
-.work-card:nth-child(3) .work-card-img img {
+/* Sve kartice osim HRIS/Web (klasa, ne nth-child — carousel klonira kartice):
+   cijela slika, smanjena 10%, centrirana */
+.work-card-img img.work-card-photo--sm {
     object-fit: contain;
-    transform: scale(0.8);
-}
-.work-card:nth-child(4) .work-card-img img {
-    object-fit: contain;
+    object-position: center;
     transform: scale(0.9);
 }
 .work-card-img::after {
@@ -698,10 +695,19 @@ a.work-badge:hover { color: var(--secondary); }
 .ab-desc { width: 526px; font-size: 20px; font-weight: 400; line-height: 1.5; color: rgba(221, 230, 245, 0.8); margin: 0 0 48px; }
 
 .ab-highlights { display: flex; flex-direction: column; width: 417px; margin: 0 0 64px; }
-.ab-hl { font-size: 24px; font-weight: 700; line-height: 1.5; color: var(--accent); }
+.ab-hl {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--accent);
+    /* odsijeca leading line-height-a da se okvir poklopi sa slovima (cap-to-baseline),
+       pa simetricni razmaci centriraju liniju izmedju cistog teksta */
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+}
 .ab-hl:not(:last-child) {
-    padding-bottom: 12px;
-    margin-bottom: 12px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
     border-bottom: 1px solid var(--surface);
 }
 .ab-hl:last-child { color: var(--secondary); }
