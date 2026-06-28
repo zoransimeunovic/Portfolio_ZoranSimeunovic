@@ -36,7 +36,7 @@ public class LeadScannerService(
             var confirmUrl = $"{baseUrl}/confirm?token={lead.ConfirmationToken}";
             try
             {
-                await emailService.SendConfirmationEmailAsync(lead.Email, lead.Name, confirmUrl);
+                await emailService.SendConfirmationEmailAsync(lead.Email, lead.Name, confirmUrl, lead.Language);
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ public class LeadScannerService(
             catch (Exception ex) { logger.LogError(ex, "Failed to create questionnaire for lead {LeadId}", lead.Id); continue; }
 
             var url = $"{baseUrl}/questionnaire?token={token}";
-            try { await emailService.SendQuestionnaireEmailAsync(lead.Email, lead.Name, url); }
+            try { await emailService.SendQuestionnaireEmailAsync(lead.Email, lead.Name, url, lead.Language); }
             catch (Exception ex)
             {
                 logger.LogError(ex, "Failed to send questionnaire email to {Email} (lead {LeadId})", lead.Email, lead.Id);

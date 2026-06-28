@@ -81,6 +81,8 @@ public class ProcessSection
     public string TitleHtml { get; set; } = "";
     public string ContactMe { get; set; } = "";
     public string FindMe { get; set; } = "";
+    public string ShowAll { get; set; } = "";
+    public string HideAll { get; set; } = "";
     public List<ProcessStep> Steps { get; set; } = new();
 }
 
@@ -97,6 +99,8 @@ public class ImproveSection
     public string Subtitle1 { get; set; } = "";
     public string Subtitle2 { get; set; } = "";
     public string StartAnalysis { get; set; } = "";
+    public string CloseChecklist { get; set; } = "";
+    public string Analyze { get; set; } = "";
     public List<ImproveList> Lists { get; set; } = new();
 }
 
@@ -131,7 +135,7 @@ public class ContactSection
     public string NamePlaceholder { get; set; } = "";
     public string EmailPlaceholder { get; set; } = "";
     public string GetStarted { get; set; } = "";
-    public string PrivacyNote { get; set; } = "";
+    public string PrivacyNoteHtml { get; set; } = "";
     public string SuccessMessage { get; set; } = "";
     public string ErrorMessage { get; set; } = "";
 }

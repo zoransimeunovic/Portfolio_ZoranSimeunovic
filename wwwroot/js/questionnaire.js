@@ -5,13 +5,13 @@
 
     /* ---------- INIT ---------- */
     document.addEventListener("DOMContentLoaded", function () {
-        restoreProgress();
         initConditionals();
         initAppTypeGuard();
         initExclusive();
         initOtherTriggers();
         initDropzones();
-        showStep(1);
+        initAutoSave();
+        restoreProgress();
     });
 
     /* ---------- STEP NAVIGATION ---------- */
@@ -136,10 +136,91 @@
         return data;
     }
 
+    /* ---------- AUTO SAVE ---------- */
+    function initAutoSave() {
+        var timer = null;
+        function schedule() {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                var token = document.getElementById("qToken").value;
+                var answers = collectStep(currentStep);
+                fetch("/questionnaire/save-step", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ token: token, step: currentStep, answers: JSON.stringify(answers), isAutoSave: true })
+                });
+            }, 800);
+        }
+        document.addEventListener("input", schedule);
+        document.addEventListener("change", schedule);
+    }
+
     /* ---------- RESTORE PROGRESS ---------- */
     function restoreProgress() {
         var stage = parseInt(document.getElementById("qForm").dataset.stage || "0", 10);
-        if (stage > 0) showStep(Math.min(stage + 1, 5));
+        var targetStep = stage > 0 ? Math.min(stage + 1, 5) : 1;
+
+        if (window.QSavedAnswers) {
+            for (var s = 1; s <= stage; s++) {
+                restoreFormData(s, window.QSavedAnswers["step" + s]);
+            }
+            if (stage < 5 && window.QSavedAnswers["step" + targetStep]) {
+                restoreFormData(targetStep, window.QSavedAnswers["step" + targetStep]);
+            }
+            updateProjectType();
+            updateCustomerDemo();
+        }
+
+        showStep(targetStep);
+    }
+
+    function restoreFormData(stepNum, answers) {
+        if (!answers) return;
+        if (typeof answers === "string") {
+            try { answers = JSON.parse(answers); } catch (e) { return; }
+        }
+        var stepEl = document.getElementById("step" + stepNum);
+        if (!stepEl) return;
+
+        stepEl.querySelectorAll("input[type=text], input[type=url], input[type=date], input[type=color], textarea, select").forEach(function (el) {
+            if (!el.name || answers[el.name] === undefined) return;
+            el.value = answers[el.name];
+        });
+
+        stepEl.querySelectorAll("input[type=checkbox]").forEach(function (el) {
+            if (!el.name) return;
+            var val = answers[el.name];
+            if (!val) return;
+            var arr = Array.isArray(val) ? val : [val];
+            if (arr.indexOf(el.value) !== -1) {
+                el.checked = true;
+                if (el.classList.contains("q-trigger-other")) {
+                    var otherEl = stepEl.querySelector('[name="' + el.dataset.other + '"]');
+                    if (otherEl) otherEl.style.display = "block";
+                }
+            }
+        });
+
+        stepEl.querySelectorAll("input[type=radio]").forEach(function (el) {
+            if (!el.name || answers[el.name] === undefined) return;
+            if (el.value === answers[el.name]) {
+                el.checked = true;
+                if (el.classList.contains("q-trigger-other")) {
+                    var otherEl = stepEl.querySelector('[name="' + el.dataset.other + '"]');
+                    if (otherEl) otherEl.style.display = "block";
+                }
+                if (el.classList.contains("q-trigger-show")) {
+                    var target = document.getElementById(el.dataset.show);
+                    if (target) target.style.display = "block";
+                }
+            }
+        });
+
+        var industrySelect = document.getElementById("q2");
+        var industryOther = document.getElementById("q2other");
+        if (industrySelect && industryOther && industrySelect.value === "__other__") {
+            industryOther.style.display = "block";
+        }
     }
 
     /* ---------- APP TYPE GUARD (Q12–Q16) ---------- */
@@ -219,9 +300,10 @@
         var pagesPortfolio = document.getElementById("pagesPortfolio");
         var pagesFull     = document.getElementById("pagesFull");
 
-        var isRedizajn  = /redizajn|redesign/i.test(selected);
-        var isLanding   = /landing/i.test(selected);
-        var isPortfolio = /portfolio/i.test(selected) && !isRedizajn;
+        /* pozicijski ključevi: 0=landing, 2=portfolio, 5=redizajn (isti redoslijed u svim jezicima) */
+        var isLanding   = selected === "projectType_0";
+        var isPortfolio = selected === "projectType_2";
+        var isRedizajn  = selected === "projectType_5";
         var showFull    = !isRedizajn && !isLanding && !isPortfolio && selected !== "";
 
         /* redizajnWrap */
@@ -246,7 +328,7 @@
 
     function updateCustomerDemo() {
         var checked = Array.from(document.querySelectorAll('[name="customerType"]:checked')).map(function (el) { return el.value; });
-        var show = checked.some(function (v) { return v === "Privatne osobe"; });
+        var show = checked.indexOf("customerType_0") !== -1;
         var wrap = document.getElementById("customerDemoWrap");
         if (wrap) {
             if (!show) clearGroup(wrap);

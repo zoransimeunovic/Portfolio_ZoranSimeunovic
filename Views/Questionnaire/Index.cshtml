@@ -41,9 +41,9 @@
                     <label class="q-label" for="q2">@Q.S1.IndustryLabel</label>
                     <select id="q2" name="industry" class="q-select">
                         <option value="">@Q.SelectDefault</option>
-                        @foreach (var opt in Q.S1.IndustryOptions)
+                        @for (int i = 0; i < Q.S1.IndustryOptions.Length; i++)
                         {
-                            <option>@opt</option>
+                            <option value="industry_@i">@Q.S1.IndustryOptions[i]</option>
                         }
                         <option value="__other__">@Q.OtherOption</option>
                     </select>
@@ -53,9 +53,9 @@
                 <div class="q-field">
                     <label class="q-label">@Q.S1.TeamSizeLabel</label>
                     <div class="q-radio-group">
-                        @foreach (var opt in Q.S1.TeamSizeOptions)
+                        @for (int i = 0; i < Q.S1.TeamSizeOptions.Length; i++)
                         {
-                            <label class="q-radio-label"><input type="radio" name="teamSize" value="@opt" /> @opt</label>
+                            <label class="q-radio-label"><input type="radio" name="teamSize" value="teamSize_@i" /> @Q.S1.TeamSizeOptions[i]</label>
                         }
                     </div>
                 </div>
@@ -63,11 +63,11 @@
                 <div class="q-field">
                     <label class="q-label">@Q.S1.BrandDescLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S1.BrandDescOptions)
+                        @for (int i = 0; i < Q.S1.BrandDescOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="brandDesc" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="brandDesc" value="brandDesc_@i" /> @Q.S1.BrandDescOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="brandDesc" value="Ostalo" class="q-trigger-other" data-other="brandDescOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="brandDesc" value="brandDesc_other" class="q-trigger-other" data-other="brandDescOther" /> @Q.OtherOption</label>
                         <textarea name="brandDescOther" class="q-input q-other-input" rows="2" placeholder="@Q.S1.BrandDescOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -87,11 +87,11 @@
                 <div class="q-field">
                     <label class="q-label">@Q.S2.NeedWhatLabel</label>
                     <div class="q-radio-group">
-                        @foreach (var opt in Q.S2.WebsiteTypeOptions)
+                        @for (int i = 0; i < Q.S2.WebsiteTypeOptions.Length; i++)
                         {
-                            <label class="q-radio-label"><input type="radio" name="projectType" value="@opt" /> @opt</label>
+                            <label class="q-radio-label"><input type="radio" name="projectType" value="projectType_@i" /> @Q.S2.WebsiteTypeOptions[i]</label>
                         }
-                        <label class="q-radio-label"><input type="radio" name="projectType" value="Ostalo" class="q-trigger-other" data-other="projectTypeOther" /> @Q.OtherOption</label>
+                        <label class="q-radio-label"><input type="radio" name="projectType" value="projectType_other" class="q-trigger-other" data-other="projectTypeOther" /> @Q.OtherOption</label>
                         <textarea name="projectTypeOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.WebsiteTypeOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -106,11 +106,11 @@
                     <div class="q-field">
                         <label class="q-label">@Q.S2.CurrentSiteDescLabel</label>
                         <div class="q-check-group">
-                            @foreach (var opt in Q.S2.CurrentSiteDescOptions)
+                            @for (int i = 0; i < Q.S2.CurrentSiteDescOptions.Length; i++)
                             {
-                                <label class="q-check-label"><input type="checkbox" name="currentSiteDesc" value="@opt" /> @opt</label>
+                                <label class="q-check-label"><input type="checkbox" name="currentSiteDesc" value="currentSiteDesc_@i" /> @Q.S2.CurrentSiteDescOptions[i]</label>
                             }
-                            <label class="q-check-label"><input type="checkbox" name="currentSiteDesc" value="Ostalo" class="q-trigger-other" data-other="currentSiteDescOther" /> @Q.OtherOption</label>
+                            <label class="q-check-label"><input type="checkbox" name="currentSiteDesc" value="currentSiteDesc_other" class="q-trigger-other" data-other="currentSiteDescOther" /> @Q.OtherOption</label>
                             <textarea name="currentSiteDescOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.CurrentSiteDescOtherPlaceholder" style="display:none"></textarea>
                         </div>
                     </div>
@@ -118,11 +118,11 @@
                     <div class="q-field">
                         <label class="q-label">@Q.S2.WantToChangeLabel</label>
                         <div class="q-check-group">
-                            @foreach (var opt in Q.S2.WantToChangeOptions)
+                            @for (int i = 0; i < Q.S2.WantToChangeOptions.Length; i++)
                             {
-                                <label class="q-check-label"><input type="checkbox" name="wantToChange" value="@opt" /> @opt</label>
+                                <label class="q-check-label"><input type="checkbox" name="wantToChange" value="wantToChange_@i" /> @Q.S2.WantToChangeOptions[i]</label>
                             }
-                            <label class="q-check-label"><input type="checkbox" name="wantToChange" value="Ostalo" class="q-trigger-other" data-other="wantToChangeOther" /> @Q.OtherOption</label>
+                            <label class="q-check-label"><input type="checkbox" name="wantToChange" value="wantToChange_other" class="q-trigger-other" data-other="wantToChangeOther" /> @Q.OtherOption</label>
                             <textarea name="wantToChangeOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.WantToChangeOtherPlaceholder" style="display:none"></textarea>
                         </div>
                     </div>
@@ -133,20 +133,20 @@
                     <label class="q-label">@Q.S2.PagesLabel</label>
 
                     <div id="pagesPortfolio" class="q-check-group" style="display:none">
-                        @foreach (var opt in Q.S2.PagesPortfolioOptions)
+                        @for (int i = 0; i < Q.S2.PagesPortfolioOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="pages" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="pages" value="pagesPortfolio_@i" /> @Q.S2.PagesPortfolioOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Ostalo" class="q-trigger-other" data-other="pagesPortfolioOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="pages" value="pagesPortfolio_other" class="q-trigger-other" data-other="pagesPortfolioOther" /> @Q.OtherOption</label>
                         <textarea name="pagesPortfolioOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.PagesOtherPlaceholder" style="display:none"></textarea>
                     </div>
 
                     <div id="pagesFull" class="q-check-group" style="display:none">
-                        @foreach (var opt in Q.S2.PagesOptions)
+                        @for (int i = 0; i < Q.S2.PagesOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="pages" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="pages" value="pagesFull_@i" /> @Q.S2.PagesOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="pages" value="Ostalo" class="q-trigger-other" data-other="pagesOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="pages" value="pagesFull_other" class="q-trigger-other" data-other="pagesOther" /> @Q.OtherOption</label>
                         <textarea name="pagesOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.PagesOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -157,19 +157,19 @@
 
                     <p class="q-group-header">@Q.S2.CommHeader</p>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S2.CommOptions)
+                        @for (int i = 0; i < Q.S2.CommOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="extras" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="extras" value="extrasComm_@i" /> @Q.S2.CommOptions[i]</label>
                         }
                     </div>
 
                     <p class="q-group-header">@Q.S2.GrowthHeader</p>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S2.GrowthOptions)
+                        @for (int i = 0; i < Q.S2.GrowthOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="extras" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="extras" value="extrasGrowth_@i" /> @Q.S2.GrowthOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="extras" value="Ostalo" class="q-trigger-other" data-other="extrasOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="extras" value="extras_other" class="q-trigger-other" data-other="extrasOther" /> @Q.OtherOption</label>
                         <textarea name="extrasOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.ExtrasOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -192,11 +192,11 @@
                 <div class="q-field" id="appTypeField">
                     <label class="q-label">@Q.S3.AppTypeLabel <span class="q-required">*</span></label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.AppTypeOptions)
+                        @for (int i = 0; i < Q.S3.AppTypeOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="appType" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="appType" value="appType_@i" /> @Q.S3.AppTypeOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="appType" value="Ostalo" class="q-trigger-other" data-other="appTypeOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="appType" value="appType_other" class="q-trigger-other" data-other="appTypeOther" /> @Q.OtherOption</label>
                         <textarea name="appTypeOther" class="q-input q-other-input" rows="2" placeholder="@Q.S3.AppTypeOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -204,11 +204,11 @@
                 <div class="q-field q-app-guarded">
                     <label class="q-label">@Q.S3.AppUsersLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.AppUsersOptions)
+                        @for (int i = 0; i < Q.S3.AppUsersOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="appUsers" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="appUsers" value="appUsers_@i" /> @Q.S3.AppUsersOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="appUsers" value="Ostalo" class="q-trigger-other" data-other="appUsersOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="appUsers" value="appUsers_other" class="q-trigger-other" data-other="appUsersOther" /> @Q.OtherOption</label>
                         <textarea name="appUsersOther" class="q-input q-other-input" rows="2" placeholder="@Q.S3.AppUsersOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -216,9 +216,9 @@
                 <div class="q-field q-app-guarded">
                     <label class="q-label">@Q.S3.CommLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.CommOptions)
+                        @for (int i = 0; i < Q.S3.CommOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="commAuto" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="commAuto" value="commAuto_@i" /> @Q.S3.CommOptions[i]</label>
                         }
                     </div>
                 </div>
@@ -226,9 +226,9 @@
                 <div class="q-field q-app-guarded">
                     <label class="q-label">@Q.S3.SalesLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.SalesOptions)
+                        @for (int i = 0; i < Q.S3.SalesOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="salesBooking" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="salesBooking" value="salesBooking_@i" /> @Q.S3.SalesOptions[i]</label>
                         }
                     </div>
                 </div>
@@ -236,9 +236,9 @@
                 <div class="q-field q-app-guarded">
                     <label class="q-label">@Q.S3.AutoLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.AutoOptions)
+                        @for (int i = 0; i < Q.S3.AutoOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="automation" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="automation" value="automation_@i" /> @Q.S3.AutoOptions[i]</label>
                         }
                     </div>
                 </div>
@@ -246,11 +246,11 @@
                 <div class="q-field q-app-guarded">
                     <label class="q-label">@Q.S3.ContentMgmtLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S3.ContentMgmtOptions)
+                        @for (int i = 0; i < Q.S3.ContentMgmtOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="contentMgmt" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="contentMgmt" value="contentMgmt_@i" /> @Q.S3.ContentMgmtOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="contentMgmt" value="Ostalo" class="q-trigger-other" data-other="contentMgmtOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="contentMgmt" value="contentMgmt_other" class="q-trigger-other" data-other="contentMgmtOther" /> @Q.OtherOption</label>
                         <textarea name="contentMgmtOther" class="q-input q-other-input" rows="2" placeholder="@Q.S3.ContentMgmtOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -285,7 +285,7 @@
                         </div>
                         <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                     </div>
-                    <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="textsHelp" value="Da" /> @Q.S4.TextsHelpCheckbox</label>
+                    <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="textsHelp" value="yes" /> @Q.S4.TextsHelpCheckbox</label>
                 </div>
 
                 <!-- Q18 Fotografije -->
@@ -305,7 +305,7 @@
                         </div>
                         <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                     </div>
-                    <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="photosHelp" value="Da" /> @Q.S4.PhotosHelpCheckbox</label>
+                    <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="photosHelp" value="yes" /> @Q.S4.PhotosHelpCheckbox</label>
                 </div>
 
                 <!-- Q19 Brendirani materijali -->
@@ -325,7 +325,7 @@
                         </div>
                         <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                     </div>
-                    <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="brandHelp" value="Da" /> @Q.S4.BrandingHelpCheckbox</label>
+                    <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="brandHelp" value="yes" /> @Q.S4.BrandingHelpCheckbox</label>
                 </div>
 
                 <!-- Q20 Društvene mreže -->
@@ -339,11 +339,11 @@
                 <div class="q-field">
                     <label class="q-label">@Q.S4.StyleLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S4.StyleOptions)
+                        @for (int i = 0; i < Q.S4.StyleOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="style" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="style" value="style_@i" /> @Q.S4.StyleOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="style" value="Ostalo" class="q-trigger-other" data-other="styleOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="style" value="style_other" class="q-trigger-other" data-other="styleOther" /> @Q.OtherOption</label>
                         <textarea name="styleOther" class="q-input q-other-input" rows="2" placeholder="@Q.S4.StyleOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -372,9 +372,9 @@
                 <div class="q-field">
                     <label class="q-label">@Q.S4.ThemeLabel</label>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="theme" value="@Q.S4.ThemeDark" /> @Q.S4.ThemeDark</label>
-                        <label class="q-radio-label"><input type="radio" name="theme" value="@Q.S4.ThemeLight" /> @Q.S4.ThemeLight</label>
-                        <label class="q-radio-label"><input type="radio" name="theme" value="@Q.S4.ThemeAny" /> @Q.S4.ThemeAny</label>
+                        <label class="q-radio-label"><input type="radio" name="theme" value="theme_dark" /> @Q.S4.ThemeDark</label>
+                        <label class="q-radio-label"><input type="radio" name="theme" value="theme_light" /> @Q.S4.ThemeLight</label>
+                        <label class="q-radio-label"><input type="radio" name="theme" value="theme_any" /> @Q.S4.ThemeAny</label>
                     </div>
                 </div>
 
@@ -426,19 +426,19 @@
 
                     <p class="q-group-header">@Q.S5.GoalsWebHeader</p>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S5.GoalsWebOptions)
+                        @for (int i = 0; i < Q.S5.GoalsWebOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="goals" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="goals" value="goalsWeb_@i" /> @Q.S5.GoalsWebOptions[i]</label>
                         }
                     </div>
 
                     <p class="q-group-header">@Q.S5.GoalsBusinessHeader</p>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S5.GoalsBusinessOptions)
+                        @for (int i = 0; i < Q.S5.GoalsBusinessOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="goals" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="goals" value="goalsBiz_@i" /> @Q.S5.GoalsBusinessOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="goals" value="Ostalo" class="q-trigger-other" data-other="goalsOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="goals" value="goals_other" class="q-trigger-other" data-other="goalsOther" /> @Q.OtherOption</label>
                         <textarea name="goalsOther" class="q-input q-other-input" rows="2" placeholder="@Q.S5.GoalsOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -470,37 +470,37 @@
 
                     <p class="q-hint q-hint--sub">@Q.S5.CustomerTypeLabel</p>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S5.CustomerTypeOptions)
+                        @for (int i = 0; i < Q.S5.CustomerTypeOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="customerType" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="customerType" value="customerType_@i" /> @Q.S5.CustomerTypeOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="customerType" value="Ostalo" class="q-trigger-other" data-other="customerTypeOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="customerType" value="customerType_other" class="q-trigger-other" data-other="customerTypeOther" /> @Q.OtherOption</label>
                         <textarea name="customerTypeOther" class="q-input q-other-input" rows="2" placeholder="@Q.S5.CustomerTypeOtherPlaceholder" style="display:none"></textarea>
                     </div>
 
                     <div id="customerDemoWrap" style="display:none" class="q-conditional">
                         <p class="q-hint q-hint--sub">@Q.S5.AgeLabel</p>
                         <div class="q-check-group">
-                            @foreach (var opt in Q.S5.AgeOptions)
+                            @for (int i = 0; i < Q.S5.AgeOptions.Length; i++)
                             {
-                                <label class="q-check-label"><input type="checkbox" name="ageGroup" value="@opt" /> @opt</label>
+                                <label class="q-check-label"><input type="checkbox" name="ageGroup" value="ageGroup_@i" /> @Q.S5.AgeOptions[i]</label>
                             }
                         </div>
 
                         <p class="q-hint q-hint--sub">@Q.S5.GenderLabel</p>
                         <div class="q-check-group">
-                            @foreach (var opt in Q.S5.GenderOptions)
+                            @for (int i = 0; i < Q.S5.GenderOptions.Length; i++)
                             {
-                                <label class="q-check-label"><input type="checkbox" name="gender" value="@opt" /> @opt</label>
+                                <label class="q-check-label"><input type="checkbox" name="gender" value="gender_@i" /> @Q.S5.GenderOptions[i]</label>
                             }
                         </div>
                     </div>
 
                     <p class="q-hint q-hint--sub">@Q.S5.LocationLabel</p>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S5.LocationOptions)
+                        @for (int i = 0; i < Q.S5.LocationOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="customerLocation" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="customerLocation" value="customerLocation_@i" /> @Q.S5.LocationOptions[i]</label>
                         }
                     </div>
                 </div>
@@ -509,9 +509,9 @@
                 <div class="q-field">
                     <label class="q-label">@Q.S5.StartWhenLabel</label>
                     <div class="q-radio-group">
-                        @foreach (var opt in Q.S5.StartWhenOptions)
+                        @for (int i = 0; i < Q.S5.StartWhenOptions.Length; i++)
                         {
-                            <label class="q-radio-label"><input type="radio" name="startWhen" value="@opt" /> @opt</label>
+                            <label class="q-radio-label"><input type="radio" name="startWhen" value="startWhen_@i" /> @Q.S5.StartWhenOptions[i]</label>
                         }
                     </div>
                 </div>
@@ -520,8 +520,8 @@
                 <div class="q-field">
                     <label class="q-label">@Q.S5.DeadlineLabel</label>
                     <div class="q-radio-group">
-                        <label class="q-radio-label"><input type="radio" name="deadline" value="Da" class="q-trigger-show" data-show="deadlineDateWrap" /> @Q.S5.DeadlineYes</label>
-                        <label class="q-radio-label"><input type="radio" name="deadline" value="Nemam fiksni rok" class="q-trigger-hide" data-hide="deadlineDateWrap" /> @Q.S5.DeadlineNo</label>
+                        <label class="q-radio-label"><input type="radio" name="deadline" value="deadline_yes" class="q-trigger-show" data-show="deadlineDateWrap" /> @Q.S5.DeadlineYes</label>
+                        <label class="q-radio-label"><input type="radio" name="deadline" value="deadline_no" class="q-trigger-hide" data-hide="deadlineDateWrap" /> @Q.S5.DeadlineNo</label>
                     </div>
                     <div id="deadlineDateWrap" style="display:none" class="q-conditional">
                         <input type="date" name="deadlineDate" class="q-input" />
@@ -532,11 +532,11 @@
                 <div class="q-field">
                     <label class="q-label">@Q.S5.SupportLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S5.SupportOptions)
+                        @for (int i = 0; i < Q.S5.SupportOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="support" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="support" value="support_@i" /> @Q.S5.SupportOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="support" value="Ostalo" class="q-trigger-other" data-other="supportOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="support" value="support_other" class="q-trigger-other" data-other="supportOther" /> @Q.OtherOption</label>
                         <textarea name="supportOther" class="q-input q-other-input" rows="2" placeholder="@Q.S5.SupportOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -545,11 +545,11 @@
                 <div class="q-field">
                     <label class="q-label">@Q.S5.HeardFromLabel</label>
                     <div class="q-check-group">
-                        @foreach (var opt in Q.S5.HeardFromOptions)
+                        @for (int i = 0; i < Q.S5.HeardFromOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="heardFrom" value="@opt" /> @opt</label>
+                            <label class="q-check-label"><input type="checkbox" name="heardFrom" value="heardFrom_@i" /> @Q.S5.HeardFromOptions[i]</label>
                         }
-                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="Ostalo" class="q-trigger-other" data-other="heardFromOther" /> @Q.OtherOption</label>
+                        <label class="q-check-label"><input type="checkbox" name="heardFrom" value="heardFrom_other" class="q-trigger-other" data-other="heardFromOther" /> @Q.OtherOption</label>
                         <textarea name="heardFromOther" class="q-input q-other-input" rows="2" placeholder="@Q.S5.HeardFromOtherPlaceholder" style="display:none"></textarea>
                     </div>
                 </div>
@@ -595,6 +595,13 @@
 
 @section Scripts {
     <script>
+        window.QSavedAnswers = {
+            step1: @Html.Raw((string)ViewBag.Step1 ?? "null"),
+            step2: @Html.Raw((string)ViewBag.Step2 ?? "null"),
+            step3: @Html.Raw((string)ViewBag.Step3 ?? "null"),
+            step4: @Html.Raw((string)ViewBag.Step4 ?? "null"),
+            step5: @Html.Raw((string)ViewBag.Step5 ?? "null")
+        };
         window.QText = @Html.Raw(JsonSerializer.Serialize(new
         {
             progressPattern = Q.ProgressPattern,

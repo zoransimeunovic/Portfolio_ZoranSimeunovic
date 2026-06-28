@@ -70,6 +70,8 @@ public static class SiteTextProvider
             TitleHtml = "How we work together",
             ContactMe = "CONTACT ME",
             FindMe = "or find me on LinkedIn, Xing, GitHub or email",
+            ShowAll = "Show all processes",
+            HideAll = "Hide processes",
             Steps = new List<ProcessStep>
             {
                 new() { Tag = "FIRST STEP" },
@@ -90,7 +92,9 @@ public static class SiteTextProvider
             TitleHtml = "How to improve <span class=\"accent\">web presence?</span>",
             Subtitle1 = "Do you need a redesign, a new website, or a web app?",
             Subtitle2 = "Get a quick analysis.",
-            StartAnalysis = "Start Analysis",
+            StartAnalysis = "Open checklist",
+            CloseChecklist = "Close checklist",
+            Analyze = "Analyze",
             Lists = new List<ImproveList>
             {
                 new()
@@ -157,7 +161,7 @@ public static class SiteTextProvider
             NamePlaceholder = "Your name",
             EmailPlaceholder = "Your email address",
             GetStarted = "GET STARTED",
-            PrivacyNote = "By submitting, you agree to our Privacy Policy. We respect your privacy.",
+            PrivacyNoteHtml = "By submitting, you agree to our <a href=\"/Home/Privacy\">Privacy Policy</a>. We respect your privacy.",
             SuccessMessage = "Thank you! Your details have been received. I'll be in touch soon.",
             ErrorMessage = "Something went wrong. Please try again later."
         },
@@ -258,6 +262,8 @@ public static class SiteTextProvider
             TitleHtml = "Wie wir zusammenarbeiten",
             ContactMe = "KONTAKT",
             FindMe = "oder finden Sie mich auf LinkedIn, Xing, GitHub oder per E-Mail",
+            ShowAll = "Alle Prozesse anzeigen",
+            HideAll = "Prozesse verbergen",
             Steps = new List<ProcessStep>
             {
                 new() { Tag = "ERSTER SCHRITT" },
@@ -278,7 +284,9 @@ public static class SiteTextProvider
             TitleHtml = "Wie Sie Ihre <span class=\"accent\">Web-Präsenz verbessern?</span>",
             Subtitle1 = "Brauchen Sie ein Redesign, eine neue Website oder eine Web-App?",
             Subtitle2 = "Erhalten Sie eine schnelle Analyse.",
-            StartAnalysis = "Analyse starten",
+            StartAnalysis = "Checkliste öffnen",
+            CloseChecklist = "Checkliste schließen",
+            Analyze = "Analysieren",
             Lists = new List<ImproveList>
             {
                 new()
@@ -345,7 +353,7 @@ public static class SiteTextProvider
             NamePlaceholder = "Ihr Name",
             EmailPlaceholder = "Ihre E-Mail-Adresse",
             GetStarted = "LOSLEGEN",
-            PrivacyNote = "Mit dem Absenden stimmen Sie unserer Datenschutzerklärung zu. Wir respektieren Ihre Privatsphäre.",
+            PrivacyNoteHtml = "Mit dem Absenden stimmen Sie unserer <a href=\"/Home/Privacy\">Datenschutzerklärung</a> zu. Wir respektieren Ihre Privatsphäre.",
             SuccessMessage = "Vielen Dank! Ihre Angaben sind eingegangen. Ich melde mich in Kürze.",
             ErrorMessage = "Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut."
         },
@@ -446,6 +454,8 @@ public static class SiteTextProvider
             TitleHtml = "Kako sarađujemo",
             ContactMe = "KONTAKT",
             FindMe = "ili me pronađite na LinkedIn, Xing, GitHub ili putem mejla",
+            ShowAll = "Prikazi sve procese",
+            HideAll = "Sakrij procese",
             Steps = new List<ProcessStep>
             {
                 new() { Tag = "PRVI KORAK" },
@@ -466,7 +476,9 @@ public static class SiteTextProvider
             TitleHtml = "Kako poboljšati <span class=\"accent\">web prisustvo?</span>",
             Subtitle1 = "Treba li vam redizajn, novi sajt ili web aplikacija?",
             Subtitle2 = "Dobijte brzu analizu.",
-            StartAnalysis = "Započni analizu",
+            StartAnalysis = "Otvori listu",
+            CloseChecklist = "Zatvori listu",
+            Analyze = "Analiziraj",
             Lists = new List<ImproveList>
             {
                 new()
@@ -533,7 +545,7 @@ public static class SiteTextProvider
             NamePlaceholder = "Vaše ime",
             EmailPlaceholder = "Vaša email adresa",
             GetStarted = "ZAPOČNI",
-            PrivacyNote = "Slanjem prihvatate našu Politiku privatnosti. Poštujemo vašu privatnost.",
+            PrivacyNoteHtml = "Slanjem prihvatate našu <a href=\"/Home/Privacy\">Politiku privatnosti</a>. Poštujemo vašu privatnost.",
             SuccessMessage = "Hvala! Vaši podaci su primljeni. Javiću vam se uskoro.",
             ErrorMessage = "Došlo je do greške. Molimo pokušajte ponovo kasnije."
         },

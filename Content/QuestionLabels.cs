@@ -77,4 +77,65 @@ public static class QuestionLabels
 
     public static string GetLabel(string key) =>
         Labels.TryGetValue(key, out var label) ? label : key;
+
+    private static readonly Lazy<Dictionary<string, string>> OptionLabels = new(BuildOptionLabels);
+
+    private static Dictionary<string, string> BuildOptionLabels()
+    {
+        var q = SiteTextProvider.Get("sr-Latn").Questionnaire;
+        var d = new Dictionary<string, string>();
+
+        void Add(string id, string[] opts)
+        {
+            for (var i = 0; i < opts.Length; i++) d[$"{id}_{i}"] = opts[i];
+        }
+
+        Add("industry", q.S1.IndustryOptions);
+        Add("teamSize", q.S1.TeamSizeOptions);
+        Add("brandDesc", q.S1.BrandDescOptions);
+
+        Add("projectType", q.S2.WebsiteTypeOptions);
+        Add("currentSiteDesc", q.S2.CurrentSiteDescOptions);
+        Add("wantToChange", q.S2.WantToChangeOptions);
+        Add("pagesPortfolio", q.S2.PagesPortfolioOptions);
+        Add("pagesFull", q.S2.PagesOptions);
+        Add("extrasComm", q.S2.CommOptions);
+        Add("extrasGrowth", q.S2.GrowthOptions);
+
+        Add("appType", q.S3.AppTypeOptions);
+        Add("appUsers", q.S3.AppUsersOptions);
+        Add("commAuto", q.S3.CommOptions);
+        Add("salesBooking", q.S3.SalesOptions);
+        Add("automation", q.S3.AutoOptions);
+        Add("contentMgmt", q.S3.ContentMgmtOptions);
+
+        Add("style", q.S4.StyleOptions);
+
+        Add("goalsWeb", q.S5.GoalsWebOptions);
+        Add("goalsBiz", q.S5.GoalsBusinessOptions);
+        Add("customerType", q.S5.CustomerTypeOptions);
+        Add("ageGroup", q.S5.AgeOptions);
+        Add("gender", q.S5.GenderOptions);
+        Add("customerLocation", q.S5.LocationOptions);
+        Add("startWhen", q.S5.StartWhenOptions);
+        Add("support", q.S5.SupportOptions);
+        Add("heardFrom", q.S5.HeardFromOptions);
+
+        d["theme_dark"] = q.S4.ThemeDark;
+        d["theme_light"] = q.S4.ThemeLight;
+        d["theme_any"] = q.S4.ThemeAny;
+        d["deadline_yes"] = q.S5.DeadlineYes;
+        d["deadline_no"] = q.S5.DeadlineNo;
+        d["yes"] = "Da";
+
+        return d;
+    }
+
+    public static string GetOptionLabel(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return value;
+        if (OptionLabels.Value.TryGetValue(value, out var label)) return label;
+        if (value.EndsWith("_other")) return "Ostalo";
+        return value;
+    }
 }

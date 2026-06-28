@@ -161,50 +161,33 @@
 
         <div class="process-wrap">
             <div class="process-grid">
-                <div class="process-col">
-                    @for (var i = 0; i <= 3; i++)
-                    {
-                        var step = Model.Process.Steps[i];
-                        <div class="process-card">
-                            <span class="step-num">@(i + 1)</span>
-                            <span class="step-tag">@step.Tag</span>
-                            @if (i == 0)
-                            {
-                                <a href="#contact" class="btn btn-accent step-cta">@Model.Process.ContactMe</a>
-                                <p class="step-desc">@Model.Process.FindMe</p>
-                            }
-                            else
-                            {
-                                <h3 class="step-title">@step.Title</h3>
-                                <p class="step-desc">@step.Description</p>
-                            }
-                        </div>
-                    }
-                </div>
-                <div class="process-col">
-                    @for (var i = 4; i <= 7; i++)
-                    {
-                        var step = Model.Process.Steps[i];
-                        <div class="process-card@(i == 4 ? " process-card--featured" : "")@(i == 7 ? " process-card--optional" : "")">
-                            <span class="step-num">@(i + 1)</span>
-                            <span class="step-tag">@step.Tag</span>
+                @for (var i = 0; i < Model.Process.Steps.Count; i++)
+                {
+                    var step = Model.Process.Steps[i];
+                    var cardClass = "process-card";
+                    if (i == 4) cardClass += " process-card--featured";
+                    if (i == 7 || i == 8 || i == 10) cardClass += " process-card--optional";
+                    if (i >= 3) cardClass += " process-card--collapsed";
+                    <div class="@cardClass">
+                        <span class="step-num">@(i + 1)</span>
+                        <span class="step-tag">@step.Tag</span>
+                        @if (i == 0)
+                        {
+                            <a href="#contact" class="btn btn-accent step-cta">@Model.Process.ContactMe</a>
+                            <p class="step-desc">@Model.Process.FindMe</p>
+                        }
+                        else
+                        {
                             <h3 class="step-title">@step.Title</h3>
                             <p class="step-desc">@step.Description</p>
-                        </div>
-                    }
-                </div>
-                <div class="process-col">
-                    @foreach (var idx in new[] { 8, 9, 10 })
-                    {
-                        var step = Model.Process.Steps[idx];
-                        <div class="process-card@(idx != 9 ? " process-card--optional" : "")">
-                            <span class="step-num">@(idx + 1)</span>
-                            <span class="step-tag">@step.Tag</span>
-                            <h3 class="step-title">@step.Title</h3>
-                            <p class="step-desc">@step.Description</p>
-                        </div>
-                    }
-                </div>
+                        }
+                    </div>
+                }
+                <button type="button" class="process-toggle" data-process-toggle
+                        data-show="@Model.Process.ShowAll" data-hide="@Model.Process.HideAll">
+                    <span>@Model.Process.ShowAll</span>
+                    <span class="toggle-icon" aria-hidden="true"></span>
+                </button>
             </div>
         </div>
     </div>
@@ -226,7 +209,8 @@
                 <div class="improve-col" data-checklist data-key="@list.Key">
                     <div class="improve-bar">
                         <h3 class="improve-heading">@Html.Raw(list.HeadingHtml)</h3>
-                        <button type="button" class="improve-toggle" data-toggle-list>
+                        <button type="button" class="improve-toggle" data-toggle-list
+                                data-open="@Model.Improve.StartAnalysis" data-close="@Model.Improve.CloseChecklist">
                             <span>@Model.Improve.StartAnalysis</span>
                             <span class="toggle-icon" aria-hidden="true"></span>
                         </button>
@@ -247,12 +231,15 @@
                             </div>
                         }
 
-                        <div class="score-box" data-score>
+                        <div class="analyze-row">
+                            <button type="button" class="analyze-btn" data-analyze>@Model.Improve.Analyze</button>
+                        </div>
+                        <div class="score-box" data-score hidden>
                             @foreach (var band in list.Scores)
                             {
                                 <span class="score-band" data-min="@band.Min" data-max="@band.Max" hidden>@band.Text</span>
                             }
-                            <span class="score-text" data-score-text>@(list.Scores.FirstOrDefault()?.Text)</span>
+                            <span class="score-text" data-score-text></span>
                         </div>
                     </div>
                 </div>
@@ -282,7 +269,7 @@
                     <button type="submit" class="cta-submit">@Model.Contact.GetStarted</button>
                 </form>
 
-                <p class="cta-note">@Model.Contact.PrivacyNote</p>
+                <p class="cta-note">@Html.Raw(Model.Contact.PrivacyNoteHtml)</p>
                 <p class="contact-result" data-result hidden></p>
             </div>
         </div>

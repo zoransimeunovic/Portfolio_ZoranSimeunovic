@@ -11,6 +11,7 @@
         initContactForm();
         initMobileMenuClose();
         initHomeLinks();
+        initProcessToggle();
     });
 
     /* Sekcije gradjene kao apsolutne 1440px Figma scene (.hero-stage,
@@ -162,16 +163,24 @@
             var checks = list.querySelectorAll("[data-check]");
             var bands = list.querySelectorAll(".score-band");
             var scoreText = list.querySelector("[data-score-text]");
+            var scoreBox = list.querySelector("[data-score]");
+            var analyzeBtn = list.querySelector("[data-analyze]");
+            var revealed = false;
 
             if (toggleBtn && body) {
+                var toggleLabel = toggleBtn.querySelector("span:first-child");
+                var textOpen = toggleBtn.dataset.open || "";
+                var textClose = toggleBtn.dataset.close || "";
                 toggleBtn.addEventListener("click", function () {
                     var isHidden = body.hasAttribute("hidden");
                     if (isHidden) {
                         body.removeAttribute("hidden");
                         toggleBtn.classList.add("open");
+                        if (toggleLabel && textClose) toggleLabel.textContent = textClose;
                     } else {
                         body.setAttribute("hidden", "");
                         toggleBtn.classList.remove("open");
+                        if (toggleLabel && textOpen) toggleLabel.textContent = textOpen;
                     }
                 });
             }
@@ -185,16 +194,18 @@
                     var max = parseInt(b.getAttribute("data-max"), 10);
                     if (count >= min && count <= max) text = b.textContent;
                 });
-                if (text && scoreText) scoreText.textContent = text;
+                if (scoreText) scoreText.textContent = text;
             }
 
-            checks.forEach(function (c) {
-                c.addEventListener("change", function () {
+            if (analyzeBtn) {
+                analyzeBtn.addEventListener("click", function () {
+                    revealed = true;
                     updateScore();
+                    if (scoreBox) scoreBox.removeAttribute("hidden");
                     saveChecklist();
                 });
-            });
-            updateScore();
+            }
+
         });
     }
 
@@ -258,6 +269,27 @@
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
             });
+        });
+    }
+
+    function initProcessToggle() {
+        var btn = document.querySelector("[data-process-toggle]");
+        if (!btn) return;
+        var grid = document.querySelector(".process-grid");
+        var label = btn.querySelector("span:first-child");
+        var textShow = btn.dataset.show || label.textContent;
+        var textHide = btn.dataset.hide || label.textContent;
+        btn.addEventListener("click", function () {
+            var isOpen = btn.classList.contains("open");
+            if (isOpen) {
+                grid.classList.remove("expanded");
+                label.textContent = textShow;
+                btn.classList.remove("open");
+            } else {
+                grid.classList.add("expanded");
+                label.textContent = textHide;
+                btn.classList.add("open");
+            }
         });
     }
 

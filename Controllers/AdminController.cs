@@ -314,9 +314,9 @@ public class AdminController : Controller
             {
                 string value;
                 if (prop.Value.ValueKind == JsonValueKind.Array)
-                    value = string.Join(", ", prop.Value.EnumerateArray().Select(x => x.GetString() ?? ""));
+                    value = string.Join(", ", prop.Value.EnumerateArray().Select(x => QuestionLabels.GetOptionLabel(x.GetString() ?? "")));
                 else
-                    value = prop.Value.GetString() ?? "";
+                    value = QuestionLabels.GetOptionLabel(prop.Value.GetString() ?? "");
 
                 if (!string.IsNullOrWhiteSpace(value))
                     result.Add(new AnswerPair { Label = QuestionLabels.GetLabel(prop.Name), Value = value });

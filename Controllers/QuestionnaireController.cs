@@ -61,6 +61,8 @@ public class QuestionnaireController : Controller
         ViewBag.Step1 = q.Step1Answers;
         ViewBag.Step2 = q.Step2Answers;
         ViewBag.Step3 = q.Step3Answers;
+        ViewBag.Step4 = q.Step4Answers;
+        ViewBag.Step5 = q.Step5Answers;
 
         return View();
     }
@@ -102,19 +104,19 @@ public class QuestionnaireController : Controller
         {
             case 1:
                 q.Step1Answers = request.Answers;
-                if (q.Stage < 1) q.Stage = 1;
+                if (!request.IsAutoSave && q.Stage < 1) q.Stage = 1;
                 break;
             case 2:
                 q.Step2Answers = request.Answers;
-                if (q.Stage < 2) q.Stage = 2;
+                if (!request.IsAutoSave && q.Stage < 2) q.Stage = 2;
                 break;
             case 3:
                 q.Step3Answers = request.Answers;
-                if (q.Stage < 3) q.Stage = 3;
+                if (!request.IsAutoSave && q.Stage < 3) q.Stage = 3;
                 break;
             case 4:
                 q.Step4Answers = request.Answers;
-                if (q.Stage < 4) q.Stage = 4;
+                if (!request.IsAutoSave && q.Stage < 4) q.Stage = 4;
                 break;
             case 5:
                 q.Step5Answers = request.Answers;
@@ -204,4 +206,5 @@ public class SaveStepRequest
     public string Token { get; set; } = string.Empty;
     public int Step { get; set; }
     public string Answers { get; set; } = string.Empty;
+    public bool IsAutoSave { get; set; }
 }

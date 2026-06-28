@@ -743,12 +743,12 @@ a.work-badge:hover { color: var(--secondary); }
 .process::before {
     content: "";
     position: absolute;
-    top: 323px; left: calc(50% - 150px);
+    top: 263px; left: calc(50% - 150px);
     width: 984px; height: 434px;
     transform: translate(-50%, 0) rotate(-24.53deg);
     background: linear-gradient(251.89deg, #156EF6 8.31%, rgba(21, 110, 246, 0.3) 63.65%);
     border-radius: 50%;
-    opacity: 0.08;
+    opacity: 0.03;
     filter: blur(150px);
     z-index: 0;
     pointer-events: none;
@@ -758,22 +758,17 @@ a.work-badge:hover { color: var(--secondary); }
 
 .process-wrap { position: relative; }
 
-/* 3 nezavisne flex kolone — svaka ima vlastiti row gap pa razmak uvijek ostaje isti */
 .process-grid {
-    display: flex;
-    gap: 103.5px;
+    display: grid;
+    grid-template-columns: repeat(3, 363px);
+    column-gap: 103.5px;
+    row-gap: 46px;
     width: 1296px;
     max-width: 100%;
     margin: 0 auto;
     position: relative;
     z-index: 1;
-    align-items: flex-start;
-}
-.process-col {
-    display: flex;
-    flex-direction: column;
-    gap: 46px;
-    flex: 0 0 363px;
+    align-items: start;
 }
 .process-card {
     position: relative;
@@ -784,6 +779,45 @@ a.work-badge:hover { color: var(--secondary); }
     padding: 30px 16px 16px 16px;
     transition: transform 0.25s ease, border-color 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
 }
+/* Kartice 2, 6, 10 — skracene za 5px odozdo (originalno 16px) */
+.process-grid > .process-card:nth-child(2),
+.process-grid > .process-card:nth-child(6),
+.process-grid > .process-card:nth-child(10) {
+    padding-bottom: 11px;
+}
+
+.process-card--collapsed { display: none; }
+.process-grid.expanded .process-card--collapsed { display: block; }
+
+.process-toggle {
+    display: inline-flex;
+    align-items: center;
+    align-self: start;
+    justify-self: end;
+    grid-column: 3;
+    grid-row: 2;
+    margin-top: -10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--secondary);
+    padding: 10px 8px;
+    transition: text-shadow 0.25s ease;
+}
+.process-grid.expanded .process-toggle { grid-row: 4; }
+.process-toggle span { text-decoration: underline; text-underline-offset: 4px; }
+.process-toggle:hover span:first-child { text-shadow: 0 0 12px rgba(21, 110, 246, 0.80); }
+.process-toggle .toggle-icon {
+    width: 7.85px;
+    height: 13.33px;
+    margin-left: 10px;
+    background: url("../images/icons/open.png") center / contain no-repeat;
+}
+.process-toggle.open .toggle-icon { background-image: url("../images/icons/close.png"); }
+
 /* Opcioni koraci (8, 9, 11): gradient border maska koja se klipuje na primary */
 .process-card--optional {
     border: none;
@@ -991,6 +1025,28 @@ a.work-badge:hover { color: var(--secondary); }
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
+
+.analyze-row {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 12px 0;
+}
+.analyze-btn {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--secondary);
+    padding: 10px 8px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: text-shadow 0.25s ease;
+}
+.analyze-btn:hover { text-shadow: 0 0 12px rgba(21, 110, 246, 0.80); }
 
 /* Ocjena: frame 392×40, border accent, centriran tekst */
 .score-box {
@@ -1345,10 +1401,8 @@ a.work-badge:hover { color: var(--secondary); }
     .work-card-body { flex: none; height: auto; overflow: visible; }
     .carousel-track { gap: 20px; }
 
-    /* Process — 4 od 8 kolona = 2 po redu po koloni */
-    .process-grid { flex-direction: column; gap: 20px; width: 100%; }
-    .process-col { flex-direction: row; flex-wrap: wrap; column-gap: 20px; row-gap: 25px; flex: none; width: 100%; }
-    .process-col .process-card { flex: 0 0 calc(50% - 10px); }
+    /* Process — 2 kartice po redu na tabletu */
+    .process-grid { grid-template-columns: repeat(2, 1fr); column-gap: 20px; row-gap: 25px; width: 100%; }
 
     /* Improve — 4 od 8 kolona: 2+1 raspored */
     .improve-grid { display: flex; flex-wrap: wrap; gap: 20px; }
@@ -1499,10 +1553,8 @@ a.work-badge:hover { color: var(--secondary); }
     .work-card { flex: 0 0 100%; height: auto; }
     .work-card-body { flex: none; height: auto; overflow: visible; }
 
-    /* Process — 4 kolone = puna sirina */
-    .process-grid { gap: 25px; }
-    .process-col { row-gap: 25px; }
-    .process-col .process-card { flex: 0 0 100%; }
+    /* Process — 1 kartica po redu na mobilnom */
+    .process-grid { grid-template-columns: 1fr; gap: 25px; }
 
     /* Improve — svaka lista puna sirina */
     .improve-col { flex: 0 0 100%; }

@@ -50,7 +50,7 @@
 
                     <div class="nav-right">
                         @{
-                            var qNavToken = ViewBag.QuestionnaireToken as string ?? Context.Request.Cookies["q_ref"];
+                            var qNavToken = ViewBag.QuestionnaireToken as string;
                         }
                         @if (!string.IsNullOrEmpty(qNavToken))
                         {
