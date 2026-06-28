@@ -47,7 +47,6 @@
         var track = root.querySelector("[data-track]");
         var prevBtn = root.querySelector("[data-prev]");
         var nextBtn = root.querySelector("[data-next]");
-        var dotsWrap = document.querySelector("[data-dots]");
         if (!track) return;
 
         var realCards = Array.prototype.slice.call(track.children);
@@ -97,7 +96,6 @@
             if (index >= 2 * n) { index -= n; setPos(index, false); }
             if (index < n)      { index += n; setPos(index, false); }
             busy = false;
-            updateDots();
         });
 
         function navigate(dir) {
@@ -105,47 +103,24 @@
             busy = true;
             index += dir;
             setPos(index, true);
-            updateDots();
-        }
-
-        function buildDots() {
-            if (!dotsWrap) return;
-            dotsWrap.innerHTML = "";
-            if (perView() >= n) return;
-            for (var i = 0; i < n; i++) {
-                var dot = document.createElement("button");
-                dot.className = "dot";
-                dot.setAttribute("aria-label", "Slide " + (i + 1));
-                (function (i) {
-                    dot.addEventListener("click", function () {
-                        if (busy) return;
-                        busy = true;
-                        index = n + i;
-                        setPos(index, true);
-                        updateDots();
-                    });
-                })(i);
-                dotsWrap.appendChild(dot);
-            }
-        }
-
-        function updateDots() {
-            if (!dotsWrap) return;
-            var dots = dotsWrap.querySelectorAll(".dot");
-            var ri = ((index - n) % n + n) % n;
-            dots.forEach(function (d, i) { d.classList.toggle("active", i === ri); });
         }
 
         if (prevBtn) prevBtn.addEventListener("click", function () { navigate(-1); });
         if (nextBtn) nextBtn.addEventListener("click", function () { navigate(1); });
 
+        var touchStartX = 0;
+        track.addEventListener("touchstart", function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener("touchend", function (e) {
+            var diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) navigate(diff > 0 ? 1 : -1);
+        });
+
         var resizeTimer;
         window.addEventListener("resize", function () {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () { buildDots(); setPos(index, false); }, 150);
+            resizeTimer = setTimeout(function () { setPos(index, false); }, 150);
         });
 
-        buildDots();
         setPos(index, false);
     }
 

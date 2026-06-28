@@ -20,7 +20,7 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; overflow-x: hidden; }
 
 body {
     margin: 0;
@@ -553,16 +553,13 @@ a.work-badge:hover { color: var(--secondary); }
     border-radius: 4px;
 }
 
-.carousel-controls {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 14px;
-}
-.carousel-controls .carousel-dots { flex: 1; margin-top: 0; }
+.work-carousel { position: relative; }
 
 .carousel-btn {
-    flex: 0 0 auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -577,25 +574,11 @@ a.work-badge:hover { color: var(--secondary); }
     cursor: pointer;
     transition: all 0.2s ease;
 }
-.carousel-btn:hover { background: var(--accent); color: var(--secondary); transform: scale(1.04); box-shadow: 0 0 12px rgba(21, 110, 246, 0.40); }
+.carousel-btn.prev { left: -18px; }
+.carousel-btn.next { right: -18px; }
+.carousel-btn:hover { background: var(--accent); color: var(--secondary); transform: translateY(-50%) scale(1.04); box-shadow: 0 0 12px rgba(21, 110, 246, 0.40); }
 .carousel-btn:disabled { opacity: 0.35; cursor: default; }
-.carousel-btn:disabled:hover { background: var(--surface); color: var(--secondary); border-color: var(--border); }
-
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 30px;
-}
-.carousel-dots .dot {
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: var(--surface-2);
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-.carousel-dots .dot.active { background: var(--accent); width: 26px; border-radius: 5px; }
+.carousel-btn:disabled:hover { background: var(--surface); color: var(--secondary); border-color: var(--border); transform: translateY(-50%); }
 
 /* ── ABOUT — Figma 1440×748 scena ────────────────────────────────────────── */
 .about {
@@ -654,22 +637,15 @@ a.work-badge:hover { color: var(--secondary); }
 }
 .ab-go {
     left: 143px; top: 208px;
-    width: 36px; height: 36px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(221, 230, 245, 0.1);
-    border: 2px solid var(--surface-2);
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--secondary);
+    border: none;
+    padding: 4px 10px;
     z-index: 6;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    transform: rotate(-30deg);
+    transition: box-shadow 0.25s ease, filter 0.25s ease;
 }
-.ab-go img { width: 100%; height: 100%; position: relative; z-index: 1; }
-.ab-go::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(3, 14, 31, 0.6);
-    z-index: 2;
-}
-.ab-go:hover { transform: scale(1.04); box-shadow: 0 0 12px rgba(21, 110, 246, 0.40); }
+.ab-go span { display: inline-block; font-size: 14px; font-weight: 700; color: var(--primary); white-space: nowrap; }
 .ab-linkedin {
     left: 180px; top: 534px;
     width: 102px; height: 102px;
@@ -724,7 +700,8 @@ a.work-badge:hover { color: var(--secondary); }
 .ab-highlights { display: flex; flex-direction: column; width: 417px; margin: 0 0 64px; }
 .ab-hl { font-size: 24px; font-weight: 700; line-height: 1.5; color: var(--accent); }
 .ab-hl:not(:last-child) {
-    padding-bottom: 24px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
     border-bottom: 1px solid var(--surface);
 }
 .ab-hl:last-child { color: var(--secondary); }
@@ -805,7 +782,6 @@ a.work-badge:hover { color: var(--secondary); }
     border: none;
     border-radius: 4px;
     padding: 30px 16px 16px 16px;
-    align-self: start;
     transition: transform 0.25s ease, border-color 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
 }
 /* Opcioni koraci (8, 9, 11): gradient border maska koja se klipuje na primary */
@@ -968,15 +944,16 @@ a.work-badge:hover { color: var(--secondary); }
 .improve-toggle.open .toggle-icon { background-image: url("../images/icons/close.png"); }
 
 .improve-body { width: 416px; background: var(--surface); }
-.check-group { margin: 0 0 20px 12px; padding: 0; }
+.check-group { margin: 0 0 12px 24px; padding: 0; }
 .improve-body .check-group:first-child { margin-top: 8px; }
+.check-group:not(:first-child) { border-top: 1px solid var(--border); padding-top: 12px; }
 .check-group-title {
     color: var(--secondary);
     font-size: 14px;
     font-weight: 700;
     text-transform: capitalize;
     line-height: 1;
-    margin: 0 0 12px 12px;
+    margin: 0 0 12px 0;
 }
 .check-item {
     display: flex;
@@ -1211,7 +1188,8 @@ a.work-badge:hover { color: var(--secondary); }
         padding: 18px;
     }
     .nav-links { flex-direction: column; align-items: center; gap: 8px; margin-left: 0; margin-bottom: 14px; }
-    .nav-right { flex-direction: column; align-items: center; gap: 12px; }
+    .nav-links .nav-link { text-align: center; }
+    .nav-right { flex-direction: column; align-items: center; gap: 12px; margin-left: 0; }
     .nav-questionnaire { width: 100%; text-align: center; }
     .nav-cta { width: 50%; }
     .lang-dropdown { align-self: center; }
@@ -1325,7 +1303,7 @@ a.work-badge:hover { color: var(--secondary); }
     .ab-ring-2 { left: 50%; top: 50%; width: 478px; height: 478px; transform: translate(-50%, -50%); }
     .ab-ring-1 { left: 50%; top: 50%; width: 430px; height: 430px; transform: translate(-50%, -50%); }
     .ab-photo { left: 50%; top: 50%; width: 383px; height: 383px; transform: translate(-50%, -50%); }
-    .ab-go { left: calc(50% - 229px); top: calc(50% - 134px); width: 38px; height: 38px; }
+    .ab-go { left: calc(50% - 229px); top: calc(50% - 134px); }
     .ab-linkedin { left: calc(50% - 194px); top: calc(50% + 123px); width: 79px; height: 79px; }
     .ab-li-rect { width: 49px; height: 49px; }
     .ab-li-sign { width: 37px; height: 37px; }
@@ -1369,7 +1347,7 @@ a.work-badge:hover { color: var(--secondary); }
 
     /* Process — 4 od 8 kolona = 2 po redu po koloni */
     .process-grid { flex-direction: column; gap: 20px; width: 100%; }
-    .process-col { flex-direction: row; flex-wrap: wrap; column-gap: 20px; row-gap: 20px; flex: none; width: 100%; }
+    .process-col { flex-direction: row; flex-wrap: wrap; column-gap: 20px; row-gap: 25px; flex: none; width: 100%; }
     .process-col .process-card { flex: 0 0 calc(50% - 10px); }
 
     /* Improve — 4 od 8 kolona: 2+1 raspored */
@@ -1497,7 +1475,7 @@ a.work-badge:hover { color: var(--secondary); }
     .ab-ring-2 { width: 309px; height: 309px; }
     .ab-ring-1 { width: 278px; height: 278px; }
     .ab-photo { width: 248px; height: 248px; }
-    .ab-go { left: calc(50% - 150px); top: calc(50% - 89px); width: 30px; height: 30px; }
+    .ab-go { left: calc(50% - 150px); top: calc(50% - 89px); }
     .ab-linkedin { left: calc(50% - 127px); top: calc(50% + 79px); width: 51px; height: 51px; }
     .ab-li-rect { width: 31px; height: 31px; }
     .ab-li-sign { width: 24px; height: 24px; }
@@ -1540,6 +1518,12 @@ a.work-badge:hover { color: var(--secondary); }
     /* Nav — hamburger meni raspored mobilni */
     .nav-links { margin-bottom: 16px; }
     .nav-cta { width: 50%; }
+
+    /* Footer — centrirano */
+    .footer-brand { display: none; }
+    .footer-top { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 17px; }
+    .footer-nav { justify-content: center; }
+    .footer-social { flex: 0 0 100%; justify-content: center; }
 }
 
 /* ── QUESTIONNAIRE ────────────────────────────────────────────────────────── */

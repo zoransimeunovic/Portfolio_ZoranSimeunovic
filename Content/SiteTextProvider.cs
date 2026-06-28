@@ -25,7 +25,7 @@ public static class SiteTextProvider
             Subtitle2 = "Let's build it together.",
             ContactMe = "CONTACT ME",
             MyWork = "MY WORK",
-            ProjectsCount = "5+ WEB AND DESKTOP PROJECTS",
+            ProjectsCount = "5+ WEB AND DESKTOP CUSTOMERS",
             Name = "Zoran Simeunović"
         },
         Work = new WorkSection
@@ -213,7 +213,7 @@ public static class SiteTextProvider
             Subtitle2 = "Lassen Sie ihn uns gemeinsam aufbauen.",
             ContactMe = "KONTAKT",
             MyWork = "MEINE ARBEIT",
-            ProjectsCount = "5+ WEB- UND DESKTOP-PROJEKTE",
+            ProjectsCount = "5+ WEB- UND DESKTOP-KUNDEN",
             Name = "Zoran Simeunović"
         },
         Work = new WorkSection
@@ -401,7 +401,7 @@ public static class SiteTextProvider
             Subtitle2 = "Hajde da ga napravimo zajedno.",
             ContactMe = "KONTAKT",
             MyWork = "MOJI RADOVI",
-            ProjectsCount = "5+ WEB I DESKTOP PROJEKATA",
+            ProjectsCount = "5+ WEB I DESKTOP KLIJENATA",
             Name = "Zoran Simeunović"
         },
         Work = new WorkSection

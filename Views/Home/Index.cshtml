@@ -62,6 +62,7 @@
         </div>
 
         <div class="work-carousel" data-carousel>
+            <button class="carousel-btn prev" data-prev aria-label="@Model.Work.PrevLabel">&#8249;</button>
             <div class="carousel-viewport">
                 <div class="carousel-track" data-track>
                     @foreach (var card in Model.Work.Cards)
@@ -101,12 +102,7 @@
                     }
                 </div>
             </div>
-
-            <div class="carousel-controls">
-                <button class="carousel-btn prev" data-prev aria-label="@Model.Work.PrevLabel">&#8249;</button>
-                <div class="carousel-dots" data-dots></div>
-                <button class="carousel-btn next" data-next aria-label="@Model.Work.NextLabel">&#8250;</button>
-            </div>
+            <button class="carousel-btn next" data-next aria-label="@Model.Work.NextLabel">&#8250;</button>
         </div>
     </div>
 </section>
@@ -120,8 +116,8 @@
             <span class="ab-ring ab-ring-2"></span>
             <span class="ab-ring ab-ring-1"></span>
             <div class="ab-photo"><img src="~/images/profile.webp" alt="" /></div>
-            <a class="ab-go" href="https://europeangodatabase.eu/EGD/Player_Card.php?&key=10350087" target="_blank" rel="noopener" title="@Model.About.GoPlayer" aria-label="@Model.About.GoPlayer">
-                <img src="~/images/icons/go-game.webp" alt="" />
+            <a class="ab-go" href="https://europeangodatabase.eu/EGD/Player_Card.php?&key=10350087" target="_blank" rel="noopener" aria-label="@Model.About.GoPlayer">
+                <span>Go Player</span>
             </a>
             <a class="ab-linkedin" href="https://www.linkedin.com/in/zoran-simeunovic-3749b991" target="_blank" rel="noopener" aria-label="LinkedIn">
                 <img class="ab-li-rect" src="~/images/icons/Vector_LinekdIn.png" alt="" aria-hidden="true" />
