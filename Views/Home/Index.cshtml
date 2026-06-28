@@ -143,7 +143,11 @@
 
             <div class="ab-actions">
                 <a href="#contact" class="ab-btn-primary">@Model.About.ContactMe</a>
-                <a href="~/files/Lebenslauf_ZoranSimeunovic.pdf" download class="ab-btn-secondary">
+                @{
+                    var cvFile = Model.Culture.StartsWith("de") ? "Lebenslauf_Zoran Simeunovic.pdf" : "CV_Zoran Simeunovic.pdf";
+                    var cvHref = Url.Content("~/files/" + cvFile).Replace(" ", "%20");
+                }
+                <a href="@cvHref" download class="ab-btn-secondary">
                     <img src="~/images/icons/download-cv.png" alt="" /> @Model.About.DownloadCv
                 </a>
             </div>
