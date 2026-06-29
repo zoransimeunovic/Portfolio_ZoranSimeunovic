@@ -233,6 +233,11 @@ public class QuestionnaireText
     public string OptOutConfirmMsg { get; set; } = "";
     public string OptOutDoneHtml { get; set; } = "";
     public string OptOutError { get; set; } = "";
+    public string PagesUnderLimitMsg { get; set; } = "";
+    public string PagesOverLimitMsg { get; set; } = "";
+    public string PagesModalContinue { get; set; } = "";
+    public string PagesModalChange { get; set; } = "";
+    public string SalesRequiredMsg { get; set; } = "";
 
     public QStep1Text S1 { get; set; } = new();
     public QStep2Text S2 { get; set; } = new();
@@ -262,6 +267,7 @@ public class QStep2Text
     public string Title { get; set; } = "";
     public string NeedWhatLabel { get; set; } = "";
     public string[] WebsiteTypeOptions { get; set; } = [];
+    public string ResponsiveLabel { get; set; } = "";
     public string WebsiteTypeOtherPlaceholder { get; set; } = "";
     public string ExistingUrlLabel { get; set; } = "";
     public string ExistingUrlPlaceholder { get; set; } = "";
@@ -280,6 +286,10 @@ public class QStep2Text
     public string[] CommOptions { get; set; } = [];
     public string GrowthHeader { get; set; } = "";
     public string[] GrowthOptions { get; set; } = [];
+    public string MultilingualPlaceholder { get; set; } = "";
+    public string MultilingualExtraPlaceholder { get; set; } = "";
+    public string OnlinePaymentPlaceholder { get; set; } = "";
+    public string ReviewsPlatformPlaceholder { get; set; } = "";
     public string ExtrasOtherPlaceholder { get; set; } = "";
 }
 

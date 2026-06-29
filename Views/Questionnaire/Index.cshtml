@@ -9,6 +9,19 @@
     var stage = (int)ViewBag.Stage;
     var packageName = ViewBag.PackageName as string;
     var uploadedFiles = (ViewBag.Files as List<Portfolio_ZoranSimeunovic.Models.QuestionnaireFile>) ?? new();
+    int packageIndex = 0;
+    if (!string.IsNullOrEmpty(packageName))
+    {
+        foreach (var lang in new[] { "en", "de", "sr-Latn" })
+        {
+            var st = SiteTextProvider.Get(lang);
+            for (int pi = 0; pi < st.Pricing.Cards.Count; pi++)
+            {
+                if (st.Pricing.Cards[pi].Name == packageName) { packageIndex = pi + 1; break; }
+            }
+            if (packageIndex > 0) break;
+        }
+    }
 }
 
 <div class="q-page">
@@ -107,6 +120,10 @@
                     </div>
                 </div>
 
+                <div class="q-field">
+                    <label class="q-check-label"><input type="checkbox" name="responsive" value="responsive" /> @Q.S2.ResponsiveLabel</label>
+                </div>
+
                 <!-- Kondicionalno: samo za Redizajn -->
                 <div id="redizajnWrap" style="display:none" class="q-conditional">
                     <div class="q-field">
@@ -178,7 +195,29 @@
                     <div class="q-check-group">
                         @for (int i = 0; i < Q.S2.GrowthOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="extras" value="extrasGrowth_@i" /> @Q.S2.GrowthOptions[i]</label>
+                            var isMultilingual = i == 3;
+                            var isOnlinePayment = i == 4;
+                            var isReviews = i == 5;
+                            <label class="q-check-label"><input type="checkbox" name="extras" value="extrasGrowth_@i" @Html.Raw(isMultilingual ? "class=\"q-trigger-other\" data-other=\"multilingualGroup\"" : isOnlinePayment ? "class=\"q-trigger-other\" data-other=\"onlinePaymentDetail\"" : isReviews ? "class=\"q-trigger-other\" data-other=\"reviewsPlatform\"" : "") /> @Q.S2.GrowthOptions[i]</label>
+                            @if (isMultilingual)
+                            {
+                                <div id="multilingualGroup" class="q-other-input" style="display:none">
+                                    <textarea name="multilingualDetail" class="q-input" rows="2" placeholder="@Q.S2.MultilingualPlaceholder"></textarea>
+                                    <textarea name="multilingualExtra" class="q-input" rows="2" placeholder="@Q.S2.MultilingualExtraPlaceholder" style="margin-top:6px"></textarea>
+                                </div>
+                            }
+                            @if (isOnlinePayment)
+                            {
+                                <textarea name="onlinePaymentDetail" class="q-input q-other-input" rows="2" placeholder="@Q.S2.OnlinePaymentPlaceholder" style="display:none"></textarea>
+                            }
+                            @if (isReviews)
+                            {
+                                <select name="reviewsPlatform" class="q-input q-other-input" style="display:none">
+                                    <option value="">@Q.S2.ReviewsPlatformPlaceholder</option>
+                                    <option value="Google">Google</option>
+                                    <option value="Trustpilot">Trustpilot</option>
+                                </select>
+                            }
                         }
                         <label class="q-check-label"><input type="checkbox" name="extras" value="extras_other" class="q-trigger-other" data-other="extrasOther" /> @Q.OtherOption</label>
                         <textarea name="extrasOther" class="q-input q-other-input" rows="2" placeholder="@Q.S2.ExtrasOtherPlaceholder" style="display:none"></textarea>
@@ -225,6 +264,12 @@
                 </div>
 
                 <div class="q-field q-app-guarded">
+                    <div class="q-check-group">
+                        <label class="q-check-label"><input type="checkbox" name="automation" value="automation_3" data-admin-panel /> @Q.S3.AutoOptions[3]</label>
+                    </div>
+                </div>
+
+                <div class="q-field q-app-guarded">
                     <label class="q-label">@Q.S3.CommLabel</label>
                     <div class="q-check-group">
                         @for (int i = 0; i < Q.S3.CommOptions.Length; i++)
@@ -249,7 +294,18 @@
                     <div class="q-check-group">
                         @for (int i = 0; i < Q.S3.AutoOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="automation" value="automation_@i" @(i == 3 ? "data-admin-panel" : i == 4 ? "data-admin-guarded" : "") /> @Q.S3.AutoOptions[i]</label>
+                            if (i == 3) continue;
+                            var isMs365 = i == 2;
+                            <label class="q-check-label"><input type="checkbox" name="automation" value="automation_@i" @Html.Raw(isMs365 ? "class=\"q-trigger-other\" data-other=\"ms365Group\"" : i == 4 ? "data-admin-guarded" : "") /> @Q.S3.AutoOptions[i]</label>
+                            @if (isMs365)
+                            {
+                                <div id="ms365Group" class="q-other-input" style="display:none;padding-left:20px;margin-top:4px">
+                                    @foreach (var app in new[] { "Outlook", "Teams", "Calendar", "OneDrive" })
+                                    {
+                                        <label class="q-check-label"><input type="checkbox" name="ms365" value="@app" /> @app</label>
+                                    }
+                                </div>
+                            }
                         }
                     </div>
                 </div>
@@ -622,6 +678,16 @@
     </div>
 </div>
 
+<div id="pagesModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;max-width:420px;width:90%;margin:auto">
+        <p id="pagesModalText" style="color:var(--secondary);margin:0 0 24px;line-height:1.6"></p>
+        <div style="display:flex;gap:12px;justify-content:flex-end">
+            <button id="pagesModalChange" class="q-btn q-btn--back" type="button"></button>
+            <button id="pagesModalContinue" class="q-btn q-btn--next" type="button"></button>
+        </div>
+    </div>
+</div>
+
 @section Styles {
     <style>
         .q-warranty-block { margin-top: 32px; padding: 16px 20px; border: 1px solid var(--accent); border-radius: 8px; color: var(--muted); font-size: 14px; line-height: 1.6; }
@@ -658,6 +724,7 @@
             step4: @Html.Raw((string)ViewBag.Step4 ?? "null"),
             step5: @Html.Raw((string)ViewBag.Step5 ?? "null")
         };
+        window.QPackage = @packageIndex;
         window.QText = @Html.Raw(JsonSerializer.Serialize(new
         {
             progressPattern = Q.ProgressPattern,
@@ -672,7 +739,12 @@
             packageName = packageName ?? "",
             packagePriceWarning = Q.PackagePriceWarning,
             packagePriceWarningConfirm = Q.PackagePriceWarningConfirm,
-            packagePriceWarningCancel = Q.PackagePriceWarningCancel
+            packagePriceWarningCancel = Q.PackagePriceWarningCancel,
+            pagesUnderLimit = Q.PagesUnderLimitMsg,
+            pagesOverLimit = Q.PagesOverLimitMsg,
+            pagesModalContinue = Q.PagesModalContinue,
+            pagesModalChange = Q.PagesModalChange,
+            salesRequired = Q.SalesRequiredMsg
         }));
     </script>
     <script src="~/js/questionnaire.js" asp-append-version="true"></script>

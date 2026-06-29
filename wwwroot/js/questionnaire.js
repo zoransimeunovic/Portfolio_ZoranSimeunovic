@@ -13,14 +13,15 @@
         initAutoSave();
         initStepper();
         initPriceWarning();
+        initPackagePreFill();
         restoreProgress();
     });
 
     /* ---------- STEP NAVIGATION ---------- */
     window.nextStep = function (step) {
         if (!validateStep(step)) return;
-        saveStep(step, function () {
-            showStep(step + 1);
+        checkStepBeforeNext(step, function () {
+            saveStep(step, function () { showStep(step + 1); });
         });
     };
 
@@ -93,7 +94,53 @@
                 return false;
             }
         }
+        if (step === 3 && window.QPackage === 5) {
+            var s0 = document.querySelector('[name="salesBooking"][value="salesBooking_0"]');
+            var s1 = document.querySelector('[name="salesBooking"][value="salesBooking_1"]');
+            if ((!s0 || !s0.checked) && (!s1 || !s1.checked)) {
+                var anchor = s0 || s1;
+                if (anchor) showError(anchor, window.QText.salesRequired);
+                return false;
+            }
+        }
         return true;
+    }
+
+    function checkStepBeforeNext(step, onContinue) {
+        if (step !== 2 || !window.QPackage) { onContinue(); return; }
+        var limits = { 2: 5, 3: 8, 4: 5, 5: 5, 6: 8 };
+        var limit = limits[window.QPackage];
+        if (!limit) { onContinue(); return; }
+        var count = Array.from(document.querySelectorAll('[name="pages"]:checked')).filter(function (el) {
+            return el.offsetParent !== null;
+        }).length;
+        if (count === limit) { onContinue(); return; }
+        var diff = limit - count;
+        var msg = diff > 0
+            ? window.QText.pagesUnderLimit.replace("{0}", diff)
+            : window.QText.pagesOverLimit.replace("{0}", -diff);
+        showPagesModal(msg, onContinue);
+    }
+
+    function showPagesModal(msg, onContinue) {
+        var modal = document.getElementById("pagesModal");
+        var textEl = document.getElementById("pagesModalText");
+        var confirmBtn = document.getElementById("pagesModalContinue");
+        var cancelBtn = document.getElementById("pagesModalChange");
+        if (!modal) { onContinue(); return; }
+        textEl.textContent = msg;
+        confirmBtn.textContent = window.QText.pagesModalContinue;
+        cancelBtn.textContent = window.QText.pagesModalChange;
+        modal.style.display = "flex";
+        function onConfirm() { cleanup(); onContinue(); }
+        function onCancel() { cleanup(); }
+        function cleanup() {
+            modal.style.display = "none";
+            confirmBtn.removeEventListener("click", onConfirm);
+            cancelBtn.removeEventListener("click", onCancel);
+        }
+        confirmBtn.addEventListener("click", onConfirm);
+        cancelBtn.addEventListener("click", onCancel);
     }
 
     function showError(input, msg) {
@@ -214,7 +261,7 @@
             if (arr.indexOf(el.value) !== -1) {
                 el.checked = true;
                 if (el.classList.contains("q-trigger-other")) {
-                    var otherEl = stepEl.querySelector('[name="' + el.dataset.other + '"]');
+                    var otherEl = findOtherEl(el.dataset.other);
                     if (otherEl) otherEl.style.display = "block";
                 }
             }
@@ -225,7 +272,7 @@
             if (el.value === answers[el.name]) {
                 el.checked = true;
                 if (el.classList.contains("q-trigger-other")) {
-                    var otherEl = stepEl.querySelector('[name="' + el.dataset.other + '"]');
+                    var otherEl = findOtherEl(el.dataset.other);
                     if (otherEl) otherEl.style.display = "block";
                 }
                 if (el.classList.contains("q-trigger-show")) {
@@ -245,7 +292,7 @@
     /* ---------- PRICE WARNING ---------- */
     function initPriceWarning() {
         if (!window.QText.packageName) return;
-        var warned = false;
+        var warned = sessionStorage.getItem("priceWarningAccepted") === "1";
         var modal = document.getElementById("priceWarningModal");
         var confirmBtn = document.getElementById("priceWarningConfirm");
         var cancelBtn = document.getElementById("priceWarningCancel");
@@ -271,6 +318,7 @@
 
         confirmBtn.addEventListener("click", function () {
             warned = true;
+            sessionStorage.setItem("priceWarningAccepted", "1");
             if (pendingCb) { pendingCb(); pendingCb = null; }
             modal.style.display = "none";
         });
@@ -278,6 +326,35 @@
         cancelBtn.addEventListener("click", function () {
             pendingCb = null;
             modal.style.display = "none";
+        });
+    }
+
+    /* ---------- PACKAGE PRE-FILL ---------- */
+    function initPackagePreFill() {
+        var pkg = window.QPackage;
+        if (!pkg) return;
+        if (window.QSavedAnswers && window.QSavedAnswers.step2) return;
+
+        var presets = {
+            1: { radio: "projectType_0", checks: [["responsive","responsive"],["extras","extrasComm_0"],["extras","extrasGrowth_0"]] },
+            2: { radio: "projectType_1", checks: [["responsive","responsive"],["extras","extrasComm_0"],["extras","extrasComm_1"],["extras","extrasGrowth_0"],["extras","extrasGrowth_2"]] },
+            3: { radio: "projectType_3", checks: [["responsive","responsive"],["extras","extrasComm_0"],["extras","extrasComm_1"],["extras","extrasGrowth_0"],["extras","extrasGrowth_3"],["contentMgmt","contentMgmt_0"],["contentMgmt","contentMgmt_1"]] },
+            4: { radio: "projectType_1", checks: [["responsive","responsive"],["extras","extrasComm_0"],["extras","extrasGrowth_0"],["automation","automation_3"]] },
+            5: { radio: "projectType_1", checks: [["responsive","responsive"],["extras","extrasComm_0"],["extras","extrasGrowth_0"],["commAuto","commAuto_1"],["automation","automation_3"]] },
+            6: { radio: "projectType_3", checks: [["responsive","responsive"],["extras","extrasComm_0"],["extras","extrasGrowth_0"],["commAuto","commAuto_0"],["commAuto","commAuto_1"],["salesBooking","salesBooking_0"],["salesBooking","salesBooking_1"],["automation","automation_3"],["automation","automation_4"]] }
+        };
+
+        var preset = presets[pkg];
+        if (!preset) return;
+
+        if (preset.radio) {
+            var radio = document.querySelector('[name="projectType"][value="' + preset.radio + '"]');
+            if (radio) { radio.checked = true; updateProjectType(); }
+        }
+
+        preset.checks.forEach(function (c) {
+            var cb = document.querySelector('[name="' + c[0] + '"][value="' + c[1] + '"]');
+            if (cb) cb.checked = true;
         });
     }
 
@@ -394,12 +471,16 @@
         }
     }
 
+    function findOtherEl(id) {
+        return document.getElementById(id) || document.querySelector('[name="' + id + '"]');
+    }
+
     /* ---------- "OSTALO" TEXT TRIGGERS ---------- */
     function initOtherTriggers() {
         document.querySelectorAll(".q-trigger-other").forEach(function (el) {
             el.addEventListener("change", function () {
                 var otherId = el.dataset.other;
-                var otherEl = document.querySelector('[name="' + otherId + '"]');
+                var otherEl = findOtherEl(otherId);
                 if (otherEl) otherEl.style.display = el.checked ? "block" : "none";
             });
         });

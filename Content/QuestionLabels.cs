@@ -20,11 +20,16 @@ public static class QuestionLabels
         ["currentSiteDescOther"]     = "Opis sajta (ostalo)",
         ["wantToChange"]             = "Šta žele promijeniti",
         ["wantToChangeOther"]        = "Promjene (ostalo)",
-        ["pages"]                    = "Stranice / sekcije",
+        ["pages"]                    = "Stranice",
+        ["responsive"]               = "Responzivan dizajn",
         ["pagesOther"]               = "Stranice (ostalo)",
         ["pagesPortfolioOther"]      = "Stranice (ostalo)",
         ["extras"]                   = "Dodatne funkcionalnosti",
         ["extrasOther"]              = "Dodatno (ostalo)",
+        ["multilingualDetail"]       = "Višejezičnost - jezici u paketu",
+        ["multilingualExtra"]        = "Višejezičnost - dodatni jezici",
+        ["onlinePaymentDetail"]      = "Online plaćanje - procesori",
+        ["reviewsPlatform"]          = "Platforma za recenzije",
 
         // Korak 3
         ["appType"]                  = "Tip aplikacije",
@@ -34,6 +39,7 @@ public static class QuestionLabels
         ["commAuto"]                 = "Komunikacija i automatizacija",
         ["salesBooking"]             = "Prodaja i rezervacije",
         ["automation"]               = "Automatizacija i integracije",
+        ["ms365"]                    = "Microsoft 365 - odabrane aplikacije",
         ["contentMgmt"]              = "Upravljanje sadržajem",
         ["contentMgmtOther"]         = "Sadržaj (ostalo)",
 

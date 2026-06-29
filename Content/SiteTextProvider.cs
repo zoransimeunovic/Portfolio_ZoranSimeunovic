@@ -162,7 +162,7 @@ public static class SiteTextProvider
             Badges = new() { "Fixed price", "Warranty included" },
             BadgeRecommended = "Recommended",
             CtaHeading = "Can't find what you need?",
-            CtaText = "Request a custom quote for desktop apps, mobile apps, hosting, maintenance, or anything outside the standard packages.",
+            CtaText = "Request a custom quote for desktop apps, mobile apps, hosting, maintenance, and/or projects with many different features.",
             CtaButton = "Request a quote",
 
             WarrantyUnit = "day warranty",
@@ -172,10 +172,10 @@ public static class SiteTextProvider
             {
                 new() { Name = "Landing Page", Price = "399€", WarrantyDays = 30, Features = new() { "Single page, single goal", "Contact form", "Responsive design", "SEO basics", "GDPR implementation" } },
                 new() { Name = "Presentation Website", Price = "799€", WarrantyDays = 30, Features = new() { "Up to 5 pages", "Contact form + location map", "WhatsApp button", "Responsive design", "SEO basics", "GDPR implementation" } },
-                new() { Name = "Website with Content Management", Price = "1,199€", WarrantyDays = 30, IsRecommended = true, Features = new() { "Up to 8 pages", "Blog and gallery", "Multilingual support", "Client manages content themselves", "WhatsApp button", "SEO basics", "GDPR implementation" } },
-                new() { Name = "Website + Interactive Tool", Price = "1,599€", WarrantyDays = 60, Features = new() { "Up to 5 pages", "Calculator, configurator or form", "Admin panel", "SEO basics", "GDPR implementation" } },
-                new() { Name = "Website + Bookings / Portal", Price = "2,199€", WarrantyDays = 60, Features = new() { "Up to 5 pages", "Online bookings or client portal", "Automated email messages", "Admin panel", "SEO basics", "GDPR implementation" } },
-                new() { Name = "Web Application", Price = "2,799€", WarrantyDays = 60, Features = new() { "Up to 8 pages", "Client portal", "Online bookings and/or newsletter", "Automated email messages", "Admin panel", "Visitor statistics", "SEO basics", "GDPR implementation" } },
+                new() { Name = "Website with Content Management", Price = "1,199€", WarrantyDays = 30, IsRecommended = true, Features = new() { "Up to 8 pages", "Blog and gallery", "Multilingual support", "Client manages content themselves", "WhatsApp button", "Responsive design", "SEO basics", "GDPR implementation" } },
+                new() { Name = "Website + Interactive Tool", Price = "1,599€", WarrantyDays = 60, Features = new() { "Up to 5 pages", "Calculator, configurator or form", "Admin panel", "Responsive design", "SEO basics", "GDPR implementation" } },
+                new() { Name = "Website + Bookings / Portal", Price = "2,199€", WarrantyDays = 60, Features = new() { "Up to 5 pages", "Online bookings or client portal", "Automated email messages", "Admin panel", "Responsive design", "SEO basics", "GDPR implementation" } },
+                new() { Name = "Web Application", Price = "2,799€", WarrantyDays = 60, Features = new() { "Up to 8 pages", "Client portal", "Online bookings and/or newsletter", "Automated email messages", "Admin panel", "Visitor statistics", "Responsive design", "SEO basics", "GDPR implementation" } },
             }
         },
         Contact = new ContactSection
@@ -379,7 +379,7 @@ public static class SiteTextProvider
             Badges = new() { "Festpreis", "Gewährleistung inklusive" },
             BadgeRecommended = "Empfohlen",
             CtaHeading = "Nichts Passendes gefunden?",
-            CtaText = "Fordern Sie ein individuelles Angebot an - für Desktop-Apps, mobile Apps, Hosting, Wartung oder Projekte außerhalb der Standardpakete.",
+            CtaText = "Fordern Sie ein individuelles Angebot an - für Desktop-Apps, mobile Apps, Hosting, Wartung und/oder Projekte mit vielen verschiedenen Funktionen.",
             CtaButton = "Angebot anfragen",
 
             WarrantyUnit = "Tage Gewährleistung",
@@ -389,10 +389,10 @@ public static class SiteTextProvider
             {
                 new() { Name = "Landing Page", Price = "399€", WarrantyDays = 30, Features = new() { "Eine Seite, ein Ziel", "Kontaktformular", "Responsives Design", "SEO-Grundlagen", "DSGVO-Implementierung" } },
                 new() { Name = "Präsentations-Website", Price = "799€", WarrantyDays = 30, Features = new() { "Bis zu 5 Seiten", "Kontaktformular + Standortkarte", "WhatsApp-Schaltfläche", "Responsives Design", "SEO-Grundlagen", "DSGVO-Implementierung" } },
-                new() { Name = "Website mit Content-Verwaltung", Price = "1.199€", WarrantyDays = 30, IsRecommended = true, Features = new() { "Bis zu 8 Seiten", "Blog und Galerie", "Mehrsprachige Unterstützung", "Kunde pflegt Inhalte selbst", "WhatsApp-Schaltfläche", "SEO-Grundlagen", "DSGVO-Implementierung" } },
-                new() { Name = "Website + interaktives Tool", Price = "1.599€", WarrantyDays = 60, Features = new() { "Bis zu 5 Seiten", "Rechner, Konfigurator oder Formular", "Admin-Panel", "SEO-Grundlagen", "DSGVO-Implementierung" } },
-                new() { Name = "Website + Buchungen / Portal", Price = "2.199€", WarrantyDays = 60, Features = new() { "Bis zu 5 Seiten", "Online-Buchungen oder Kundenportal", "Automatische E-Mail-Nachrichten", "Admin-Panel", "SEO-Grundlagen", "DSGVO-Implementierung" } },
-                new() { Name = "Webanwendung", Price = "2.799€", WarrantyDays = 60, Features = new() { "Bis zu 8 Seiten", "Kundenportal", "Online-Buchungen und/oder Newsletter", "Automatische E-Mail-Nachrichten", "Admin-Panel", "Besucherstatistiken", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+                new() { Name = "Website mit Content-Verwaltung", Price = "1.199€", WarrantyDays = 30, IsRecommended = true, Features = new() { "Bis zu 8 Seiten", "Blog und Galerie", "Mehrsprachige Unterstützung", "Kunde pflegt Inhalte selbst", "WhatsApp-Schaltfläche", "Responsives Design", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+                new() { Name = "Website + interaktives Tool", Price = "1.599€", WarrantyDays = 60, Features = new() { "Bis zu 5 Seiten", "Rechner, Konfigurator oder Formular", "Admin-Panel", "Responsives Design", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+                new() { Name = "Website + Buchungen / Portal", Price = "2.199€", WarrantyDays = 60, Features = new() { "Bis zu 5 Seiten", "Online-Buchungen oder Kundenportal", "Automatische E-Mail-Nachrichten", "Admin-Panel", "Responsives Design", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+                new() { Name = "Webanwendung", Price = "2.799€", WarrantyDays = 60, Features = new() { "Bis zu 8 Seiten", "Kundenportal", "Online-Buchungen und/oder Newsletter", "Automatische E-Mail-Nachrichten", "Admin-Panel", "Besucherstatistiken", "Responsives Design", "SEO-Grundlagen", "DSGVO-Implementierung" } },
             }
         },
         Contact = new ContactSection
@@ -596,7 +596,7 @@ public static class SiteTextProvider
             Badges = new() { "Fiksna cijena", "Garantni rok uključen" },
             BadgeRecommended = "Preporučeno",
             CtaHeading = "Niste pronašli što tražite?",
-            CtaText = "Zatražite personalnu ponudu za desktop aplikaciju, mobilnu app, hosting, održavanje ili projekte van standardnih paketa.",
+            CtaText = "Zatražite personalnu ponudu za desktop aplikaciju, mobilnu app, hosting, održavanje, i/ili projekte sa mnogo različitih funkcija.",
             CtaButton = "Zatražite ponudu",
 
             WarrantyUnit = "dana garantni rok",
@@ -606,10 +606,10 @@ public static class SiteTextProvider
             {
                 new() { Name = "Landing stranica", Price = "399€", WarrantyDays = 30, Features = new() { "Jedna stranica, jedan cilj", "Kontakt forma", "Responzivan dizajn", "SEO osnove", "DSGVO implementacija" } },
                 new() { Name = "Prezentacioni sajt", Price = "799€", WarrantyDays = 30, Features = new() { "Do 5 stranica", "Kontakt forma + mapa lokacije", "WhatsApp dugme", "Responzivan dizajn", "SEO osnove", "DSGVO implementacija" } },
-                new() { Name = "Sajt koji sam uređuješ", Price = "1.199€", WarrantyDays = 30, IsRecommended = true, Features = new() { "Do 8 stranica", "Blog i galerija", "Višejezična podrška", "Klijent sam uređuje sadržaj", "WhatsApp dugme", "SEO osnove", "DSGVO implementacija" } },
-                new() { Name = "Sajt + interaktivni alat", Price = "1.599€", WarrantyDays = 60, Features = new() { "Do 5 stranica", "Kalkulator, konfigurator ili obrazac", "Admin panel", "SEO osnove", "DSGVO implementacija" } },
-                new() { Name = "Sajt + rezervacije / portal", Price = "2.199€", WarrantyDays = 60, Features = new() { "Do 5 stranica", "Online rezervacije ili klijentski portal", "Automatske email poruke", "Admin panel", "SEO osnove", "DSGVO implementacija" } },
-                new() { Name = "Web aplikacija", Price = "2.799€", WarrantyDays = 60, Features = new() { "Do 8 stranica", "Klijentski portal", "Online rezervacije i/ili newsletter", "Automatske email poruke", "Admin panel", "Statistika posjeta", "SEO osnove", "DSGVO implementacija" } },
+                new() { Name = "Sajt koji sam uređuješ", Price = "1.199€", WarrantyDays = 30, IsRecommended = true, Features = new() { "Do 8 stranica", "Blog i galerija", "Višejezična podrška", "Klijent sam uređuje sadržaj", "WhatsApp dugme", "Responzivan dizajn", "SEO osnove", "DSGVO implementacija" } },
+                new() { Name = "Sajt + interaktivni alat", Price = "1.599€", WarrantyDays = 60, Features = new() { "Do 5 stranica", "Kalkulator, konfigurator ili obrazac", "Admin panel", "Responzivan dizajn", "SEO osnove", "DSGVO implementacija" } },
+                new() { Name = "Sajt + rezervacije / portal", Price = "2.199€", WarrantyDays = 60, Features = new() { "Do 5 stranica", "Online rezervacije ili klijentski portal", "Automatske email poruke", "Admin panel", "Responzivan dizajn", "SEO osnove", "DSGVO implementacija" } },
+                new() { Name = "Web aplikacija", Price = "2.799€", WarrantyDays = 60, Features = new() { "Do 8 stranica", "Klijentski portal", "Online rezervacije i/ili newsletter", "Automatske email poruke", "Admin panel", "Statistika posjeta", "Responzivan dizajn", "SEO osnove", "DSGVO implementacija" } },
             }
         },
         Contact = new ContactSection
@@ -695,6 +695,11 @@ public static class SiteTextProvider
         OptOutConfirmMsg = "Are you sure you want to unsubscribe?\n\nThis will result in the deletion of your answers and contact information.",
         OptOutDoneHtml = "Your data has been successfully deleted.",
         OptOutError = "Error sending request. Please try again.",
+        PagesUnderLimitMsg = "You can still add {0} more page(s) included in your package. Continue or go back to add more.",
+        PagesOverLimitMsg = "You selected {0} page(s) more than included in your package, which may affect the price. Continue or go back to reduce your selection.",
+        PagesModalContinue = "Continue",
+        PagesModalChange = "Change selection",
+        SalesRequiredMsg = "Please select online bookings or client portal.",
         S1 = new QStep1Text
         {
             Title = "About your business",
@@ -714,6 +719,7 @@ public static class SiteTextProvider
         {
             Title = "Website",
             NeedWhatLabel = "What are you looking for?",
+            ResponsiveLabel = "Responsive design - adapted for desktop, tablet and mobile",
             WebsiteTypeOptions = ["Landing page", "Presentation website", "Portfolio website", "Website with gallery / blog", "Product or service catalogue", "Redesign of existing website"],
             WebsiteTypeOtherPlaceholder = "Describe what you need",
             ExistingUrlLabel = "URL of your existing website",
@@ -724,15 +730,19 @@ public static class SiteTextProvider
             WantToChangeLabel = "What do you want to change?",
             WantToChangeOptions = ["Visual appearance", "Structure and navigation", "Content and texts", "Speed and performance", "Mobile version"],
             WantToChangeOtherPlaceholder = "Describe",
-            PagesLabel = "Which pages / sections do you need?",
-            PagesOptions = ["Home page", "About us", "Services / Products", "Pricing", "Blog / News", "Gallery / Portfolio", "Online shop", "Contact", "FAQ"],
+            PagesLabel = "Which pages do you need?",
+            PagesOptions = ["Home page", "About us", "Services / Products", "Pricing", "Gallery / Portfolio", "Contact", "FAQ", "Team", "Careers", "Reviews - changes via support and maintenance"],
             PagesPortfolioOptions = ["About us", "Works / Portfolio", "Contact", "Blog / News"],
             PagesOtherPlaceholder = "Which pages?",
             ExtrasLabel = "Do you need any of the following?",
             CommHeader = "Contact",
-            CommOptions = ["Contact form - clients contact you directly from your website", "WhatsApp button - clients contact you directly via WhatsApp", "Chatbot - automated chat assistant on your website (personal offer)"],
+            CommOptions = ["Contact form - clients contact you directly from your website", "WhatsApp button - clients contact you directly via WhatsApp", "Chatbot - automated chat assistant on your website"],
             GrowthHeader = "Visibility & growth",
-            GrowthOptions = ["SEO basics - so clients find you more easily on Google", "SEO advanced optimization - keyword research, content strategy, link building", "Google Maps integration - show your company location on the map", "Multilingual support - website available in multiple languages", "Online payment (Stripe, PayPal) - accept payments on your website (personal offer)"],
+            GrowthOptions = ["SEO basics - so clients find you more easily on Google", "SEO advanced optimization - keyword research, content strategy, link building", "Google Maps integration - show your company location on the map", "Multilingual support (max. 3 languages)", "Online payment", "Google or Trustpilot reviews - automatic display of ratings from the platform"],
+            MultilingualPlaceholder = "E.g. German, English, Swedish...",
+            MultilingualExtraPlaceholder = "Write which additional languages you need",
+            OnlinePaymentPlaceholder = "E.g. Visa, Mastercard, American Express, PayPal, Klarna, Apple Pay...",
+            ReviewsPlatformPlaceholder = "Select platform",
             ExtrasOtherPlaceholder = "What else do you need?"
         },
         S3 = new QStep3Text
@@ -750,11 +760,11 @@ public static class SiteTextProvider
             CommLabel = "Communication & automation",
             CommOptions = ["Newsletter - regularly inform clients about news and offers", "Automated emails - reminders, confirmations, welcome messages, birthday and anniversary greetings, absence notifications"],
             SalesLabel = "Sales & bookings",
-            SalesOptions = ["Online bookings - clients schedule appointments themselves, without phone calls", "Client portal - clients log in and view their data, orders or documents", "E-commerce / online shop - sell products or services directly online"],
+            SalesOptions = ["Online bookings - clients schedule appointments themselves, without phone calls", "Client portal - clients log in and view their data, orders or documents", "Online shop - sell products or services directly online"],
             AutoLabel = "Automation & integrations",
             AutoOptions = ["Reduce phone calls and inquiries - the system works for you", "Save time on repetitive tasks - data entry, order tracking, report generation", "Microsoft 365 integration - connect your site with Outlook, Teams, Calendar, OneDrive", "Admin panel for managing data and users - everything in one place", "Analytics dashboard - view visitor count, traffic sources and user behaviour within your site"],
             ContentMgmtLabel = "Content management",
-            ContentMgmtOptions = ["I want to update texts and images myself - without technical knowledge", "Blog / news section - add and publish articles and news yourself"],
+            ContentMgmtOptions = ["I want to update texts and images myself - without technical knowledge", "Blog - add and publish articles yourself", "News section - publish news and updates yourself"],
             ContentMgmtOtherPlaceholder = "What else?"
         },
         S4 = new QStep4Text
@@ -825,7 +835,7 @@ public static class SiteTextProvider
             DeadlineYes = "Yes → When?",
             DeadlineNo = "No fixed deadline",
             SupportLabel = "Are you interested in maintenance and support after the project?",
-            SupportOptions = ["Hosting - your website on a reliable server", "SSL certificate - secure connection", "Regular backups - your data automatically saved daily", "Security updates - protection against attacks", "Minor content changes - updating texts, images and prices", "Technical support"],
+            SupportOptions = ["Hosting - your website on a reliable server", "SSL certificate - secure connection", "Regular backups - your data automatically saved daily", "Security updates - protection against attacks", "Minor content changes - updating texts, images, prices and reviews", "Technical support"],
             SupportOtherPlaceholder = "What else?",
             HeardFromLabel = "How did you hear about me?",
             HeardFromOptions = ["Friend / colleague recommendation", "Google search", "LinkedIn", "Xing", "Instagram", "Facebook"],
@@ -870,6 +880,11 @@ public static class SiteTextProvider
         OptOutConfirmMsg = "Sind Sie sicher, dass Sie sich abmelden möchten?\n\nDadurch werden Ihre bisherigen Antworten und Kontaktdaten gelöscht.",
         OptOutDoneHtml = "Ihre Daten wurden erfolgreich gelöscht.",
         OptOutError = "Fehler beim Senden der Anfrage. Bitte erneut versuchen.",
+        PagesUnderLimitMsg = "Sie können noch {0} Seite(n) aus Ihrem Paket hinzufügen. Weiter oder zurückgehen, um mehr hinzuzufügen.",
+        PagesOverLimitMsg = "Sie haben {0} Seite(n) mehr als im Paket enthalten ausgewählt, was den Preis beeinflussen kann. Weiter oder zurückgehen, um die Auswahl zu reduzieren.",
+        PagesModalContinue = "Weiter",
+        PagesModalChange = "Auswahl ändern",
+        SalesRequiredMsg = "Bitte wählen Sie Online-Buchungen oder Kundenportal.",
         S1 = new QStep1Text
         {
             Title = "Über Ihr Unternehmen",
@@ -889,6 +904,7 @@ public static class SiteTextProvider
         {
             Title = "Website",
             NeedWhatLabel = "Was suchen Sie?",
+            ResponsiveLabel = "Responsives Design - angepasst für Desktop, Tablet und Mobilgerät",
             WebsiteTypeOptions = ["Landing Page", "Präsentationswebsite", "Portfolio-Website", "Website mit Galerie / Blog", "Produkt- oder Dienstleistungskatalog", "Redesign einer bestehenden Website"],
             WebsiteTypeOtherPlaceholder = "Beschreiben Sie, was Sie benötigen",
             ExistingUrlLabel = "URL Ihrer bestehenden Website",
@@ -899,15 +915,19 @@ public static class SiteTextProvider
             WantToChangeLabel = "Was möchten Sie ändern?",
             WantToChangeOptions = ["Visuelles Erscheinungsbild", "Struktur und Navigation", "Inhalte und Texte", "Geschwindigkeit und Performance", "Mobile Version"],
             WantToChangeOtherPlaceholder = "Beschreiben",
-            PagesLabel = "Welche Seiten / Bereiche benötigen Sie?",
-            PagesOptions = ["Startseite", "Über uns", "Dienstleistungen / Produkte", "Preisliste", "Blog / Neuigkeiten", "Galerie / Portfolio", "Online-Shop", "Kontakt", "FAQ"],
+            PagesLabel = "Welche Seiten benötigen Sie?",
+            PagesOptions = ["Startseite", "Über uns", "Dienstleistungen / Produkte", "Preisliste", "Galerie / Portfolio", "Kontakt", "FAQ", "Team", "Karriere", "Bewertungen - Änderungen über Support und Wartung"],
             PagesPortfolioOptions = ["Über uns", "Arbeiten / Portfolio", "Kontakt", "Blog / Neuigkeiten"],
             PagesOtherPlaceholder = "Welche Seiten?",
             ExtrasLabel = "Benötigen Sie eines der Folgenden?",
             CommHeader = "Kontakt",
-            CommOptions = ["Kontaktformular - Kunden kontaktieren Sie direkt von Ihrer Website", "WhatsApp-Schaltfläche - Kunden kontaktieren Sie direkt über WhatsApp", "Chatbot - automatischer Chat-Assistent auf Ihrer Website (persönliches Angebot)"],
+            CommOptions = ["Kontaktformular - Kunden kontaktieren Sie direkt von Ihrer Website", "WhatsApp-Schaltfläche - Kunden kontaktieren Sie direkt über WhatsApp", "Chatbot - automatischer Chat-Assistent auf Ihrer Website"],
             GrowthHeader = "Sichtbarkeit & Wachstum",
-            GrowthOptions = ["SEO-Grundlagen - damit Kunden Sie leichter auf Google finden", "SEO-Erweiterte Optimierung - Keyword-Recherche, Content-Strategie, Linkaufbau", "Google Maps-Integration - zeigen Sie den Standort Ihres Unternehmens auf der Karte", "Mehrsprachige Unterstützung - Website in mehreren Sprachen für ein breiteres Publikum", "Online-Zahlung (Stripe, PayPal) - nehmen Sie Zahlungen auf Ihrer Website entgegen (persönliches Angebot)"],
+            GrowthOptions = ["SEO-Grundlagen - damit Kunden Sie leichter auf Google finden", "SEO-Erweiterte Optimierung - Keyword-Recherche, Content-Strategie, Linkaufbau", "Google Maps-Integration - zeigen Sie den Standort Ihres Unternehmens auf der Karte", "Mehrsprachige Unterstützung (max. 3 Sprachen)", "Online-Zahlung", "Google oder Trustpilot Bewertungen - automatische Anzeige von Bewertungen der Plattform"],
+            MultilingualPlaceholder = "Z.B. Deutsch, Englisch, Schwedisch...",
+            MultilingualExtraPlaceholder = "Geben Sie an, welche weiteren Sprachen Sie benötigen",
+            OnlinePaymentPlaceholder = "Z.B. Visa, Mastercard, American Express, PayPal, Klarna, Apple Pay...",
+            ReviewsPlatformPlaceholder = "Plattform auswählen",
             ExtrasOtherPlaceholder = "Was brauchen Sie noch?"
         },
         S3 = new QStep3Text
@@ -925,11 +945,11 @@ public static class SiteTextProvider
             CommLabel = "Kommunikation & Automatisierung",
             CommOptions = ["Newsletter - informieren Sie Kunden regelmäßig über Neuigkeiten und Angebote", "Automatische E-Mails - Erinnerungen, Bestätigungen, Willkommensnachrichten, Geburtstags- und Jubiläumsglückwünsche, Abwesenheitsmeldungen"],
             SalesLabel = "Verkauf & Buchungen",
-            SalesOptions = ["Online-Buchungen - Kunden vereinbaren Termine selbst, ohne Anrufe", "Kundenportal - Kunden melden sich an und sehen ihre Daten, Bestellungen oder Dokumente", "E-Commerce / Online-Shop - verkaufen Sie Produkte oder Dienstleistungen direkt online"],
+            SalesOptions = ["Online-Buchungen - Kunden vereinbaren Termine selbst, ohne Anrufe", "Kundenportal - Kunden melden sich an und sehen ihre Daten, Bestellungen oder Dokumente", "Online-Shop - verkaufen Sie Produkte oder Dienstleistungen direkt online"],
             AutoLabel = "Automatisierung & Integrationen",
             AutoOptions = ["Anzahl der Anrufe und Anfragen reduzieren - das System arbeitet für Sie", "Zeit bei Routineaufgaben sparen - Dateneingabe, Auftragsverfolgung, Berichterstellung", "Microsoft 365-Integration - verbinden Sie Ihre Website mit Outlook, Teams, Calendar, OneDrive", "Admin-Panel für Daten- und Benutzerverwaltung - alles an einem Ort", "Analytics-Dashboard - Besucherzahlen, Herkunft und Nutzerverhalten direkt auf Ihrer Website"],
             ContentMgmtLabel = "Inhaltsverwaltung",
-            ContentMgmtOptions = ["Ich möchte Texte und Bilder selbst aktualisieren - ohne technische Kenntnisse", "Blog / Neuigkeiten-Bereich - fügen Sie selbst Artikel und Neuigkeiten hinzu"],
+            ContentMgmtOptions = ["Ich möchte Texte und Bilder selbst aktualisieren - ohne technische Kenntnisse", "Blog - Artikel selbst hinzufügen und veröffentlichen", "Neuigkeiten-Bereich - Neuigkeiten und Updates selbst veröffentlichen"],
             ContentMgmtOtherPlaceholder = "Was noch?"
         },
         S4 = new QStep4Text
@@ -1000,7 +1020,7 @@ public static class SiteTextProvider
             DeadlineYes = "Ja → Wann?",
             DeadlineNo = "Kein fester Termin",
             SupportLabel = "Interessieren Sie sich für Wartung und Support nach dem Projekt?",
-            SupportOptions = ["Hosting - Ihre Website auf einem zuverlässigen Server", "SSL-Zertifikat - sichere Verbindung", "Regelmäßige Backups - Ihre Daten werden täglich automatisch gesichert", "Sicherheitsupdates - Schutz vor Angriffen", "Kleinere Inhaltsänderungen - Texte, Bilder und Preise aktualisieren", "Technischer Support"],
+            SupportOptions = ["Hosting - Ihre Website auf einem zuverlässigen Server", "SSL-Zertifikat - sichere Verbindung", "Regelmäßige Backups - Ihre Daten werden täglich automatisch gesichert", "Sicherheitsupdates - Schutz vor Angriffen", "Kleinere Inhaltsänderungen - Texte, Bilder, Preise und Bewertungen aktualisieren", "Technischer Support"],
             SupportOtherPlaceholder = "Was noch?",
             HeardFromLabel = "Wie haben Sie von mir erfahren?",
             HeardFromOptions = ["Empfehlung von Freund / Kollege", "Google-Suche", "LinkedIn", "Xing", "Instagram", "Facebook"],
@@ -1045,6 +1065,11 @@ public static class SiteTextProvider
         OptOutConfirmMsg = "Da li ste sigurni da se želite odjaviti?\n\nOvo će prouzrokovati brisanje Vaših dosadašnjih odgovora i kontakt podataka.",
         OptOutDoneHtml = "Vaši podaci su uspješno obrisani.",
         OptOutError = "Greška pri slanju zahtjeva. Pokušajte ponovo.",
+        PagesUnderLimitMsg = "Možete još dodati {0} stranicu/a uključenih u Vaš paket. Nastavite ili se vratite da dodate još.",
+        PagesOverLimitMsg = "Odabrali ste {0} stranicu/a više nego što je uključeno u paket, što može uticati na cijenu. Nastavite ili se vratite da smanjite odabir.",
+        PagesModalContinue = "Nastavi",
+        PagesModalChange = "Promijeni odabir",
+        SalesRequiredMsg = "Odaberite online rezervacije ili klijentski portal.",
         S1 = new QStep1Text
         {
             Title = "O Vašem poslovanju",
@@ -1064,6 +1089,7 @@ public static class SiteTextProvider
         {
             Title = "Web stranica",
             NeedWhatLabel = "Vrsta projekta",
+            ResponsiveLabel = "Responzivan dizajn - prilagođen za desktop, tablet i mobilni",
             WebsiteTypeOptions = ["Landing stranica", "Prezentacioni sajt", "Portfolio sajt", "Sajt s galerijom / blogom", "Katalog proizvoda ili usluga", "Redizajn postojećeg sajta"],
             WebsiteTypeOtherPlaceholder = "Opišite Vašu potrebu",
             ExistingUrlLabel = "URL postojeće web stranice",
@@ -1074,15 +1100,19 @@ public static class SiteTextProvider
             WantToChangeLabel = "Šta promijeniti?",
             WantToChangeOptions = ["Vizuelni izgled", "Strukturu i navigaciju", "Sadržaj i tekstove", "Brzinu i performanse", "Mobilnu verziju"],
             WantToChangeOtherPlaceholder = "Opišite",
-            PagesLabel = "Stranice / sekcije",
-            PagesOptions = ["Početna stranica", "O nama", "Usluge / Proizvodi", "Cjenovnik", "Blog / Vijesti", "Galerija / Portfolio", "Online prodavnica", "Kontakt", "FAQ / Često postavljena pitanja"],
+            PagesLabel = "Stranice",
+            PagesOptions = ["Početna stranica", "O nama", "Usluge / Proizvodi", "Cjenovnik", "Galerija / Portfolio", "Kontakt", "FAQ / Često postavljena pitanja", "Tim", "Karijere", "Recenzije - izmjene kroz podršku i održavanje"],
             PagesPortfolioOptions = ["O nama", "Radovi / Portfolio", "Kontakt", "Blog / Vijesti"],
             PagesOtherPlaceholder = "Koje stranice?",
             ExtrasLabel = "Dodatne funkcije",
             CommHeader = "Kontakt",
-            CommOptions = ["Kontakt forma - klijenti Vas kontaktiraju direktno s Vašeg sajta", "WhatsApp dugme - klijenti Vas kontaktiraju direktno putem WhatsApp-a", "Chatbot - automatski chat asistent na Vašem sajtu (personalna ponuda)"],
+            CommOptions = ["Kontakt forma - klijenti Vas kontaktiraju direktno s Vašeg sajta", "WhatsApp dugme - klijenti Vas kontaktiraju direktno putem WhatsApp-a", "Chatbot - automatski chat asistent na Vašem sajtu"],
             GrowthHeader = "Vidljivost i rast",
-            GrowthOptions = ["SEO osnove - da Vas klijenti lakše pronađu na Googleu", "SEO napredna optimizacija - istraživanje ključnih riječi, content strategija, izgradnja linkova", "Google Maps integracija - prikažite lokaciju Vaše firme na mapi", "Višejezična podrška - sajt dostupan na više jezika za širu publiku", "Online plaćanje (Stripe, PayPal) - prihvatajte plaćanja na Vašem sajtu (personalna ponuda)"],
+            GrowthOptions = ["SEO osnove - da Vas klijenti lakše pronađu na Googleu", "SEO napredna optimizacija - istraživanje ključnih riječi, content strategija, izgradnja linkova", "Google Maps integracija - prikažite lokaciju Vaše firme na mapi", "Višejezična podrška (max. 3 jezika)", "Online plaćanje", "Google ili Trustpilot recenzije - automatski prikaz ocjena s platforme"],
+            MultilingualPlaceholder = "Npr. njemački, engleski, švedski...",
+            MultilingualExtraPlaceholder = "Napišite koji jezici su vam još dodatno potrebni",
+            OnlinePaymentPlaceholder = "Npr. Visa, Mastercard, American Express, PayPal, Klarna, Apple Pay...",
+            ReviewsPlatformPlaceholder = "Odaberite platformu",
             ExtrasOtherPlaceholder = "Šta još?"
         },
         S3 = new QStep3Text
@@ -1100,11 +1130,11 @@ public static class SiteTextProvider
             CommLabel = "Komunikacija i automatizacija",
             CommOptions = ["Newsletter - redovno obavještavajte klijente o novostima i ponudama", "Automatske email poruke - podsjetnici, potvrde, dobrodošlice, čestitke za rođendane i godišnjice, obavještenja o odsustvu"],
             SalesLabel = "Prodaja i rezervacije",
-            SalesOptions = ["Online rezervacije - klijenti sami zakazuju termine, bez telefonskih poziva", "Klijentski portal - klijenti se prijavljuju i vide svoje podatke, narudžbe ili dokumente", "E-commerce / online prodavnica - prodajte proizvode ili usluge direktno online"],
+            SalesOptions = ["Online rezervacije - klijenti sami zakazuju termine, bez telefonskih poziva", "Klijentski portal - klijenti se prijavljuju i vide svoje podatke, narudžbe ili dokumente", "Online prodavnica - prodajte proizvode ili usluge direktno online"],
             AutoLabel = "Automatizacija i integracije",
             AutoOptions = ["Smanjiti broj telefonskih poziva i upita - sistem radi umjesto Vas", "Uštediti vrijeme na ponavljajućim zadacima - unos podataka, praćenje narudžbi, generisanje izvještaja", "Microsoft 365 integracija - povežite sajt s Outlook, Teams, Calendar, OneDrive", "Admin panel za upravljanje podacima i korisnicima - sve na jednom mjestu", "Statistika posjeta - pregledajte broj posjetilaca, izvore prometa i ponašanje korisnika direktno na Vašem sajtu"],
             ContentMgmtLabel = "Upravljanje sadržajem",
-            ContentMgmtOptions = ["Želim sam ažurirati tekstove i slike - bez tehničkog znanja", "Blog / sekcija vijesti - sami dodajete i objavljujete članke i vijesti"],
+            ContentMgmtOptions = ["Želim sam ažurirati tekstove i slike - bez tehničkog znanja", "Blog - sami dodajete i objavljujete članke", "Sekcija vijesti - sami objavljujete vijesti i novosti"],
             ContentMgmtOtherPlaceholder = "Šta još?"
         },
         S4 = new QStep4Text
@@ -1175,7 +1205,7 @@ public static class SiteTextProvider
             DeadlineYes = "Da → Kada?",
             DeadlineNo = "Nemam fiksni rok",
             SupportLabel = "Podrška i održavanje",
-            SupportOptions = ["Hosting - Vaš sajt na pouzdanom serveru", "SSL certifikat - sigurna veza, zeleni katanac u browseru", "Redovni backupi - Vaši podaci se automatski čuvaju na dnevnoj bazi", "Sigurnosni updates - zaštita od hakerskih napada", "Manje izmjene sadržaja - ažuriranje tekstova, slika i cijena", "Tehnička podrška"],
+            SupportOptions = ["Hosting - Vaš sajt na pouzdanom serveru", "SSL certifikat - sigurna veza, zeleni katanac u browseru", "Redovni backupi - Vaši podaci se automatski čuvaju na dnevnoj bazi", "Sigurnosni updates - zaštita od hakerskih napada", "Manje izmjene sadržaja - ažuriranje tekstova, slika, cijena i recenzija", "Tehnička podrška"],
             SupportOtherPlaceholder = "Šta još?",
             HeardFromLabel = "Kako ste čuli za mene?",
             HeardFromOptions = ["Preporuka prijatelja / kolege", "Google pretraga", "LinkedIn", "Xing", "Instagram", "Facebook"],
