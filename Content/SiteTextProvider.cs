@@ -693,7 +693,7 @@ public static class SiteTextProvider
         PackagePriceWarningConfirm = "Continue",
         PackagePriceWarningCancel = "Cancel",
         OptOutConfirmMsg = "Are you sure you want to unsubscribe?\n\nThis will result in the deletion of your answers and contact information.",
-        OptOutDoneHtml = "<p>Your unsubscribe request has been received.</p><p>Your data will be deleted as soon as possible.</p>",
+        OptOutDoneHtml = "Your data has been successfully deleted.",
         OptOutError = "Error sending request. Please try again.",
         S1 = new QStep1Text
         {
@@ -868,7 +868,7 @@ public static class SiteTextProvider
         PackagePriceWarningConfirm = "Fortfahren",
         PackagePriceWarningCancel = "Abbrechen",
         OptOutConfirmMsg = "Sind Sie sicher, dass Sie sich abmelden möchten?\n\nDadurch werden Ihre bisherigen Antworten und Kontaktdaten gelöscht.",
-        OptOutDoneHtml = "<p>Ihr Abmeldewunsch wurde empfangen.</p><p>Ihre Daten werden so bald wie möglich gelöscht.</p>",
+        OptOutDoneHtml = "Ihre Daten wurden erfolgreich gelöscht.",
         OptOutError = "Fehler beim Senden der Anfrage. Bitte erneut versuchen.",
         S1 = new QStep1Text
         {
@@ -1043,7 +1043,7 @@ public static class SiteTextProvider
         PackagePriceWarningConfirm = "Nastavi",
         PackagePriceWarningCancel = "Otkaži",
         OptOutConfirmMsg = "Da li ste sigurni da se želite odjaviti?\n\nOvo će prouzrokovati brisanje Vaših dosadašnjih odgovora i kontakt podataka.",
-        OptOutDoneHtml = "<p>Vaš zahtjev za odjavu je primljen.</p><p>Vaši podaci će biti obrisani u najkraćem roku.</p>",
+        OptOutDoneHtml = "Vaši podaci su uspješno obrisani.",
         OptOutError = "Greška pri slanju zahtjeva. Pokušajte ponovo.",
         S1 = new QStep1Text
         {

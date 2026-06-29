@@ -224,6 +224,8 @@
             var params = new URLSearchParams();
             params.append("name", (form.querySelector('[name="name"]') || {}).value || "");
             params.append("email", (form.querySelector('[name="email"]') || {}).value || "");
+            var packageEl = form.querySelector('[name="package"]');
+            if (packageEl && packageEl.value) params.append("package", packageEl.value);
             var tokenEl = form.querySelector('[name="__RequestVerificationToken"]');
             if (tokenEl) params.append("__RequestVerificationToken", tokenEl.value);
 

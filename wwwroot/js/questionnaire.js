@@ -444,7 +444,7 @@
             body: JSON.stringify({ token: token })
         })
         .then(function (r) {
-            if (r.ok) { window.location.href = "/"; }
+            if (r.ok) { window.location.href = "/questionnaire/opted-out"; }
             else { alert(window.QText.optOutError); }
         })
         .catch(function () { alert(window.QText.optOutError); });

@@ -91,13 +91,16 @@ public class QuestionnaireController : Controller
         if (q == null || q.TokenExpiresAt < DateTime.UtcNow)
             return BadRequest();
 
-        q.ContactLead.OptedOut = true;
+        _db.ContactLeads.Remove(q.ContactLead);
         await _db.SaveChangesAsync();
 
         ClearQRef();
 
         return Ok(new { success = true });
     }
+
+    [HttpGet("/questionnaire/opted-out")]
+    public IActionResult OptedOut() => View();
 
     [HttpPost("/questionnaire/save-step")]
     public async Task<IActionResult> SaveStep([FromBody] SaveStepRequest request)

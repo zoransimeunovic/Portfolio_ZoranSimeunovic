@@ -1,0 +1,13 @@
+@using System.Globalization
+@using Portfolio_ZoranSimeunovic.Content
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Q = SiteTextProvider.Get(CultureInfo.CurrentUICulture.Name).Questionnaire;
+    ViewData["Title"] = Q.OptOutDoneHtml;
+}
+<div class="q-page">
+    <div class="q-container q-message">
+        <p>@Q.OptOutDoneHtml</p>
+        <a href="/" class="btn btn-accent" style="margin-top:24px">&#8592; Homepage</a>
+    </div>
+</div>
