@@ -15,6 +15,9 @@ public class ContactLead
     [StringLength(10)]
     public string? Language { get; set; }
 
+    [StringLength(100)]
+    public string? PackageName { get; set; }
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public bool OptedOut { get; set; } = false;
     public DateTime? OfferSentAt { get; set; }

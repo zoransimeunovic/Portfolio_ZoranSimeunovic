@@ -13,12 +13,12 @@ public class EmailService(IConfiguration config, ILogger<EmailService> logger)
     {
         var (salutation, intro, please, button, after, expiry, ignore) = language switch
         {
-            "de" => ("Sehr geehrte(r)", "ich habe Ihre Anfrage über mein Portfolio erhalten.",
+            "de" => ("Guten Tag", "ich habe Ihre Anfrage über mein Portfolio erhalten.",
                      "Bitte bestätigen Sie Ihre E-Mail-Adresse:", "Anmeldung bestätigen",
                      "Nach der Bestätigung sende ich Ihnen einen Fragebogen, der mir hilft, Ihre Bedürfnisse zu verstehen.",
                      "Der Link ist 48 Stunden gültig.",
                      "Falls Sie sich nicht angemeldet haben, ignorieren Sie diese E-Mail bitte."),
-            "sr-Latn" => ("Poštovani/a", "primio sam Vašu prijavu putem mog portfolija.",
+            "sr-Latn" => ("Poštovani", "primio sam Vašu prijavu putem mog portfolija.",
                           "Molim Vas da potvrdite Vašu email adresu:", "Potvrdite prijavu",
                           "Nakon potvrde, poslat ću Vam upitnik koji će mi pomoći da razumijem Vaše potrebe.",
                           "Link je aktivan 48 sati.",
@@ -47,10 +47,10 @@ public class EmailService(IConfiguration config, ILogger<EmailService> logger)
     {
         var (salutation, thanks, intro, button, expiry) = language switch
         {
-            "de" => ("Sehr geehrte(r)", "vielen Dank für die Bestätigung Ihrer E-Mail-Adresse!",
+            "de" => ("Guten Tag", "vielen Dank für die Bestätigung Ihrer E-Mail-Adresse!",
                      "Um Ihnen das bestmögliche Angebot zu erstellen, habe ich einen Fragebogen vorbereitet, der mir hilft, Ihre Bedürfnisse und Ziele besser zu verstehen.",
                      "Fragebogen öffnen", "Der Link ist 30 Tage gültig."),
-            "sr-Latn" => ("Poštovani/a", "hvala što ste potvrdili svoju email adresu!",
+            "sr-Latn" => ("Poštovani", "hvala što ste potvrdili svoju email adresu!",
                           "Kako bih Vam mogao pripremiti što bolji prijedlog i ponudu, napravio sam upitnik koji će mi pomoći da bolje razumijem Vaše potrebe i ciljeve.",
                           "Otvori upitnik", "Link je aktivan 30 dana."),
             _ => ("Dear", "thank you for confirming your email address!",

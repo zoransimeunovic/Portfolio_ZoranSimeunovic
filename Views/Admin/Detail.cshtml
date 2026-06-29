@@ -10,6 +10,10 @@
     <div>
         <h1 class="admin-page-title">@Model.ClientName</h1>
         <p class="admin-client-email">@Model.ClientEmail</p>
+        @if (!string.IsNullOrEmpty(Model.PackageName))
+        {
+            <p class="admin-client-package">Odabrani paket: <strong>@Model.PackageName</strong></p>
+        }
     </div>
     <div class="admin-client-badges">
         @if (Model.CompletedAt.HasValue)

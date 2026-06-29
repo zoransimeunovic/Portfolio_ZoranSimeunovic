@@ -1,7 +1,7 @@
 # Database Reconstruction — portfolio_zs
 
 > **Pouzdani izvor podataka o bazi.** Ažurirati odmah pri svakoj promjeni šeme.  
-> Izvor: `AppDbContextModelSnapshot.cs` + EF migracije (zadnja: `20260623205314`)
+> Izvor: `AppDbContextModelSnapshot.cs` + EF migracije (zadnja: `AddPackageNameToContactLead`)
 
 ---
 
@@ -55,6 +55,7 @@ pa se oslanja na iste PascalCase nazive.
 | `QuestionnaireEmailSentAt` | `datetime(6)` | NULL | SyncWorker flag — NULL = čeka slanje |
 | `RegistrationNotificationSentAt` | `datetime(6)` | NULL | SyncWorker flag — NULL = čeka slanje |
 | `OptOutNotificationSentAt` | `datetime(6)` | NULL | SyncWorker flag — NULL = čeka slanje |
+| `PackageName` | `varchar(100)` | NULL | Paket odabran na sajtu (pricing sekcija) |
 
 **Indeksi:**
 - `PK_contact_leads` → `Id`

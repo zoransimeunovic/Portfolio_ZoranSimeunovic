@@ -11,6 +11,8 @@
         initOtherTriggers();
         initDropzones();
         initAutoSave();
+        initStepper();
+        initPriceWarning();
         restoreProgress();
     });
 
@@ -55,11 +57,30 @@
     }
 
     function updateProgress(step) {
-        var fill = document.getElementById("progressFill");
-        var label = document.getElementById("progressLabel");
-        if (!fill || !label) return;
-        fill.style.width = (step / 5) * 100 + "%";
-        label.textContent = window.QText.progressPattern.replace("{0}", step);
+        document.querySelectorAll(".q-step-btn").forEach(function (btn) {
+            var n = parseInt(btn.dataset.step, 10);
+            btn.classList.remove("active", "done");
+            if (n === step) btn.classList.add("active");
+            else if (n < step) btn.classList.add("done");
+        });
+        document.querySelectorAll(".q-step-line").forEach(function (line, i) {
+            line.classList.toggle("done", i < step - 1);
+        });
+    }
+
+    function initStepper() {
+        document.querySelectorAll(".q-step-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                var target = parseInt(btn.dataset.step, 10);
+                if (target === currentStep) return;
+                if (target < currentStep) {
+                    showStep(target);
+                } else {
+                    if (!validateStep(currentStep)) return;
+                    saveStep(currentStep, function () { showStep(target); });
+                }
+            });
+        });
     }
 
     /* ---------- VALIDATION ---------- */
@@ -158,20 +179,18 @@
     /* ---------- RESTORE PROGRESS ---------- */
     function restoreProgress() {
         var stage = parseInt(document.getElementById("qForm").dataset.stage || "0", 10);
-        var targetStep = stage > 0 ? Math.min(stage + 1, 5) : 1;
 
         if (window.QSavedAnswers) {
-            for (var s = 1; s <= stage; s++) {
-                restoreFormData(s, window.QSavedAnswers["step" + s]);
-            }
-            if (stage < 5 && window.QSavedAnswers["step" + targetStep]) {
-                restoreFormData(targetStep, window.QSavedAnswers["step" + targetStep]);
+            for (var s = 1; s <= 5; s++) {
+                if (window.QSavedAnswers["step" + s]) {
+                    restoreFormData(s, window.QSavedAnswers["step" + s]);
+                }
             }
             updateProjectType();
             updateCustomerDemo();
         }
 
-        showStep(targetStep);
+        showStep(1);
     }
 
     function restoreFormData(stepNum, answers) {
@@ -221,6 +240,45 @@
         if (industrySelect && industryOther && industrySelect.value === "__other__") {
             industryOther.style.display = "block";
         }
+    }
+
+    /* ---------- PRICE WARNING ---------- */
+    function initPriceWarning() {
+        if (!window.QText.packageName) return;
+        var warned = false;
+        var modal = document.getElementById("priceWarningModal");
+        var confirmBtn = document.getElementById("priceWarningConfirm");
+        var cancelBtn = document.getElementById("priceWarningCancel");
+        var textEl = document.getElementById("priceWarningText");
+        if (!modal) return;
+
+        textEl.textContent = window.QText.packagePriceWarning;
+        confirmBtn.textContent = window.QText.packagePriceWarningConfirm;
+        cancelBtn.textContent = window.QText.packagePriceWarningCancel;
+
+        var pendingCb = null;
+
+        document.querySelectorAll("#step2 input[type=checkbox], #step3 input[type=checkbox]").forEach(function (cb) {
+            cb.addEventListener("change", function () {
+                if (warned) return;
+                var self = this;
+                var checked = self.checked;
+                self.checked = !checked;
+                pendingCb = function () { self.checked = checked; };
+                modal.style.display = "flex";
+            });
+        });
+
+        confirmBtn.addEventListener("click", function () {
+            warned = true;
+            if (pendingCb) { pendingCb(); pendingCb = null; }
+            modal.style.display = "none";
+        });
+
+        cancelBtn.addEventListener("click", function () {
+            pendingCb = null;
+            modal.style.display = "none";
+        });
     }
 
     /* ---------- APP TYPE GUARD (Q12–Q16) ---------- */

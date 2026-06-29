@@ -7,6 +7,7 @@
     var token = (string)ViewBag.Token;
     var name = (string)ViewBag.Name;
     var stage = (int)ViewBag.Stage;
+    var packageName = ViewBag.PackageName as string;
 }
 
 <div class="q-page">
@@ -17,11 +18,20 @@
             <p class="q-subtitle">@Q.Subtitle</p>
         </div>
 
-        <div class="q-progress-wrap">
-            <div class="q-progress-bar">
-                <div class="q-progress-fill" id="progressFill"></div>
+        @if (!string.IsNullOrEmpty(packageName))
+        {
+            <div class="q-package-info">
+                @Q.SelectedPackageLabel: <strong>@packageName</strong>
+                <span class="q-package-hint">@Q.PackagePriceHint</span>
             </div>
-            <span class="q-progress-label" id="progressLabel">@string.Format(Q.ProgressPattern, 1)</span>
+        }
+
+        <div class="q-stepper">
+            @for (int s = 1; s <= 5; s++)
+            {
+                <button type="button" class="q-step-btn @(s == 1 ? "active" : "")" data-step="@s">@s</button>
+                @if (s < 5) { <div class="q-step-line"></div> }
+            }
         </div>
 
         <form id="qForm" data-stage="@stage" novalidate>
@@ -579,10 +589,30 @@
     </div>
 </div>
 
+<!-- Price warning modal -->
+<div id="priceWarningModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;max-width:420px;width:90%;margin:auto">
+        <p id="priceWarningText" style="color:var(--secondary);margin:0 0 24px;line-height:1.6"></p>
+        <div style="display:flex;gap:12px;justify-content:flex-end">
+            <button id="priceWarningCancel" class="q-btn q-btn--back" type="button"></button>
+            <button id="priceWarningConfirm" class="q-btn q-btn--next" type="button"></button>
+        </div>
+    </div>
+</div>
+
 @section Styles {
     <style>
         .q-warranty-block { margin-top: 32px; padding: 16px 20px; border: 1px solid var(--accent); border-radius: 8px; color: var(--muted); font-size: 14px; line-height: 1.6; }
         .q-warranty-block strong { color: var(--secondary); }
+        .q-package-info { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--accent); border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; color: var(--muted); font-size: 14px; }
+        .q-package-info strong { color: var(--secondary); font-size: 15px; }
+        .q-package-hint { color: var(--muted); font-size: 13px; opacity: .8; }
+        .q-stepper { display: flex; align-items: center; margin: 0 0 32px; }
+        .q-step-btn { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--muted); background: transparent; color: var(--muted); font-weight: 700; font-size: 15px; cursor: pointer; flex-shrink: 0; transition: border-color .2s, background .2s, color .2s; }
+        .q-step-btn.active { border-color: var(--accent); background: var(--accent); color: #fff; }
+        .q-step-btn.done { border-color: var(--accent); color: var(--accent); }
+        .q-step-line { flex: 1; height: 3px; background: var(--muted); opacity: .3; transition: background .2s, opacity .2s; }
+        .q-step-line.done { background: var(--accent); opacity: 1; }
         .q-actions--first { margin-top: 24px; }
         .q-color-group { display: flex; flex-direction: column; gap: 10px; }
         .q-color-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--primary); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 15px; }
@@ -612,7 +642,11 @@
             optOutDoneHtml = Q.OptOutDoneHtml,
             optOutError = Q.OptOutError,
             appDisabledHint = Q.S3.AppDisabledHint,
-            adminPanelHint = Q.S3.AdminPanelHint
+            adminPanelHint = Q.S3.AdminPanelHint,
+            packageName = packageName ?? "",
+            packagePriceWarning = Q.PackagePriceWarning,
+            packagePriceWarningConfirm = Q.PackagePriceWarningConfirm,
+            packagePriceWarningCancel = Q.PackagePriceWarningCancel
         }));
     </script>
     <script src="~/js/questionnaire.js" asp-append-version="true"></script>

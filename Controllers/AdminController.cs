@@ -90,6 +90,7 @@ public class AdminController : Controller
                 ContactLeadId = q.ContactLeadId,
                 ClientName = q.ContactLead.Name,
                 ClientEmail = q.ContactLead.Email,
+                PackageName = q.ContactLead.PackageName,
                 Stage = q.Stage,
                 CompletedAt = q.CompletedAt,
                 CreatedAt = q.CreatedAt,
@@ -131,6 +132,7 @@ public class AdminController : Controller
             ContactLeadId = q.ContactLeadId,
             ClientName = q.ContactLead.Name,
             ClientEmail = q.ContactLead.Email,
+            PackageName = q.ContactLead.PackageName,
             Token = q.Token,
             CreatedAt = q.CreatedAt,
             CompletedAt = q.CompletedAt,
@@ -340,6 +342,7 @@ public class QuestionnaireListItem
     public int ContactLeadId { get; set; }
     public string ClientName { get; set; } = "";
     public string ClientEmail { get; set; } = "";
+    public string? PackageName { get; set; }
     public byte Stage { get; set; }
     public DateTime? CompletedAt { get; set; }
     public DateTime CreatedAt { get; set; }
@@ -354,6 +357,7 @@ public class QuestionnaireDetailVm
     public int ContactLeadId { get; set; }
     public string ClientName { get; set; } = "";
     public string ClientEmail { get; set; } = "";
+    public string? PackageName { get; set; }
     public string Token { get; set; } = "";
     public DateTime CreatedAt { get; set; }
     public DateTime? CompletedAt { get; set; }

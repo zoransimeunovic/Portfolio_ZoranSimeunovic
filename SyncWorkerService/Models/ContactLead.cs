@@ -6,6 +6,7 @@ public class ContactLead
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string Language { get; set; } = "en";
+    public string? PackageName { get; set; }
     public DateTime CreatedAt { get; set; }
     public bool OptedOut { get; set; }
     public DateTime? OfferSentAt { get; set; }

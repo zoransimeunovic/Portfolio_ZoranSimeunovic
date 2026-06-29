@@ -225,6 +225,11 @@ public class QuestionnaireText
     public string CompletedText2 { get; set; } = "";
 
     public string CompanyRequired { get; set; } = "";
+    public string SelectedPackageLabel { get; set; } = "";
+    public string PackagePriceHint { get; set; } = "";
+    public string PackagePriceWarning { get; set; } = "";
+    public string PackagePriceWarningConfirm { get; set; } = "";
+    public string PackagePriceWarningCancel { get; set; } = "";
     public string OptOutConfirmMsg { get; set; } = "";
     public string OptOutDoneHtml { get; set; } = "";
     public string OptOutError { get; set; } = "";

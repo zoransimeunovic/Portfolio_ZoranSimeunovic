@@ -43,7 +43,7 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Contact(string name, string email)
+    public async Task<IActionResult> Contact(string name, string email, string? package)
     {
         _logger.LogWarning("Contact: START name={Name} email={Email}", name, email);
         try
@@ -63,6 +63,7 @@ public class HomeController : Controller
             if (existing != null)
             {
                 _logger.LogInformation("Contact: DUPLICATE — lead vec postoji id={Id}", existing.Id);
+                if (!string.IsNullOrWhiteSpace(package)) existing.PackageName = package.Trim();
                 await HandleDuplicateRegistrationAsync(existing);
                 return Json(new { success = true, message = text.Contact.SuccessMessage });
             }
@@ -75,6 +76,7 @@ public class HomeController : Controller
                 Name = name.Trim(),
                 Email = trimEmail,
                 Language = CultureInfo.CurrentUICulture.Name,
+                PackageName = string.IsNullOrWhiteSpace(package) ? null : package.Trim(),
                 CreatedAt = DateTime.UtcNow,
                 ConfirmationToken = token,
                 ConfirmationTokenExpiresAt = DateTime.UtcNow.AddHours(48)

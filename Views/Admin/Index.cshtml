@@ -32,7 +32,13 @@ else
             {
                 <tr class="@(q.OptedOut ? "admin-row--opted-out" : "")">
                     <td class="admin-td--muted">@rowNum</td>
-                    <td>@q.ClientName</td>
+                    <td>
+                        @q.ClientName
+                        @if (!string.IsNullOrEmpty(q.PackageName))
+                        {
+                            <br /><span class="admin-td--package">@q.PackageName</span>
+                        }
+                    </td>
                     <td class="admin-td--muted">@q.ClientEmail</td>
                     <td class="admin-td--muted">@q.CreatedAt.ToString("dd.MM.yyyy")</td>
                     <td>

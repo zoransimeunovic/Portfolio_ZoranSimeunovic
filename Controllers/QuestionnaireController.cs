@@ -63,6 +63,7 @@ public class QuestionnaireController : Controller
         ViewBag.Token = token;
         ViewBag.QuestionnaireToken = token;
         ViewBag.Name = q.ContactLead.Name;
+        ViewBag.PackageName = q.ContactLead.PackageName;
         ViewBag.Stage = q.Stage;
         ViewBag.Step1 = q.Step1Answers;
         ViewBag.Step2 = q.Step2Answers;
