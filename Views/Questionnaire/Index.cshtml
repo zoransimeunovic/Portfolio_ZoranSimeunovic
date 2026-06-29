@@ -717,6 +717,7 @@
 
 @section Scripts {
     <script>
+        window.QToken = "@ViewBag.Token";
         window.QSavedAnswers = {
             step1: @Html.Raw((string)ViewBag.Step1 ?? "null"),
             step2: @Html.Raw((string)ViewBag.Step2 ?? "null"),
@@ -744,7 +745,8 @@
             pagesOverLimit = Q.PagesOverLimitMsg,
             pagesModalContinue = Q.PagesModalContinue,
             pagesModalChange = Q.PagesModalChange,
-            salesRequired = Q.SalesRequiredMsg
+            salesRequired = Q.SalesRequiredMsg,
+            priceWarningAccepted = (bool)ViewBag.PriceWarningAccepted
         }));
     </script>
     <script src="~/js/questionnaire.js" asp-append-version="true"></script>

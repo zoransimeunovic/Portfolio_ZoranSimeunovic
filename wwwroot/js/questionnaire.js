@@ -292,7 +292,7 @@
     /* ---------- PRICE WARNING ---------- */
     function initPriceWarning() {
         if (!window.QText.packageName) return;
-        var warned = sessionStorage.getItem("priceWarningAccepted") === "1";
+        var warned = window.QText.priceWarningAccepted === true;
         var modal = document.getElementById("priceWarningModal");
         var confirmBtn = document.getElementById("priceWarningConfirm");
         var cancelBtn = document.getElementById("priceWarningCancel");
@@ -318,7 +318,11 @@
 
         confirmBtn.addEventListener("click", function () {
             warned = true;
-            sessionStorage.setItem("priceWarningAccepted", "1");
+            fetch("/questionnaire/accept-price-warning", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ token: window.QToken })
+            });
             if (pendingCb) { pendingCb(); pendingCb = null; }
             modal.style.display = "none";
         });

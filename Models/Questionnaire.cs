@@ -17,6 +17,8 @@ public class Questionnaire
     public string? Step4Answers { get; set; }
     public string? Step5Answers { get; set; }
 
+    public bool PriceWarningAccepted { get; set; } = false;
+
     public DateTime? CompletedAt { get; set; }
     public DateTime? CompletionNotificationSentAt { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

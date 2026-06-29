@@ -65,6 +65,7 @@ public class QuestionnaireController : Controller
         ViewBag.Name = q.ContactLead.Name;
         ViewBag.PackageName = q.ContactLead.PackageName;
         ViewBag.Stage = q.Stage;
+        ViewBag.PriceWarningAccepted = q.PriceWarningAccepted;
         ViewBag.Step1 = q.Step1Answers;
         ViewBag.Step2 = q.Step2Answers;
         ViewBag.Step3 = q.Step3Answers;
@@ -226,6 +227,24 @@ public class QuestionnaireController : Controller
             System.IO.File.Delete(path);
 
         _db.QuestionnaireFiles.Remove(file);
+        await _db.SaveChangesAsync();
+
+        return Ok(new { success = true });
+    }
+
+    [HttpPost("/questionnaire/accept-price-warning")]
+    public async Task<IActionResult> AcceptPriceWarning([FromBody] OptOutRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Token))
+            return BadRequest();
+
+        var q = await _db.Questionnaires
+            .FirstOrDefaultAsync(x => x.Token == request.Token);
+
+        if (q == null || q.TokenExpiresAt < DateTime.UtcNow || q.CompletedAt.HasValue)
+            return BadRequest();
+
+        q.PriceWarningAccepted = true;
         await _db.SaveChangesAsync();
 
         return Ok(new { success = true });
