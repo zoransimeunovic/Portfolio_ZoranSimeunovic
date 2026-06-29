@@ -14,9 +14,9 @@ public static class SiteTextProvider
     private static SiteText BuildEn() => new()
     {
         Culture = "en",
-        PageTitle = "Zoran Simeunović - Full Stack Web Developer",
+        PageTitle = "Custom Web Development | Zoran Simeunovic",
         LanguageLabel = "Language",
-        Nav = new NavText { Home = "HOME", Work = "WORK", Process = "PROCESS", ContactMe = "CONTACT ME", MyQuestionnaire = "MY QUESTIONNAIRE" },
+        Nav = new NavText { Home = "HOME", Work = "WORK", Process = "PROCESS", Pricing = "PRICING", ContactMe = "CONTACT ME", MyQuestionnaire = "MY QUESTIONNAIRE" },
         Hero = new HeroText
         {
             Badge = "Full Stack Web Developer",
@@ -81,7 +81,7 @@ public static class SiteTextProvider
                 new() { Tag = "YOUR APPROVAL REQUIRED", Title = "Design preview", Description = "See the full design first. Nothing gets built without your approval." },
                 new() { Tag = "BUILDING YOUR SITE", Title = "Website", Description = "The approved design becomes a fast, working website. No silence, you'll always know where things stand." },
                 new() { Tag = "TIME TO REVIEW", Title = "Website review", Description = "You test the website and request changes if needed." },
-                new() { Tag = "TIME FOR THE ENGINE", Title = "Web App (optional)", Description = "Website approved. Custom tools built behind the scenes. Portals, bookings, dashboards." },
+                new() { Tag = "YOUR APP", Title = "Web App (optional)", Description = "Website approved. Custom tools built behind the scenes. Portals, bookings, dashboards." },
                 new() { Tag = "TIME TO REVIEW", Title = "Web App review (optional)", Description = "You test everything end to end. Request changes if needed." },
                 new() { Tag = "GO LIVE", Title = "Launch & handover", Description = "Deploy, docs, and handover. Final invoice on delivery. All bugs resulting from development are fixed free of charge - 30 days for websites, 60 days for web applications." },
                 new() { Tag = "FLEXIBLE", Title = "Ongoing support (optional)", Description = "On your terms. Hosting, SSL, backups, bug fixes, or new features - take only what your business needs." }
@@ -153,6 +153,31 @@ public static class SiteTextProvider
                 }
             }
         },
+        Pricing = new PricingSection
+        {
+            Label = "PRICING",
+            Title = "How much does a website cost?",
+            Subtitle = "No templates - every website is built specifically for your business.",
+            GetStarted = "GET YOUR QUOTE",
+            Badges = new() { "No templates", "Fixed price", "Warranty included" },
+            BadgeRecommended = "Recommended",
+            CtaHeading = "Can't find what you need?",
+            CtaText = "Request a custom quote for desktop apps, mobile apps, hosting, maintenance, or anything outside the standard packages.",
+            CtaButton = "Request a quote",
+
+            WarrantyUnit = "day warranty",
+            PrevLabel = "Previous",
+            NextLabel = "Next",
+            Cards = new List<PricingCard>
+            {
+                new() { Name = "Landing Page", Price = "399€", WarrantyDays = 30, Features = new() { "Single page, single goal", "Contact form", "Responsive design", "SEO basics", "GDPR implementation" } },
+                new() { Name = "Presentation Website", Price = "799€", WarrantyDays = 30, Features = new() { "Up to 5 pages", "Contact form + location map", "WhatsApp button", "Responsive design", "SEO basics", "GDPR implementation" } },
+                new() { Name = "Website with Content Management", Price = "1,199€", WarrantyDays = 30, IsRecommended = true, Features = new() { "Up to 8 pages", "Blog and gallery", "Multilingual support", "Client manages content themselves", "WhatsApp button", "SEO basics", "GDPR implementation" } },
+                new() { Name = "Website + Interactive Tool", Price = "1,599€", WarrantyDays = 60, Features = new() { "Up to 5 pages", "Calculator, configurator or form", "Admin panel", "SEO basics", "GDPR implementation" } },
+                new() { Name = "Website + Bookings / Portal", Price = "2,199€", WarrantyDays = 60, Features = new() { "Up to 5 pages", "Online bookings or client portal", "Automated email messages", "Admin panel", "SEO basics", "GDPR implementation" } },
+                new() { Name = "Web Application", Price = "2,799€", WarrantyDays = 60, Features = new() { "Up to 8 pages", "Client portal", "Online bookings and/or newsletter", "Automated email messages", "Admin panel", "Visitor statistics", "SEO basics", "GDPR implementation" } },
+            }
+        },
         Contact = new ContactSection
         {
             TitleHtml = "Take the first step",
@@ -167,7 +192,7 @@ public static class SiteTextProvider
         },
         Footer = new FooterText
         {
-            Home = "HOME", Work = "WORK", Process = "PROCESS",
+            Home = "HOME", Work = "WORK", Process = "PROCESS", Pricing = "PRICING",
             Copyright = "© 2026 ZS.dev All rights reserved.",
             PrivacyPolicy = "Privacy Policy", TermsOfService = "Terms of Service", CookieSettings = "Cookie Settings"
         },
@@ -206,9 +231,9 @@ public static class SiteTextProvider
     private static SiteText BuildDe() => new()
     {
         Culture = "de",
-        PageTitle = "Zoran Simeunović - Full-Stack Webentwickler",
+        PageTitle = "Webentwicklung nach Maß | Zoran Simeunovic",
         LanguageLabel = "Sprache",
-        Nav = new NavText { Home = "START", Work = "PROJEKTE", Process = "ABLAUF", ContactMe = "KONTAKT", MyQuestionnaire = "MEIN FRAGEBOGEN" },
+        Nav = new NavText { Home = "START", Work = "PROJEKTE", Process = "ABLAUF", Pricing = "PREISE", ContactMe = "KONTAKT", MyQuestionnaire = "MEIN FRAGEBOGEN" },
         Hero = new HeroText
         {
             Badge = "Full-Stack Webentwickler",
@@ -273,7 +298,7 @@ public static class SiteTextProvider
                 new() { Tag = "IHRE FREIGABE ERFORDERLICH", Title = "Design-Vorschau", Description = "Sehen Sie zuerst das vollständige Design. Es wird nichts ohne Ihre Freigabe gebaut." },
                 new() { Tag = "AUFBAU IHRER SEITE", Title = "Website", Description = "Das freigegebene Design wird zu einer schnellen, funktionierenden Website. Kein Schweigen – Sie wissen jederzeit, wo es steht." },
                 new() { Tag = "ZEIT ZUM PRÜFEN", Title = "Website-Prüfung", Description = "Sie testen die Website und fordern bei Bedarf Änderungen an." },
-                new() { Tag = "ZEIT FÜR DEN MOTOR", Title = "Web-App (optional)", Description = "Website freigegeben. Maßgeschneiderte Tools im Hintergrund. Portale, Buchungen, Dashboards." },
+                new() { Tag = "IHRE APP", Title = "Web-App (optional)", Description = "Website freigegeben. Maßgeschneiderte Tools im Hintergrund. Portale, Buchungen, Dashboards." },
                 new() { Tag = "ZEIT ZUM PRÜFEN", Title = "Web-App-Prüfung (optional)", Description = "Sie testen alles von Anfang bis Ende. Fordern Sie bei Bedarf Änderungen an." },
                 new() { Tag = "GO-LIVE", Title = "Launch & Übergabe", Description = "Bereitstellung, Dokumentation und Übergabe. Schlussrechnung bei Lieferung. Alle Fehler, die auf die Entwicklung zurückzuführen sind, werden kostenlos behoben - 30 Tage für Websites, 60 Tage für Web-Anwendungen." },
                 new() { Tag = "FLEXIBLE", Title = "Laufender Support (optional)", Description = "Zu Ihren Bedingungen. Hosting, SSL, Backups, Fehlerbehebungen oder neue Funktionen – nur was Ihr Unternehmen braucht." }
@@ -345,6 +370,31 @@ public static class SiteTextProvider
                 }
             }
         },
+        Pricing = new PricingSection
+        {
+            Label = "PREISE",
+            Title = "Was kostet eine Website?",
+            Subtitle = "Ohne Templates - jede Website wird individuell für Ihr Unternehmen entwickelt.",
+            GetStarted = "ANGEBOT ERHALTEN",
+            Badges = new() { "Ohne Templates", "Festpreis", "Gewährleistung inklusive" },
+            BadgeRecommended = "Empfohlen",
+            CtaHeading = "Nichts Passendes gefunden?",
+            CtaText = "Fordern Sie ein individuelles Angebot an - für Desktop-Apps, mobile Apps, Hosting, Wartung oder Projekte außerhalb der Standardpakete.",
+            CtaButton = "Angebot anfragen",
+
+            WarrantyUnit = "Tage Gewährleistung",
+            PrevLabel = "Zurück",
+            NextLabel = "Weiter",
+            Cards = new List<PricingCard>
+            {
+                new() { Name = "Landing Page", Price = "399€", WarrantyDays = 30, Features = new() { "Eine Seite, ein Ziel", "Kontaktformular", "Responsives Design", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+                new() { Name = "Präsentations-Website", Price = "799€", WarrantyDays = 30, Features = new() { "Bis zu 5 Seiten", "Kontaktformular + Standortkarte", "WhatsApp-Schaltfläche", "Responsives Design", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+                new() { Name = "Website mit Content-Verwaltung", Price = "1.199€", WarrantyDays = 30, IsRecommended = true, Features = new() { "Bis zu 8 Seiten", "Blog und Galerie", "Mehrsprachige Unterstützung", "Kunde pflegt Inhalte selbst", "WhatsApp-Schaltfläche", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+                new() { Name = "Website + interaktives Tool", Price = "1.599€", WarrantyDays = 60, Features = new() { "Bis zu 5 Seiten", "Rechner, Konfigurator oder Formular", "Admin-Panel", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+                new() { Name = "Website + Buchungen / Portal", Price = "2.199€", WarrantyDays = 60, Features = new() { "Bis zu 5 Seiten", "Online-Buchungen oder Kundenportal", "Automatische E-Mail-Nachrichten", "Admin-Panel", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+                new() { Name = "Webanwendung", Price = "2.799€", WarrantyDays = 60, Features = new() { "Bis zu 8 Seiten", "Kundenportal", "Online-Buchungen und/oder Newsletter", "Automatische E-Mail-Nachrichten", "Admin-Panel", "Besucherstatistiken", "SEO-Grundlagen", "DSGVO-Implementierung" } },
+            }
+        },
         Contact = new ContactSection
         {
             TitleHtml = "Machen Sie den ersten Schritt",
@@ -359,7 +409,7 @@ public static class SiteTextProvider
         },
         Footer = new FooterText
         {
-            Home = "START", Work = "PROJEKTE", Process = "ABLAUF",
+            Home = "START", Work = "PROJEKTE", Process = "ABLAUF", Pricing = "PREISE",
             Copyright = "© 2026 ZS.dev Alle Rechte vorbehalten.",
             PrivacyPolicy = "Datenschutz", TermsOfService = "AGB", CookieSettings = "Cookie-Einstellungen"
         },
@@ -398,9 +448,9 @@ public static class SiteTextProvider
     private static SiteText BuildSr() => new()
     {
         Culture = "sr-Latn",
-        PageTitle = "Zoran Simeunović - Full Stack Web Developer",
+        PageTitle = "Izrada web stranica po mjeri | Zoran Simeunovic",
         LanguageLabel = "Jezik",
-        Nav = new NavText { Home = "POČETNA", Work = "RADOVI", Process = "PROCES", ContactMe = "KONTAKT", MyQuestionnaire = "MOJ UPITNIK" },
+        Nav = new NavText { Home = "POČETNA", Work = "RADOVI", Process = "PROCES", Pricing = "CIJENE", ContactMe = "KONTAKT", MyQuestionnaire = "MOJ UPITNIK" },
         Hero = new HeroText
         {
             Badge = "Full Stack Web Developer",
@@ -465,7 +515,7 @@ public static class SiteTextProvider
                 new() { Tag = "POTREBNO VAŠE ODOBRENJE", Title = "Pregled dizajna", Description = "Prvo vidite kompletan dizajn. Ništa se ne gradi bez vašeg odobrenja." },
                 new() { Tag = "IZRADA VAŠEG SAJTA", Title = "Sajt", Description = "Odobreni dizajn postaje brz, funkcionalan sajt. Bez ćutanja - uvek znate dokle se stiglo." },
                 new() { Tag = "VREME ZA PROVERU", Title = "Pregled sajta", Description = "Testirate sajt i tražite izmene ako su potrebne." },
-                new() { Tag = "VREME ZA MOTOR", Title = "Web aplikacija (opciono)", Description = "Sajt odobren. Prilagođeni alati grade se iza scene. Portali, rezervacije, dashboardi." },
+                new() { Tag = "VAŠA APLIKACIJA", Title = "Web aplikacija (opciono)", Description = "Sajt odobren. Prilagođeni alati grade se iza scene. Portali, rezervacije, dashboardi." },
                 new() { Tag = "VREME ZA PROVERU", Title = "Pregled web aplikacije (opciono)", Description = "Testirate sve od početka do kraja. Tražite izmene ako su potrebne." },
                 new() { Tag = "PUŠTANJE U RAD", Title = "Lansiranje i predaja", Description = "Postavljanje, dokumentacija i predaja. Konačna faktura pri isporuci. Sve greške nastale kao rezultat razvoja biće ispravljene besplatno - 30 dana za web stranice, 60 dana za web aplikacije." },
                 new() { Tag = "FLEXIBLE", Title = "Kontinuirana podrška (opciono)", Description = "Pod vašim uslovima. Hosting, SSL, rezervne kopije, ispravke grešaka ili nove funkcije - uzimate samo ono što vašem poslovanju treba." }
@@ -537,6 +587,31 @@ public static class SiteTextProvider
                 }
             }
         },
+        Pricing = new PricingSection
+        {
+            Label = "CIJENE",
+            Title = "Koliko košta web stranica?",
+            Subtitle = "Bez gotovih šablona - svaki sajt razvijen posebno za vaš biznis.",
+            GetStarted = "DOBIJ PONUDU",
+            Badges = new() { "Bez šablona", "Fiksna cijena", "Garantni rok uključen" },
+            BadgeRecommended = "Preporučeno",
+            CtaHeading = "Niste pronašli što tražite?",
+            CtaText = "Zatražite personalnu ponudu za desktop aplikaciju, mobilnu app, hosting, održavanje ili projekte van standardnih paketa.",
+            CtaButton = "Zatražite ponudu",
+
+            WarrantyUnit = "dana garantni rok",
+            PrevLabel = "Prethodni",
+            NextLabel = "Sljedeći",
+            Cards = new List<PricingCard>
+            {
+                new() { Name = "Landing stranica", Price = "399€", WarrantyDays = 30, Features = new() { "Jedna stranica, jedan cilj", "Kontakt forma", "Responzivan dizajn", "SEO osnove", "DSGVO implementacija" } },
+                new() { Name = "Prezentacioni sajt", Price = "799€", WarrantyDays = 30, Features = new() { "Do 5 stranica", "Kontakt forma + mapa lokacije", "WhatsApp dugme", "Responzivan dizajn", "SEO osnove", "DSGVO implementacija" } },
+                new() { Name = "Sajt koji sam uređuješ", Price = "1.199€", WarrantyDays = 30, IsRecommended = true, Features = new() { "Do 8 stranica", "Blog i galerija", "Višejezična podrška", "Klijent sam uređuje sadržaj", "WhatsApp dugme", "SEO osnove", "DSGVO implementacija" } },
+                new() { Name = "Sajt + interaktivni alat", Price = "1.599€", WarrantyDays = 60, Features = new() { "Do 5 stranica", "Kalkulator, konfigurator ili obrazac", "Admin panel", "SEO osnove", "DSGVO implementacija" } },
+                new() { Name = "Sajt + rezervacije / portal", Price = "2.199€", WarrantyDays = 60, Features = new() { "Do 5 stranica", "Online rezervacije ili klijentski portal", "Automatske email poruke", "Admin panel", "SEO osnove", "DSGVO implementacija" } },
+                new() { Name = "Web aplikacija", Price = "2.799€", WarrantyDays = 60, Features = new() { "Do 8 stranica", "Klijentski portal", "Online rezervacije i/ili newsletter", "Automatske email poruke", "Admin panel", "Statistika posjeta", "SEO osnove", "DSGVO implementacija" } },
+            }
+        },
         Contact = new ContactSection
         {
             TitleHtml = "Napravite prvi korak",
@@ -551,7 +626,7 @@ public static class SiteTextProvider
         },
         Footer = new FooterText
         {
-            Home = "POČETNA", Work = "RADOVI", Process = "PROCES",
+            Home = "POČETNA", Work = "RADOVI", Process = "PROCES", Pricing = "CIJENE",
             Copyright = "© 2026 ZS.dev Sva prava zadržana.",
             PrivacyPolicy = "Politika privatnosti", TermsOfService = "Uslovi korišćenja", CookieSettings = "Podešavanja kolačića"
         },
@@ -650,9 +725,9 @@ public static class SiteTextProvider
             PagesOtherPlaceholder = "Which pages?",
             ExtrasLabel = "Do you need any of the following?",
             CommHeader = "Contact",
-            CommOptions = ["Contact form - clients contact you directly from your website"],
+            CommOptions = ["Contact form - clients contact you directly from your website", "WhatsApp button - clients contact you directly via WhatsApp", "Chatbot - automated chat assistant on your website (personal offer)"],
             GrowthHeader = "Visibility & growth",
-            GrowthOptions = ["SEO optimization - so clients find you more easily on Google", "Google Maps integration - show your company location on the map", "Analytics overview - see how many visitors your site has and where they come from", "Multilingual support - website available in multiple languages"],
+            GrowthOptions = ["SEO basics - so clients find you more easily on Google", "SEO advanced optimization - keyword research, content strategy, link building", "Google Maps integration - show your company location on the map", "Analytics overview - see how many visitors your site has and where they come from", "Multilingual support - website available in multiple languages", "Online payment (Stripe, PayPal) - accept payments on your website (personal offer)"],
             ExtrasOtherPlaceholder = "What else do you need?"
         },
         S3 = new QStep3Text
@@ -819,9 +894,9 @@ public static class SiteTextProvider
             PagesOtherPlaceholder = "Welche Seiten?",
             ExtrasLabel = "Benötigen Sie eines der Folgenden?",
             CommHeader = "Kontakt",
-            CommOptions = ["Kontaktformular - Kunden kontaktieren Sie direkt von Ihrer Website"],
+            CommOptions = ["Kontaktformular - Kunden kontaktieren Sie direkt von Ihrer Website", "WhatsApp-Schaltfläche - Kunden kontaktieren Sie direkt über WhatsApp", "Chatbot - automatischer Chat-Assistent auf Ihrer Website (persönliches Angebot)"],
             GrowthHeader = "Sichtbarkeit & Wachstum",
-            GrowthOptions = ["SEO-Optimierung - damit Kunden Sie leichter auf Google finden", "Google Maps-Integration - zeigen Sie den Standort Ihres Unternehmens auf der Karte", "Statistikübersicht - sehen Sie, wie viele Besucher Ihre Seite hat und woher sie kommen", "Mehrsprachige Unterstützung - Website in mehreren Sprachen für ein breiteres Publikum"],
+            GrowthOptions = ["SEO-Grundlagen - damit Kunden Sie leichter auf Google finden", "SEO-Erweiterte Optimierung - Keyword-Recherche, Content-Strategie, Linkaufbau", "Google Maps-Integration - zeigen Sie den Standort Ihres Unternehmens auf der Karte", "Statistikübersicht - sehen Sie, wie viele Besucher Ihre Seite hat und woher sie kommen", "Mehrsprachige Unterstützung - Website in mehreren Sprachen für ein breiteres Publikum", "Online-Zahlung (Stripe, PayPal) - nehmen Sie Zahlungen auf Ihrer Website entgegen (persönliches Angebot)"],
             ExtrasOtherPlaceholder = "Was brauchen Sie noch?"
         },
         S3 = new QStep3Text
@@ -988,9 +1063,9 @@ public static class SiteTextProvider
             PagesOtherPlaceholder = "Koje stranice?",
             ExtrasLabel = "Dodatne funkcije",
             CommHeader = "Kontakt",
-            CommOptions = ["Kontakt forma - klijenti Vas kontaktiraju direktno s Vašeg sajta"],
+            CommOptions = ["Kontakt forma - klijenti Vas kontaktiraju direktno s Vašeg sajta", "WhatsApp dugme - klijenti Vas kontaktiraju direktno putem WhatsApp-a", "Chatbot - automatski chat asistent na Vašem sajtu (personalna ponuda)"],
             GrowthHeader = "Vidljivost i rast",
-            GrowthOptions = ["SEO optimizacija - da Vas klijenti lakše pronađu na Googleu", "Google Maps integracija - prikažite lokaciju Vaše firme na mapi", "Pregled statistike - vidite koliko posjetilaca ima Vaš sajt i odakle dolaze", "Višejezična podrška - sajt dostupan na više jezika za širu publiku"],
+            GrowthOptions = ["SEO osnove - da Vas klijenti lakše pronađu na Googleu", "SEO napredna optimizacija - istraživanje ključnih riječi, content strategija, izgradnja linkova", "Google Maps integracija - prikažite lokaciju Vaše firme na mapi", "Pregled statistike - vidite koliko posjetilaca ima Vaš sajt i odakle dolaze", "Višejezična podrška - sajt dostupan na više jezika za širu publiku", "Online plaćanje (Stripe, PayPal) - prihvatajte plaćanja na Vašem sajtu (personalna ponuda)"],
             ExtrasOtherPlaceholder = "Šta još?"
         },
         S3 = new QStep3Text

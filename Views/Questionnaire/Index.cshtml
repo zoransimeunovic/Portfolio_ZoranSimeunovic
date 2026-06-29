@@ -615,4 +615,17 @@
         }));
     </script>
     <script src="~/js/questionnaire.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var basics = document.querySelector('input[value="extrasGrowth_0"]');
+            var advanced = document.querySelector('input[value="extrasGrowth_1"]');
+            if (!basics || !advanced) return;
+            advanced.addEventListener('change', function () {
+                if (this.checked) basics.checked = true;
+            });
+            basics.addEventListener('change', function () {
+                if (!this.checked) advanced.checked = false;
+            });
+        });
+    </script>
 }

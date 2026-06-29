@@ -11,6 +11,7 @@ public class SiteText
     public AboutText About { get; set; } = new();
     public ProcessSection Process { get; set; } = new();
     public ImproveSection Improve { get; set; } = new();
+    public PricingSection Pricing { get; set; } = new();
     public ContactSection Contact { get; set; } = new();
     public FooterText Footer { get; set; } = new();
     public CookieText Cookie { get; set; } = new();
@@ -24,6 +25,7 @@ public class NavText
     public string Home { get; set; } = "";
     public string Work { get; set; } = "";
     public string Process { get; set; } = "";
+    public string Pricing { get; set; } = "";
     public string ContactMe { get; set; } = "";
     public string MyQuestionnaire { get; set; } = "";
 }
@@ -127,6 +129,33 @@ public class ScoreBand
     public string Text { get; set; } = "";
 }
 
+public class PricingSection
+{
+    public string Label { get; set; } = "";
+    public string Title { get; set; } = "";
+    public string Subtitle { get; set; } = "";
+    public string GetStarted { get; set; } = "";
+    public List<string> Badges { get; set; } = new();
+    public string BadgeRecommended { get; set; } = "";
+    public string CtaHeading { get; set; } = "";
+    public string CtaText { get; set; } = "";
+    public string CtaButton { get; set; } = "";
+    public string Disclaimer { get; set; } = "";
+    public string WarrantyUnit { get; set; } = "";
+    public string PrevLabel { get; set; } = "Previous";
+    public string NextLabel { get; set; } = "Next";
+    public List<PricingCard> Cards { get; set; } = new();
+}
+
+public class PricingCard
+{
+    public string Name { get; set; } = "";
+    public string Price { get; set; } = "";
+    public List<string> Features { get; set; } = new();
+    public int WarrantyDays { get; set; } = 30;
+    public bool IsRecommended { get; set; } = false;
+}
+
 public class ContactSection
 {
     public string TitleHtml { get; set; } = "";
@@ -145,6 +174,7 @@ public class FooterText
     public string Home { get; set; } = "";
     public string Work { get; set; } = "";
     public string Process { get; set; } = "";
+    public string Pricing { get; set; } = "";
     public string Copyright { get; set; } = "";
     public string PrivacyPolicy { get; set; } = "";
     public string TermsOfService { get; set; } = "";

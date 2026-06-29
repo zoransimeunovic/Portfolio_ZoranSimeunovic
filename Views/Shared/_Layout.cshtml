@@ -4,6 +4,12 @@
     var currentCulture = CultureInfo.CurrentUICulture.Name;
     var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
     var indexUrl = Url.Action("Index", "Home");
+    var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
+    var metaDesc = currentCulture.StartsWith("de")
+        ? "Professionelle Website-Entwicklung ohne Templates. Festpreis ab 399€. Web-Anwendungen - Preis nach Projekt."
+        : currentCulture.StartsWith("sr")
+        ? "Profesionalna izrada web stranica bez šablona. Fiksna cijena od 399€. Web aplikacije - cijena po projektu."
+        : "Professional custom web development. No templates, fixed price from 399€. Web applications - price per project.";
 
     var languages = new[]
     {
@@ -20,6 +26,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@(ViewData["Title"] != null ? ViewData["Title"] + " — " : "")@T.PageTitle</title>
+    <meta name="description" content="@metaDesc" />
+    <link rel="alternate" hreflang="sr" href="@baseUrl@indexUrl?lang=sr-Latn" />
+    <link rel="alternate" hreflang="de" href="@baseUrl@indexUrl?lang=de" />
+    <link rel="alternate" hreflang="en" href="@baseUrl@indexUrl" />
+    <link rel="alternate" hreflang="x-default" href="@baseUrl@indexUrl" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,6 +57,7 @@
                         <li class="nav-item"><a class="nav-link" href="@indexUrl#home">@T.Nav.Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="@indexUrl#work">@T.Nav.Work</a></li>
                         <li class="nav-item"><a class="nav-link" href="@indexUrl#process">@T.Nav.Process</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@indexUrl#pricing">@T.Nav.Pricing</a></li>
                     </ul>
 
                     <div class="nav-right">
@@ -99,6 +111,7 @@
                     <li><a href="@indexUrl#home">@T.Footer.Home</a></li>
                     <li><a href="@indexUrl#work">@T.Footer.Work</a></li>
                     <li><a href="@indexUrl#process">@T.Footer.Process</a></li>
+                    <li><a href="@indexUrl#pricing">@T.Footer.Pricing</a></li>
                 </ul>
 
                 <div class="footer-social">

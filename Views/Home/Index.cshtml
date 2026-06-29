@@ -252,6 +252,63 @@
     </div>
 </section>
 
+<!-- ============================ PRICING ============================ -->
+<section class="pricing" id="pricing">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-label">@Model.Pricing.Label</span>
+            <h2 class="section-title">@Model.Pricing.Title</h2>
+            <p class="section-sub">@Model.Pricing.Subtitle</p>
+            <div class="pricing-tags">
+                @foreach (var badge in Model.Pricing.Badges)
+                {
+                    <span class="pricing-tag">@badge</span>
+                }
+            </div>
+        </div>
+
+        <div class="pricing-carousel" data-pricing-carousel>
+            <button class="carousel-btn prev" data-pricing-prev aria-label="@Model.Pricing.PrevLabel">&#8249;</button>
+            <div class="carousel-viewport">
+                <div class="carousel-track" data-pricing-track>
+                    @for (var i = 0; i < Model.Pricing.Cards.Count; i++)
+                    {
+                        var card = Model.Pricing.Cards[i];
+                        <article class="pricing-card@(card.IsRecommended ? " pricing-card--featured" : "")">
+                            @if (card.IsRecommended)
+                            {
+                                <span class="pricing-badge">@Model.Pricing.BadgeRecommended</span>
+                            }
+                            <div class="pricing-head">
+                                <h3 class="pricing-name">@card.Name</h3>
+                                <p class="pricing-price">@card.Price</p>
+                            </div>
+                            <ul class="pricing-features">
+                                @foreach (var feature in card.Features)
+                                {
+                                    <li>@feature</li>
+                                }
+                            </ul>
+                            <div class="pricing-footer">
+                                <span class="pricing-warranty">@card.WarrantyDays @Model.Pricing.WarrantyUnit</span>
+                                <a href="#contact" class="btn btn-accent pricing-cta">@Model.Pricing.GetStarted</a>
+                            </div>
+                        </article>
+                    }
+                </div>
+            </div>
+            <button class="carousel-btn next" data-pricing-next aria-label="@Model.Pricing.NextLabel">&#8250;</button>
+        </div>
+
+        <div class="pricing-cta-block">
+            <h3 class="pricing-cta-heading">@Model.Pricing.CtaHeading</h3>
+            <p class="pricing-cta-text">@Model.Pricing.CtaText</p>
+            <a href="#contact" class="btn btn-accent pricing-cta-btn">@Model.Pricing.CtaButton</a>
+        </div>
+
+    </div>
+</section>
+
 <!-- ============================ LAST CTA (Take the first step) ============================ -->
 <section class="contact" id="contact">
     <div class="container">
@@ -265,9 +322,14 @@
                 <h2 class="cta-title">@Html.Raw(Model.Contact.TitleHtml)</h2>
                 <p class="cta-sub">@Model.Contact.Subtitle1 @Model.Contact.Subtitle2</p>
 
+                <div id="selectedPackageTag" class="selected-package-tag" hidden>
+                    <span id="selectedPackageName"></span>
+                    <button type="button" id="clearPackageBtn" aria-label="Clear">&#215;</button>
+                </div>
                 <form id="contactForm" class="cta-form"
                       asp-controller="Home" asp-action="Contact" method="post">
                     @Html.AntiForgeryToken()
+                    <input type="hidden" name="package" id="selectedPackage" />
                     <input type="text" name="name" required placeholder="@Model.Contact.NamePlaceholder" />
                     <input type="email" name="email" required placeholder="@Model.Contact.EmailPlaceholder" />
                     <button type="submit" class="cta-submit">@Model.Contact.GetStarted</button>
@@ -279,3 +341,100 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+<script>
+(function () {
+    var root = document.querySelector("[data-pricing-carousel]");
+    if (!root) return;
+    var track = root.querySelector("[data-pricing-track]");
+    var prevBtn = root.querySelector("[data-pricing-prev]");
+    var nextBtn = root.querySelector("[data-pricing-next]");
+    if (!track) return;
+
+    var realCards = Array.prototype.slice.call(track.children);
+    var n = realCards.length;
+    if (n === 0) return;
+
+    for (var i = n - 1; i >= 0; i--) {
+        var pre = realCards[i].cloneNode(true);
+        pre.setAttribute("aria-hidden", "true");
+        track.insertBefore(pre, track.firstChild);
+    }
+    realCards.forEach(function (c) {
+        var post = c.cloneNode(true);
+        post.setAttribute("aria-hidden", "true");
+        track.appendChild(post);
+    });
+
+    var index = n;
+    var busy = false;
+
+    function step() {
+        var style = window.getComputedStyle(track);
+        var gap = parseFloat(style.columnGap || style.gap || "0") || 0;
+        return realCards[0].getBoundingClientRect().width + gap;
+    }
+
+    function setPos(i, animate) {
+        if (!animate) {
+            track.style.transition = "none";
+            track.style.transform = "translateX(" + (-i * step()) + "px)";
+            track.getBoundingClientRect();
+            track.style.transition = "";
+        } else {
+            track.style.transform = "translateX(" + (-i * step()) + "px)";
+        }
+    }
+
+    track.addEventListener("transitionend", function () {
+        if (index >= 2 * n) { index -= n; setPos(index, false); }
+        if (index < n)      { index += n; setPos(index, false); }
+        busy = false;
+    });
+
+    function navigate(dir) {
+        if (busy) return;
+        busy = true;
+        index += dir;
+        setPos(index, true);
+    }
+
+    if (prevBtn) prevBtn.addEventListener("click", function () { navigate(-1); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { navigate(1); });
+
+    var touchStartX = 0;
+    track.addEventListener("touchstart", function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener("touchend", function (e) {
+        var diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) navigate(diff > 0 ? 1 : -1);
+    });
+
+    var resizeTimer;
+    window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () { setPos(index, false); }, 150);
+    });
+
+    setPos(index, false);
+}());
+(function () {
+    document.querySelectorAll('.pricing-cta').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var card = this.closest('article');
+            if (!card) return;
+            var name = card.querySelector('.pricing-name');
+            if (!name) return;
+            document.getElementById('selectedPackage').value = name.textContent.trim();
+            document.getElementById('selectedPackageName').textContent = name.textContent.trim();
+            document.getElementById('selectedPackageTag').removeAttribute('hidden');
+        });
+    });
+    var clearBtn = document.getElementById('clearPackageBtn');
+    if (clearBtn) clearBtn.addEventListener('click', function () {
+        document.getElementById('selectedPackage').value = '';
+        document.getElementById('selectedPackageTag').setAttribute('hidden', '');
+    });
+}());
+</script>
+}

@@ -646,18 +646,24 @@ a.work-badge:hover { color: var(--secondary); }
 .ab-linkedin {
     left: 180px; top: 534px;
     width: 102px; height: 102px;
-    border-radius: 50%;
-    background: var(--accent);
     display: grid;
     place-items: center;
-    overflow: hidden;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.40);
     z-index: 6;
+}
+/* Hover mijenja samo plavi krug (::before); logo (rect + sign) stoji staticki
+   u sredini pa nema razdvajanja elemenata tokom animacije */
+.ab-linkedin::before {
+    content: "";
+    grid-area: 1 / 1;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.40);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.ab-linkedin:hover { transform: scale(1.04); box-shadow: 0 0 12px rgba(21, 110, 246, 0.40); }
-.ab-li-rect { grid-area: 1 / 1; width: 63px; height: 63px; }
-.ab-li-sign { grid-area: 1 / 1; width: 47px; height: 42px; }
+.ab-linkedin:hover::before { transform: scale(1.06); box-shadow: 0 0 14px rgba(21, 110, 246, 0.45); }
+.ab-li-rect { grid-area: 1 / 1; width: 63px; height: 63px; position: relative; z-index: 1; }
+.ab-li-sign { grid-area: 1 / 1; width: 47px; height: 42px; position: relative; z-index: 1; }
 
 /* Govorni oblačić — koordinate relativne prema ab-copy (842px, 91px u about-stage) */
 .ab-msg {
@@ -774,7 +780,7 @@ a.work-badge:hover { color: var(--secondary); }
     margin: 0 auto;
     position: relative;
     z-index: 1;
-    align-items: start;
+    align-items: stretch;
 }
 .process-card {
     position: relative;
@@ -1074,6 +1080,191 @@ a.work-badge:hover { color: var(--secondary); }
     font-weight: 700;
     line-height: 1.3;
 }
+
+/* ── PRICING ──────────────────────────────────────────────────────────────── */
+.pricing { padding: 96px 0; background: var(--primary); }
+.pricing .container { max-width: 1440px; padding: 0 72px; position: relative; }
+.pricing .section-sub { max-width: 560px; }
+
+.pricing-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.pricing-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(21, 110, 246, 0.10);
+    border: 1px solid rgba(21, 110, 246, 0.35);
+    color: var(--secondary);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+.pricing-tag::before { content: "✓"; color: var(--accent); font-weight: 700; }
+
+.pricing-carousel { position: relative; }
+
+.pricing-card {
+    flex: 0 0 416px;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px 24px 24px;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.pricing-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 12px rgba(21, 110, 246, 0.40);
+}
+.pricing-card--featured {
+    border-color: var(--accent);
+}
+.pricing-card--featured:hover {
+    border-color: var(--accent);
+}
+
+.pricing-badge {
+    position: absolute;
+    top: -1px; right: 24px;
+    transform: translateY(-100%);
+    background: var(--accent);
+    color: var(--secondary);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 4px 4px 0 0;
+}
+
+.pricing-head { margin-bottom: 24px; }
+.pricing-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--secondary);
+    line-height: 1.3;
+    margin: 0 0 8px;
+}
+.pricing-price {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 0;
+    line-height: 1.1;
+}
+
+.pricing-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.pricing-features li {
+    font-size: 15px;
+    color: rgba(221, 230, 245, 0.8);
+    line-height: 1.4;
+    padding-left: 20px;
+    position: relative;
+}
+.pricing-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.pricing-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.pricing-warranty {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+}
+.pricing-cta {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.pricing-cta-block {
+    margin-top: 56px;
+    padding: 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-align: center;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.pricing-cta-heading {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--secondary);
+    margin: 0 0 12px;
+}
+.pricing-cta-text {
+    font-size: 16px;
+    color: rgba(221, 230, 245, 0.8);
+    margin: 0 0 24px;
+    line-height: 1.5;
+}
+.pricing-cta-btn {
+    display: inline-block;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 15px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.pricing-cta-btn:hover {
+    background: var(--accent);
+    color: var(--secondary);
+}
+
+.pricing-disclaimer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 24px;
+    margin-bottom: 0;
+}
+
+.selected-package-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(21, 110, 246, 0.12);
+    border: 1px solid var(--accent);
+    color: var(--secondary);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+.selected-package-tag[hidden] { display: none; }
+.selected-package-tag button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; padding: 0; }
+.selected-package-tag button:hover { color: var(--secondary); }
 
 /* ── CONTACT (Last CTA) ───────────────────────────────────────────────────── */
 .contact { padding: 32px 0 96px; }
@@ -1410,6 +1601,9 @@ a.work-badge:hover { color: var(--secondary); }
     /* Process — 2 kartice po redu na tabletu */
     .process-grid { grid-template-columns: repeat(2, 1fr); column-gap: 20px; row-gap: 25px; width: 100%; }
 
+    /* Pricing — 2 kartice po redu na tabletu */
+    .pricing-card { flex: 0 0 calc(50% - 10px); }
+
     /* Improve — 4 od 8 kolona: 2+1 raspored */
     .improve-grid { display: flex; flex-wrap: wrap; gap: 20px; }
     .improve-col { flex: 0 0 calc(50% - 10px); }
@@ -1561,6 +1755,9 @@ a.work-badge:hover { color: var(--secondary); }
 
     /* Process — 1 kartica po redu na mobilnom */
     .process-grid { grid-template-columns: 1fr; gap: 25px; }
+
+    /* Pricing — 1 kartica po redu na mobilnom */
+    .pricing-card { flex: 0 0 100%; }
 
     /* Improve — svaka lista puna sirina */
     .improve-col { flex: 0 0 100%; }
