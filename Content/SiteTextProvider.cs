@@ -738,7 +738,7 @@ public static class SiteTextProvider
         S3 = new QStep3Text
         {
             Title = "Web application & automation",
-            SectionHint = "Optional - select what applies to your project. If nothing is needed, just click Next.",
+            SectionHint = "Select what applies to your project. If nothing is needed, just click Next.",
             AppTypeLabel = "What do you need?",
             AppTypeOptions = ["New web application", "New desktop application"],
             AppTypeOtherPlaceholder = "Describe",
@@ -752,7 +752,7 @@ public static class SiteTextProvider
             SalesLabel = "Sales & bookings",
             SalesOptions = ["Online bookings - clients schedule appointments themselves, without phone calls", "Client portal - clients log in and view their data, orders or documents", "E-commerce / online shop - sell products or services directly online"],
             AutoLabel = "Automation & integrations",
-            AutoOptions = ["Reduce phone calls and inquiries - the system works for you", "Save time on repetitive tasks - data entry, order tracking, report generation", "Microsoft 365 integration - connect your site with Outlook, Teams, Calendar, OneDrive", "Admin panel for managing data and users - everything in one place", "Analytics dashboard - view visitor count, traffic sources and user behaviour within your site", "Bug fixing - quick resolution of technical issues"],
+            AutoOptions = ["Reduce phone calls and inquiries - the system works for you", "Save time on repetitive tasks - data entry, order tracking, report generation", "Microsoft 365 integration - connect your site with Outlook, Teams, Calendar, OneDrive", "Admin panel for managing data and users - everything in one place", "Analytics dashboard - view visitor count, traffic sources and user behaviour within your site"],
             ContentMgmtLabel = "Content management",
             ContentMgmtOptions = ["I want to update texts and images myself - without technical knowledge", "Blog / news section - add and publish articles and news yourself"],
             ContentMgmtOtherPlaceholder = "What else?"
@@ -762,13 +762,13 @@ public static class SiteTextProvider
             Title = "Design & materials",
             TextsLabel = "Texts for the website",
             TextsHelpCheckbox = "I need help with texts",
-            TextsDropzoneHint = "Attach texts (optional) - drag or click",
+            TextsDropzoneHint = "Attach texts - drag or click",
             PhotosLabel = "Photos",
             PhotosHelpCheckbox = "I need help with photos",
-            PhotosDropzoneHint = "Attach photos (optional) - drag or click",
+            PhotosDropzoneHint = "Attach photos - drag or click",
             BrandingLabel = "Branding materials - Logo / Brand book",
             BrandingHelpCheckbox = "I need help with branding",
-            BrandingDropzoneHint = "Attach logo or brand book (optional) - drag or click",
+            BrandingDropzoneHint = "Attach logo or brand book - drag or click",
             SocialLinksLabel = "Social media",
             SocialLinksHint = "List links to your profiles you want displayed on the website. E.g. LinkedIn, Xing, Facebook, Instagram...",
             StyleLabel = "What style do you prefer?",
@@ -792,7 +792,7 @@ public static class SiteTextProvider
             PrimaryColorLabel = "Primary colour",
             SecondaryColorLabel = "Secondary colour",
             AccentColorLabel = "Accent colour",
-            ColorsHint = "Optional - skip if unsure. We can choose colours that suit your brand together."
+            ColorsHint = "Skip if unsure. We can choose colours that suit your brand together."
         },
         S5 = new QStep5Text
         {
@@ -825,7 +825,7 @@ public static class SiteTextProvider
             DeadlineYes = "Yes → When?",
             DeadlineNo = "No fixed deadline",
             SupportLabel = "Are you interested in maintenance and support after the project?",
-            SupportOptions = ["Hosting - your website on a reliable server", "SSL certificate - secure connection", "Regular backups - your data automatically saved daily", "Security updates - protection against attacks", "Minor content changes - updating texts, images and prices", "Priority support - faster response and issue resolution"],
+            SupportOptions = ["Hosting - your website on a reliable server", "SSL certificate - secure connection", "Regular backups - your data automatically saved daily", "Security updates - protection against attacks", "Minor content changes - updating texts, images and prices", "Technical support"],
             SupportOtherPlaceholder = "What else?",
             HeardFromLabel = "How did you hear about me?",
             HeardFromOptions = ["Friend / colleague recommendation", "Google search", "LinkedIn", "Xing", "Instagram", "Facebook"],
@@ -913,7 +913,7 @@ public static class SiteTextProvider
         S3 = new QStep3Text
         {
             Title = "Web-Applikation & Automatisierung",
-            SectionHint = "Optional - wählen Sie, was auf Ihr Projekt zutrifft. Wenn nichts davon benötigt wird, klicken Sie einfach auf Weiter.",
+            SectionHint = "Wählen Sie, was auf Ihr Projekt zutrifft. Wenn nichts davon benötigt wird, klicken Sie einfach auf Weiter.",
             AppTypeLabel = "Was benötigen Sie?",
             AppTypeOptions = ["Neue Web-Anwendung", "Neue Desktop-Anwendung"],
             AppTypeOtherPlaceholder = "Beschreiben",
@@ -927,7 +927,7 @@ public static class SiteTextProvider
             SalesLabel = "Verkauf & Buchungen",
             SalesOptions = ["Online-Buchungen - Kunden vereinbaren Termine selbst, ohne Anrufe", "Kundenportal - Kunden melden sich an und sehen ihre Daten, Bestellungen oder Dokumente", "E-Commerce / Online-Shop - verkaufen Sie Produkte oder Dienstleistungen direkt online"],
             AutoLabel = "Automatisierung & Integrationen",
-            AutoOptions = ["Anzahl der Anrufe und Anfragen reduzieren - das System arbeitet für Sie", "Zeit bei Routineaufgaben sparen - Dateneingabe, Auftragsverfolgung, Berichterstellung", "Microsoft 365-Integration - verbinden Sie Ihre Website mit Outlook, Teams, Calendar, OneDrive", "Admin-Panel für Daten- und Benutzerverwaltung - alles an einem Ort", "Analytics-Dashboard - Besucherzahlen, Herkunft und Nutzerverhalten direkt auf Ihrer Website", "Fehlerbehebung - schnelle Lösung technischer Probleme"],
+            AutoOptions = ["Anzahl der Anrufe und Anfragen reduzieren - das System arbeitet für Sie", "Zeit bei Routineaufgaben sparen - Dateneingabe, Auftragsverfolgung, Berichterstellung", "Microsoft 365-Integration - verbinden Sie Ihre Website mit Outlook, Teams, Calendar, OneDrive", "Admin-Panel für Daten- und Benutzerverwaltung - alles an einem Ort", "Analytics-Dashboard - Besucherzahlen, Herkunft und Nutzerverhalten direkt auf Ihrer Website"],
             ContentMgmtLabel = "Inhaltsverwaltung",
             ContentMgmtOptions = ["Ich möchte Texte und Bilder selbst aktualisieren - ohne technische Kenntnisse", "Blog / Neuigkeiten-Bereich - fügen Sie selbst Artikel und Neuigkeiten hinzu"],
             ContentMgmtOtherPlaceholder = "Was noch?"
@@ -937,13 +937,13 @@ public static class SiteTextProvider
             Title = "Design & Materialien",
             TextsLabel = "Texte für die Website",
             TextsHelpCheckbox = "Ich brauche Hilfe bei den Texten",
-            TextsDropzoneHint = "Texte anhängen (optional) - ziehen oder klicken",
+            TextsDropzoneHint = "Texte anhängen - ziehen oder klicken",
             PhotosLabel = "Fotos",
             PhotosHelpCheckbox = "Ich brauche Hilfe bei den Fotos",
-            PhotosDropzoneHint = "Fotos anhängen (optional) - ziehen oder klicken",
+            PhotosDropzoneHint = "Fotos anhängen - ziehen oder klicken",
             BrandingLabel = "Marken-Materialien - Logo / Brand book",
             BrandingHelpCheckbox = "Ich brauche Hilfe beim Branding",
-            BrandingDropzoneHint = "Logo oder Brand book anhängen (optional) - ziehen oder klicken",
+            BrandingDropzoneHint = "Logo oder Brand book anhängen - ziehen oder klicken",
             SocialLinksLabel = "Social Media",
             SocialLinksHint = "Listen Sie Links zu Ihren Profilen auf, die Sie auf der Website anzeigen möchten. Z.B. LinkedIn, Xing, Facebook, Instagram...",
             StyleLabel = "Welchen Stil bevorzugen Sie?",
@@ -967,7 +967,7 @@ public static class SiteTextProvider
             PrimaryColorLabel = "Primärfarbe",
             SecondaryColorLabel = "Sekundärfarbe",
             AccentColorLabel = "Akzentfarbe",
-            ColorsHint = "Optional - überspringen Sie es, wenn Sie unsicher sind. Farben wählen wir gemeinsam."
+            ColorsHint = "Überspringen Sie es, wenn Sie unsicher sind. Farben wählen wir gemeinsam."
         },
         S5 = new QStep5Text
         {
@@ -1000,7 +1000,7 @@ public static class SiteTextProvider
             DeadlineYes = "Ja → Wann?",
             DeadlineNo = "Kein fester Termin",
             SupportLabel = "Interessieren Sie sich für Wartung und Support nach dem Projekt?",
-            SupportOptions = ["Hosting - Ihre Website auf einem zuverlässigen Server", "SSL-Zertifikat - sichere Verbindung", "Regelmäßige Backups - Ihre Daten werden täglich automatisch gesichert", "Sicherheitsupdates - Schutz vor Angriffen", "Kleinere Inhaltsänderungen - Texte, Bilder und Preise aktualisieren", "Prioritäts-Support - schnellere Reaktion und Problemlösung"],
+            SupportOptions = ["Hosting - Ihre Website auf einem zuverlässigen Server", "SSL-Zertifikat - sichere Verbindung", "Regelmäßige Backups - Ihre Daten werden täglich automatisch gesichert", "Sicherheitsupdates - Schutz vor Angriffen", "Kleinere Inhaltsänderungen - Texte, Bilder und Preise aktualisieren", "Technischer Support"],
             SupportOtherPlaceholder = "Was noch?",
             HeardFromLabel = "Wie haben Sie von mir erfahren?",
             HeardFromOptions = ["Empfehlung von Freund / Kollege", "Google-Suche", "LinkedIn", "Xing", "Instagram", "Facebook"],
@@ -1102,7 +1102,7 @@ public static class SiteTextProvider
             SalesLabel = "Prodaja i rezervacije",
             SalesOptions = ["Online rezervacije - klijenti sami zakazuju termine, bez telefonskih poziva", "Klijentski portal - klijenti se prijavljuju i vide svoje podatke, narudžbe ili dokumente", "E-commerce / online prodavnica - prodajte proizvode ili usluge direktno online"],
             AutoLabel = "Automatizacija i integracije",
-            AutoOptions = ["Smanjiti broj telefonskih poziva i upita - sistem radi umjesto Vas", "Uštediti vrijeme na ponavljajućim zadacima - unos podataka, praćenje narudžbi, generisanje izvještaja", "Microsoft 365 integracija - povežite sajt s Outlook, Teams, Calendar, OneDrive", "Admin panel za upravljanje podacima i korisnicima - sve na jednom mjestu", "Statistika posjeta - pregledajte broj posjetilaca, izvore prometa i ponašanje korisnika direktno na Vašem sajtu", "Otklanjanje grešaka - brzo rješavanje tehničkih problema i bugova"],
+            AutoOptions = ["Smanjiti broj telefonskih poziva i upita - sistem radi umjesto Vas", "Uštediti vrijeme na ponavljajućim zadacima - unos podataka, praćenje narudžbi, generisanje izvještaja", "Microsoft 365 integracija - povežite sajt s Outlook, Teams, Calendar, OneDrive", "Admin panel za upravljanje podacima i korisnicima - sve na jednom mjestu", "Statistika posjeta - pregledajte broj posjetilaca, izvore prometa i ponašanje korisnika direktno na Vašem sajtu"],
             ContentMgmtLabel = "Upravljanje sadržajem",
             ContentMgmtOptions = ["Želim sam ažurirati tekstove i slike - bez tehničkog znanja", "Blog / sekcija vijesti - sami dodajete i objavljujete članke i vijesti"],
             ContentMgmtOtherPlaceholder = "Šta još?"
@@ -1112,13 +1112,13 @@ public static class SiteTextProvider
             Title = "Dizajn i materijali",
             TextsLabel = "Tekstovi za sajt",
             TextsHelpCheckbox = "Potrebna mi je pomoć oko tekstova",
-            TextsDropzoneHint = "Priložite tekstove (opciono) - prevucite ili kliknite",
+            TextsDropzoneHint = "Priložite tekstove - prevucite ili kliknite",
             PhotosLabel = "Fotografije",
             PhotosHelpCheckbox = "Potrebna mi je pomoć oko fotografija",
-            PhotosDropzoneHint = "Priložite fotografije (opciono) - prevucite ili kliknite",
+            PhotosDropzoneHint = "Priložite fotografije - prevucite ili kliknite",
             BrandingLabel = "Brendirani materijali - Logo / Brand book",
             BrandingHelpCheckbox = "Potrebna mi je pomoć oko brendiranja",
-            BrandingDropzoneHint = "Priložite logo ili brand book (opciono) - prevucite ili kliknite",
+            BrandingDropzoneHint = "Priložite logo ili brand book - prevucite ili kliknite",
             SocialLinksLabel = "Društvene mreže",
             SocialLinksHint = "Navedite linkove ka Vašim profilima koje želite prikazati na sajtu. Npr. LinkedIn, Xing, Facebook, Instagram...",
             StyleLabel = "Preferirani stil",
@@ -1142,7 +1142,7 @@ public static class SiteTextProvider
             PrimaryColorLabel = "Primarna boja",
             SecondaryColorLabel = "Sekundarna boja",
             AccentColorLabel = "Akcent boja",
-            ColorsHint = "Nije obavezno - ako niste sigurni, preskočite. Možemo zajedno odabrati boje koje odgovaraju Vašem brendu."
+            ColorsHint = "Ako niste sigurni, preskočite. Možemo zajedno odabrati boje koje odgovaraju Vašem brendu."
         },
         S5 = new QStep5Text
         {
@@ -1175,7 +1175,7 @@ public static class SiteTextProvider
             DeadlineYes = "Da → Kada?",
             DeadlineNo = "Nemam fiksni rok",
             SupportLabel = "Podrška i održavanje",
-            SupportOptions = ["Hosting - Vaš sajt na pouzdanom serveru", "SSL certifikat - sigurna veza, zeleni katanac u browseru", "Redovni backupi - Vaši podaci se automatski čuvaju na dnevnoj bazi", "Sigurnosni updates - zaštita od hakerskih napada", "Manje izmjene sadržaja - ažuriranje tekstova, slika i cijena", "Prioritetna podrška - brži odgovor i rješavanje problema"],
+            SupportOptions = ["Hosting - Vaš sajt na pouzdanom serveru", "SSL certifikat - sigurna veza, zeleni katanac u browseru", "Redovni backupi - Vaši podaci se automatski čuvaju na dnevnoj bazi", "Sigurnosni updates - zaštita od hakerskih napada", "Manje izmjene sadržaja - ažuriranje tekstova, slika i cijena", "Tehnička podrška"],
             SupportOtherPlaceholder = "Šta još?",
             HeardFromLabel = "Kako ste čuli za mene?",
             HeardFromOptions = ["Preporuka prijatelja / kolege", "Google pretraga", "LinkedIn", "Xing", "Instagram", "Facebook"],

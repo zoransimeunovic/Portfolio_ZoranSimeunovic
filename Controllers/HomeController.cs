@@ -14,24 +14,49 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly AppDbContext _db;
+    private readonly IWebHostEnvironment _env;
 
-    public HomeController(ILogger<HomeController> logger, AppDbContext db)
+    public HomeController(ILogger<HomeController> logger, AppDbContext db, IWebHostEnvironment env)
     {
         _logger = logger;
         _db = db;
+        _env = env;
     }
 
     private SiteText CurrentText() =>
         SiteTextProvider.Get(CultureInfo.CurrentUICulture.Name);
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         _logger.LogInformation("Index: GET /");
         try
         {
             var qToken = Request.Cookies["q_ref"];
+
+            if (string.IsNullOrEmpty(qToken) && _env.IsDevelopment())
+            {
+                var latest = await _db.Questionnaires
+                    .Where(q => q.TokenExpiresAt > DateTime.UtcNow && !q.CompletedAt.HasValue)
+                    .OrderByDescending(q => q.CreatedAt)
+                    .Select(q => q.Token)
+                    .FirstOrDefaultAsync();
+
+                if (latest != null)
+                {
+                    qToken = latest;
+                    Response.Cookies.Append("q_ref", qToken, new CookieOptions
+                    {
+                        Expires = DateTimeOffset.UtcNow.AddDays(30),
+                        IsEssential = true,
+                        Path = "/",
+                        SameSite = SameSiteMode.Lax
+                    });
+                }
+            }
+
             if (!string.IsNullOrEmpty(qToken))
                 ViewBag.QuestionnaireToken = qToken;
+
             return View(CurrentText());
         }
         catch (Exception ex)

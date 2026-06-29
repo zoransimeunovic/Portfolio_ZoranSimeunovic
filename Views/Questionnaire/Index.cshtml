@@ -8,6 +8,7 @@
     var name = (string)ViewBag.Name;
     var stage = (int)ViewBag.Stage;
     var packageName = ViewBag.PackageName as string;
+    var uploadedFiles = (ViewBag.Files as List<Portfolio_ZoranSimeunovic.Models.QuestionnaireFile>) ?? new();
 }
 
 <div class="q-page">
@@ -295,6 +296,13 @@
                         </div>
                         <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                     </div>
+                    @foreach (var f in uploadedFiles.Where(f => f.FileLabel == "texts"))
+                    {
+                        <div class="q-file-item" data-file-id="@f.Id">
+                            <span class="q-file-name">@f.OriginalFileName</span>
+                            <button type="button" class="q-file-delete" data-file-id="@f.Id" aria-label="Obriši">&#x2715;</button>
+                        </div>
+                    }
                     <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="textsHelp" value="yes" /> @Q.S4.TextsHelpCheckbox</label>
                 </div>
 
@@ -315,6 +323,13 @@
                         </div>
                         <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                     </div>
+                    @foreach (var f in uploadedFiles.Where(f => f.FileLabel == "photos"))
+                    {
+                        <div class="q-file-item" data-file-id="@f.Id">
+                            <span class="q-file-name">@f.OriginalFileName</span>
+                            <button type="button" class="q-file-delete" data-file-id="@f.Id" aria-label="Obriši">&#x2715;</button>
+                        </div>
+                    }
                     <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="photosHelp" value="yes" /> @Q.S4.PhotosHelpCheckbox</label>
                 </div>
 
@@ -335,12 +350,19 @@
                         </div>
                         <div class="q-dropzone-err" style="display:none">@Q.DropzoneError</div>
                     </div>
+                    @foreach (var f in uploadedFiles.Where(f => f.FileLabel == "branding"))
+                    {
+                        <div class="q-file-item" data-file-id="@f.Id">
+                            <span class="q-file-name">@f.OriginalFileName</span>
+                            <button type="button" class="q-file-delete" data-file-id="@f.Id" aria-label="Obriši">&#x2715;</button>
+                        </div>
+                    }
                     <label class="q-check-label" style="margin-top:10px"><input type="checkbox" name="brandHelp" value="yes" /> @Q.S4.BrandingHelpCheckbox</label>
                 </div>
 
                 <!-- Q20 Društvene mreže -->
                 <div class="q-field">
-                    <label class="q-label" for="socialLinks">@Q.S4.SocialLinksLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <label class="q-label" for="socialLinks">@Q.S4.SocialLinksLabel</label>
                     <p class="q-hint">@Q.S4.SocialLinksHint</p>
                     <textarea id="socialLinks" name="socialLinks" class="q-textarea" rows="3"></textarea>
                 </div>
@@ -390,29 +412,29 @@
 
                 <!-- Q23 Sajtovi koji se sviđaju -->
                 <div class="q-field">
-                    <label class="q-label" for="likedSites">@Q.S4.LikedSitesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <label class="q-label" for="likedSites">@Q.S4.LikedSitesLabel</label>
                     <p class="q-hint">@Q.S4.LikedSitesHint</p>
                     <textarea id="likedSites" name="likedSites" class="q-textarea" rows="2"></textarea>
                 </div>
                 <div class="q-field">
-                    <label class="q-label" for="likedSitesWhat">@Q.S4.LikedSitesWhatLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <label class="q-label" for="likedSitesWhat">@Q.S4.LikedSitesWhatLabel</label>
                     <p class="q-hint">@Q.S4.LikedSitesWhatHint</p>
                     <textarea id="likedSitesWhat" name="likedSitesWhat" class="q-textarea" rows="2"></textarea>
                 </div>
 
                 <!-- Q24 Konkurencija -->
                 <div class="q-field">
-                    <label class="q-label" for="competitorSites">@Q.S4.CompetitorSitesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <label class="q-label" for="competitorSites">@Q.S4.CompetitorSitesLabel</label>
                     <p class="q-hint">@Q.S4.CompetitorSitesHint</p>
                     <textarea id="competitorSites" name="competitorSites" class="q-textarea" rows="2"></textarea>
                 </div>
                 <div class="q-field">
-                    <label class="q-label" for="competitorGood">@Q.S4.CompetitorGoodLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <label class="q-label" for="competitorGood">@Q.S4.CompetitorGoodLabel</label>
                     <p class="q-hint">@Q.S4.CompetitorGoodHint</p>
                     <textarea id="competitorGood" name="competitorGood" class="q-textarea" rows="2"></textarea>
                 </div>
                 <div class="q-field">
-                    <label class="q-label" for="competitorBad">@Q.S4.CompetitorBadLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <label class="q-label" for="competitorBad">@Q.S4.CompetitorBadLabel</label>
                     <p class="q-hint">@Q.S4.CompetitorBadHint</p>
                     <textarea id="competitorBad" name="competitorBad" class="q-textarea" rows="2"></textarea>
                 </div>
@@ -455,21 +477,21 @@
 
                 <!-- Q26 Najveći problem -->
                 <div class="q-field">
-                    <label class="q-label" for="biggestProblem">@Q.S5.BiggestProblemLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <label class="q-label" for="biggestProblem">@Q.S5.BiggestProblemLabel</label>
                     <p class="q-hint">@Q.S5.BiggestProblemHint</p>
                     <textarea id="biggestProblem" name="biggestProblem" class="q-textarea" rows="3"></textarea>
                 </div>
 
                 <!-- Q27 Kriterij uspjeha -->
                 <div class="q-field">
-                    <label class="q-label" for="successCriteria">@Q.S5.SuccessCriteriaLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <label class="q-label" for="successCriteria">@Q.S5.SuccessCriteriaLabel</label>
                     <p class="q-hint">@Q.S5.SuccessCriteriaHint</p>
                     <textarea id="successCriteria" name="successCriteria" class="q-textarea" rows="3"></textarea>
                 </div>
 
                 <!-- Q28 Prednosti -->
                 <div class="q-field">
-                    <label class="q-label" for="advantages">@Q.S5.AdvantagesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
+                    <label class="q-label" for="advantages">@Q.S5.AdvantagesLabel</label>
                     <p class="q-hint">@Q.S5.AdvantagesHint</p>
                     <textarea id="advantages" name="advantages" class="q-textarea" rows="3"></textarea>
                 </div>
@@ -551,7 +573,14 @@
                     </div>
                 </div>
 
-                <!-- Q33 Kako ste čuli -->
+                <!-- Q33 Dodatno -->
+                <div class="q-field">
+                    <label class="q-label" for="additionalNotes">@Q.S5.AdditionalNotesLabel</label>
+                    <p class="q-hint">@Q.S5.AdditionalNotesHint</p>
+                    <textarea id="additionalNotes" name="additionalNotes" class="q-textarea" rows="4"></textarea>
+                </div>
+
+                <!-- Q34 Kako ste čuli -->
                 <div class="q-field">
                     <label class="q-label">@Q.S5.HeardFromLabel</label>
                     <div class="q-check-group">
@@ -562,13 +591,6 @@
                         <label class="q-check-label"><input type="checkbox" name="heardFrom" value="heardFrom_other" class="q-trigger-other" data-other="heardFromOther" /> @Q.OtherOption</label>
                         <textarea name="heardFromOther" class="q-input q-other-input" rows="2" placeholder="@Q.S5.HeardFromOtherPlaceholder" style="display:none"></textarea>
                     </div>
-                </div>
-
-                <!-- Q34 Dodatno -->
-                <div class="q-field">
-                    <label class="q-label" for="additionalNotes">@Q.S5.AdditionalNotesLabel <span class="q-optional">(@Q.OptionalLabel)</span></label>
-                    <p class="q-hint">@Q.S5.AdditionalNotesHint</p>
-                    <textarea id="additionalNotes" name="additionalNotes" class="q-textarea" rows="4"></textarea>
                 </div>
 
                 <!-- Garantni rok -->
@@ -613,6 +635,10 @@
         .q-step-btn.done { border-color: var(--accent); color: var(--accent); }
         .q-step-line { flex: 1; height: 3px; background: var(--muted); opacity: .3; transition: background .2s, opacity .2s; }
         .q-step-line.done { background: var(--accent); opacity: 1; }
+        .q-file-item { display: block; padding: 6px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; margin-top: 8px; }
+        .q-file-name { color: var(--secondary); font-size: 14px; }
+        .q-file-delete { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 13px; padding: 0 0 0 6px; vertical-align: middle; }
+        .q-file-delete:hover { color: #e55; }
         .q-actions--first { margin-top: 24px; }
         .q-color-group { display: flex; flex-direction: column; gap: 10px; }
         .q-color-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--primary); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 15px; }
@@ -664,6 +690,19 @@
         });
     </script>
     <script>
+        (function () {
+            var token = document.getElementById('qToken').value;
+            document.addEventListener('click', function (e) {
+                var btn = e.target.closest('.q-file-delete');
+                if (!btn) return;
+                var id = btn.dataset.fileId;
+                fetch('/questionnaire/delete-file/' + id + '?token=' + encodeURIComponent(token), { method: 'DELETE' })
+                    .then(function (r) {
+                        if (r.ok) btn.closest('.q-file-item').remove();
+                    });
+            });
+        }());
+
         (function () {
             var adminCb = document.querySelector('[data-admin-panel]');
             if (!adminCb) return;

@@ -503,9 +503,27 @@
             return r.json();
         })
         .then(function (data) {
-            var nameEl = zone.querySelector(".q-dropzone-filename");
-            if (nameEl) nameEl.textContent = data.fileName || file.name;
-            setZoneState(zone, "done");
+            setZoneState(zone, "idle");
+            var input = zone.querySelector(".q-dropzone-input");
+            if (input) input.value = "";
+            if (data.fileId) {
+                var label = encodeURIComponent(data.fileName || file.name).replace(/%20/g, ' ').replace(/%([0-9A-F]{2})/gi, function (m, h) { return String.fromCharCode(parseInt(h, 16)); });
+                var item = document.createElement('div');
+                item.className = 'q-file-item';
+                item.dataset.fileId = data.fileId;
+                var span = document.createElement('span');
+                span.className = 'q-file-name';
+                span.textContent = data.fileName || file.name;
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'q-file-delete';
+                btn.dataset.fileId = data.fileId;
+                btn.setAttribute('aria-label', 'Obriši');
+                btn.innerHTML = '&#x2715;';
+                item.appendChild(span);
+                item.appendChild(btn);
+                zone.insertAdjacentElement('afterend', item);
+            }
         })
         .catch(function () {
             setZoneState(zone, "error");

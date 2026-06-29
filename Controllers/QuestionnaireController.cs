@@ -70,6 +70,10 @@ public class QuestionnaireController : Controller
         ViewBag.Step3 = q.Step3Answers;
         ViewBag.Step4 = q.Step4Answers;
         ViewBag.Step5 = q.Step5Answers;
+        ViewBag.Files = await _db.QuestionnaireFiles
+            .Where(f => f.QuestionnaireId == q.Id)
+            .OrderBy(f => f.UploadedAt)
+            .ToListAsync();
 
         return View();
     }
@@ -185,7 +189,7 @@ public class QuestionnaireController : Controller
         await using (var stream = System.IO.File.Create(Path.Combine(uploadsPath, storedName)))
             await file.CopyToAsync(stream);
 
-        _db.QuestionnaireFiles.Add(new QuestionnaireFile
+        var qf = new QuestionnaireFile
         {
             QuestionnaireId = q.Id,
             FileLabel = fileLabel.Trim(),
@@ -194,10 +198,34 @@ public class QuestionnaireController : Controller
             ContentType = file.ContentType ?? "application/octet-stream",
             SizeBytes = file.Length,
             UploadedAt = DateTime.UtcNow
-        });
+        };
+        _db.QuestionnaireFiles.Add(qf);
         await _db.SaveChangesAsync();
 
-        return Ok(new { success = true, fileName = file.FileName });
+        return Ok(new { success = true, fileName = file.FileName, fileId = qf.Id });
+    }
+
+    [HttpDelete("/questionnaire/delete-file/{id:int}")]
+    public async Task<IActionResult> DeleteFile(int id, [FromQuery] string token)
+    {
+        if (string.IsNullOrWhiteSpace(token))
+            return BadRequest();
+
+        var file = await _db.QuestionnaireFiles
+            .Include(f => f.Questionnaire)
+            .FirstOrDefaultAsync(f => f.Id == id && f.Questionnaire.Token == token);
+
+        if (file == null)
+            return NotFound();
+
+        var path = Path.Combine(_env.ContentRootPath, "PrivateUploads", file.StoredFileName);
+        if (System.IO.File.Exists(path))
+            System.IO.File.Delete(path);
+
+        _db.QuestionnaireFiles.Remove(file);
+        await _db.SaveChangesAsync();
+
+        return Ok(new { success = true });
     }
 
     private void ClearQRef() =>
