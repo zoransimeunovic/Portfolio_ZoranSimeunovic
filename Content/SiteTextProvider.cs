@@ -159,7 +159,7 @@ public static class SiteTextProvider
             Title = "How much does a website cost?",
             Subtitle = "No templates - every website is built specifically for your business.",
             GetStarted = "GET YOUR QUOTE",
-            Badges = new() { "No templates", "Fixed price", "Warranty included" },
+            Badges = new() { "Fixed price", "Warranty included" },
             BadgeRecommended = "Recommended",
             CtaHeading = "Can't find what you need?",
             CtaText = "Request a custom quote for desktop apps, mobile apps, hosting, maintenance, or anything outside the standard packages.",
@@ -376,7 +376,7 @@ public static class SiteTextProvider
             Title = "Was kostet eine Website?",
             Subtitle = "Ohne Templates - jede Website wird individuell für Ihr Unternehmen entwickelt.",
             GetStarted = "ANGEBOT ERHALTEN",
-            Badges = new() { "Ohne Templates", "Festpreis", "Gewährleistung inklusive" },
+            Badges = new() { "Festpreis", "Gewährleistung inklusive" },
             BadgeRecommended = "Empfohlen",
             CtaHeading = "Nichts Passendes gefunden?",
             CtaText = "Fordern Sie ein individuelles Angebot an - für Desktop-Apps, mobile Apps, Hosting, Wartung oder Projekte außerhalb der Standardpakete.",
@@ -475,7 +475,7 @@ public static class SiteTextProvider
                     Description = "Razvoj i održavanje HRIS-a (Human Resources Information System) za upravljanje radnom snagom, uključujući kadrovsko planiranje, upravljanje godišnjim odmorima i evidenciju radnog vremena. Integracija web servisa, sinhronizacionih servisa i Microsoft 365. Optimizacija postojećih sistema i razvoj novih modula.",
                     Techs = new() { "ASP.NET", "C#", "MySQL", "Microsoft Graph" } },
                 new() { Title = "Desktop GUI", Image = "desktop-gui.webp", Duration = "3 godine", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/urlaubsmanager/",
-                    Description = "Potpuni redizajn desktop GUI-ja sa fokusom na performanse i skalabilnost. Omogućeno brzo prikazivanje velikih skupova podataka o zaposlenima u tabelama sa preko 12 meseci istorijskih podataka. Poboljšana poslovna logika, optimizovano rukovanje velikim podacima i isporučeni novi i unapređeni moduli.",
+                    Description = "Potpuni redizajn desktop GUI-ja sa fokusom na performanse i skalabilnost. Omogućeno brzo prikazivanje velikih skupova podataka o zaposlenima u tabelama sa preko 12 mjeseci istorijskih podataka. Poboljšana poslovna logika, optimizovano rukovanje velikim podacima i isporučeni novi i unapređeni moduli.",
                     Techs = new() { "C#", "WPF", "MySQL" } },
                 new() { Title = "Zeiterfassung", Image = "zeiterfassung.webp", Duration = "1 godina", DurationSub = "u AddWare Solutions", DurationUrl = "https://www.addware.de/zeiterfassung/",
                     Description = "Razvoj i unapređenje desktop, web i mobilnih klijenata za evidenciju radnog vremena, uz vizuelizaciju podataka u realnom vremenu i centralizovano upravljanje radnim satima, pauzama i odsustvima u okviru jedinstvenog sistema.",
@@ -493,7 +493,7 @@ public static class SiteTextProvider
             Description = "Pravim skalabilne full-stack sajtove i web aplikacije koristeći Figma, Webflow, ASP.NET i MySQL. Volim čist kod i brze korisničke interfejse.",
             Highlight1Html = "<span class=\"accent\">6 godina</span> iskustva u privredi",
             Highlight2Html = "<span class=\"accent\">Web,</span> desktop i mobilne aplikacije",
-            Highlight3Html = "Sajtovi i <span class=\"accent\">web</span> rešenja",
+            Highlight3Html = "Sajtovi i <span class=\"accent\">web</span> rješenja",
             GoPlayer = "Go igrač",
             ContactMe = "KONTAKT",
             DownloadCv = "PREUZMI CV"
@@ -511,13 +511,13 @@ public static class SiteTextProvider
                 new() { Tag = "PRVI KORAK" },
                 new() { Tag = "100% PUTEM MEJLA", Title = "Upitnik o projektu", Description = "Vaše poslovanje, trenutno online prisustvo, ciljevi projekta, tip projekta, rokovi, željeni dizajn" },
                 new() { Tag = "BESPLATNO", Title = "Ponuda", Description = "Pregledam vaše odgovore, postavim eventualna dodatna pitanja i šaljem detaljnu ponudu." },
-                new() { Tag = "PRE POČETKA RADA", Title = "Ugovor o projektu", Description = "Jasan obim, cena i prekretnice u pisanoj formi. Bez iznenađenja." },
+                new() { Tag = "PRIJE POČETKA RADA", Title = "Ugovor o projektu", Description = "Jasan obim, cijena i prekretnice u pisanoj formi. Bez iznenađenja." },
                 new() { Tag = "POTREBNO VAŠE ODOBRENJE", Title = "Pregled dizajna", Description = "Prvo vidite kompletan dizajn. Ništa se ne gradi bez vašeg odobrenja." },
-                new() { Tag = "IZRADA VAŠEG SAJTA", Title = "Sajt", Description = "Odobreni dizajn postaje brz, funkcionalan sajt. Bez ćutanja - uvek znate dokle se stiglo." },
-                new() { Tag = "VREME ZA PROVERU", Title = "Pregled sajta", Description = "Testirate sajt i tražite izmene ako su potrebne." },
+                new() { Tag = "IZRADA VAŠEG SAJTA", Title = "Sajt", Description = "Odobreni dizajn postaje brz, funkcionalan sajt. Bez ćutanja - uvijek znate dokle se stiglo." },
+                new() { Tag = "VRIJEME ZA PROVJERU", Title = "Pregled sajta", Description = "Testirate sajt i tražite izmjene ako su potrebne." },
                 new() { Tag = "VAŠA APLIKACIJA", Title = "Web aplikacija (opciono)", Description = "Sajt odobren. Prilagođeni alati grade se iza scene. Portali, rezervacije, dashboardi." },
-                new() { Tag = "VREME ZA PROVERU", Title = "Pregled web aplikacije (opciono)", Description = "Testirate sve od početka do kraja. Tražite izmene ako su potrebne." },
-                new() { Tag = "PUŠTANJE U RAD", Title = "Lansiranje i predaja", Description = "Postavljanje, dokumentacija i predaja. Konačna faktura pri isporuci. Sve greške nastale kao rezultat razvoja biće ispravljene besplatno - 30 dana za web stranice, 60 dana za web aplikacije." },
+                new() { Tag = "VRIJEME ZA PROVJERU", Title = "Pregled web aplikacije (opciono)", Description = "Testirate sve od početka do kraja. Tražite izmjene ako su potrebne." },
+                new() { Tag = "PUŠTANJE U RAD", Title = "Lansiranje i predaja", Description = "Postavljanje, dokumentacija i predaja. Konačna faktura pri isporuci. Sve greške nastale kao rezultat razvoja bit će ispravljene besplatno - 30 dana za web stranice, 60 dana za web aplikacije." },
                 new() { Tag = "FLEXIBLE", Title = "Kontinuirana podrška (opciono)", Description = "Pod vašim uslovima. Hosting, SSL, rezervne kopije, ispravke grešaka ili nove funkcije - uzimate samo ono što vašem poslovanju treba." }
             }
         },
@@ -537,13 +537,13 @@ public static class SiteTextProvider
                     HeadingHtml = "Treba li vašem sajtu <span class=\"accent\">redizajn</span>?",
                     Groups = new()
                     {
-                        new() { Title = "Analiza", Items = new() { "Da li je sajt vizuelno zastareo?", "Da li je mobilna verzija loša ili je nema?", "Da li je navigacija zbunjujuća?", "Da li je odmah jasno čime se kompanija bavi?" } },
-                        new() { Title = "Dizajn", Items = new() { "Da li su boje i fontovi dosledni?", "Postoji li jasna vizuelna hijerarhija (naslovi, sekcije)?", "Da li su CTA dugmad vidljiva i jasna?", "Ima li previše teksta bez dovoljno praznog prostora?" } },
+                        new() { Title = "Analiza", Items = new() { "Da li je sajt vizuelno zastario?", "Da li je mobilna verzija loša ili je nema?", "Da li je navigacija zbunjujuća?", "Da li je odmah jasno čime se kompanija bavi?" } },
+                        new() { Title = "Dizajn", Items = new() { "Da li su boje i fontovi dosljedni?", "Postoji li jasna vizuelna hijerarhija (naslovi, sekcije)?", "Da li su CTA dugmad vidljiva i jasna?", "Ima li previše teksta bez dovoljno praznog prostora?" } },
                         new() { Title = "UX / Funkcionalnost", Items = new() { "Da li se kontakt informacije lako pronalaze?", "Da li se sajt brzo učitava?", "Mogu li korisnici pronaći potrebne informacije u roku od 5 sekundi?" } }
                     },
                     Scores = new()
                     {
-                        new() { Min = 0, Max = 2, Text = "Solidan i funkcionalan. Redizajn verovatno nije potreban." },
+                        new() { Min = 0, Max = 2, Text = "Solidan i funkcionalan. Redizajn vjerovatno nije potreban." },
                         new() { Min = 3, Max = 5, Text = "Postoje slabosti. Preporučuju se manja poboljšanja ili optimizacija." },
                         new() { Min = 6, Max = 8, Text = "Zastareo ili neefikasan. Preporučuje se redizajn." },
                         new() { Min = 9, Max = 11, Text = "Loše stanje. Preporučuje se potpun redizajn." }
@@ -556,15 +556,15 @@ public static class SiteTextProvider
                     Groups = new()
                     {
                         new() { Title = "Osnove", Items = new() { "Da li klijenti onlajn traže vaše poslovanje?", "Da li je vaše web prisustvo ograničeno na Instagram ili Facebook?", "Da li gubite potencijalne klijente jer vas ne mogu pronaći na Google-u?" } },
-                        new() { Title = "Potreba", Items = new() { "Da li primate upite preko poruka umesto preko kontakt forme?", "Da li klijentima često ponavljate iste informacije?", "Da li nudite usluge ili cene koje bi trebalo da budu javno dostupne onlajn?" } },
+                        new() { Title = "Potreba", Items = new() { "Da li primate upite preko poruka umjesto preko kontakt forme?", "Da li klijentima često ponavljate iste informacije?", "Da li nudite usluge ili cijene koje bi trebalo da budu javno dostupne onlajn?" } },
                         new() { Title = "Spremnost", Items = new() { "Želite li da vaše poslovanje ima profesionalnije web prisustvo?", "Želite li da vas klijenti automatski pronalaze putem Google-a?" } }
                     },
                     Scores = new()
                     {
                         new() { Min = 0, Max = 2, Text = "Vaše trenutno web prisustvo je možda dovoljno. Sajt bi mogao pomoći, ali nije hitno." },
                         new() { Min = 3, Max = 5, Text = "Vaše web prisustvo ima praznine. Jednostavan, profesionalan sajt pomogao bi klijentima da vas pronađu." },
-                        new() { Min = 6, Max = 7, Text = "Klijenti verovatno teško dolaze do vas. Jače web prisustvo napravilo bi jasnu razliku." },
-                        new() { Min = 8, Max = 9, Text = "Svakog dana gubite klijente. Profesionalan sajt je sledeći logičan korak." }
+                        new() { Min = 6, Max = 7, Text = "Klijenti vjerovatno teško dolaze do vas. Jače web prisustvo napravilo bi jasnu razliku." },
+                        new() { Min = 8, Max = 9, Text = "Svakog dana gubite klijente. Profesionalan sajt je sljedeći logičan korak." }
                     }
                 },
                 new()
@@ -575,14 +575,14 @@ public static class SiteTextProvider
                     {
                         new() { Title = "Problemi", Items = new() { "Da li koristite Excel ili papir za upravljanje podacima?", "Da li ručno šaljete iste mejlove ili poruke?", "Imate li ponavljajuće zadatke koji oduzimaju previše vremena?" } },
                         new() { Title = "Procesi", Items = new() { "Da li ručno zakazujete termine?", "Da li ručno pratite klijente, porudžbine ili zalihe?", "Da li više ljudi radi sa istim podacima bez sistema?" } },
-                        new() { Title = "Potencijal za web aplikaciju", Items = new() { "Da li bi vam sistem uštedeo bar 1–2 sata dnevno?", "Da li bi automatizacija smanjila greške?", "Želite li centralno mesto za sve vaše podatke?" } }
+                        new() { Title = "Potencijal za web aplikaciju", Items = new() { "Da li bi vam sistem uštedeo bar 1–2 sata dnevno?", "Da li bi automatizacija smanjila greške?", "Želite li centralno mjesto za sve vaše podatke?" } }
                     },
                     Scores = new()
                     {
-                        new() { Min = 0, Max = 2, Text = "Vaši trenutni procesi deluju upravljivo. Automatizacija možda trenutno nije prioritet." },
-                        new() { Min = 3, Max = 5, Text = "Neki zadaci bi mogli da se automatizuju. Mala poboljšanja uštedela bi vreme i smanjila greške." },
+                        new() { Min = 0, Max = 2, Text = "Vaši trenutni procesi djeluju upravljivo. Automatizacija možda trenutno nije prioritet." },
+                        new() { Min = 3, Max = 5, Text = "Neki zadaci bi mogli da se automatizuju. Mala poboljšanja uštedila bi vrijeme i smanjila greške." },
                         new() { Min = 6, Max = 7, Text = "Ručni rad vas usporava. Web aplikacija bi značajno pojednostavila vaše poslovanje." },
-                        new() { Min = 8, Max = 9, Text = "Vaše poslovanje gubi vreme i novac na ručnim procesima. Prilagođena web aplikacija brzo bi se isplatila." }
+                        new() { Min = 8, Max = 9, Text = "Vaše poslovanje gubi vrijeme i novac na ručnim procesima. Prilagođena web aplikacija brzo bi se isplatila." }
                     }
                 }
             }
@@ -593,7 +593,7 @@ public static class SiteTextProvider
             Title = "Koliko košta web stranica?",
             Subtitle = "Bez gotovih šablona - svaki sajt razvijen posebno za vaš biznis.",
             GetStarted = "DOBIJ PONUDU",
-            Badges = new() { "Bez šablona", "Fiksna cijena", "Garantni rok uključen" },
+            Badges = new() { "Fiksna cijena", "Garantni rok uključen" },
             BadgeRecommended = "Preporučeno",
             CtaHeading = "Niste pronašli što tražite?",
             CtaText = "Zatražite personalnu ponudu za desktop aplikaciju, mobilnu app, hosting, održavanje ili projekte van standardnih paketa.",
@@ -628,13 +628,13 @@ public static class SiteTextProvider
         {
             Home = "POČETNA", Work = "RADOVI", Process = "PROCES", Pricing = "CIJENE",
             Copyright = "© 2026 ZS.dev Sva prava zadržana.",
-            PrivacyPolicy = "Politika privatnosti", TermsOfService = "Uslovi korišćenja", CookieSettings = "Podešavanja kolačića"
+            PrivacyPolicy = "Politika privatnosti", TermsOfService = "Uslovi korištenja", CookieSettings = "Podešavanja kolačića"
         },
         Cookie = new CookieText
         {
             Title = "Podešavanja kolačića",
             Body = "Ovaj sajt ne koristi kolačiće. Bez praćenja, bez analitike, bez kolačića trećih strana. Vaša privatnost je u potpunosti poštovana.",
-            Close = "Razumem"
+            Close = "Razumijem"
         },
         Legal = new LegalText
         {
@@ -648,15 +648,15 @@ public static class SiteTextProvider
 <h3>Čuvanje podataka</h3><p>Vaši podaci čuvaju se na sigurnom serveru unutar EU i brišu se na vaš zahtjev ili kada više nisu potrebni.</p>
 <h3>Pravna osnova</h3><p>Obrada se vrši na osnovu vaše saglasnosti date dobrovoljnim popunjavanjem kontakt forme (čl. 6 st. 1 t. a) GDPR).</p>
 <h3>Vaša prava</h3><p>Imate pravo na pristup, ispravku, brisanje ili ograničenje obrade vaših podataka. Kontakt: <a href=""mailto:zoran.simeunovic@outlook.de"">zoran.simeunovic@outlook.de</a>. Imate i pravo na pritužbu nadzornom tijelu.</p>
-<p class=""legal-updated"">Poslednje ažuriranje: jun 2026.</p>",
-            TermsTitle = "Uslovi korišćenja",
-            TermsHtml = @"<p>Korišćenjem ovog sajta prihvatate sledeće uslove.</p>
+<p class=""legal-updated"">Posljednje ažuriranje: jun 2026.</p>",
+            TermsTitle = "Uslovi korištenja",
+            TermsHtml = @"<p>Korištenjem ovog sajta prihvatate sljedeće uslove.</p>
 <h3>Svrha</h3><p>Ovaj sajt je lični portfolio koji predstavlja rad i usluge Zorana Simeunovića (ZS.dev).</p>
-<h3>Sadržaj</h3><p>Sav sadržaj, tekst i slike vlasništvo su ZS.dev osim ako nije drugačije navedeno i ne smeju se koristiti bez dozvole.</p>
-<h3>Bez garancije</h3><p>Sajt se pruža ""takav kakav jeste"" bez bilo kakvih garancija. Informacije se mogu promeniti bez prethodne najave.</p>
+<h3>Sadržaj</h3><p>Sav sadržaj, tekst i slike vlasništvo su ZS.dev osim ako nije drugačije navedeno i ne smiju se koristiti bez dozvole.</p>
+<h3>Bez garancije</h3><p>Sajt se pruža ""takav kakav jeste"" bez bilo kakvih garancija. Informacije se mogu promijeniti bez prethodne najave.</p>
 <h3>Kontakt forma</h3><p>Slanjem kontakt forme potvrđujete da su navedeni podaci tačni. Slanje ne stvara nikakav obavezujući sporazum.</p>
 <h3>Odgovornost</h3><p>ZS.dev ne snosi odgovornost za bilo kakvu štetu nastalu korišćenjem ovog sajta.</p>
-<p class=""legal-updated"">Poslednje ažuriranje: jun 2026.</p>"
+<p class=""legal-updated"">Posljednje ažuriranje: jun 2026.</p>"
         },
         Questionnaire = BuildSrQuestionnaire()
     };
@@ -727,7 +727,7 @@ public static class SiteTextProvider
             CommHeader = "Contact",
             CommOptions = ["Contact form - clients contact you directly from your website", "WhatsApp button - clients contact you directly via WhatsApp", "Chatbot - automated chat assistant on your website (personal offer)"],
             GrowthHeader = "Visibility & growth",
-            GrowthOptions = ["SEO basics - so clients find you more easily on Google", "SEO advanced optimization - keyword research, content strategy, link building", "Google Maps integration - show your company location on the map", "Analytics overview - see how many visitors your site has and where they come from", "Multilingual support - website available in multiple languages", "Online payment (Stripe, PayPal) - accept payments on your website (personal offer)"],
+            GrowthOptions = ["SEO basics - so clients find you more easily on Google", "SEO advanced optimization - keyword research, content strategy, link building", "Google Maps integration - show your company location on the map", "Multilingual support - website available in multiple languages", "Online payment (Stripe, PayPal) - accept payments on your website (personal offer)"],
             ExtrasOtherPlaceholder = "What else do you need?"
         },
         S3 = new QStep3Text
@@ -741,12 +741,13 @@ public static class SiteTextProvider
             AppUsersOptions = ["Me / internal team", "My clients"],
             AppUsersOtherPlaceholder = "Who?",
             AppDisabledHint = "Please select an application type above first.",
+            AdminPanelHint = "To select this option, you must first select Admin panel under Automation.",
             CommLabel = "Communication & automation",
             CommOptions = ["Newsletter - regularly inform clients about news and offers", "Automated emails - reminders, confirmations, welcome messages, birthday and anniversary greetings, absence notifications"],
             SalesLabel = "Sales & bookings",
             SalesOptions = ["Online bookings - clients schedule appointments themselves, without phone calls", "Client portal - clients log in and view their data, orders or documents", "E-commerce / online shop - sell products or services directly online"],
             AutoLabel = "Automation & integrations",
-            AutoOptions = ["Reduce phone calls and inquiries - the system works for you", "Save time on repetitive tasks - data entry, order tracking, report generation", "Microsoft 365 integration - connect your site with Outlook, Teams, Calendar, OneDrive", "Admin panel for managing data and users - everything in one place", "Bug fixing - quick resolution of technical issues"],
+            AutoOptions = ["Reduce phone calls and inquiries - the system works for you", "Save time on repetitive tasks - data entry, order tracking, report generation", "Microsoft 365 integration - connect your site with Outlook, Teams, Calendar, OneDrive", "Admin panel for managing data and users - everything in one place", "Analytics dashboard - view visitor count, traffic sources and user behaviour within your site", "Bug fixing - quick resolution of technical issues"],
             ContentMgmtLabel = "Content management",
             ContentMgmtOptions = ["I want to update texts and images myself - without technical knowledge", "Blog / news section - add and publish articles and news yourself"],
             ContentMgmtOtherPlaceholder = "What else?"
@@ -896,7 +897,7 @@ public static class SiteTextProvider
             CommHeader = "Kontakt",
             CommOptions = ["Kontaktformular - Kunden kontaktieren Sie direkt von Ihrer Website", "WhatsApp-Schaltfläche - Kunden kontaktieren Sie direkt über WhatsApp", "Chatbot - automatischer Chat-Assistent auf Ihrer Website (persönliches Angebot)"],
             GrowthHeader = "Sichtbarkeit & Wachstum",
-            GrowthOptions = ["SEO-Grundlagen - damit Kunden Sie leichter auf Google finden", "SEO-Erweiterte Optimierung - Keyword-Recherche, Content-Strategie, Linkaufbau", "Google Maps-Integration - zeigen Sie den Standort Ihres Unternehmens auf der Karte", "Statistikübersicht - sehen Sie, wie viele Besucher Ihre Seite hat und woher sie kommen", "Mehrsprachige Unterstützung - Website in mehreren Sprachen für ein breiteres Publikum", "Online-Zahlung (Stripe, PayPal) - nehmen Sie Zahlungen auf Ihrer Website entgegen (persönliches Angebot)"],
+            GrowthOptions = ["SEO-Grundlagen - damit Kunden Sie leichter auf Google finden", "SEO-Erweiterte Optimierung - Keyword-Recherche, Content-Strategie, Linkaufbau", "Google Maps-Integration - zeigen Sie den Standort Ihres Unternehmens auf der Karte", "Mehrsprachige Unterstützung - Website in mehreren Sprachen für ein breiteres Publikum", "Online-Zahlung (Stripe, PayPal) - nehmen Sie Zahlungen auf Ihrer Website entgegen (persönliches Angebot)"],
             ExtrasOtherPlaceholder = "Was brauchen Sie noch?"
         },
         S3 = new QStep3Text
@@ -910,12 +911,13 @@ public static class SiteTextProvider
             AppUsersOptions = ["Ich / internes Team", "Meine Kunden"],
             AppUsersOtherPlaceholder = "Wer?",
             AppDisabledHint = "Bitte wählen Sie zuerst oben einen Anwendungstyp aus.",
+            AdminPanelHint = "Um diese Option zu wählen, müssen Sie zuerst Admin-Panel unter Automatisierung auswählen.",
             CommLabel = "Kommunikation & Automatisierung",
             CommOptions = ["Newsletter - informieren Sie Kunden regelmäßig über Neuigkeiten und Angebote", "Automatische E-Mails - Erinnerungen, Bestätigungen, Willkommensnachrichten, Geburtstags- und Jubiläumsglückwünsche, Abwesenheitsmeldungen"],
             SalesLabel = "Verkauf & Buchungen",
             SalesOptions = ["Online-Buchungen - Kunden vereinbaren Termine selbst, ohne Anrufe", "Kundenportal - Kunden melden sich an und sehen ihre Daten, Bestellungen oder Dokumente", "E-Commerce / Online-Shop - verkaufen Sie Produkte oder Dienstleistungen direkt online"],
             AutoLabel = "Automatisierung & Integrationen",
-            AutoOptions = ["Anzahl der Anrufe und Anfragen reduzieren - das System arbeitet für Sie", "Zeit bei Routineaufgaben sparen - Dateneingabe, Auftragsverfolgung, Berichterstellung", "Microsoft 365-Integration - verbinden Sie Ihre Website mit Outlook, Teams, Calendar, OneDrive", "Admin-Panel für Daten- und Benutzerverwaltung - alles an einem Ort", "Fehlerbehebung - schnelle Lösung technischer Probleme"],
+            AutoOptions = ["Anzahl der Anrufe und Anfragen reduzieren - das System arbeitet für Sie", "Zeit bei Routineaufgaben sparen - Dateneingabe, Auftragsverfolgung, Berichterstellung", "Microsoft 365-Integration - verbinden Sie Ihre Website mit Outlook, Teams, Calendar, OneDrive", "Admin-Panel für Daten- und Benutzerverwaltung - alles an einem Ort", "Analytics-Dashboard - Besucherzahlen, Herkunft und Nutzerverhalten direkt auf Ihrer Website", "Fehlerbehebung - schnelle Lösung technischer Probleme"],
             ContentMgmtLabel = "Inhaltsverwaltung",
             ContentMgmtOptions = ["Ich möchte Texte und Bilder selbst aktualisieren - ohne technische Kenntnisse", "Blog / Neuigkeiten-Bereich - fügen Sie selbst Artikel und Neuigkeiten hinzu"],
             ContentMgmtOtherPlaceholder = "Was noch?"
@@ -1065,7 +1067,7 @@ public static class SiteTextProvider
             CommHeader = "Kontakt",
             CommOptions = ["Kontakt forma - klijenti Vas kontaktiraju direktno s Vašeg sajta", "WhatsApp dugme - klijenti Vas kontaktiraju direktno putem WhatsApp-a", "Chatbot - automatski chat asistent na Vašem sajtu (personalna ponuda)"],
             GrowthHeader = "Vidljivost i rast",
-            GrowthOptions = ["SEO osnove - da Vas klijenti lakše pronađu na Googleu", "SEO napredna optimizacija - istraživanje ključnih riječi, content strategija, izgradnja linkova", "Google Maps integracija - prikažite lokaciju Vaše firme na mapi", "Pregled statistike - vidite koliko posjetilaca ima Vaš sajt i odakle dolaze", "Višejezična podrška - sajt dostupan na više jezika za širu publiku", "Online plaćanje (Stripe, PayPal) - prihvatajte plaćanja na Vašem sajtu (personalna ponuda)"],
+            GrowthOptions = ["SEO osnove - da Vas klijenti lakše pronađu na Googleu", "SEO napredna optimizacija - istraživanje ključnih riječi, content strategija, izgradnja linkova", "Google Maps integracija - prikažite lokaciju Vaše firme na mapi", "Višejezična podrška - sajt dostupan na više jezika za širu publiku", "Online plaćanje (Stripe, PayPal) - prihvatajte plaćanja na Vašem sajtu (personalna ponuda)"],
             ExtrasOtherPlaceholder = "Šta još?"
         },
         S3 = new QStep3Text
@@ -1079,12 +1081,13 @@ public static class SiteTextProvider
             AppUsersOptions = ["Ja / interni tim", "Moji klijenti"],
             AppUsersOtherPlaceholder = "Ko?",
             AppDisabledHint = "Molimo Vas odaberite bar jednu opciju pod \"Šta Vam je potrebno?\".",
+            AdminPanelHint = "Da biste odabrali ovu opciju, morate prvo odabrati Admin panel pod Automatizacijom.",
             CommLabel = "Komunikacija i automatizacija",
             CommOptions = ["Newsletter - redovno obavještavajte klijente o novostima i ponudama", "Automatske email poruke - podsjetnici, potvrde, dobrodošlice, čestitke za rođendane i godišnjice, obavještenja o odsustvu"],
             SalesLabel = "Prodaja i rezervacije",
             SalesOptions = ["Online rezervacije - klijenti sami zakazuju termine, bez telefonskih poziva", "Klijentski portal - klijenti se prijavljuju i vide svoje podatke, narudžbe ili dokumente", "E-commerce / online prodavnica - prodajte proizvode ili usluge direktno online"],
             AutoLabel = "Automatizacija i integracije",
-            AutoOptions = ["Smanjiti broj telefonskih poziva i upita - sistem radi umjesto Vas", "Uštediti vrijeme na ponavljajućim zadacima - unos podataka, praćenje narudžbi, generisanje izvještaja", "Microsoft 365 integracija - povežite sajt s Outlook, Teams, Calendar, OneDrive", "Admin panel za upravljanje podacima i korisnicima - sve na jednom mjestu", "Otklanjanje grešaka - brzo rješavanje tehničkih problema i bugova"],
+            AutoOptions = ["Smanjiti broj telefonskih poziva i upita - sistem radi umjesto Vas", "Uštediti vrijeme na ponavljajućim zadacima - unos podataka, praćenje narudžbi, generisanje izvještaja", "Microsoft 365 integracija - povežite sajt s Outlook, Teams, Calendar, OneDrive", "Admin panel za upravljanje podacima i korisnicima - sve na jednom mjestu", "Statistika posjeta - pregledajte broj posjetilaca, izvore prometa i ponašanje korisnika direktno na Vašem sajtu", "Otklanjanje grešaka - brzo rješavanje tehničkih problema i bugova"],
             ContentMgmtLabel = "Upravljanje sadržajem",
             ContentMgmtOptions = ["Želim sam ažurirati tekstove i slike - bez tehničkog znanja", "Blog / sekcija vijesti - sami dodajete i objavljujete članke i vijesti"],
             ContentMgmtOtherPlaceholder = "Šta još?"

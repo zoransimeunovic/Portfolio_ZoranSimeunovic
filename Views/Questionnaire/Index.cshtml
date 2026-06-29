@@ -218,7 +218,7 @@
                     <div class="q-check-group">
                         @for (int i = 0; i < Q.S3.CommOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="commAuto" value="commAuto_@i" /> @Q.S3.CommOptions[i]</label>
+                            <label class="q-check-label"><input type="checkbox" name="commAuto" value="commAuto_@i" data-admin-guarded /> @Q.S3.CommOptions[i]</label>
                         }
                     </div>
                 </div>
@@ -228,7 +228,7 @@
                     <div class="q-check-group">
                         @for (int i = 0; i < Q.S3.SalesOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="salesBooking" value="salesBooking_@i" /> @Q.S3.SalesOptions[i]</label>
+                            <label class="q-check-label"><input type="checkbox" name="salesBooking" value="salesBooking_@i" data-admin-guarded /> @Q.S3.SalesOptions[i]</label>
                         }
                     </div>
                 </div>
@@ -238,7 +238,7 @@
                     <div class="q-check-group">
                         @for (int i = 0; i < Q.S3.AutoOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="automation" value="automation_@i" /> @Q.S3.AutoOptions[i]</label>
+                            <label class="q-check-label"><input type="checkbox" name="automation" value="automation_@i" @(i == 3 ? "data-admin-panel" : i == 4 ? "data-admin-guarded" : "") /> @Q.S3.AutoOptions[i]</label>
                         }
                     </div>
                 </div>
@@ -248,7 +248,7 @@
                     <div class="q-check-group">
                         @for (int i = 0; i < Q.S3.ContentMgmtOptions.Length; i++)
                         {
-                            <label class="q-check-label"><input type="checkbox" name="contentMgmt" value="contentMgmt_@i" /> @Q.S3.ContentMgmtOptions[i]</label>
+                            <label class="q-check-label"><input type="checkbox" name="contentMgmt" value="contentMgmt_@i" @(i == 1 ? "data-admin-guarded" : "") /> @Q.S3.ContentMgmtOptions[i]</label>
                         }
                         <label class="q-check-label"><input type="checkbox" name="contentMgmt" value="contentMgmt_other" class="q-trigger-other" data-other="contentMgmtOther" /> @Q.OtherOption</label>
                         <textarea name="contentMgmtOther" class="q-input q-other-input" rows="2" placeholder="@Q.S3.ContentMgmtOtherPlaceholder" style="display:none"></textarea>
@@ -611,7 +611,8 @@
             optOutConfirm = Q.OptOutConfirmMsg,
             optOutDoneHtml = Q.OptOutDoneHtml,
             optOutError = Q.OptOutError,
-            appDisabledHint = Q.S3.AppDisabledHint
+            appDisabledHint = Q.S3.AppDisabledHint,
+            adminPanelHint = Q.S3.AdminPanelHint
         }));
     </script>
     <script src="~/js/questionnaire.js" asp-append-version="true"></script>
@@ -627,5 +628,25 @@
                 if (!this.checked) advanced.checked = false;
             });
         });
+    </script>
+    <script>
+        (function () {
+            var adminCb = document.querySelector('[data-admin-panel]');
+            if (!adminCb) return;
+            var guarded = document.querySelectorAll('[data-admin-guarded]');
+            guarded.forEach(function (cb) {
+                cb.addEventListener('change', function () {
+                    if (!adminCb.checked) {
+                        this.checked = false;
+                        window.alert(window.QText.adminPanelHint);
+                    }
+                });
+            });
+            adminCb.addEventListener('change', function () {
+                if (!this.checked) {
+                    guarded.forEach(function (cb) { cb.checked = false; });
+                }
+            });
+        }());
     </script>
 }

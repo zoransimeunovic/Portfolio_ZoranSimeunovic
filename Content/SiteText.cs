@@ -289,6 +289,7 @@ public class QStep3Text
     public string[] AppUsersOptions { get; set; } = [];
     public string AppUsersOtherPlaceholder { get; set; } = "";
     public string AppDisabledHint { get; set; } = "";
+    public string AdminPanelHint { get; set; } = "";
     public string CommLabel { get; set; } = "";
     public string[] CommOptions { get; set; } = [];
     public string SalesLabel { get; set; } = "";

@@ -7,8 +7,9 @@
 - **Bez nepotrebnih apstrakcija:** Ne dodavati feature-e ni refaktoringe koje zadatak ne zahtijeva.
 - **Slike:** Nikad ne brisati bez Zoranove saglasnosti.
 - **Cookies:** Zabranjen svaki ne-esencijalni cookie bez Zoranove saglasnosti.
-- **Tekstovi:** Nikad em dash "-" — uvijek obična crtica "-".
-- **Komunikacija:** Odgovaraj na srpskom. Tehnički termini mogu ostati na engleskom.
+- **Tekstovi:** Nikad em dash "-" — uvijek obična crtica "-". Srpski tekstovi na sajtu pisati na ijekavici.
+- **Komunikacija:** Odgovaraj na srpskom. Tehnički termini mogu ostati na engleskom. Kratki i koncizni odgovori, osim ako je eksplicitno traženo objašnjenje.
+- **Tokom izvršavanja:** Tekstualne poruke samo za greške, važne odluke ili kad je potrebna Zoranova potvrda. Bez opisnih poruka o napretku.
 
 ---
 
