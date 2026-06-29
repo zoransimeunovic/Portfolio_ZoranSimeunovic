@@ -74,19 +74,22 @@ img { max-width: 100%; display: block; }
 
 /* ── HEADER / NAV ─────────────────────────────────────────────────────────── */
 .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
     background: rgba(3, 14, 31, 0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
 }
+body { padding-top: 57px; }
 .navbar { padding: 0; }
 .nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 87px;
+    min-height: 57px;
 }
 .navbar-brand {
     font-weight: 700;
@@ -1429,6 +1432,9 @@ a.work-badge:hover { color: var(--secondary); }
 /* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
 @media (max-width: 1199px) {
     .work-card { flex: 0 0 calc((100% - 26px) / 2); }
+    .process-grid { grid-template-columns: repeat(2, 1fr); column-gap: 20px; row-gap: 25px; width: 100%; }
+    .process-toggle { grid-column: auto; grid-row: auto; justify-self: end; }
+    .process-grid.expanded .process-toggle { grid-row: auto; }
 }
 
 @media (max-width: 991px) {
@@ -1755,6 +1761,8 @@ a.work-badge:hover { color: var(--secondary); }
 
     /* Process — 1 kartica po redu na mobilnom */
     .process-grid { grid-template-columns: 1fr; gap: 25px; }
+    .process-toggle { grid-column: auto; grid-row: auto; justify-self: center; }
+    .process-grid.expanded .process-toggle { grid-row: auto; }
 
     /* Pricing — 1 kartica po redu na mobilnom */
     .pricing-card { flex: 0 0 100%; }

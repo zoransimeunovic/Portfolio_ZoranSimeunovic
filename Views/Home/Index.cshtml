@@ -197,61 +197,6 @@
     </div>
 </section>
 
-<!-- ============================ IMPROVE ============================ -->
-<section class="improve" id="improve">
-    <div class="container">
-        <div class="improve-rings" aria-hidden="true"></div>
-        <div class="improve-glow" aria-hidden="true"></div>
-        <div class="section-head">
-            <h2 class="section-title">@Html.Raw(Model.Improve.TitleHtml)</h2>
-            <p class="section-sub">@Model.Improve.Subtitle1<br />@Model.Improve.Subtitle2</p>
-        </div>
-
-        <div class="improve-grid">
-            @foreach (var list in Model.Improve.Lists)
-            {
-                <div class="improve-col" data-checklist data-key="@list.Key">
-                    <div class="improve-bar">
-                        <h3 class="improve-heading">@Html.Raw(list.HeadingHtml)</h3>
-                        <button type="button" class="improve-toggle" data-toggle-list
-                                data-open="@Model.Improve.StartAnalysis" data-close="@Model.Improve.CloseChecklist">
-                            <span>@Model.Improve.StartAnalysis</span>
-                            <span class="toggle-icon" aria-hidden="true"></span>
-                        </button>
-                    </div>
-
-                    <div class="improve-body" data-body hidden>
-                        @foreach (var group in list.Groups)
-                        {
-                            <div class="check-group">
-                                <h4 class="check-group-title">@group.Title</h4>
-                                @foreach (var item in group.Items)
-                                {
-                                    <label class="check-item">
-                                        <input type="checkbox" data-check />
-                                        <span>@item</span>
-                                    </label>
-                                }
-                            </div>
-                        }
-
-                        <div class="analyze-row">
-                            <button type="button" class="analyze-btn" data-analyze>@Model.Improve.Analyze</button>
-                        </div>
-                        <div class="score-box" data-score hidden>
-                            @foreach (var band in list.Scores)
-                            {
-                                <span class="score-band" data-min="@band.Min" data-max="@band.Max" hidden>@band.Text</span>
-                            }
-                            <span class="score-text" data-score-text></span>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</section>
-
 <!-- ============================ PRICING ============================ -->
 <section class="pricing" id="pricing">
     <div class="container">
@@ -306,6 +251,61 @@
             <a href="#contact" class="btn btn-accent pricing-cta-btn">@Model.Pricing.CtaButton</a>
         </div>
 
+    </div>
+</section>
+
+<!-- ============================ IMPROVE ============================ -->
+<section class="improve" id="improve">
+    <div class="container">
+        <div class="improve-rings" aria-hidden="true"></div>
+        <div class="improve-glow" aria-hidden="true"></div>
+        <div class="section-head">
+            <h2 class="section-title">@Html.Raw(Model.Improve.TitleHtml)</h2>
+            <p class="section-sub">@Model.Improve.Subtitle1<br />@Model.Improve.Subtitle2</p>
+        </div>
+
+        <div class="improve-grid">
+            @foreach (var list in Model.Improve.Lists)
+            {
+                <div class="improve-col" data-checklist data-key="@list.Key">
+                    <div class="improve-bar">
+                        <h3 class="improve-heading">@Html.Raw(list.HeadingHtml)</h3>
+                        <button type="button" class="improve-toggle" data-toggle-list
+                                data-open="@Model.Improve.StartAnalysis" data-close="@Model.Improve.CloseChecklist">
+                            <span>@Model.Improve.StartAnalysis</span>
+                            <span class="toggle-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <div class="improve-body" data-body hidden>
+                        @foreach (var group in list.Groups)
+                        {
+                            <div class="check-group">
+                                <h4 class="check-group-title">@group.Title</h4>
+                                @foreach (var item in group.Items)
+                                {
+                                    <label class="check-item">
+                                        <input type="checkbox" data-check />
+                                        <span>@item</span>
+                                    </label>
+                                }
+                            </div>
+                        }
+
+                        <div class="analyze-row">
+                            <button type="button" class="analyze-btn" data-analyze>@Model.Improve.Analyze</button>
+                        </div>
+                        <div class="score-box" data-score hidden>
+                            @foreach (var band in list.Scores)
+                            {
+                                <span class="score-band" data-min="@band.Min" data-max="@band.Max" hidden>@band.Text</span>
+                            }
+                            <span class="score-text" data-score-text></span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </section>
 
